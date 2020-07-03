@@ -43,9 +43,9 @@ Route::get('/test-orm', 'PruebasController@testOrm');
  * DELETE: Eliminar datos o Recuersos
  */
 
-Route::get('/usuario/pruebas', 'UserController@pruebas');
-Route::get('/categoria/pruebas', 'CategoryController@pruebas');
-Route::get('/posts/pruebas', 'PostController@pruebas');
+//Route::get('/usuario/pruebas', 'UserController@pruebas');
+//Route::get('/categoria/pruebas', 'CategoryController@pruebas');
+//Route::get('/posts/pruebas', 'PostController@pruebas');
 
 // RUTAS DEL CONTROLADOR DEL USUARIO
 Route::post('/api/register', 'UserController@register');
@@ -54,6 +54,15 @@ Route::put('/api/user/update', 'UserController@update');
 Route::post('/api/user/upload', 'UserController@upload')->middleware(ApiAuthMiddleware::class) ;
 Route::get('/api/user/avatar/{filename}', 'UserController@getImage') ;
 Route::get('/api/user/detail/{id}', 'UserController@detail');
+
+
+// Routes of Controller     Fincas
+Route::resource('/api/fincas', 'FincasController');
+Route::resource('/api/CajasLotes', 'LoteController');
+Route::resource('/api/Despacho', 'DespachoController');
+
+
+
 
 
 

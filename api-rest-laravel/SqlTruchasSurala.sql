@@ -104,9 +104,10 @@ id_despacho              int(255) not null,
 fecha_desove        datetime DEFAULT NULL, 
 linea_genetica       varchar(255) NOT NULL ,
 edad_tcu      int(255) NOT NULL ,
-tamanio  int(255) NOT NULL ,
-ovas_ml int(255) NOT NULL ,
-total_lote int(255) NOT NULL,
+tamanio   double(18,2) NOT NULL ,
+numero_bandejas   int(255) NOT NULL ,
+ovas_ml   double(18,2) NOT NULL ,
+total_lote  int(255) NOT NULL,
 created_at       datetime DEFAULT NULL,    
 updated_at       datetime DEFAULT NULL,
 CONSTRAINT pk_lote PRIMARY KEY(id),
@@ -127,32 +128,6 @@ CONSTRAINT fk_lote_bandeja FOREIGN KEY (id_lote) REFERENCES lotes(id)
 
 )ENGINE=InnoDb;
 
-DELIMITER //
-CREATE TRIGGER trigger_InsertBandejaLote
-AFTER INSERT
-   ON lotes FOR EACH ROW
-
-BEGIN
-
-   -- variable declarations
- DECLARE done INT DEFAULT 0;
-
-set done  = new.tamanio;
-
-   -- trigger code
-
-loop_label:  LOOP
-            IF  done <0 THEN 
-                    LEAVE  loop_label;
-            END  IF;
-
-            SET  done = done - 1;
-            INSERT INTO bandeja_lote (id_lote, tamanio_inicial) VALUES (new.id,  new.total_lote/new.tamanio);
-
-END LOOP;
-
-
-END;//
 
 CREATE TABLE trazabilidad(
 id              int(255) auto_increment not null, 
@@ -196,3 +171,31 @@ CONSTRAINT pk_bandeja PRIMARY KEY(id),
 CONSTRAINT fk_trazabilidad_bandeja FOREIGN KEY (id_trazabilidad ) REFERENCES trazabilidad(id)
 
 )ENGINE=InnoDb;
+
+DELIMITER //
+CREATE TRIGGER trigger_InsertBandejaLote
+AFTER INSERT
+   ON lotes FOR EACH ROW
+
+BEGIN
+
+   -- variable declarations
+ DECLARE done INT DEFAULT 0;
+
+set done  = new.numero_bandejas;
+
+   -- trigger code
+
+loop_label:  LOOP
+            IF  done <=0 THEN 
+                    LEAVE  loop_label;
+            END  IF;
+
+            SET  done = done - 1;
+            INSERT INTO bandeja_lote (id_lote, tamanio_inicial, created_at, updated_at) VALUES (new.id,  new.total_lote/new.numero_bandejas, NOW(), NOW());
+
+END LOOP;
+
+
+END;//
+;

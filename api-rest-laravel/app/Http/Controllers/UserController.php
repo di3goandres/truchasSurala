@@ -22,14 +22,17 @@ class UserController extends Controller {
 
         $params = json_decode($json); //objeto
         $params_array = json_decode($json, true); // array
+        
         if (!empty($params) && !empty($params_array))
         {
             //limpiar datos
             $params_array = array_map('trim', $params_array);
             // validar datos
             $validate = \Validator::make($params_array, [
-                        'name' => 'required|alpha',
-                        'surname' => 'required|alpha',
+                        'name' => 'required|regex:/^[\pL\s\-]+$/u',
+                        'surname' => 'required|regex:/^[\pL\s\-]+$/u',
+                        'numero_identificacion' => 'required|numeric|unique:users', //comprueba que el numero de identificacion sea unico
+
                         'email' => 'required|email|unique:users', //comprueba si el usuario esta duplicaod
                         'password' => 'required',
             ]);
@@ -38,7 +41,7 @@ class UserController extends Controller {
             {
                 $data = array(
                     'status' => 'error',
-                    'code' => 404,
+                    'code' => 200,
                     'message' => 'El usuario no se ha creado',
                     'errors' => $validate->errors()
                 );
@@ -54,6 +57,10 @@ class UserController extends Controller {
                 $user->name = $params_array['name'];
                 $user->surname = $params_array['surname'];
                 $user->email = $params_array['email'];
+                $user->id_identificacion = $params_array['tipo_identificacion'];      
+                $user->numero_identificacion = $params_array['numero_identificacion'];
+
+
                 $user->password = $pwd;
                 $user->role = 'ROLE_USER';
 
@@ -74,8 +81,9 @@ class UserController extends Controller {
         {
             $data = array(
                 'status' => 'error',
-                'code' => 404,
-                'message' => 'Los datos enviados no son correctos'
+                'code' => 200,
+                'message' => 'Los datos enviados no son correctos',
+                'ENVIADO'=>$json
             );
         }
 
@@ -127,7 +135,7 @@ class UserController extends Controller {
         {
             $signup = array(
                 'status' => 'error',
-                'code' => 404,
+                'code' => 200,
                 'message' => 'Los datos enviados no son correctos'
             );
         }

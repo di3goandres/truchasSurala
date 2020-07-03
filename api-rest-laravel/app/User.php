@@ -13,7 +13,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'surname','description','email', 'password',
+        'name', 'surname','description','email', 'password', 'id_identificacion', 'numero_identificacion', 'role',
     ];
 
     /**
@@ -37,5 +37,9 @@ class User extends Authenticatable
      //Relacion de uno a muchos
     public function posts(){
         return $this->hasMany('App\Post');
+    }
+    
+      public function fincas(){
+        return $this->hasMany('App\Fincas');
     }
 }

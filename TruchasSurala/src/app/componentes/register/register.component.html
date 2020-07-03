@@ -1,0 +1,121 @@
+<div class="col-md-12 mt-2">
+  <h1>{{ title }}</h1>
+
+  <p>
+    Si eres, un comprador recurrente de nuestros productos, registrate para
+    tener todo a la mano.
+  </p>
+  <div class="alert bg-light alert-danger col-md-6" *ngIf="mail|| identificacion" >
+    <article class="card-body mx-auto" style="max-width: 80%;" *ngIf="mail">
+      El Correo ingresado ya existe, si no recuerda su contraseña dirijase a...
+      o intente con otro correo.
+      </article>
+  <!-- </div>
+  <div class="alert bg-light alert-success" *ngIf="identificacion" > -->
+
+
+        <article class="card-body mx-auto" style="max-width: 80%;" *ngIf="identificacion">
+          El numero de identificacion ya se encuentra registrado,  si no recuerda su contraseña dirijase a...
+           </article>
+  </div>
+  <!--formulario de confirmacion-->
+  <div class="alert bg-light alert-success" *ngIf="status==='success'" >
+    <article class="card-body mx-auto" style="max-width: 80%;">
+      El registro fue exitoso, <a routerLink='/surala/login' >Logueate aquí</a>
+      </article>
+  </div>
+  <!--Formulario de registro-->
+  <div class="card bg-light">
+    <article class="card-body mx-auto" style="max-width: 80%;">
+      <form #registerform="ngForm" (ngSubmit)="onRegister(registerform)">
+        <div class="form-group input-group" style="width: 100%;">
+          <div class="input-group-prepend">
+            <span class="input-group-text"> <i class="fa fa-user"></i> </span>
+          </div>
+          <input name="nombre" class="form-control" placeholder="Nombres" type="text" #name="ngModel" [(ngModel)]="user.name"
+
+           required pattern="[a-zA-Z\s]+" />
+          <small *ngIf="!name.valid && name.touched" class="invalid-feedback d-block">
+            Nombre no valido
+          </small>
+        </div>
+        <!-- form-group// -->
+        <div class="form-group input-group" style="width: 100%;">
+          <div class="input-group-prepend">
+            <span class="input-group-text"> <i class="fa fa-user"></i> </span>
+          </div>
+          <input name="apellidos" class="form-control" placeholder="Apellidos" type="text" #surname="ngModel"
+            [(ngModel)]="user.surname" pattern="[a-zA-Z\s]+" required/>
+          <small *ngIf="!surname.valid && surname.touched" class="invalid-feedback d-block">
+            Apellido no valido
+          </small>
+        </div>
+        <!-- form-group// -->
+        <div class="form-group input-group">
+          <div class="input-group-prepend">
+            <span class="input-group-text">
+              <i class="fa fa-envelope"></i>
+            </span>
+          </div>
+          <input name="email" class="form-control" placeholder="correo electronico" type="email" #email="ngModel"
+            [(ngModel)]="user.email"
+
+            pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$"/>
+          <small *ngIf="!email.valid && email.touched" class="invalid-feedback d-block">
+            Correo no valido
+          </small>
+        </div>
+
+        <div class="form-group input-group">
+          <div class="input-group-prepend">
+            <span class="input-group-text">
+              <i class="fa fa-building"></i>
+            </span>
+          </div>
+          <select  name="tipoIdent" class="form-control" #tipoident="ngModel" [(ngModel)]="user.tipo_identificacion"
+            required >
+            <option selected="selected" value="1">CC</option>
+            <option value="2">NIT</option>
+          </select>
+          <input name="numeroIdentificacion" class="form-control" placeholder="Numero de Identificacion" type="number" autocomplete="off"
+            #numeroident="ngModel" [(ngModel)]="user.numero_identificacion"
+            pattern="[0-9]+" required />
+          <small *ngIf="!numeroident.valid && numeroident.touched" class="invalid-feedback d-block">
+            Numero de identificacion no valido, Solo numeros
+          </small>
+        </div>
+        <!-- form-group end.// -->
+        <div class="form-group input-group">
+          <div class="input-group-prepend">
+            <span class="input-group-text"> <i class="fa fa-lock"></i> </span>
+          </div>
+          <input name="password" class="form-control" placeholder="contraseña"
+           type="password" autocomplete="off" #password="ngModel"
+            [(ngModel)]="user.password" pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z]{8,}$" required/>
+          <small *ngIf="!password.valid && password.touched" class="invalid-feedback d-block">
+            contraseña no valida, debe contener un digito
+            al menos una minuscula
+            una mayuscula, y al menos 8 caracteres
+          </small>
+        </div>
+        <!-- form-group// -->
+
+        <div class="form-group">
+          <button type="submit" class="btn btn-primary btn-block" [disabled]="!registerform.valid">
+           Crear Cuenta
+          </button>
+        </div>
+        <!-- form-group// -->
+        <p class="text-center">tienes una cuenta? <a routerLink="/surala/login">Log In</a></p>
+
+
+
+
+
+
+      </form>
+
+
+    </article>
+  </div>
+</div>

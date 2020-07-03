@@ -1,0 +1,60 @@
+<div class="col-md-12 mt-2">
+<h1>{{title}}</h1>
+ <!--Formulario de registro-->
+ <div class="card bg-light">
+  <article class="card-body mx-auto" style="max-width: 80%;">
+    <form #registerform="ngForm"  (ngSubmit)="onLogin(registerform)">
+
+      <!-- form-group// -->
+      <div class="form-group input-group">
+        <div class="input-group-prepend">
+          <span class="input-group-text">
+            <i class="fa fa-envelope"></i>
+          </span>
+        </div>
+        <input name="email" class="form-control" placeholder="correo electronico" type="email" #email="ngModel"
+          [(ngModel)]="user.email"
+
+          pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$"/>
+        <small *ngIf="!email.valid && email.touched" class="invalid-feedback d-block">
+          Correo no valido
+        </small>
+      </div>
+
+
+      <!-- form-group end.// -->
+      <div class="form-group input-group">
+        <div class="input-group-prepend">
+          <span class="input-group-text"> <i class="fa fa-lock"></i> </span>
+        </div>
+        <input name="password" class="form-control" placeholder="contraseña"
+         type="password" autocomplete="off" #password="ngModel"
+          [(ngModel)]="user.password" pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z]{8,}$" required/>
+        <small *ngIf="!password.valid && password.touched" class="invalid-feedback d-block">
+          contraseña no valida, debe contener un digito
+          al menos una minuscula
+          una mayuscula, y al menos 8 caracteres
+        </small>
+      </div>
+      <!-- form-group// -->
+
+      <div class="form-group">
+        <button type="submit" class="btn btn-primary btn-block" [disabled]="!registerform.valid">
+         Conectarse
+        </button>
+      </div>
+      <!-- form-group// -->
+      <p class="text-center">no tienes una cuenta? <a routerLink='/surala/register'>Registrate</a></p>
+
+
+
+
+
+
+    </form>
+
+
+  </article>
+</div>
+
+</div>
