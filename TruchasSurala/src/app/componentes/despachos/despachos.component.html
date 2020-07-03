@@ -1,0 +1,19 @@
+<p>despachos works!</p>
+
+<div class="container-fluid">
+  <div class="card-columns"  >
+    <article class="card w-100"  *ngFor="let despacho of despachos" >
+      <div class="card-header">
+        <h3>Fecha despacho :
+          <br>
+          <small>{{ despacho.fecha }}</small></h3>
+      </div>
+      Numero Factura: {{ despacho.numero_factura }}
+      <br>
+      Numero ovas: {{ despacho.numero_ovas }}
+      <a [routerLink]="['/surala/despacho/', despacho.id]">Ver despacho</a>
+
+</article>
+
+  </div>
+</div>

@@ -9,6 +9,10 @@ import { RegisterComponent } from './componentes/register/register.component';
 import { AppRoutingModule } from './app-routing.module';
 import { DefaultComponent } from './componentes/default/default.component';
 import { ErrorComponent } from './componentes/error/error.component';
+import { InvitadoComponent } from './componentes/invitado/invitado.component';
+import { DespachoComponent } from './componentes/despacho/despacho.component';
+import { DespachosComponent } from './componentes/despachos/despachos.component';
+import { BandejascajaComponent } from './componentes/bandejascaja/bandejascaja.component';
 
 
 
@@ -18,7 +22,11 @@ import { ErrorComponent } from './componentes/error/error.component';
     LoginComponent,
     RegisterComponent,
     DefaultComponent,
-    ErrorComponent
+    ErrorComponent,
+    InvitadoComponent,
+    DespachoComponent,
+    DespachosComponent,
+    BandejascajaComponent
   ],
   imports: [
     BrowserModule, FormsModule, HttpClientModule,

@@ -1,0 +1,39 @@
+<p>despachoworks!</p>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Fecha Desove</th>
+      <th scope="col">Linea genetica</th>
+      <th scope="col">Edad TCU</th>
+      <th scope="col">Tamaño</th>
+      <th scope="col">Ovas ml</th>
+      <th scope="col">Numero de bandejas</th>
+      <th scope="col">Total Caja</th>
+      <th scope="col"></th>
+
+
+
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let caja of cajas ; let i = index" >
+      <th scope="row">{{i + 1}}</th>
+      <td>{{caja.fecha_desove}}</td>
+      <td>{{caja.linea_genetica}}</td>
+      <td>{{caja.edad_tcu}}</td>
+      <td>{{caja.tamanio}}</td>
+      <td>{{caja.ovas_ml}}</td>
+      <td>{{caja.numero_bandejas}}</td>
+      <td>{{caja.total_lote}}</td>
+      <td>  <a [routerLink]="['/surala/cajas/bandejas', caja.id]">Ver bandejas</a></td>
+
+
+
+
+
+    </tr>
+
+  </tbody>
+</table>

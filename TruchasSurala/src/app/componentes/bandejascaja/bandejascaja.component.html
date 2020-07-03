@@ -1,0 +1,13 @@
+<div class="container-fluid">
+  <div class="card-columns">
+    <article class="card w-100" *ngFor="let bandeja of bandejas; let i = index">
+      <div class="card-header">
+        # {{i +1}}
+      </div>
+      Ovas Iniciales: {{ bandeja.tamanio_inicial }}
+      <br>
+      Ovas Usadas: {{ bandeja.tamanio_final  }}
+    </article>
+
+  </div>
+</div>

@@ -18,7 +18,7 @@ class DespachoController extends Controller
 
     public function index()
     {
-        $despachos = Despachos::all();
+        $despachos = Despacho::all();
 
         return response()->json([
                     'code' => 200,
@@ -71,7 +71,7 @@ class DespachoController extends Controller
             {
                 $data = array(
                     'status' => 'error',
-                    'code' => 404,
+                    'code' => 200,
                     'message' => 'Despacho, no se pudo crear',
                     'errors' => $validate->errors(),
                     'data' =>$params_array
@@ -106,7 +106,7 @@ class DespachoController extends Controller
         {
             $data = array(
                 'status' => 'error',
-                'code' => 400,
+                'code' => 200,
                 'dato' => $params_array,
                 
                 'message' => 'Sin datos que procesar',
