@@ -1,0 +1,51 @@
+<div class="col-md-12 mt-2">
+  <h1>{{ title }}</h1>
+
+  <p>
+    Si eres, un comprador recurrente de nuestros productos, registrate para
+    tener todo a la mano.
+  </p>
+
+  <div class="card" style="width: 50%;">
+    <div class="card-body">
+      <h5 class="card-title">Datos Del despacho</h5>
+      <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6>
+      <p class="card-text">En esta Seccion Empezaremos a crear Nuestros Despachos</p>
+
+    </div>
+    <form #crearDespachoform="ngForm"  (ngSubmit)="onRegister(crearDespachoform)">
+      <div class="col-xs-12 col-12 form-group">
+        <label>Fecha Despacho</label>
+        <input name="date" type="text" placeholder="Fecha Del despacho" class="form-control"
+          bsDatepicker [(bsValue)]="myDateValue"
+          ng-keydown="$event.preventDefault();" [minDate]="minDate" [maxDate]="maxDate"
+          #name="ngModel" [(ngModel)]="despacho.fecha"
+          (bsValueChange)="onDateChange($event)"
+          required
+          />
+          <br>
+          <pre class="col-xs-12 col-12" *ngIf="crearDespachoform.value.date" class="code-preview">{{crearDespachoform.value.date | date}}</pre>
+      </div>
+      <div class="col-xs-12 col-12 form-group">
+        <label>Número de Factura</label>
+        <input name="numeroFactura" type="text" placeholder="Numero de Factura" class="form-control"
+        #name="ngModel" [(ngModel)]="despacho.numero_factura"
+        required
+        />
+      </div>
+      <div class="col-xs-12 col-12  form-group">
+        <label>Número de Ovas</label>
+        <input name="numeroOvas" type="number" placeholder="Numero de Ovas" class="form-control"
+        #name="ngModel" [(ngModel)]="despacho.numero_ovas"
+        required />
+      </div>
+      <div class="form-group">
+        <button type="submit" class="btn btn-primary btn-block" [disabled]="!crearDespachoform.valid">
+          Crear Despacho
+        </button>
+      </div>
+    </form>
+
+  </div>
+
+</div>

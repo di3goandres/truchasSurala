@@ -28,8 +28,13 @@ export class UserService {
   user: User;
   constructor(public http: HttpClient) {
     this.url = environment.apiUrl;
+    this.header = new HttpHeaders();
+    this.getIdentity();
+    this.getToken();
 
   }
+
+
 
   // tslint:disable-next-line: typedef
   private ejecutarQuery<T>(query: string) {
@@ -38,7 +43,32 @@ export class UserService {
 
   }
 
+  // tslint:disable-next-line: typedef
+  private ejecutarQueryPost(query: string, params: string) {
+    this.header = new HttpHeaders().set('Authorization', this.token)
+                                   .set('Content-Type', 'application/x-www-form-urlencoded');
+    return this.http.post(query, params,  { headers: this.header });
 
+  }
+
+  // tslint:disable-next-line: typedef
+  storeDespacho(despacho: any): Observable<any> {
+
+    this.json = JSON.stringify(despacho);
+    this.params = 'json=' + this.json;
+    return this.ejecutarQueryPost('api/Despacho',  this.params );
+
+  }
+
+  // tslint:disable-next-line: typedef
+  storeCajasLotes(cajas: any): Observable<any> {
+
+    this.json = JSON.stringify(cajas);
+    console.log(this.json);
+    this.params = 'json=' + this.json;
+    return this.ejecutarQueryPost('/api/CajasLotes',  this.params );
+
+  }
   // tslint:disable-next-line: typedef
   getDespacho(id = null) {
     return this.ejecutarQuery<Despachosroot>('/api/Despacho/' + id);

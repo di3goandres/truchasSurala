@@ -9,6 +9,8 @@ import { InvitadoComponent } from './componentes/invitado/invitado.component';
 import { DespachoComponent } from './componentes/despacho/despacho.component';
 import { DespachosComponent } from './componentes/despachos/despachos.component';
 import { BandejascajaComponent } from './componentes/bandejascaja/bandejascaja.component';
+import { CrearComponent } from './componentes/despacho/crear/crear.component';
+import { AgregarcajaComponent } from './componentes/despacho/agregarcaja/agregarcaja.component';
 
 
 
@@ -32,13 +34,21 @@ const routes: Routes = [
     path: 'surala/logout/:sure', component: LoginComponent,
   },
   { // rutas de despacho
-    path: 'surala/despacho/create', component: DespachosComponent,
+    path: 'surala/despacho/view', component: DespachosComponent,
+  },
+
+  { // rutas de despacho
+    path: 'surala/despacho/create', component: CrearComponent,
   },
   {
     path: 'surala/despacho/:id', component: DespachoComponent,
   },
   {
     path: 'surala/cajas/bandejas/:id', component: BandejascajaComponent,
+  },
+
+  { // rutas de despacho
+    path: 'surala/despacho/caja/create/:id', component: AgregarcajaComponent,
   },
 
  //

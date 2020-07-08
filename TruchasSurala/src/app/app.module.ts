@@ -1,3 +1,4 @@
+import { ShortNumberPipe } from './pipes/short-number.pipe';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
@@ -13,8 +14,16 @@ import { InvitadoComponent } from './componentes/invitado/invitado.component';
 import { DespachoComponent } from './componentes/despacho/despacho.component';
 import { DespachosComponent } from './componentes/despachos/despachos.component';
 import { BandejascajaComponent } from './componentes/bandejascaja/bandejascaja.component';
+import { CrearComponent } from './componentes/despacho/crear/crear.component';
 
+// Datepicker module
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
+import { DatePipe } from '@angular/common';
+import { AgregarcajaComponent } from './componentes/despacho/agregarcaja/agregarcaja.component';
 
+import { MatButtonModule } from '@angular/material/button';
+import { MatDialogModule } from '@angular/material/dialog';
 
 @NgModule({
   declarations: [
@@ -26,13 +35,22 @@ import { BandejascajaComponent } from './componentes/bandejascaja/bandejascaja.c
     InvitadoComponent,
     DespachoComponent,
     DespachosComponent,
-    BandejascajaComponent
+    BandejascajaComponent,
+    CrearComponent,
+    AgregarcajaComponent,
+    ShortNumberPipe
   ],
   imports: [
     BrowserModule, FormsModule, HttpClientModule,
-    FroalaEditorModule.forRoot(), FroalaViewModule.forRoot(), AppRoutingModule
+    FroalaEditorModule.forRoot(), FroalaViewModule.forRoot(), AppRoutingModule,
+    BrowserAnimationsModule,
+    BsDatepickerModule.forRoot(),
+    MatDialogModule,
+    MatButtonModule
+
+
   ],
-  providers: [],
+  providers: [DatePipe],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

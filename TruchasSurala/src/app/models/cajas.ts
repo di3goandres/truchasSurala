@@ -6,17 +6,19 @@ export class Cajas {
     // tslint:disable-next-line: variable-name
     public linea_genetica: string,
     // tslint:disable-next-line: variable-name
-    public numero_bandejas: string,
+    public numero_cajas: string,
     // tslint:disable-next-line: variable-name
-    public ovas_ml: string,
+    public ovasml: number,
 
     public tamanio: number,
     // tslint:disable-next-line: variable-name
-    public total_caja: number,
+    public total_lote: number,
     // tslint:disable-next-line: variable-name
-    public edad_tcu: number,
+    public edad: number,
     // tslint:disable-next-line: variable-name
-    public fecha_desove: number
+    public fecha_desove: string,
+
+    public repetir: number
 
   ) { }
 }

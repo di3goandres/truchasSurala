@@ -1,19 +1,53 @@
 <p>despachos works!</p>
 
 <div class="container-fluid">
-  <div class="card-columns"  >
-    <article class="card w-100"  *ngFor="let despacho of despachos" >
+  <div class="card-columns" *ngIf="actual">
+    <article class="card w-100">
       <div class="card-header">
+
+        <h3 style="color:red">Actual</h3>
         <h3>Fecha despacho :
           <br>
-          <small>{{ despacho.fecha }}</small></h3>
+          <small>{{ actual.fecha }}</small></h3>
       </div>
-      Numero Factura: {{ despacho.numero_factura }}
-      <br>
-      Numero ovas: {{ despacho.numero_ovas }}
-      <a [routerLink]="['/surala/despacho/', despacho.id]">Ver despacho</a>
+      <div> Numero Factura: {{ actual.numero_factura }}
+        <br>
+        Numero ovas: {{ actual.numero_ovas | number }}
+        <br>
+        <a [routerLink]="['/surala/despacho/', actual.id]">Ver despacho</a>
+      </div>
+    </article>
 
-</article>
+  </div>
+  <div >
+    <table class="table">
+      <thead>
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col">Fecha Factura</th>
+          <th scope="col">Numero factura</th>
+          <th scope="col">Numero Ovas</th>
+          <th scope="col">Fecha Creacion </th>
 
+          <th scope="col"></th>
+
+
+
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let despacho of despachos ; let i = index">
+          <th scope="row">{{despacho.id}}</th>
+          <td>{{despacho.fecha}}</td>
+
+          <td>{{despacho.numero_factura}}</td>
+          <td>{{despacho.numero_ovas | number}}</td>
+          <td>{{despacho.created_at}}</td>
+          <td> <a [routerLink]="['/surala/despacho/', despacho.id]">Ver despacho</a></td>
+
+        </tr>
+
+      </tbody>
+    </table>
   </div>
 </div>

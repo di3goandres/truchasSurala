@@ -1,0 +1,82 @@
+<div class="container">
+  <div >
+    <h4>{{ title}}</h4>
+
+
+
+    <div class="card" style="width: 100%">
+      <div class="card-body">
+        <h5 class="card-title">Datos Del despacho</h5>
+        <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6>
+        <p class="card-text">En esta Seccion Empezaremos a crear Nuestros Despachos</p>
+
+      </div>
+      <form #crearCajaform="ngForm" (ngSubmit)="registrarCaja(crearCajaform)">
+        <div class="row">
+          <div class="col-xs-12 col-6 form-group">
+            <label>Numero Cajas Iguales</label>
+            <input name="repetir" type="number" placeholder="Cajas iguales" class="form-control" #name="ngModel"
+              [(ngModel)]="caja.repetir" required />
+          </div>
+          <div class="col-xs-12 col-6  form-group">
+            <label>Total Caja</label>
+            <input name="total_lote" type="number" placeholder="Numero de Ovas" class="form-control" #name="ngModel"
+              [(ngModel)]="caja.total_lote" required />
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-xs-12 col-6 form-group">
+            <label>Fecha Desove</label>
+            <input name="fecha_desove" type="text" placeholder="Fecha DesOve" class="form-control" bsDatepicker
+              [(bsValue)]="myDateValue" ng-keydown="$event.preventDefault();" [minDate]="minDate" [maxDate]="maxDate"
+              (bsValueChange)="onDateChange($event)" required
+              [(ngModel)]="caja.fecha_desove"
+              />
+            <br>
+
+          </div>
+          <div class="col-xs-12 col-6 form-group">
+            <label>Linea Genetica</label>
+            <input name="linea_genetica" type="text" placeholder="Linea Genetica" class="form-control" #name="ngModel"
+              [(ngModel)]="caja.linea_genetica" required />
+          </div>
+
+        </div>
+        <div class="row">
+          <div class="col-xs-12 col-6  form-group">
+            <label>Edad TCU</label>
+            <input name="edad" type="number" placeholder="Edad TCU" class="form-control" #name="ngModel"
+              [(ngModel)]="caja.edad" required
+
+              />
+          </div>
+          <div class="col-xs-12 col-6  form-group">
+            <label>Tamaño</label>
+            <input name="tamanio" type="number" placeholder="tamaño" class="form-control" #name="ngModel"
+              [(ngModel)]="caja.tamanio" required />
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-xs-12 col-6  form-group">
+            <label>Ovas por ml</label>
+            <input name="ovasml" type="number" placeholder="Numero de Ovas" class="form-control" #name="ngModel"
+              [(ngModel)]="caja.ovasml" required />
+          </div>
+          <div class="col-xs-12 col-6  form-group">
+            <label>Numero de bandejas</label>
+            <input name="numero_cajas" type="number" placeholder="Numero de Bandejas" class="form-control" #name="ngModel"
+              [(ngModel)]="caja.numero_cajas" required />
+          </div>
+        </div>
+
+        <div class="col-xs-12 col-6  form-group">
+          <button  mat-raised-button type="submit" class="btn btn-primary btn-block" [disabled]="!crearCajaform.valid">
+            Agregar caja
+          </button>
+        </div>
+      </form>
+
+    </div>
+
+  </div>
+</div>

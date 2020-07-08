@@ -1,39 +1,85 @@
-<p>despachoworks!</p>
+<div class="col-md-12" *ngIf="despacho">
+  <div class="card" style="width: 100%;">
+    <div class="card-body">
+      <h5 class="card-title">Datos Del despacho</h5>
+      <h6 class="card-subtitle mb-2 text-muted">Fecha: {{despacho.despacho.fecha}}</h6>
+      <p class="card-text">En esta Seccion Empezaremos a crear Nuestras Cajas de este Despacho</p>
 
-<table class="table">
-  <thead>
-    <tr>
-      <th scope="col">#</th>
-      <th scope="col">Fecha Desove</th>
-      <th scope="col">Linea genetica</th>
-      <th scope="col">Edad TCU</th>
-      <th scope="col">Tamaño</th>
-      <th scope="col">Ovas ml</th>
-      <th scope="col">Numero de bandejas</th>
-      <th scope="col">Total Caja</th>
-      <th scope="col"></th>
+    </div>
+    <div class="col-xs-12 col-12 form-group">
+      <label>Número de Factura</label>
+      <!-- <input name="numeroFactura" type="text" placeholder="Numero de Factura" class="form-control"
+      #name="ngModel" [(ngModel)]="despacho.despacho.numero_factura"
+     disabled="true"
+      /> -->
+      <label disabled="true" class="form-control">{{despacho.despacho.numero_factura}}</label>
+
+    </div>
+  <div class="col-xs-12 col-12 form-group">
+    <label>Número de Ovas</label>
+    <!-- <input name="numeroOvas" type="number" placeholder="Numero de Ovas" class="form-control"
+      [value]="despacho.despacho.numero_ovas"
+      disabled="true" /> -->
+    <label disabled="true" class="form-control">{{despacho.despacho.numero_ovas | number}}</label>
+  </div>
+  <div style="position: relative; margin: 0;left: 20%;">
+
+    <a>
+      <main id="logout-button-holder">
+        <button mat-raised-button id="logout-button" class="btn btn-primary btn-block"  style="width:50%" (click)="open()">Agregar Caja</button>
+      <br>
+      </main>
+      <!-- <button *ngIf="!agregar"  class="btn btn-primary btn-block" style="width:50%"  (click)="open()">Agregar Caja</button> -->
+    </a>
+      <!-- <button class="btn btn-primary btn-block" style="width:50%; align-items: center;" (click)="crearCaja();" >
+       <label *ngIf="!agregar" > agregar Caja</label>
+       <label *ngIf="agregar" > Ver Cajas</label>
+
+      </button> -->
+  </div>
+
+  <ng-template  let-modal>
+  <div  #mymodal >
+    <app-agregarcaja [idDespacho]="despacho.despacho.id"></app-agregarcaja>
+  </div>
+</ng-template>
+
+<div *ngIf="!agregar" >
+  <table class="table">
+    <thead>
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">Fecha Desove</th>
+        <th scope="col">Linea genetica</th>
+        <th scope="col">Edad TCU</th>
+        <th scope="col">Tamaño</th>
+        <th scope="col">Ovas ml</th>
+        <th scope="col">Numero de bandejas</th>
+        <th scope="col">Total Caja</th>
+        <th scope="col"></th>
 
 
 
-    </tr>
-  </thead>
-  <tbody>
-    <tr *ngFor="let caja of cajas ; let i = index" >
-      <th scope="row">{{i + 1}}</th>
-      <td>{{caja.fecha_desove}}</td>
-      <td>{{caja.linea_genetica}}</td>
-      <td>{{caja.edad_tcu}}</td>
-      <td>{{caja.tamanio}}</td>
-      <td>{{caja.ovas_ml}}</td>
-      <td>{{caja.numero_bandejas}}</td>
-      <td>{{caja.total_lote}}</td>
-      <td>  <a [routerLink]="['/surala/cajas/bandejas', caja.id]">Ver bandejas</a></td>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let caja of cajas ; let i = index">
+        <th scope="row">{{i + 1}}</th>
+        <td>{{caja.fecha_desove}}</td>
+        <td>{{caja.linea_genetica}}</td>
+        <td>{{caja.edad_tcu}}</td>
+        <td>{{caja.tamanio}}</td>
+        <td>{{caja.ovas_ml}}</td>
+        <td>{{caja.numero_bandejas}}</td>
+        <td>{{caja.total_lote |  number}}</td>
+        <td> <a [routerLink]="['/surala/cajas/bandejas', caja.id]">Ver bandejas</a></td>
 
 
 
 
 
-    </tr>
+      </tr>
 
-  </tbody>
-</table>
+    </tbody>
+  </table>
+</div></div>

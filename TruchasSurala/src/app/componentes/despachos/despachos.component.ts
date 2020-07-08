@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { UserService } from '../../service/user/user.service';
-import {  DespachoRootObject, Despacho } from 'src/app/models/despacho';
+import { DespachoRootObject, Despacho } from 'src/app/models/despacho';
 
 @Component({
   selector: 'app-despachos',
@@ -10,7 +10,9 @@ import {  DespachoRootObject, Despacho } from 'src/app/models/despacho';
 export class DespachosComponent implements OnInit {
 
   public respuesta: DespachoRootObject;
-  public despachos: Despacho[]  = [];
+  public despachos: Despacho[] = [];
+  public actual: Despacho;
+
 
 
   constructor(private userService: UserService) { }
@@ -22,7 +24,11 @@ export class DespachosComponent implements OnInit {
       console.log(this.respuesta);
       if (this.respuesta.status !== 'error') {
 
-        this.despachos.push( ... this.respuesta.despachos)
+        this.despachos.push(... this.respuesta.despachos);
+        this.actual = this.despachos[0];
+    //    this.despachos =  this.despachos.sort();
+
+
         return;
       }
 

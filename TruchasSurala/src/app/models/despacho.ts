@@ -33,3 +33,19 @@ export interface DespachoRootObject {
   status: string;
   despachos: Despacho[];
 }
+
+export class DespachoClass {
+  constructor(
+
+    public fecha: string,
+    // tslint:disable-next-line: variable-name
+    public numero_factura: string,
+    // tslint:disable-next-line: variable-name
+    public numero_ovas: string,
+
+    public repetir: number,
+
+  ){}
+
+
+}
