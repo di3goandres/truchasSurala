@@ -18,7 +18,7 @@ class DespachoController extends Controller
 
     public function index()
     {
-        $despachos = Despacho::all();
+        $despachos = Despacho::orderby('id', 'DESC')->get();
 
         return response()->json([
                     'code' => 200,

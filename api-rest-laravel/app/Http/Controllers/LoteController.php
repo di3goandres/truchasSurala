@@ -30,7 +30,7 @@ class LoteController extends Controller {
         $lotes = Lotes::find($id);
         if (is_object($lotes))
         {
-                  
+
             $bandejas = BandejasLotes::where('id_lote', $id)->get();
 
             $data = ['code' => 200,
@@ -69,6 +69,7 @@ class LoteController extends Controller {
                         'total_lote' => 'required|numeric',
                         'numero_cajas' => 'required|numeric',
                         'edad' => 'required|numeric',
+                        'repetir' => 'numeric'
             ]);
 
 
@@ -76,7 +77,7 @@ class LoteController extends Controller {
             {
                 $data = array(
                     'status' => 'error',
-                    'code' => 404,
+                    'code' => 200,
                     'message' => 'Lote, no se pudo crear',
                     'errors' => $validate->errors(),
                     'data' => $params_array
@@ -90,7 +91,7 @@ class LoteController extends Controller {
                 if ($modulo != 0)
                 {
                     $data = array(
-                        'code' => 400,
+                        'code' => 200,
                         'status' => 'error',
                         'message' => 'validar el tamaño del lote, y el numero de cajas'
                     );
@@ -98,25 +99,25 @@ class LoteController extends Controller {
                 else
                 {
 
-                    $lote = new Lotes();
-                    $lote->id_despacho = $params_array['id_despacho'];
-                    $lote->fecha_desove = $params_array['fecha_desove'];
-                    $lote->linea_genetica = $params_array['linea_genetica'];
-                    $lote->tamanio = $params_array['tamanio'];
-                    $lote->ovas_ml = $params_array['ovasml'];
-                    $lote->total_lote = $params_array['total_lote'];
-                    $lote->numero_bandejas = $params_array['numero_cajas'];
-                    $lote->edad_tcu = $params_array['edad'];
+                    for ($i = 1; $i <= $params_array['repetir']; $i++)
+                    {
+                        $lote = new Lotes();
+                        $lote->id_despacho = $params_array['id_despacho'];
+                        $lote->fecha_desove = $params_array['fecha_desove'];
+                        $lote->linea_genetica = $params_array['linea_genetica'];
+                        $lote->tamanio = $params_array['tamanio'];
+                        $lote->ovas_ml = $params_array['ovasml'];
+                        $lote->total_lote = $params_array['total_lote'];
+                        $lote->numero_bandejas = $params_array['numero_cajas'];
+                        $lote->edad_tcu = $params_array['edad'];
+                        //Guardar el Usuario
+                        $lote->save();
+                    }
 
-
-
-                    //Guardar el Usuario
-                    $lote->save();
                     //devolver array con resultado
                     $data = array(
                         'code' => 200,
                         'status' => 'success',
-                        'lote' => $lote
                     );
                 }
             }
