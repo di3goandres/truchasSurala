@@ -1,0 +1,55 @@
+<h1>
+  PEDIDOS DEL DESPACHO
+</h1>
+
+<app-despachoactual [actual] ="actual"></app-despachoactual>
+
+
+
+
+<div class="container-fluid">
+
+  <div >
+    <table class="table">
+      <thead>
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col">Nombre Finca</th>
+          <th scope="col">Pedido</th>
+          <th scope="col">Porcentaje %</th>
+          <th scope="col">Adicionales </th>
+          <th scope="col">Reposicion </th>
+          <th scope="col">Total Pedido </th>
+
+          <th scope="col">Fecha Creación </th>
+
+
+          <th scope="col"></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let pedido of pedidos; let i = index">
+          <th scope="row">{{i  +1 }}</th>
+          <td>{{pedido.nombre}}</td>
+          <td>{{pedido.pedido}}</td>
+          <td>{{pedido.porcentaje | number}}%</td>
+          <td>{{pedido.adicional| number}}</td>
+          <td>{{pedido.reposicion| number}}</td>
+          <td>{{pedido.total| number}}</td>
+
+          <td>{{pedido.created_at}}</td>
+
+
+          <!-- <td> <a [routerLink]="['/surala/despacho/', pedido.id]">Ver Trazabilidad</a></td> -->
+
+          <td *ngIf="pedido.genero_trazabilida" > <a [routerLink]="['/surala/distribucion/', pedido.id]">Ver Distribucion</a></td>
+          <td *ngIf="!pedido.genero_trazabilida" > <a [routerLink]="['/surala/distribucion/Generar', pedido.id]">Generar Distribucion</a></td>
+
+
+
+        </tr>
+
+      </tbody>
+    </table>
+  </div>
+</div>

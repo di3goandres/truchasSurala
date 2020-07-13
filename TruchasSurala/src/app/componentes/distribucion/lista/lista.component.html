@@ -1,0 +1,36 @@
+
+<div class="container-fluid">
+    <div >
+      <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Ovas facturadas</th>
+            <th scope="col">Ovas adicionales</th>
+            <th scope="col">Ovas Reposicion</th>
+            <th scope="col">Total Ovas en esta Distribucion </th>
+
+
+
+
+
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let distribucion of distribuciones ; let i = index">
+            <th scope="row">{{i + 1}}</th>
+            <td>{{distribucion.ovas_facturadas}}</td>
+
+            <td>{{distribucion.ovas_adicionales}}</td>
+            <td>{{distribucion.ovas_reposicion | number}}</td>
+            <td>{{distribucion.total_ovas_enviadas | number}}</td>
+
+
+
+
+          </tr>
+
+        </tbody>
+      </table>
+    </div>
+  </div>

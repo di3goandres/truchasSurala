@@ -105,9 +105,11 @@ fecha_desove        datetime DEFAULT NULL,
 linea_genetica       varchar(255) NOT NULL ,
 edad_tcu      int(255) NOT NULL ,
 tamanio   double(18,2) NOT NULL ,
+
 numero_bandejas   int(255) NOT NULL ,
 ovas_ml   double(18,2) NOT NULL ,
 total_lote  int(255) NOT NULL,
+tamanio_usado int(255)  NULL,
 created_at       datetime DEFAULT NULL,    
 updated_at       datetime DEFAULT NULL,
 CONSTRAINT pk_lote PRIMARY KEY(id),
@@ -128,28 +130,31 @@ CONSTRAINT fk_lote_bandeja FOREIGN KEY (id_lote) REFERENCES lotes(id)
 
 )ENGINE=InnoDb;
 
-
 CREATE TABLE trazabilidad(
 id              int(255) auto_increment not null, 
 id_lote int(255) not null, 
+id_pedido int(255) not null, 
+
 id_finca             int(255) not null, 
 remision        varchar(255) NOT NULL ,
 ovas_facturadas     int(255) NOT NULL DEFAULT 0,
 ovas_adicionales     int(255) NOT NULL DEFAULT 0 ,
 ovas_reposicion     int(255) NOT NULL DEFAULT 0 ,
 total_ovas_enviadas     int(255) NOT NULL  DEFAULT 0,
-nombre_reclama      varchar(255) NOT NULL ,
-tipo_identificacion_reclama     int(255) NOT NULL ,
-numero_identificacion_reclama     int(255) NOT NULL ,
-telefono_reclama     int(255) NOT NULL ,
+nombre_reclama      varchar(255)  NULL ,
+tipo_identificacion_reclama     int(255)  NULL ,
+numero_identificacion_reclama     int(255)  NULL ,
+telefono_reclama     int(255)  NULL ,
 
-descripcion_adicionales     varchar(2000) NOT NULL ,
+descripcion_adicionales     varchar(2000)  NULL ,
 
 created_at       datetime DEFAULT NULL,    
 updated_at       datetime DEFAULT NULL,
 CONSTRAINT pk_trazabilidad PRIMARY KEY(id),
 CONSTRAINT fk_traza_lote FOREIGN KEY (id_lote) REFERENCES lotes(id),
 CONSTRAINT fk_traza_finca FOREIGN KEY (id_finca) REFERENCES  fincas(id),
+CONSTRAINT fk_traza_pedido FOREIGN KEY (id_pedido) REFERENCES  pedidos(id),
+
 CONSTRAINT fk_traza_identquienrclama  FOREIGN KEY (tipo_identificacion_reclama) REFERENCES tipo_identificaciones(id)
 
 
@@ -157,18 +162,18 @@ CONSTRAINT fk_traza_identquienrclama  FOREIGN KEY (tipo_identificacion_reclama) 
 
 
 
-CREATE TABLE  trazabilidad_bandeja(
+CREATE TABLE  trazabilidad_bandejas(
 id              int(255) auto_increment not null, 
 id_trazabilidad           int(255) not null, 
-numero_bandeja   int(255) not null DEFAULT 1, 
-tipo      varchar(255) NOT NULL ,
-valor      varchar(255) NULL default 'HIELO' ,
+id_bandeja_lote int(255) not null, 
 cantidad     varchar(255) NOT NULL DEFAULT 0 ,
 
 created_at       datetime DEFAULT NULL,    
 updated_at       datetime DEFAULT NULL,
 CONSTRAINT pk_bandeja PRIMARY KEY(id),
-CONSTRAINT fk_trazabilidad_bandeja FOREIGN KEY (id_trazabilidad ) REFERENCES trazabilidad(id)
+CONSTRAINT fk_trazabilidad FOREIGN KEY (id_trazabilidad ) REFERENCES trazabilidad(id)
+CONSTRAINT fk_trazabilidad_bandeja FOREIGN KEY (id_bandeja_lote ) REFERENCES bandeja_lote(id)
+
 
 )ENGINE=InnoDb;
 
@@ -192,10 +197,33 @@ loop_label:  LOOP
             END  IF;
 
             SET  done = done - 1;
-            INSERT INTO bandeja_lote (id_lote, tamanio_inicial, created_at, updated_at) VALUES (new.id,  new.total_lote/new.numero_bandejas, NOW(), NOW());
+            INSERT INTO bandeja_lote (id_lote, tamanio_inicial, tamanio_final, created_at, updated_at) 
+VALUES (new.id,  new.total_lote/new.numero_bandejas,new.total_lote/new.numero_bandejas, NOW(), NOW());
 
 END LOOP;
 
 
 END;//
 ;
+
+CREATE TABLE  pedidos(
+id              int(255) auto_increment not null, 
+id_despacho           int(255) not null, 
+id_finca               int(255) not null, 
+pedido  int(255) not null DEFAULT 0, 
+porcentaje  int(255) not null DEFAULT 0, 
+adicional  int(255) not null DEFAULT 0, 
+reposicion  int(255) not null DEFAULT 0, 
+total  int(255) not null DEFAULT 0, 
+created_at       datetime DEFAULT NULL,    
+updated_at       datetime DEFAULT NULL,
+CONSTRAINT pk_pedidos PRIMARY KEY(id),
+CONSTRAINT fk_pedidos_finca FOREIGN KEY (id_finca) REFERENCES fincas(id),
+CONSTRAINT fk_pedidos_despacho FOREIGN KEY (id_despacho) REFERENCES despachos(id)
+
+
+)ENGINE=InnoDb;
+
+
+
+

@@ -60,6 +60,29 @@ Route::get('/api/user/detail/{id}', 'UserController@detail');
 Route::resource('/api/fincas', 'FincasController');
 Route::resource('/api/CajasLotes', 'LoteController');
 Route::resource('/api/Despacho', 'DespachoController');
+Route::resource('/api/Pedidos', 'PedidosController');
+Route::get('/api/Pedidos/ObtenerPedido/{id}', 'PedidosController@getPedido');
+
+Route::resource('/api/Distribucion', 'TrazabilidadController');
+
+
+Route::get('/api/Pedidos/Trazabilidad/{id}', 'PedidosController@getTraza');
+Route::get('/api/Distribucion/GenerarDistribucion/{id}', 'TrazabilidadController@generarTrazaPorDespacho');
+Route::get('/api/Distribucion/Obtenerdatos/{id}', 'TrazabilidadController@obtenerCajasBandejas');
+
+
+
+
+
+Route::get('/api/Trazabilidad/{id}', 'TrazabilidadController@getTraza');
+Route::get('/api/Lotes/prueba/{id}', 'LoteController@prueba');
+
+Route::get('/api/usuarios/fincas', 'FincasController@getUserFincas');
+Route::get('/api/usuarios/fincas/{id}', 'FincasController@getFincasUser');
+
+
+
+
 
 
 

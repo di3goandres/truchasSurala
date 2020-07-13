@@ -1,0 +1,72 @@
+<div class="col-md-12 mt-2">
+  <h1>{{ title }}</h1>
+
+  <!--formulario de confirmacion-->
+  <!-- <div class="alert bg-light alert-success" *ngIf="status === 'success'">
+    <article class="card-body mx-auto" style="max-width: 80%;">
+      El registro fue exitoso, <a routerLink="/surala/login">Logueate aquí</a>
+    </article>
+  </div> -->
+  <!--Formulario de registro-->
+  <div>
+    <article class="card-body mx-auto" style="max-width: 100%;">
+      <form #agregarDistribucionform="ngForm" (ngSubmit)="onAdd(agregarDistribucionform)">
+        <!-- form-group// -->
+
+        <!-- form-group// -->
+
+        <div class="form-group input-group">
+          <div class="input-group-prepend">
+            <span class="input-group-text">
+              <i class="fa fa-building"></i>
+            </span>
+          </div>
+          <mat-form-field appearance="fill">
+            <mat-label>Cajas Disponibles</mat-label>
+            <mat-select stlye="z-index: 99999 !important;"  (selectionChange)="onChange($event.value)">
+              <mat-optgroup *ngFor="let group of cajas" label='Linea genetica {{group.name}}'
+               >
+                <mat-option *ngFor="let item of group.cajas" [value]="item.id">
+                  Caja # {{ item.caja_numero}}
+                </mat-option>
+              </mat-optgroup>
+              <!-- <mat-option *ngFor="let item of cajas; let i = index" [value]="item.id" (change)="onChange($event.target.value)">
+                Caja # {{ item.caja_numero}}
+
+              </mat-option> -->
+            </mat-select>
+          </mat-form-field>
+          <!-- <select name="tipoIdent" class="form-control" required (change)="onChange($event.target.value)">
+            <option *ngFor="let item of cajas; let i = index" [value]="item.id">
+              Caja # {{ item.caja_numero}}
+            </option>
+          </select> -->
+          <mat-form-field appearance="fill">
+            <mat-label>Bandejas Disponibles</mat-label>
+            <mat-select stlye="z-index: 99999 !important;">
+
+              <mat-option *ngFor="let item of bandejaMostrar; let i = index" [value]="item.id">
+                Bandeja # {{ i + 1 }} - {{ item.tamanio_final }}
+
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+          <!-- <select name="bandeja" class="form-control"required>
+            <option *ngFor="let item of bandejaMostrar; let i = index" [value]="item.id">
+              Bandeja # {{ i + 1 }} - {{ item.tamanio_final }}
+            </option>
+          </select> -->
+        </div>
+
+        <!-- form-group// -->
+
+        <div class="form-group">
+          <button type="submit" class="btn btn-primary btn-block" [disabled]="!agregarDistribucionform.valid">
+            Generar Trazabilidad
+          </button>
+        </div>
+        <!-- form-group// -->
+      </form>
+    </article>
+  </div>
+</div>

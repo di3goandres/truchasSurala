@@ -17,6 +17,7 @@ export interface Caja {
   numero_bandejas: number;
   ovas_ml: number;
   total_lote: number;
+  tamanio_usado: number;
   created_at: string;
   updated_at: string;
 }

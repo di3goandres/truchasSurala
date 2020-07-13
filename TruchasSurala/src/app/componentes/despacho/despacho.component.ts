@@ -48,6 +48,7 @@ export class DespachoComponent implements OnInit {
 
         this.cajas = [];
         this.cajas.push(...resp.cajas);
+
         this.despacho = resp;
         this.actual = resp.despacho;
         return;

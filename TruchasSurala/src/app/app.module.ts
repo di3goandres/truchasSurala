@@ -16,6 +16,9 @@ import { DespachosComponent } from './componentes/despachos/despachos.component'
 import { BandejascajaComponent } from './componentes/bandejascaja/bandejascaja.component';
 import { CrearComponent } from './componentes/despacho/crear/crear.component';
 
+import {MatSelectModule} from '@angular/material/select';
+
+
 // Datepicker module
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
@@ -24,6 +27,12 @@ import { AgregarcajaComponent } from './componentes/despacho/agregarcaja/agregar
 
 import { MatButtonModule } from '@angular/material/button';
 import { MatDialogModule } from '@angular/material/dialog';
+import { PedidosComponent } from './componentes/despacho/pedidos/pedidos.component';
+import { DespachoactualComponent } from './componentes/cabecera/despachoactual/despachoactual.component';
+import { AgregarpedidoComponent } from './componentes/despacho/agregarpedido/agregarpedido.component';
+import { ListaComponent } from './componentes/distribucion/lista/lista.component';
+import { ViewComponent } from './componentes/distribucion/view/view.component';
+import { CreardistribucionComponent } from './componentes/distribucion/creardistribucion/creardistribucion.component';
 
 @NgModule({
   declarations: [
@@ -38,7 +47,14 @@ import { MatDialogModule } from '@angular/material/dialog';
     BandejascajaComponent,
     CrearComponent,
     AgregarcajaComponent,
-    ShortNumberPipe
+    ShortNumberPipe,
+    PedidosComponent,
+    DespachoactualComponent,
+    AgregarpedidoComponent,
+    ListaComponent,
+    ViewComponent,
+    CreardistribucionComponent,
+
   ],
   imports: [
     BrowserModule, FormsModule, HttpClientModule,
@@ -46,7 +62,8 @@ import { MatDialogModule } from '@angular/material/dialog';
     BrowserAnimationsModule,
     BsDatepickerModule.forRoot(),
     MatDialogModule,
-    MatButtonModule
+    MatButtonModule,
+    MatSelectModule
 
 
   ],

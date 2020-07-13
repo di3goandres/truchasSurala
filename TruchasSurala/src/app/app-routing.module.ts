@@ -11,6 +11,8 @@ import { DespachosComponent } from './componentes/despachos/despachos.component'
 import { BandejascajaComponent } from './componentes/bandejascaja/bandejascaja.component';
 import { CrearComponent } from './componentes/despacho/crear/crear.component';
 import { AgregarcajaComponent } from './componentes/despacho/agregarcaja/agregarcaja.component';
+import { PedidosComponent } from './componentes/despacho/pedidos/pedidos.component';
+import { ViewComponent } from './componentes/distribucion/view/view.component';
 
 
 
@@ -50,6 +52,17 @@ const routes: Routes = [
   { // rutas de despacho
     path: 'surala/despacho/caja/create/:id', component: AgregarcajaComponent,
   },
+
+  { // rutas de despacho
+    path: 'surala/pedidos/:id', component: PedidosComponent,
+  },
+  { // rutas de despacho
+    path: 'surala/distribucion/:id', component:  ViewComponent,
+  },
+  { // rutas de despacho
+    path: 'surala/distribucion/Generar/:id', component:  ViewComponent,
+  },
+
 
  //
   {

@@ -72,6 +72,7 @@
               <i class="fa fa-building"></i>
             </span>
           </div>
+          
           <select  name="tipoIdent" class="form-control" #tipoident="ngModel" [(ngModel)]="user.tipo_identificacion"
             required >
             <option selected="selected" value="1">CC</option>
@@ -91,7 +92,10 @@
           </div>
           <input name="password" class="form-control" placeholder="contraseña"
            type="password" autocomplete="off" #password="ngModel"
-            [(ngModel)]="user.password" pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z]{8,}$" required/>
+            [(ngModel)]="user.password"
+
+             required/>
+             <!-- pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z]{8,}$" -->
           <small *ngIf="!password.valid && password.touched" class="invalid-feedback d-block">
             contraseña no valida, debe contener un digito
             al menos una minuscula

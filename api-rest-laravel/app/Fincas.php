@@ -13,6 +13,10 @@ class Fincas extends Model
     public function user(){
         return $this->belongsTo('App\User', 'user_id');
     }
+    
+     public function pedidos(){
+        return $this->hasMany('App\Pedidos', 'id_finca');
+    }
    
   
 }

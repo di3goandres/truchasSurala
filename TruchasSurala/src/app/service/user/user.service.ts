@@ -1,3 +1,7 @@
+import { PediRootObject } from './../../models/pedido';
+import { DatosDistribucion } from './../../models/datosDistribucion';
+import { DistribucionRootObject } from './../../models/distribucion';
+import { FincaRootObject } from './../../models/fincas';
 import { BandejasCajaObject } from './../../models/bandejasCajas';
 import { DespachoRootObject } from './../../models/despacho';
 import { Injectable } from '@angular/core';
@@ -6,6 +10,7 @@ import { Observable } from 'rxjs';
 import { User } from '../../models/users';
 import { environment } from '../../../environments/environment';
 import { Despachosroot } from '../../models/despacho';
+import { PedidosRootObject } from '../../models/pedidos';
 
 
 @Injectable({
@@ -46,8 +51,8 @@ export class UserService {
   // tslint:disable-next-line: typedef
   private ejecutarQueryPost(query: string, params: string) {
     this.header = new HttpHeaders().set('Authorization', this.token)
-                                   .set('Content-Type', 'application/x-www-form-urlencoded');
-    return this.http.post(query, params,  { headers: this.header });
+      .set('Content-Type', 'application/x-www-form-urlencoded');
+    return this.http.post(query, params, { headers: this.header });
 
   }
 
@@ -56,7 +61,7 @@ export class UserService {
 
     this.json = JSON.stringify(despacho);
     this.params = 'json=' + this.json;
-    return this.ejecutarQueryPost('api/Despacho',  this.params );
+    return this.ejecutarQueryPost('api/Despacho', this.params);
 
   }
 
@@ -66,12 +71,41 @@ export class UserService {
     this.json = JSON.stringify(cajas);
     console.log(this.json);
     this.params = 'json=' + this.json;
-    return this.ejecutarQueryPost('/api/CajasLotes',  this.params );
+    return this.ejecutarQueryPost('/api/CajasLotes', this.params);
+
+  }
+
+  storePedidos(pedidos: any): Observable<any> {
+
+    this.json = JSON.stringify(pedidos);
+    console.log(this.json);
+    this.params = 'json=' + this.json;
+    return this.ejecutarQueryPost('/api/Pedidos', this.params);
 
   }
   // tslint:disable-next-line: typedef
   getDespacho(id = null) {
     return this.ejecutarQuery<Despachosroot>('/api/Despacho/' + id);
+  }
+
+  // tslint:disable-next-line: typedef
+  getPedidos(id) {
+    return this.ejecutarQuery<PedidosRootObject>('/api/Pedidos/' + id);
+  }
+
+  // tslint:disable-next-line: typedef
+  getDistribucion(id) {
+    return this.ejecutarQuery<DistribucionRootObject>('/api/Distribucion/' + id);
+  }
+
+
+  // tslint:disable-next-line: typedef
+  getDatosDistribucion(id) {
+    return this.ejecutarQuery< DatosDistribucion>('/api/Distribucion/Obtenerdatos/' + id);
+  }
+  // tslint:disable-next-line: typedef
+  getPedidoActual(id) {
+    return this.ejecutarQuery<PediRootObject>('/api/Pedidos/ObtenerPedido/' + id);
   }
   // tslint:disable-next-line: typedef
   getDespachos() {
@@ -85,17 +119,17 @@ export class UserService {
 
   }
 
-    // tslint:disable-next-line: typedef
-    getBandejasCaja(id) {
+  // tslint:disable-next-line: typedef
+  getBandejasCaja(id) {
 
-      // this.json = JSON.stringify(id);
-      // this.header = new HttpHeaders().set('Authorization', this.token);
-      // return this.http.get('/api/Despacho/'  + id, { headers: this.header });
+    // this.json = JSON.stringify(id);
+    // this.header = new HttpHeaders().set('Authorization', this.token);
+    // return this.http.get('/api/Despacho/'  + id, { headers: this.header });
 
-      return this.ejecutarQuery<BandejasCajaObject>('/api/CajasLotes/' + id);
+    return this.ejecutarQuery<BandejasCajaObject>('/api/CajasLotes/' + id);
 
 
-    }
+  }
   // tslint:disable-next-line: typedef
   test() {
     return 'Hola Munndo Test';
@@ -152,6 +186,16 @@ export class UserService {
   }
 
 
+  getFincasUser($id = null): Observable<any> {
+    if ($id == null) {
+      return this.ejecutarQuery<FincaRootObject>('api/usuarios/fincas');
+
+    } else {
+      return this.ejecutarQuery<FincaRootObject>('/api/usuarios/fincas/' + $id);
+
+    }
+
+  }
 
 }
 

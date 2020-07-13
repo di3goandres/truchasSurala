@@ -41,7 +41,7 @@ class LoteController extends Controller {
         }
         else
         {
-            $data = ['code' => 404,
+            $data = ['code' => 200,
                 'status' => 'Lote No encontrado',
             ];
         }
@@ -98,7 +98,11 @@ class LoteController extends Controller {
                 }
                 else
                 {
-
+                    
+                    
+                       $lotes=   Lotes::where('id_despacho','=', $params_array['id_despacho'])->get();
+                    $countLotes =count( $lotes);
+                    
                     for ($i = 1; $i <= $params_array['repetir']; $i++)
                     {
                         $lote = new Lotes();
@@ -108,8 +112,11 @@ class LoteController extends Controller {
                         $lote->tamanio = $params_array['tamanio'];
                         $lote->ovas_ml = $params_array['ovasml'];
                         $lote->total_lote = $params_array['total_lote'];
+                        $lote->caja_numero = $countLotes+1;
                         $lote->numero_bandejas = $params_array['numero_cajas'];
                         $lote->edad_tcu = $params_array['edad'];
+                        $lote->tamanio_usado = 0;
+
                         //Guardar el Usuario
                         $lote->save();
                     }
@@ -133,6 +140,30 @@ class LoteController extends Controller {
         }
         // guardar los datos
         // devolver el resutlado
+        return response()->json($data, $data['code']);
+    }
+
+    public function prueba($id)
+    {
+        $lotes = Lotes::find($id);
+        if (is_object($lotes))
+        {
+
+            $bandejas = $lotes->bandejas;
+
+            $data = ['code' => 200,
+                'status' => 'success',
+                'cajas' => $lotes,
+                'bandejas' => $bandejas
+            ];
+        }
+        else
+        {
+            $data = ['code' => 200,
+                'status' => 'Lote No encontrado',
+            ];
+        }
+
         return response()->json($data, $data['code']);
     }
 

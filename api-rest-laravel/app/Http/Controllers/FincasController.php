@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use App\Fincas;
+use App\User;
 
 class FincasController extends Controller {
 
@@ -36,8 +37,9 @@ class FincasController extends Controller {
         }
         else
         {
-            $data = ['code' => 404,
-                'status' => 'Finca No encontrada',
+            $data = ['code' => 200,
+                'message' => 'Finca No encontrada',
+                'status' => 'error',
             ];
         }
 
@@ -52,7 +54,7 @@ class FincasController extends Controller {
         $params_array = json_decode($json, true); // array
         // validar los datos
 
-     
+
         if (!empty($params_array))
         {
             $validate = \Validator::make($params_array, [
@@ -69,10 +71,10 @@ class FincasController extends Controller {
             {
                 $data = array(
                     'status' => 'error',
-                    'code' => 404,
+                    'code' => 200,
                     'message' => 'Finca, no se ha creado',
                     'errors' => $validate->errors(),
-                    'data' =>$params_array
+                    'data' => $params_array
                 );
             }
             else
@@ -108,15 +110,65 @@ class FincasController extends Controller {
         {
             $data = array(
                 'status' => 'error',
-                'code' => 400,
+                'code' => 200,
                 'dato' => $params_array,
-                
                 'message' => 'Sin datos que procesar',
             );
         }
         // guardar los datos
         // devolver el resutlado
         return response()->json($data, $data['code']);
+    }
+
+    public function getUserFincas()
+    {
+        $duenios = User:: where('role', '=', 'ROLE_USER')->get();
+        $pos = 0;
+        $retorno = [];
+        $retorno[$pos]['numeroIdentificacion'] = '';
+
+        $retorno[$pos]['nombre'] = strtoupper('Seleccione una Opcion');
+        $retorno[$pos]['id'] = 0;
+        foreach ($duenios as $value)
+        {
+            $pos += 1;
+
+            $retorno[$pos]['numeroIdentificacion'] = $value->numero_identificacion;
+            $retorno[$pos]['nombre'] = strtoupper($value->name . '  ' . $value->surname);
+            $retorno[$pos]['id'] = $value->id;
+        }
+
+
+
+        return response()->json([
+                    'code' => 200,
+                    'status' => 'success',
+                    'userFincas' => $retorno
+        ]);
+    }
+
+    public function getFincasUser($id)
+    {
+        $duenios = Fincas:: where('user_id', '=', $id)->get();
+        $pos = 0;
+        $retorno = [];
+        $retorno[$pos]['nombre'] = strtoupper('Seleccione una Opcion');
+        $retorno[$pos]['id'] = 0;
+        foreach ($duenios as $value)
+        {
+            $pos += 1;
+
+            $retorno[$pos]['nombre'] = strtoupper($value->nombre);
+            $retorno[$pos]['id'] = $value->id;
+        }
+
+
+
+        return response()->json([
+                    'code' => 200,
+                    'status' => 'success',
+                    'userFincas' => $retorno
+        ]);
     }
 
 }

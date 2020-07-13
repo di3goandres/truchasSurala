@@ -10,3 +10,12 @@ mat-dialog-container#modal-component {
   border-radius: 11px;
   background-color: #1a1a1a;
 }
+
+
+.cdk-overlay-container
+ {
+
+    position: fixed;
+    z-index: 99999 !important;
+
+ }

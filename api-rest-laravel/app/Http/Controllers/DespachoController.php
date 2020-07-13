@@ -33,6 +33,7 @@ class DespachoController extends Controller
         $lotes = Lotes::where('id_despacho', $id)->get();
         if (is_object($despacho ))
         {
+            
             $data = ['code' => 200,
                 'status' => 'success',
                 'despacho' => $despacho,
@@ -41,8 +42,9 @@ class DespachoController extends Controller
         }
         else
         {
-            $data = ['code' => 404,
-                'status' => 'Despacho No encontrada',
+            $data = ['code' => 200,
+                'message' => 'Despacho No encontrada',
+                'status' => 'error',
             ];
         }
 

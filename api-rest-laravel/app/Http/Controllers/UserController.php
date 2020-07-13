@@ -12,6 +12,7 @@ class UserController extends Controller {
     {
         return "Accion de pruebas de user controller";
     }
+    
 
     public function register(Request $request)
     {
@@ -22,7 +23,7 @@ class UserController extends Controller {
 
         $params = json_decode($json); //objeto
         $params_array = json_decode($json, true); // array
-        
+
         if (!empty($params) && !empty($params_array))
         {
             //limpiar datos
@@ -32,7 +33,6 @@ class UserController extends Controller {
                         'name' => 'required|regex:/^[\pL\s\-]+$/u',
                         'surname' => 'required|regex:/^[\pL\s\-]+$/u',
                         'numero_identificacion' => 'required|numeric|unique:users', //comprueba que el numero de identificacion sea unico
-
                         'email' => 'required|email|unique:users', //comprueba si el usuario esta duplicaod
                         'password' => 'required',
             ]);
@@ -57,7 +57,7 @@ class UserController extends Controller {
                 $user->name = $params_array['name'];
                 $user->surname = $params_array['surname'];
                 $user->email = $params_array['email'];
-                $user->id_identificacion = $params_array['tipo_identificacion'];      
+                $user->id_identificacion = $params_array['tipo_identificacion'];
                 $user->numero_identificacion = $params_array['numero_identificacion'];
 
 
@@ -83,7 +83,7 @@ class UserController extends Controller {
                 'status' => 'error',
                 'code' => 200,
                 'message' => 'Los datos enviados no son correctos',
-                'ENVIADO'=>$json
+                'ENVIADO' => $json
             );
         }
 
@@ -276,10 +276,12 @@ class UserController extends Controller {
             $data = array(
                 'code' => 400,
                 'status' => 'error',
-                'message'=> 'Ha ocurrido un error al consultar el usuario'
+                'message' => 'Ha ocurrido un error al consultar el usuario'
             );
         }
         return response()->json($data, $data['code']);
     }
+
+
 
 }

@@ -1,0 +1,12 @@
+<button mat-raised-button id="logout-button" class="btn btn-primary btn-block"
+style="width:50%" (click)="open()">Agregar Distribucion</button>
+
+<ng-template  let-modal>
+  <div  #mymodal >
+    <app-creardistribucion *ngIf="
+    pedido"></app-creardistribucion>
+
+  </div>
+</ng-template>
+
+<app-lista  [distribuciones]="distribuciones"></app-lista>

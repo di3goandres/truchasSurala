@@ -1,0 +1,34 @@
+<div class="col-md-12">
+<div class="card-columns" *ngIf="actual">
+  <article class="card w-100">
+    <div class="card-header">
+
+      <h3 style="color:red">Actual</h3>
+      <h3>Fecha despacho :
+        <br>
+        <small>{{ actual.fecha }}</small></h3>
+    </div>
+    <div> Numero Factura: {{ actual.numero_factura }}
+      <br>
+      Numero ovas: {{ actual.numero_ovas | number }}
+      <br>
+      <a [routerLink]="['/surala/despacho/', actual.id]">Ver despacho</a>
+      <a>
+        <main id="logout-button-holder">
+          <button mat-raised-button id="logout-button" class="btn btn-primary btn-block"  style="width:50%" (click)="open()">Agregar Pedido</button>
+        <br>
+        </main>
+        <!-- <button *ngIf="!agregar"  class="btn btn-primary btn-block" style="width:50%"  (click)="open()">Agregar Caja</button> -->
+      </a>
+    </div>
+  </article>
+
+</div>
+
+<ng-template  let-modal>
+  <div  #mymodal >
+    <app-agregarpedido [idDespacho]="actual.id"></app-agregarpedido>
+  </div>
+</ng-template>
+
+</div>

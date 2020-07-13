@@ -15,7 +15,7 @@ class Lotes extends Model
     
 
     public function bandejas(){
-        return $this->hasMany('App\BandejasLotes');
+        return $this->hasMany('App\BandejasLotes', 'id_lote', 'id')->whereRaw('tamanio_final > 0')->orderBy('tamanio_final', 'DESC');
     }
     
 }
