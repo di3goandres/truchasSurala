@@ -55,7 +55,7 @@ export class ViewComponent implements OnInit {
   }
 
   // tslint:disable-next-line: typedef
-  private sumar(){
+  private sumar() {
 
     // tslint:disable-next-line: no-shadowed-variable
     const sum = this.distribuciones.reduce((sum, current) => sum + current.total_ovas_enviadas, 0);
@@ -119,7 +119,7 @@ export class ViewComponent implements OnInit {
 
   open(): void {
     const modalRef = this.modalService
-    .open(CreardistribucionComponent, { size: 'lg', backdrop: 'static' }, );
+      .open(CreardistribucionComponent, { size: 'lg', backdrop: 'static' },);
     modalRef.componentInstance.pedido = this.pedido;
     modalRef.componentInstance.bandeja = this.bandeja;
     modalRef.componentInstance.cajas = this.cajas;
@@ -130,10 +130,20 @@ export class ViewComponent implements OnInit {
     console.log('datos', this.cajas[0].cajas[0].id);
     modalRef.componentInstance.idCaja = this.cajas[0].cajas[0].id;
 
+    modalRef.componentInstance.passEntry.subscribe((response) => {
+
+      if (response.status == 'success') {
+        this.obtenerListaDistribucion();
+        this.obtenerPedido();
+        modalRef.close();
+      }
+    });
     modalRef.result.then((result) => {
 
       console.log('result', result);
     }, (reason) => {
+
+
 
 
 

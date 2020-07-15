@@ -295,7 +295,7 @@ class TrazabilidadController extends Controller {
 // se debe crear un consecutivo por medio de algun sp que consulte cual es siguiente o al momento de guardar
         $traza->total_ovas_enviadas = 0; //$params_array['total_ovas_enviadas'];
         $traza->save();
-        var_dump('veces entre');
+    
 
         return $traza->id;
     }
@@ -360,27 +360,24 @@ class TrazabilidadController extends Controller {
                     foreach ($bandejas as $bandeja)
                     {
 
-                        var_dump('numero de conteo -' . $conteo);
-                        
+
+
 
 ////Guardar trazabilidad
                         if ($conteo == 1)
                         {
                             $idTraza = $this->GuardarTraza($pedido);
-                            var_dump('numero de traza' . $idTraza);
-                                                        $conteo +=1;
 
+                            $conteo += 1;
                         }
                         else if ($conteo == 5)
                         {
                             $conteo = 1;
-                        }else{
-                            $conteo +=1;
                         }
-                        
-
-
-
+                        else
+                        {
+                            $conteo += 1;
+                        }
 
 
                         $cantidad = $bandeja['cantidad'];
@@ -393,7 +390,8 @@ class TrazabilidadController extends Controller {
 
                         $tbandeja->save();
                     }
-
+                    $pedido->genero_trazabilida = true;
+                    $pedido->save();
                     //devolver array con resultado
                     $data = array(
                         'code' => 200,

@@ -2,7 +2,7 @@ import { DistribucionGuardar } from './../../../models/distribucion.guardar';
 import { DistribucionClass } from './../../../models/distribucion';
 import { Pedido } from './../../../models/pedidos';
 import { CajaDistribucion, BandejaDistribucion, } from './../../../models/datosDistribucion';
-import { Component, OnInit, Input, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit, Input, ChangeDetectorRef, Output, EventEmitter } from '@angular/core';
 import { Grupocaja } from '../../../models/datosDistribucion';
 import { BandejaGuardar } from '../../../models/distribucion.guardar';
 import { UserService } from '../../../service/user/user.service';
@@ -17,7 +17,7 @@ export class CreardistribucionComponent implements OnInit {
 
   @Input() cajas: Grupocaja[] = [];
   @Input() bandeja: BandejaDistribucion[] = [];
-
+  @Output() passEntry: EventEmitter<any> = new EventEmitter();
   @Input() idCaja: number;
   @Input() pendientes: number;
 
@@ -43,12 +43,12 @@ export class CreardistribucionComponent implements OnInit {
     private cdRef: ChangeDetectorRef
 
     ) { }
-  ngAfterViewChecked()
-  {
-    console.log( '"! changement de la date du composant !"' );
+  // ngAfterViewChecked()
+  // {
+  //   console.log( '"! changement de la date du composant !"' );
 
-    this.cdRef.detectChanges();
-  }
+  //   this.cdRef.detectChanges();
+  // }
   ngOnInit(){
 
 
@@ -190,12 +190,16 @@ export class CreardistribucionComponent implements OnInit {
 
     this.userService.storeDistribucion(this.distribucionGuardar).subscribe(
       response => {
-        this.distribucionGuardar.bandejas = []
-        if (response.status !== 'error') {
-          console.log('ok...');
-        }
+        this.distribucionGuardar.bandejas = [];
+        // if (response.status !== 'error') {
+
+          this.passEntry.emit(response);
+
+        // }
       },
       error => {
+        console.log('errro guardando...', error);
+
         this.distribucionGuardar.bandejas = []
 
       });
