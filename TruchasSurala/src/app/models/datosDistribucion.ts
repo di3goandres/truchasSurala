@@ -10,6 +10,7 @@ export interface CajaDistribucion {
   ovas_ml: number;
   total_lote: number;
   tamanio_usado: number;
+  habilitado: boolean;
 }
 
 export interface Grupocaja {
@@ -22,6 +23,8 @@ export interface BandejaDistribucion {
   id_lote: number;
   tamanio_inicial: number;
   tamanio_final: number;
+  numero_bandeja: number;
+
   lineaGenetica: string;
 }
 

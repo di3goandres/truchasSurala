@@ -7,7 +7,7 @@ import { BandejaDistribucion, Grupocaja } from '../../../models/datosDistribucio
 import { Cajas } from '../../../models/cajas';
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 import { CreardistribucionComponent } from '../creardistribucion/creardistribucion.component';
-
+import { ChangeDetectorRef } from '@angular/core';
 @Component({
   selector: 'app-view',
   templateUrl: './view.component.html',
@@ -20,25 +20,46 @@ export class ViewComponent implements OnInit {
 
   bandeja: BandejaDistribucion[] = [];
   cajas: Grupocaja[] = [];
+  agregados: number;
 
 
   pedido: PedidoUnico;
+  mostrar: boolean;
   constructor(
 
     private userService: UserService,
     private route: ActivatedRoute,
     private router: Router,
-
+    private cdRef: ChangeDetectorRef,
     private modalService: NgbModal
+
   ) { }
 
+  // ngAfterViewChecked()
+  // {
+  //   console.log( '"! changement de la date du composant !"' );
+
+  //   this.cdRef.detectChanges();
+  // }
   ngOnInit(): void {
+
+
+    this.mostrar = false;
+
 
     //este es el id del pedido
     this.id = this.route.snapshot.paramMap.get('id');
 
     this.obtenerListaDistribucion();
     this.obtenerPedido();
+  }
+
+  // tslint:disable-next-line: typedef
+  private sumar(){
+
+    // tslint:disable-next-line: no-shadowed-variable
+    const sum = this.distribuciones.reduce((sum, current) => sum + current.total_ovas_enviadas, 0);
+    this.agregados = sum;
 
   }
 
@@ -66,6 +87,10 @@ export class ViewComponent implements OnInit {
           this.distribuciones = [];
           console.log(response.distribucion);
           this.distribuciones.push(...response.distribucion);
+          this.sumar();
+          this.mostrar = true;
+
+
         }
       },
       error => { });
@@ -83,6 +108,9 @@ export class ViewComponent implements OnInit {
 
 
 
+
+
+
         }
       },
       error => { });
@@ -90,10 +118,13 @@ export class ViewComponent implements OnInit {
 
 
   open(): void {
-    const modalRef = this.modalService.open(CreardistribucionComponent, { size: 'lg', backdrop: 'static' });
+    const modalRef = this.modalService
+    .open(CreardistribucionComponent, { size: 'lg', backdrop: 'static' }, );
     modalRef.componentInstance.pedido = this.pedido;
     modalRef.componentInstance.bandeja = this.bandeja;
     modalRef.componentInstance.cajas = this.cajas;
+    modalRef.componentInstance.pendientes = this.agregados;
+
 
 
     console.log('datos', this.cajas[0].cajas[0].id);

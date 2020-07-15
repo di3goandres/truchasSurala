@@ -1,6 +1,11 @@
-<button mat-raised-button id="logout-button" class="btn btn-primary btn-block"
-style="width:50%" (click)="open()">Agregar Distribucion</button>
 
+<div *ngIf="mostrar" >
+<button mat-raised-button id="logout-button" class="btn btn-primary btn-block"
+style="width:50%" (click)="open()" >Agregar Distribucion</button>
+
+
+<label color="red"  >Ya generaste distribución</label>
+</div>
 <ng-template  let-modal>
   <div  #mymodal >
     <app-creardistribucion *ngIf="

@@ -1,4 +1,6 @@
 import { ShortNumberPipe } from './pipes/short-number.pipe';
+
+
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
@@ -27,12 +29,17 @@ import { AgregarcajaComponent } from './componentes/despacho/agregarcaja/agregar
 
 import { MatButtonModule } from '@angular/material/button';
 import { MatDialogModule } from '@angular/material/dialog';
+import { MatCardModule } from '@angular/material/card';
+import { MatInputModule } from '@angular/material/input';
+
+
 import { PedidosComponent } from './componentes/despacho/pedidos/pedidos.component';
 import { DespachoactualComponent } from './componentes/cabecera/despachoactual/despachoactual.component';
 import { AgregarpedidoComponent } from './componentes/despacho/agregarpedido/agregarpedido.component';
 import { ListaComponent } from './componentes/distribucion/lista/lista.component';
 import { ViewComponent } from './componentes/distribucion/view/view.component';
 import { CreardistribucionComponent } from './componentes/distribucion/creardistribucion/creardistribucion.component';
+import { SortByPipePipe } from './pipes/sort-by-pipe.pipe';
 
 @NgModule({
   declarations: [
@@ -54,6 +61,7 @@ import { CreardistribucionComponent } from './componentes/distribucion/creardist
     ListaComponent,
     ViewComponent,
     CreardistribucionComponent,
+    SortByPipePipe,
 
   ],
   imports: [
@@ -63,7 +71,9 @@ import { CreardistribucionComponent } from './componentes/distribucion/creardist
     BsDatepickerModule.forRoot(),
     MatDialogModule,
     MatButtonModule,
-    MatSelectModule
+    MatSelectModule,
+    MatCardModule,
+    MatInputModule
 
 
   ],

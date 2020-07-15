@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Trazabilidad;
 use App\TrazabilidadBandeja;
 use App\Despacho;
+use App\BandejasLotes;
 use App\Pedidos;
 use App\Lotes;
 
@@ -104,16 +105,18 @@ class TrazabilidadController extends Controller {
                 foreach ($lotes as $lote)
                 {
 //                    var_dump( $value['linea_genetica'], strcmp($bandeja['lineaGenetica'],  $value['linea_genetica']));
-                    
-                    if (strcmp($lote['linea_genetica'],  $value['linea_genetica']) ==0)
+
+                    if (strcmp($lote['linea_genetica'], $value['linea_genetica']) == 0)
                     {
-                        $retornoAgrupado[$agrupadoPos]= $lote;
+                        $retornoAgrupado[$agrupadoPos] = $lote;
+                        $retornoAgrupado[$agrupadoPos]['habilitado'] = true;
+
                         $agrupadoPos += 1;
                     }
                 }
                 $grupo[$agrupadoInicial]['name'] = $value['linea_genetica'];
                 $grupo[$agrupadoInicial]['cajas'] = $retornoAgrupado;
-                $agrupadoInicial+= 1;
+                $agrupadoInicial += 1;
                 $retornoAgrupado = [];
                 $agrupadoPos = 0;
             }
@@ -129,7 +132,7 @@ class TrazabilidadController extends Controller {
                         'code' => 200,
                         'status' => 'success',
                         'grupocajas' => $grupo,
-                       'bandejas' => $allBandejas,
+                        'bandejas' => $allBandejas,
 //                        'agrupado' => $grupo
             ]);
         }
@@ -273,6 +276,143 @@ class TrazabilidadController extends Controller {
             ];
         }
 
+        return response()->json($data, $data['code']);
+    }
+
+    public function index(Request $request)
+    {
+        
+    }
+
+    private function GuardarTraza($pedido)
+    {
+        $traza = new Trazabilidad();
+        $traza->id_finca = $pedido->id_finca;
+        $traza->id_pedido = $pedido->id;
+        $traza->nombre_reclama = 'pendiente';
+        $traza->remision = 'Remision';
+        $traza->nombre_reclama = 'pendiente';
+// se debe crear un consecutivo por medio de algun sp que consulte cual es siguiente o al momento de guardar
+        $traza->total_ovas_enviadas = 0; //$params_array['total_ovas_enviadas'];
+        $traza->save();
+        var_dump('veces entre');
+
+        return $traza->id;
+    }
+
+    public function store(Request $request)
+    {
+        //recoger los datos por post 
+        $json = $request->input('json', null);
+
+        $params_array = json_decode($json, true); // array
+// validar los datos
+
+
+        if (!empty($params_array))
+        {
+
+
+            $validate = \Validator::make($params_array, [
+                        "bandejas" => "required|array|min:1",
+                        "bandejas.*.id_bandeja_lote" => "required|numeric|min:1",
+                        "bandejas.*.cantidad" => "required|numeric|min:1",
+                        'bandejas.*.id_lote' => 'required|numeric|min:1',
+                        'id_pedido' => 'required|numeric',
+                        'id_finca' => 'required|numeric',
+                        'total_ovas_enviadas' => 'required|numeric',
+            ]);
+
+
+
+            if ($validate->fails())
+            {
+                $data = array(
+                    'status' => 'error',
+                    'code' => 200,
+                    'message' => 'Traza, no se ha creado',
+                    'errors' => $validate->errors(),
+                    'data' => $params_array
+                );
+            }
+            else
+            {
+
+
+
+                $pedido = Pedidos::find($params_array['id_pedido']);
+                if (!is_object($pedido))
+                {
+                    $data = array(
+                        'code' => 200,
+                        'status' => 'error',
+//                    'finca' => $pedido
+                    );
+                }
+                else
+                {
+                    $bandejas = $params_array['bandejas'];
+
+
+                    $conteo = 1;
+                    $idTraza = 0;
+
+                    foreach ($bandejas as $bandeja)
+                    {
+
+                        var_dump('numero de conteo -' . $conteo);
+                        
+
+////Guardar trazabilidad
+                        if ($conteo == 1)
+                        {
+                            $idTraza = $this->GuardarTraza($pedido);
+                            var_dump('numero de traza' . $idTraza);
+                                                        $conteo +=1;
+
+                        }
+                        else if ($conteo == 5)
+                        {
+                            $conteo = 1;
+                        }else{
+                            $conteo +=1;
+                        }
+                        
+
+
+
+
+
+                        $cantidad = $bandeja['cantidad'];
+                        $id = $bandeja['id_bandeja_lote'];
+
+                        $tbandeja = new TrazabilidadBandeja();
+                        $tbandeja->id_bandeja_lote = $id;
+                        $tbandeja->id_trazabilidad = $idTraza;
+                        $tbandeja->cantidad = $cantidad;
+
+                        $tbandeja->save();
+                    }
+
+                    //devolver array con resultado
+                    $data = array(
+                        'code' => 200,
+                        'status' => 'success',
+                    );
+                }
+            }
+        }
+        else
+        {
+            $data = array(
+                'status' => 'error',
+                'code' => 200,
+                'dato' => $params_array,
+                'message' => 'Sin datos que procesar',
+            );
+        }
+// guardar los datos
+// devolver el resutlado
         return response()->json($data, $data['code']);
     }
 

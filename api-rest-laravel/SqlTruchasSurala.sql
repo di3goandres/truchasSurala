@@ -123,6 +123,8 @@ id              int(255) auto_increment not null,
 id_lote             int(255) not null, 
 tamanio_inicial  int(255) NOT NULL default 0 ,
 tamanio_final int(255) NOT NULL default 0 ,
+numero_bandeja int(255) NOT NULL default 0 ,
+
 created_at       datetime DEFAULT NULL,    
 updated_at       datetime DEFAULT NULL,
 CONSTRAINT pk_bandeja PRIMARY KEY(id),
@@ -132,14 +134,10 @@ CONSTRAINT fk_lote_bandeja FOREIGN KEY (id_lote) REFERENCES lotes(id)
 
 CREATE TABLE trazabilidad(
 id              int(255) auto_increment not null, 
-id_lote int(255) not null, 
 id_pedido int(255) not null, 
 
 id_finca             int(255) not null, 
 remision        varchar(255) NOT NULL ,
-ovas_facturadas     int(255) NOT NULL DEFAULT 0,
-ovas_adicionales     int(255) NOT NULL DEFAULT 0 ,
-ovas_reposicion     int(255) NOT NULL DEFAULT 0 ,
 total_ovas_enviadas     int(255) NOT NULL  DEFAULT 0,
 nombre_reclama      varchar(255)  NULL ,
 tipo_identificacion_reclama     int(255)  NULL ,
@@ -151,7 +149,6 @@ descripcion_adicionales     varchar(2000)  NULL ,
 created_at       datetime DEFAULT NULL,    
 updated_at       datetime DEFAULT NULL,
 CONSTRAINT pk_trazabilidad PRIMARY KEY(id),
-CONSTRAINT fk_traza_lote FOREIGN KEY (id_lote) REFERENCES lotes(id),
 CONSTRAINT fk_traza_finca FOREIGN KEY (id_finca) REFERENCES  fincas(id),
 CONSTRAINT fk_traza_pedido FOREIGN KEY (id_pedido) REFERENCES  pedidos(id),
 
@@ -171,7 +168,7 @@ cantidad     varchar(255) NOT NULL DEFAULT 0 ,
 created_at       datetime DEFAULT NULL,    
 updated_at       datetime DEFAULT NULL,
 CONSTRAINT pk_bandeja PRIMARY KEY(id),
-CONSTRAINT fk_trazabilidad FOREIGN KEY (id_trazabilidad ) REFERENCES trazabilidad(id)
+CONSTRAINT fk_trazabilidad FOREIGN KEY (id_trazabilidad ) REFERENCES trazabilidad(id),
 CONSTRAINT fk_trazabilidad_bandeja FOREIGN KEY (id_bandeja_lote ) REFERENCES bandeja_lote(id)
 
 

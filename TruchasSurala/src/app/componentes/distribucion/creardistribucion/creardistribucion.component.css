@@ -1,7 +1,4 @@
-/* .cdk-overlay-container
- {
-
-    position: fixed;
-    z-index: 999999 !important;
-
- } */
+.confirmedClass { color:green;}
+.notConfirmedClass { color:red;}
+.shippedClass { color:orange;}
+.defaultClass { color:#000;}

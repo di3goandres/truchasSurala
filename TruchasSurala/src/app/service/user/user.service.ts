@@ -75,6 +75,15 @@ export class UserService {
 
   }
 
+  storeDistribucion(distribucion: any): Observable<any> {
+
+    this.json = JSON.stringify(distribucion);
+    console.log(this.json);
+    this.params = 'json=' + this.json;
+    return this.ejecutarQueryPost('/api/Distribucion', this.params);
+
+  }
+
   storePedidos(pedidos: any): Observable<any> {
 
     this.json = JSON.stringify(pedidos);
