@@ -295,7 +295,7 @@ class TrazabilidadController extends Controller {
 // se debe crear un consecutivo por medio de algun sp que consulte cual es siguiente o al momento de guardar
         $traza->total_ovas_enviadas = 0; //$params_array['total_ovas_enviadas'];
         $traza->save();
-    
+
 
         return $traza->id;
     }
@@ -356,32 +356,40 @@ class TrazabilidadController extends Controller {
 
                     $conteo = 1;
                     $idTraza = 0;
+                    $cantidadGuardada = 0;
 
+                    $ids = '';
+
+                    $maximoLote = Lotes::where('id_despacho', '=', $pedido->id_despacho)->max('total_lote');
                     foreach ($bandejas as $bandeja)
                     {
 
-
-
-
+                        $cantidad = $bandeja['cantidad'];
+                        $id = $bandeja['id_bandeja_lote'];
+                        $cantidadGuardada = $cantidadGuardada + $cantidad;
 ////Guardar trazabilidad
                         if ($conteo == 1)
                         {
+
                             $idTraza = $this->GuardarTraza($pedido);
-
-                            $conteo += 1;
+                            $conteo = 2;
+//                            $ids = $ids . ',' . $idTraza;
                         }
-                        else if ($conteo == 5)
+                        else if ($cantidadGuardada > $maximoLote)
                         {
-                            $conteo = 1;
-                        }
-                        else
-                        {
-                            $conteo += 1;
+                            $cantidadGuardada = 0;
+                            $cantidadGuardada = $cantidadGuardada + $cantidad;
+
+
+//                            var_dump('cantidad Guardad: ' . $cantidadGuardada . ' Esto es el maximoLote: ' . $maximoLote);
+                            $idTraza = $this->GuardarTraza($pedido);
+//                            $ids = $ids . ',' . $idTraza;
                         }
 
 
-                        $cantidad = $bandeja['cantidad'];
-                        $id = $bandeja['id_bandeja_lote'];
+//                        var_dump('Conteo=>' . $cantidadGuardada);
+
+
 
                         $tbandeja = new TrazabilidadBandeja();
                         $tbandeja->id_bandeja_lote = $id;
@@ -396,6 +404,7 @@ class TrazabilidadController extends Controller {
                     $data = array(
                         'code' => 200,
                         'status' => 'success',
+           
                     );
                 }
             }

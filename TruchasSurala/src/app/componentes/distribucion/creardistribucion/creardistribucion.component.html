@@ -5,15 +5,36 @@
     <mat-card-title>Pedido</mat-card-title>
     <mat-card-subtitle>Total Pedido {{pedido.total | number}}</mat-card-subtitle>
     <mat-card-content>
-      <label>Pedido => {{pedido.pedido | number}}</label>
+      <div class="container">
+        <div class="row">
+          <div class="col">
+            <label>Pedido => {{pedido.pedido | number}}</label>
+          </div>
+           <div class="col">
+            <label>Adicional => {{pedido.porcentaje | number}}%</label>
+          </div>
+          <div class="col">
+            <label>Ovas Adicionales => {{pedido.adicional | number}}</label>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <label>Reposicion => {{pedido.reposicion | number}}</label>
+
+          </div>
+           <div class="col">
+           <label>Pendientes => {{this.pendientes| number}}</label>
+
+          </div>
+          <div class="col">
+
+
+           </div>
+
+        </div>
+      </div>
+
       <br>
-      <label>Adicional => {{pedido.porcentaje | number}}%</label>
-      <br>
-      <label>Ovas Adicionales => {{pedido.adicional | number}}</label>
-      <br>
-      <label>Reposicion => {{pedido.reposicion | number}}</label>
-      <br>
-      <label>Pendientes => {{this.pendientes| number}}</label>
     </mat-card-content>
 
   </mat-card>
@@ -21,73 +42,78 @@
   <div>
     <article class="card-body mx-auto" style="max-width: 100%;">
       <form #agregarDistribucionform="ngForm" (ngSubmit)="onAdd(agregarDistribucionform)">
-                <ng-content></ng-content>
+        <ng-content></ng-content>
 
-        <!-- form-group// -->
-
-        <!-- form-group// -->
 
         <div class="form-group input-group">
-          <!-- <div class="input-group-prepend">
-            <span class="input-group-text">
-              <i class="fa fa-building"></i>
-            </span>
-          </div> -->
+
           <div class="row">
-            <div class="col-xs-12 col-4 form-group">
+            <div class="col-xs-3 col-3 form-group">
               <mat-form-field appearance="fill">
                 <mat-label>Cajas Disponibles</mat-label>
-                <mat-select stlye="z-index: 99999 !important;"
-                 (selectionChange)="onChange($event.value)" [disabled]="pendientes==0"
-                focused="true"
-                [(value)]="idCaja" >
+                <mat-select stlye="z-index: 99999 !important;" (selectionChange)="onChange($event.value)"
+                  [disabled]="pendientes==0" focused="true" [(value)]="idCaja">
                   <mat-optgroup *ngFor="let group of cajas" label='Linea genetica {{group.name}}'>
-                    <mat-option *ngFor="let item of group.cajas" [value]="item.id"  [disabled]="!item.habilitado">
+                    <mat-option *ngFor="let item of group.cajas" [value]="item.id" [disabled]="!item.habilitado">
                       Caja # {{ item.caja_numero}}
                     </mat-option>
                   </mat-optgroup>
 
                 </mat-select>
+
               </mat-form-field>
+
             </div>
-            <div class="col-xs-12 col-4 form-group">
+            <div class="col-xs-1 form-group"></div>
+
+            <div class="col-xs-1  form-group">
+              <!-- <input type="button" class="btn btn-primary btn-block" (click)="agregarCaja()" value="+ Caja">  -->
+
+              <button [disabled]="pendientes==0" type="button" mat-mini-fab color="primary" aria-label="caja" (click)="agregarCaja()">
+                <mat-icon>plus_one</mat-icon>
+              </button>
+            </div>
+            <div class="col-xs-4 col-4 form-group">
               <mat-form-field appearance="fill" [ngClass]='colorBandeja'>
                 <mat-label [ngClass]='colorBandeja'>Bandejas Disponibles</mat-label>
-                <mat-select stlye="z-index: 99999 !important;" (selectionChange)="onChangeBandeja($event.value)" [disabled]="pendientes==0">
+                <mat-select stlye="z-index: 99999 !important;" (selectionChange)="onChangeBandeja($event.value)"
+                  [disabled]="pendientes==0">
 
-                  <mat-option *ngFor="let item of bandejaMostrar | sortBy:'asc':'id'; let i = index" [value]="item.id"
-                    [ngClass]="setColor(item.tamanio_final)">
+                  <mat-option  *ngFor="let item of bandejaMostrar; let i = index" [value]="item.id"
+                    [ngClass]="setColor(item.tamanio_final)"
+                    [disabled]="item.tamanio_final==0" >
                     Bandeja # {{ item.numero_bandeja}} - {{ item.tamanio_final }}
 
                   </mat-option>
                 </mat-select>
               </mat-form-field>
             </div>
-            <div class="col-xs-12 col-4 form-group">
+
+            <div class="col-xs-3  col-3 form-group">
               <mat-form-field appearance="fill" floatLabel="always">
                 <mat-label>Cantidad a tomar</mat-label>
-                <input matInput placeholder="Tomar de la bandeja" [value]='valoratomar' type="number" [max]='maximo' [disabled]="pendientes==0"
-                  name="cantidaTomar"
-                  value="">
+                <mat-icon matSuffix>sentiment_very_satisfied</mat-icon>
+
+                <input matInput placeholder="Tomar de la bandeja" [(ngModel)]='valoratomar' type="number" [max]='maximo'
+                  [disabled]="pendientes==0" name="cantidaTomar">
 
 
               </mat-form-field>
+
+            </div>
+
+            <div class="col-xs-1  form-group">
+              <!-- <input type="button" class="btn btn-primary btn-block" (click)="agregarCaja()" value="+ Caja">  -->
+
+              <button [disabled]="pendientes==0" type="button" mat-mini-fab color="primary" aria-label="caja" (click)="agregarBandeja()">
+                <mat-icon>plus_one</mat-icon>
+              </button>
             </div>
           </div>
-          <div class="row" style="margin: auto;" *ngIf="pendientes!=0" >
-            <div class="col-xl-12 col-12 form-group">
-              <!-- <form #agregarCaha="ngForm" > -->
-              <input type="button"  class="btn btn-primary btn-block" (click)="agregarCaja()" value="agregar caja">
-            <!-- </form> -->
+        </div>
 
 
-            </div>
-            <div class="col-xl-12 col-12 form-group">
-              <input type="button" class="btn btn-primary btn-block" value="agregar bandeja">
-
-
-            </div>
-          </div>
+        <div>
           <div class="row" style="align-content: center;margin: auto;">
             <div class="col-xs-12 col-12 form-group">
               <table class="table">
@@ -103,7 +129,7 @@
                 <tbody>
                   <tr *ngFor="let guardar of bandejasGuardar ; let i = index">
                     <th scope="row">{{i + 1}}</th>
-                    <td>{{guardar.cantidad}}</td>
+                    <td>{{guardar.cantidad | number}}</td>
                     <td>{{guardar.numerocaja}}</td>
                     <td>{{guardar.numerobandeja}}</td>
 
@@ -118,11 +144,10 @@
 
         <!-- form-group// -->
         <div class="form-group">
-          <button type="submit" class="btn btn-primary btn-block"
-            [disabled]="pendientes!=0">
-            Generar Trazabilidad
+          <button type="submit" class="btn btn-primary btn-block" [disabled]="pendientes!=0">
+            Generar Distribución
           </button>
-          <label *ngIf="(pendientes == 0)">Ya generaste trazabilidad de este pedido!</label>
+
         </div>
         <!-- form-group// -->
       </form>

@@ -1,17 +1,19 @@
+<div *ngIf="pedido">
+  <div *ngIf="!pedido.genero_trazabilida">
 
-<div *ngIf="mostrar" >
-<button mat-raised-button id="logout-button" class="btn btn-primary btn-block"
-style="width:50%" (click)="open()" >Agregar Distribucion</button>
+    <button mat-raised-button id="logout-button" class="btn btn-primary btn-block" style="width:50%"
+      (click)="open()">Agregar Distribucion</button>
 
 
-<label color="red"  >Ya generaste distribución</label>
+    <label  *ngIf="pedido.genero_trazabilida" color="red">Ya generaste distribución</label>
+  </div>
 </div>
-<ng-template  let-modal>
-  <div  #mymodal >
+<ng-template let-modal>
+  <div #mymodal>
     <app-creardistribucion *ngIf="
     pedido"></app-creardistribucion>
 
   </div>
 </ng-template>
 
-<app-lista  [distribuciones]="distribuciones"></app-lista>
+<app-lista [distribuciones]="distribuciones"></app-lista>

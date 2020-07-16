@@ -31,6 +31,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatCardModule } from '@angular/material/card';
 import { MatInputModule } from '@angular/material/input';
+import { MatIconModule } from '@angular/material/icon';
 
 
 import { PedidosComponent } from './componentes/despacho/pedidos/pedidos.component';
@@ -73,7 +74,8 @@ import { SortByPipePipe } from './pipes/sort-by-pipe.pipe';
     MatButtonModule,
     MatSelectModule,
     MatCardModule,
-    MatInputModule
+    MatInputModule,
+    MatIconModule
 
 
   ],

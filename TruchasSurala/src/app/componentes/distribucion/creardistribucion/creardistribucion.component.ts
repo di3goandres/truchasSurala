@@ -42,14 +42,14 @@ export class CreardistribucionComponent implements OnInit {
     private userService: UserService,
     private cdRef: ChangeDetectorRef
 
-    ) { }
+  ) { }
   // ngAfterViewChecked()
   // {
   //   console.log( '"! changement de la date du composant !"' );
 
   //   this.cdRef.detectChanges();
   // }
-  ngOnInit(){
+  ngOnInit() {
 
 
   }
@@ -74,54 +74,76 @@ export class CreardistribucionComponent implements OnInit {
     this.pendientes = this.pedido.total - this.pendientes;
 
   }
+
+  agregarBandeja() {
+    if (this.pendientes > 0) {
+      console.log('cuando  =>i', this.valoratomar);
+      const element = this.bandejaSeleccionada;
+      this.bandejasGuardar.push(new BandejaGuardar(
+        element.id, this.valoratomar, element.id_lote,
+        'Caja #' + this.cajaActual.caja_numero, 'Bandeja #' + element.numero_bandeja));
+      this.pendientes = this.pendientes - this.valoratomar;
+      this.bandejaSeleccionada.tamanio_final = element.tamanio_final - this.valoratomar;
+    }
+  }
   agregarCaja() {
 
 
-    this.cajaActual.habilitado = false;
+    if (this.pendientes > 0) {
 
-    let linea = this.cajaActual.linea_genetica;
+      this.cajaActual.habilitado = false;
 
-    let encontrada = this.cajas.find(function (caja){
-      return caja.name === linea;
-    });
+      let linea = this.cajaActual.linea_genetica;
 
-    let indexCaja = this.cajas.indexOf(encontrada);
-    let index = encontrada.cajas.indexOf(this.cajaActual);
+      let encontrada = this.cajas.find(function (caja) {
+        return caja.name === linea;
+      });
 
-    encontrada.cajas[index] = this.cajaActual;
-    this.cajas[indexCaja] = encontrada;
+      let indexCaja = this.cajas.indexOf(encontrada);
+      let index = encontrada.cajas.indexOf(this.cajaActual);
 
-
-
-    this.bandejaMostrar.forEach(element => {
-      let calculo = this.pendientes - element.tamanio_final;
-      if (this.pendientes > 0) {
+      encontrada.cajas[index] = this.cajaActual;
+      this.cajas[indexCaja] = encontrada;
 
 
-        if (calculo > 0) {
-          this.bandejasGuardar.push(new BandejaGuardar(
-            // tslint:disable-next-line: max-line-length
-            element.id, element.tamanio_final, element.id_lote,
-            'Caja #' + this.cajaActual.caja_numero, 'Bandeja #' + element.numero_bandeja));
-          this.pendientes = this.pendientes - element.tamanio_final;
-        } else {
-          this.bandejasGuardar.push(new BandejaGuardar(
-            // tslint:disable-next-line: max-line-length
-            element.id, this.pendientes, element.id_lote,
-            'Caja #' + this.cajaActual.caja_numero, 'Bandeja #' + element.numero_bandeja));
-          this.pendientes = this.pendientes - this.pendientes;
 
+      this.bandejaMostrar.forEach(element => {
+        if (element.tamanio_final > 0) {
+
+
+          let calculo = this.pendientes - element.tamanio_final;
+          if (this.pendientes > 0) {
+
+
+            if (calculo > 0) {
+              this.bandejasGuardar.push(new BandejaGuardar(
+                // tslint:disable-next-line: max-line-length
+                element.id, element.tamanio_final, element.id_lote,
+                'Caja #' + this.cajaActual.caja_numero, 'Bandeja #' + element.numero_bandeja));
+              this.pendientes = this.pendientes - element.tamanio_final;
+              element.tamanio_final = element.tamanio_final - element.tamanio_final;
+            } else {
+              this.bandejasGuardar.push(new BandejaGuardar(
+                // tslint:disable-next-line: max-line-length
+                element.id, this.pendientes, element.id_lote,
+                'Caja #' + this.cajaActual.caja_numero, 'Bandeja #' + element.numero_bandeja));
+              this.pendientes = this.pendientes - this.pendientes;
+              element.tamanio_final = element.tamanio_final - this.pendientes;
+
+
+            }
+          }
         }
-      }
+      });
 
-    });
+      this.valoratomar = 0;
+      this.cajaActual = this.cajaTotales.find(function (actual) {
+        return actual.habilitado === true;
+      });
+      this.idCaja = this.cajaActual.id;
+      this.onChange(this.idCaja);
+    }
 
-    this.cajaActual = this.cajaTotales.find(function (actual) {
-      return actual.habilitado === true;
-    });
-    this.idCaja = this.cajaActual.id;
-    this.onChange(this.idCaja);
-    console.log('datosGuardar', this.bandejasGuardar);
   }
 
   onChange(id) {
@@ -148,7 +170,7 @@ export class CreardistribucionComponent implements OnInit {
   onChangeBandeja(id) {
     // tslint:disable-next-line: radix
     id = parseInt(id);
-    console.log('onchange', id);
+
     this.bandejaSeleccionada = this.bandejaMostrar.find(function (bandejas) {
       return bandejas.id === id;
     });
@@ -156,8 +178,25 @@ export class CreardistribucionComponent implements OnInit {
     this.maximo = this.bandejaSeleccionada.tamanio_final;
     this.colorBandeja = this.setColor(this.maximo);
 
-    const valor = (this.maximo - this.pedido.total) / (this.maximo);
-    console.log(valor);
+    const valor = Math.abs((this.maximo - this.pedido.total) / (this.maximo));
+
+    const pendiente = this.pendientes - this.maximo;
+
+    console.log('salida calculo =>', valor);
+    if (valor > 1) {
+      this.valoratomar = this.maximo;
+      console.log('salida calculo =>', valor);
+
+    }
+    if (pendiente > 0) {
+      this.valoratomar = this.maximo;
+    } else {
+
+      this.valoratomar = this.maximo - (this.maximo - this.pendientes);
+
+    }
+
+
     // if (valor === 1) {
     //   this.valoratomar = 0;
 
@@ -166,13 +205,13 @@ export class CreardistribucionComponent implements OnInit {
 
 
     // } else {
-    if (this.maximo < (this.pedido.total - this.pendientes)) {
-      this.valoratomar = this.maximo; // (this.pedido.total - this.pendientes);
+    // if (this.maximo < (this.pedido.total - this.pendientes)) {
+    //   this.valoratomar = this.maximo; // (this.pedido.total - this.pendientes);
 
-    } else {
-      this.valoratomar = (this.pedido.total - this.pendientes);
+    // } else {
+    //   this.valoratomar = (this.pedido.total - this.pendientes);
 
-    }
+    // }
     // this.valoratomar = (this.pedido.total - this.pendientes);
 
     // }
@@ -180,12 +219,12 @@ export class CreardistribucionComponent implements OnInit {
   }
   onAdd(formulario) {
 
-    this.distribucionGuardar.bandejas = [] ;
+    this.distribucionGuardar.bandejas = [];
 
     this.distribucionGuardar.bandejas.push(...this.bandejasGuardar);
     this.bandejasGuardar = []
 
-    let json = JSON.stringify( this.distribucionGuardar);
+    let json = JSON.stringify(this.distribucionGuardar);
     console.log('datos', json);
 
     this.userService.storeDistribucion(this.distribucionGuardar).subscribe(
@@ -193,7 +232,7 @@ export class CreardistribucionComponent implements OnInit {
         this.distribucionGuardar.bandejas = [];
         // if (response.status !== 'error') {
 
-          this.passEntry.emit(response);
+        this.passEntry.emit(response);
 
         // }
       },

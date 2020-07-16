@@ -102,7 +102,7 @@ export class ViewComponent implements OnInit {
 
         if (response.status !== 'error') {
           this.cajas = [];
-
+          this.bandeja = [];
           this.cajas.push(...response.grupocajas);
           this.bandeja.push(...response.bandejas);
 
@@ -119,7 +119,7 @@ export class ViewComponent implements OnInit {
 
   open(): void {
     const modalRef = this.modalService
-      .open(CreardistribucionComponent, { size: 'lg', backdrop: 'static' },);
+      .open(CreardistribucionComponent, { size: 'lg', backdrop: 'static' });
     modalRef.componentInstance.pedido = this.pedido;
     modalRef.componentInstance.bandeja = this.bandeja;
     modalRef.componentInstance.cajas = this.cajas;
@@ -127,7 +127,7 @@ export class ViewComponent implements OnInit {
 
 
 
-    console.log('datos', this.cajas[0].cajas[0].id);
+
     modalRef.componentInstance.idCaja = this.cajas[0].cajas[0].id;
 
     modalRef.componentInstance.passEntry.subscribe((response) => {
@@ -145,7 +145,8 @@ export class ViewComponent implements OnInit {
 
 
 
-
+      this.obtenerListaDistribucion();
+      this.obtenerPedido();
 
 
 
@@ -166,8 +167,10 @@ export class ViewComponent implements OnInit {
 
   private getDismissReason(reason: any): string {
     if (reason === ModalDismissReasons.ESC) {
+
       return 'by pressing ESC';
     } else if (reason === ModalDismissReasons.BACKDROP_CLICK) {
+
       return 'by clicking on a backdrop';
     } else {
       return `with: ${reason}`;
