@@ -7,7 +7,7 @@ export interface PedidoUnico {
   adicional: number;
   reposicion: number;
   total: number;
-  genero_trazabilida: number;
+  genero_trazabilidad: number;
   created_at: string;
   updated_at: string;
 }

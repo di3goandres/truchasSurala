@@ -1,6 +1,6 @@
 {
   "/api/*": {
-    "target": "http://www.dummy-api-rest.com/",
+    "target": "http://dummy-api-rest.com/",
     "secure": false,
     "logLevel": "debug",
     "changeOrigin": false

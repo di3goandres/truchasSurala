@@ -226,6 +226,7 @@ export class CreardistribucionComponent implements OnInit {
         this.passEntry.emit(response);
       },
       error => {
+        console.log(error);
         this.distribucionGuardar.bandejas = []
       });
 

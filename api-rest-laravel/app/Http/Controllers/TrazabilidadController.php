@@ -249,7 +249,7 @@ class TrazabilidadController extends Controller {
 
         $lote->tamanio_usado = $lote->tamanio_usado + $tamanio;
         $lote->save();
-        $pedido->genero_trazabilida = 1;
+        $pedido->genero_trazabilidad = 1;
         $pedido->save();
         return $traza;
     }
@@ -322,9 +322,6 @@ class TrazabilidadController extends Controller {
                         'id_finca' => 'required|numeric',
                         'total_ovas_enviadas' => 'required|numeric',
             ]);
-
-
-
             if ($validate->fails())
             {
                 $data = array(
@@ -338,28 +335,21 @@ class TrazabilidadController extends Controller {
             else
             {
 
-
-
                 $pedido = Pedidos::find($params_array['id_pedido']);
                 if (!is_object($pedido))
                 {
                     $data = array(
                         'code' => 200,
-                        'status' => 'error',
-//                    'finca' => $pedido
+                        'status' => 'error'
                     );
                 }
                 else
                 {
                     $bandejas = $params_array['bandejas'];
-
-
                     $conteo = 1;
                     $idTraza = 0;
                     $cantidadGuardada = 0;
-
                     $ids = '';
-
                     $maximoLote = Lotes::where('id_despacho', '=', $pedido->id_despacho)->max('total_lote');
                     foreach ($bandejas as $bandeja)
                     {
@@ -379,18 +369,10 @@ class TrazabilidadController extends Controller {
                         {
                             $cantidadGuardada = 0;
                             $cantidadGuardada = $cantidadGuardada + $cantidad;
-
-
-//                            var_dump('cantidad Guardad: ' . $cantidadGuardada . ' Esto es el maximoLote: ' . $maximoLote);
+//                         var_dump('cantidad Guardad: ' . $cantidadGuardada . ' Esto es el maximoLote: ' . $maximoLote);
                             $idTraza = $this->GuardarTraza($pedido);
 //                            $ids = $ids . ',' . $idTraza;
                         }
-
-
-//                        var_dump('Conteo=>' . $cantidadGuardada);
-
-
-
                         $tbandeja = new TrazabilidadBandeja();
                         $tbandeja->id_bandeja_lote = $id;
                         $tbandeja->id_trazabilidad = $idTraza;
@@ -398,7 +380,7 @@ class TrazabilidadController extends Controller {
 
                         $tbandeja->save();
                     }
-                    $pedido->genero_trazabilida = true;
+                    $pedido->genero_trazabilidad = true;
                     $pedido->save();
                     //devolver array con resultado
                     $data = array(
