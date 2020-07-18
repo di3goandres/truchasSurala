@@ -42,8 +42,8 @@
 
           <!-- <td> <a [routerLink]="['/surala/despacho/', pedido.id]">Ver Trazabilidad</a></td> -->
 
-          <td *ngIf="pedido.genero_trazabilida" > <a [routerLink]="['/surala/distribucion/', pedido.id]">Ver Distribucion</a></td>
-          <td *ngIf="!pedido.genero_trazabilida" > <a [routerLink]="['/surala/distribucion/Generar', pedido.id]">Generar Distribucion</a></td>
+          <td *ngIf="pedido.genero_trazabilidad" > <a [routerLink]="['/surala/distribucion/', pedido.id]">Ver Distribucion</a></td>
+          <td *ngIf="!pedido.genero_trazabilidad" > <a [routerLink]="['/surala/distribucion/Generar', pedido.id]">Generar Distribucion</a></td>
 
 
 

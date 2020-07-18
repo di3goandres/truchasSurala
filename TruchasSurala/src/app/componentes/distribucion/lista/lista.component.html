@@ -5,10 +5,10 @@
         <thead>
           <tr>
             <th scope="col">#</th>
-            <th scope="col">Ovas facturadas</th>
-            <th scope="col">Ovas adicionales</th>
-            <th scope="col">Ovas Reposicion</th>
+          
             <th scope="col">Total Ovas en esta Distribucion </th>
+            <th scope="col">Trazabilidad</th>
+
 
 
 
@@ -19,11 +19,10 @@
         <tbody>
           <tr *ngFor="let distribucion of distribuciones ; let i = index">
             <th scope="row">{{i + 1}}</th>
-            <td>{{distribucion.ovas_facturadas}}</td>
-
-            <td>{{distribucion.ovas_adicionales}}</td>
-            <td>{{distribucion.ovas_reposicion | number}}</td>
+           
             <td>{{distribucion.total_ovas_enviadas | number}}</td>
+            <td> Ver Trazabilidad</td>
+
 
 
 

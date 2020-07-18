@@ -40,7 +40,7 @@ export interface Pedido {
   updated_at: string;
   nombre: string;
   despacho: Despacho;
-  genero_trazabilida: boolean;
+  genero_trazabilidad: boolean;
 }
 
 export interface PedidosRootObject {
