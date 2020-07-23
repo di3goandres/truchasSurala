@@ -64,8 +64,8 @@ class LoteController extends Controller {
                         'id_despacho' => 'required',
                         'fecha_desove' => 'required',
                         'linea_genetica' => 'required',
-                        'tamanio' => 'required|regex:/^\d+(\.\d{1,2})?$/',
-                        'ovasml' => 'required|regex:/^\d+(\.\d{1,2})?$/',
+                        'tamanio' => 'required|regex:/^\d+(\.\d{1,9})?$/',
+                        'ovasml' => 'required|regex:/^\d+(\.\d{1,9})?$/',
                         'total_lote' => 'required|numeric',
                         'numero_cajas' => 'required|numeric',
                         'edad' => 'required|numeric',
@@ -100,11 +100,12 @@ class LoteController extends Controller {
                 {
                     
                     
-                       $lotes=   Lotes::where('id_despacho','=', $params_array['id_despacho'])->get();
+                    $lotes=   Lotes::where('id_despacho','=', $params_array['id_despacho'])->get();
                     $countLotes =count( $lotes);
                     
                     for ($i = 1; $i <= $params_array['repetir']; $i++)
                     {
+                        $countLotes+=1;
                         $lote = new Lotes();
                         $lote->id_despacho = $params_array['id_despacho'];
                         $lote->fecha_desove = $params_array['fecha_desove'];
@@ -112,7 +113,7 @@ class LoteController extends Controller {
                         $lote->tamanio = $params_array['tamanio'];
                         $lote->ovas_ml = $params_array['ovasml'];
                         $lote->total_lote = $params_array['total_lote'];
-                        $lote->caja_numero = $countLotes+1;
+                        $lote->caja_numero = $countLotes;
                         $lote->numero_bandejas = $params_array['numero_cajas'];
                         $lote->edad_tcu = $params_array['edad'];
                         $lote->tamanio_usado = 0;

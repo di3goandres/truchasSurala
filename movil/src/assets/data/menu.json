@@ -1,0 +1,29 @@
+[
+    {
+      "icon": "home-outline",
+      "name": "Home",
+      "redirectTo": "/home"
+    },
+    {
+      "icon": "images-outline",
+      "name": "Fincas",
+      "redirectTo": "/fincas"
+    },
+    {
+      "icon": "archive-outline",
+      "name": "Pedidos",
+      "redirectTo": "/pedidos"
+    },
+    {
+      "icon": "book-outline",
+      "name": "Guia de Manejos",
+      "redirectTo": "/fincas"
+    },
+    {
+      "icon": "medkit-outline",
+      "name": "Medicamentos",
+      "redirectTo": "/pedidos"
+    }
+    
+  ]
+  

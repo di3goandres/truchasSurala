@@ -6,7 +6,7 @@ export class Cajas {
     // tslint:disable-next-line: variable-name
     public linea_genetica: string,
     // tslint:disable-next-line: variable-name
-    public numero_cajas: string,
+    public numero_cajas: number,
     // tslint:disable-next-line: variable-name
     public ovasml: number,
 

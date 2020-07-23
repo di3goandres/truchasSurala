@@ -17,6 +17,8 @@ export class AgregarcajaComponent implements OnInit {
   minDate: Date;
   maxDate: Date;
   caja: Cajas ;
+  size: number;
+  total_bandeja: number;
   status: string;
 
   myDateValue: Date;
@@ -38,7 +40,7 @@ export class AgregarcajaComponent implements OnInit {
     this.maxDate = new Date();
     this.minDate.setDate(this.minDate.getDate() - 240);
     this.maxDate.setDate(this.maxDate.getDate());
-    this.caja = new Cajas(this.idDespacho, this.idDespacho, '', '5', 0.0, 0.0, 0, 0, '', 1);
+    this.caja = new Cajas(this.idDespacho, this.idDespacho, '', 5, 0.0, 0.0, 0, 0, '', 1);
   }
 
   registrarCaja(formulario) {
@@ -67,6 +69,14 @@ export class AgregarcajaComponent implements OnInit {
     );
 
 
+  }
+
+  actualizar(){
+    this.caja.ovasml = (this.size * 33.8)/1000
+  }
+
+  actualizarBandeja(){
+    this.caja.total_lote = (this.total_bandeja * this.caja.numero_cajas)
   }
 
   onDateChange(newDate: Date): void {

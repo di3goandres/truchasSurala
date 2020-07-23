@@ -109,7 +109,7 @@ class UserController extends Controller {
             {
                 $signup = array(
                     'status' => 'error',
-                    'code' => 404,
+                    'code' => 200,
                     'message' => 'Los datos enviados no son correctos',
                     'errors' => $validate->errors()
                 );

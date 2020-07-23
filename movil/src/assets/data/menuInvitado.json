@@ -1,0 +1,14 @@
+[
+    {
+      "icon": "book-outline",
+      "name": "Guia de Manejos",
+      "redirectTo": "/fincas"
+    },
+    {
+      "icon": "medkit-outline",
+      "name": "Medicamentos",
+      "redirectTo": "/pedidos"
+    }
+    
+  ]
+  

@@ -16,8 +16,8 @@
           [(ngModel)]="user.email"
 
           pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$"/>
-        <small *ngIf="!email.valid && email.touched" class="invalid-feedback d-block">
-          Correo no valido
+        <small color="red" *ngIf="!email.valid && email.touched" class="invalid-feedback d-block">
+          Correo ingresado no valido
         </small>
       </div>
 

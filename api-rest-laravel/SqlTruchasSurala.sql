@@ -281,3 +281,8 @@ set tamanio_usado =0;
 
 update bandeja_lote
 set tamanio_final = tamanio_inicial;
+
+truncate table bandeja_lote;
+truncate table lotes;
+truncate table pedidos;
+truncate table despachos;

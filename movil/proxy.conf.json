@@ -1,0 +1,9 @@
+{
+  "/api/*": {
+    "target": "http://dummy-api-rest.com/",
+    "secure": false,
+    "logLevel": "debug",
+    "changeOrigin": false
+  }
+
+}

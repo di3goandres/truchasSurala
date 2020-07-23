@@ -1,0 +1,18 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>home</ion-title>
+    <ion-buttons slot="start">
+      <ion-button (click)="toggleMenu()">
+        <ion-icon slot="icon-only" name="menu"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-buttons>
+    <ion-buttons slot="start">
+      <ion-button color="primary" [routerLink]="['/logout/1']" >Cambiar Menu</ion-button>
+    </ion-buttons>
+  </ion-buttons>
+</ion-content>

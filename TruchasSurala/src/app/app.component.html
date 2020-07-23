@@ -86,7 +86,7 @@
             aria-haspopup="true"
             aria-expanded="false"
           >
-            {{identity.name + ' ' + identity.surname}}
+            {{identity.name + ' ' + identity.surname | uppercase}}
           </a>
           <div class="dropdown-menu" aria-labelledby="navbarDropdown">
             <a class="dropdown-item" routerLink='/surala/despacho/view'>Ver Despachos</a>
