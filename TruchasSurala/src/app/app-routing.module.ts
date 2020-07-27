@@ -13,6 +13,8 @@ import { CrearComponent } from './componentes/despacho/crear/crear.component';
 import { AgregarcajaComponent } from './componentes/despacho/agregarcaja/agregarcaja.component';
 import { PedidosComponent } from './componentes/despacho/pedidos/pedidos.component';
 import { ViewComponent } from './componentes/distribucion/view/view.component';
+import { TrazabilidadComponent } from './componentes/trazabilidades/trazabilidad/trazabilidad.component';
+import { TrazabilidadesComponent } from './componentes/trazabilidades/trazabilidades.component';
 
 
 
@@ -62,8 +64,9 @@ const routes: Routes = [
   { // rutas de despacho
     path: 'surala/distribucion/Generar/:id', component:  ViewComponent,
   },
-
-
+  { // rutas de despacho
+    path: 'surala/distribucion/ver/:id', component:  TrazabilidadesComponent,
+  },
  //
   {
     path: '**',

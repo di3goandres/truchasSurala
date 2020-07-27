@@ -11,6 +11,7 @@ import { User } from '../../models/users';
 import { environment } from '../../../environments/environment';
 import { Despachosroot } from '../../models/despacho';
 import { PedidosRootObject } from '../../models/pedidos';
+import { TopTrazabilidad } from '../../models/Trazabilidad';
 
 
 @Injectable({
@@ -110,7 +111,7 @@ export class UserService {
 
   // tslint:disable-next-line: typedef
   getDatosDistribucion(id) {
-    return this.ejecutarQuery< DatosDistribucion>('/api/Distribucion/Obtenerdatos/' + id);
+    return this.ejecutarQuery<DatosDistribucion>('/api/Distribucion/Obtenerdatos/' + id);
   }
   // tslint:disable-next-line: typedef
   getPedidoActual(id) {
@@ -119,13 +120,12 @@ export class UserService {
   // tslint:disable-next-line: typedef
   getDespachos() {
 
-    // this.json = JSON.stringify(id);
-    // this.header = new HttpHeaders().set('Authorization', this.token);
-    // return this.http.get('/api/Despacho/'  + id, { headers: this.header });
-
     return this.ejecutarQuery<DespachoRootObject>('/api/Despacho/');
 
+  }
 
+  getTrazabilidad(id) {
+    return this.ejecutarQuery<TopTrazabilidad>('/api/Distribucion/' + id);
   }
 
   // tslint:disable-next-line: typedef

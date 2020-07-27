@@ -1,0 +1,23 @@
+/* img {
+    width: 100px;
+    height: 50px;
+} */
+
+.example-card {
+    max-width: 100%;
+  }
+
+.example-header-image {
+    background-image: url('/assets/logo/Logo_Surala.png');
+    background-size: cover;
+    width: 77px;
+    height: 50px;
+    border-radius: 14%;
+  }
+
+  .center {
+    margin: auto !important;
+    width: 50% !important;
+    font-weight: bold;
+    padding: 10px;
+  }

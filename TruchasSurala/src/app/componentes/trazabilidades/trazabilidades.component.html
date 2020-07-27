@@ -1,0 +1,22 @@
+<!-- 
+<mat-grid-list cols="1" rowHeight="2:1" >    
+    <mat-grid-tile *ngFor="let item of distribucion">
+       <br>
+
+        <mat-divider></mat-divider>
+   
+       <app-trazabilidad [traza]="item" style="width: 400px;"> 
+       </app-trazabilidad>
+       <br>
+       <mat-divider></mat-divider>
+    </mat-grid-tile>
+</mat-grid-list> -->
+
+
+<mat-tab-group class="center">
+    <mat-tab *ngFor="let item of distribucion; let i = index " label={{i+1}}>
+        <app-trazabilidad [traza]="item" style="width: 100%;"> 
+        </app-trazabilidad>
+    </mat-tab>
+ 
+  </mat-tab-group>

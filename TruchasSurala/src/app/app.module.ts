@@ -18,7 +18,7 @@ import { DespachosComponent } from './componentes/despachos/despachos.component'
 import { BandejascajaComponent } from './componentes/bandejascaja/bandejascaja.component';
 import { CrearComponent } from './componentes/despacho/crear/crear.component';
 
-import {MatSelectModule} from '@angular/material/select';
+import { MatSelectModule } from '@angular/material/select';
 
 
 // Datepicker module
@@ -32,6 +32,10 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { MatCardModule } from '@angular/material/card';
 import { MatInputModule } from '@angular/material/input';
 import { MatIconModule } from '@angular/material/icon';
+import { MatGridListModule } from '@angular/material/grid-list';
+import {MatDividerModule} from '@angular/material/divider';
+
+import {MatTabsModule} from '@angular/material/tabs';
 
 
 import { PedidosComponent } from './componentes/despacho/pedidos/pedidos.component';
@@ -41,6 +45,8 @@ import { ListaComponent } from './componentes/distribucion/lista/lista.component
 import { ViewComponent } from './componentes/distribucion/view/view.component';
 import { CreardistribucionComponent } from './componentes/distribucion/creardistribucion/creardistribucion.component';
 import { SortByPipePipe } from './pipes/sort-by-pipe.pipe';
+import { TrazabilidadesComponent } from './componentes/trazabilidades/trazabilidades.component';
+import { TrazabilidadComponent } from './componentes/trazabilidades/trazabilidad/trazabilidad.component';
 
 @NgModule({
   declarations: [
@@ -63,6 +69,8 @@ import { SortByPipePipe } from './pipes/sort-by-pipe.pipe';
     ViewComponent,
     CreardistribucionComponent,
     SortByPipePipe,
+    TrazabilidadesComponent,
+    TrazabilidadComponent
 
   ],
   imports: [
@@ -75,7 +83,10 @@ import { SortByPipePipe } from './pipes/sort-by-pipe.pipe';
     MatSelectModule,
     MatCardModule,
     MatInputModule,
-    MatIconModule
+    MatIconModule,
+    MatGridListModule,
+    MatDividerModule,
+    MatTabsModule
 
 
   ],

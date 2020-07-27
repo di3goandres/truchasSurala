@@ -1,0 +1,140 @@
+<mat-card class="example-card">
+    <mat-card-header>
+        <div mat-card-avatar class="example-header-image"></div>
+        <mat-card-title>1. Plan de Control</mat-card-title>
+        <mat-card-subtitle>1.3 Programa de Trazabilidad</mat-card-subtitle>
+        <!-- <img mat-card-image src="/assets/logo/Logo_Surala.png" alt="Photo of a Shiba Inu"> -->
+
+    </mat-card-header>
+    <mat-card-content>
+        <div class="container">
+            <div class="row">
+                <div class="col-6">
+                    <label>Fecha Entrega</label>
+                </div>
+                <div class="col-6">
+                    <label>{{contacto.FechaEntrega }}</label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-6">
+                    <label>Cliente</label>
+                </div>
+                <div class="col-6">
+                    <label>{{contacto.Cliente | uppercase}}</label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-6">
+                    <label>Destino</label>
+                </div>
+                <div class="col-6">
+                    <label>{{contacto.Destino }}</label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-6">
+                    <label>Remision</label>
+                </div>
+                <div class="col-6">
+                    <label>{{contacto.Remision | uppercase}}</label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="center">
+                    <label>TRAZABILIDAD DEL LOTE</label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-6">
+                    <label>Lote #</label>
+                </div>
+                <div class="col-6">
+                    <label>{{Lote}}</label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-6">
+                    <label>FECHA DESOVE</label>
+                </div>
+                <div class="col-6">
+                    <label>{{Fecha}}</label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-6">
+                    <label>LINEA GENETICA</label>
+                </div>
+                <div class="col-6">
+                    <label>{{lineaGenetica}}</label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-6">
+                    <label>EDAD (TCU)</label>
+                </div>
+                <div class="col-6">
+                    <label>{{edad}}</label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-6">
+                    <label>TAMAÑO OVA (mm)</label>
+                </div>
+                <div class="col-6">
+                    <label>{{Tamanio}}</label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-6">
+                    <label>OVAS/ml</label>
+                </div>
+                <div class="col-6">
+                    <label>{{ovas_ml}}</label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="center">
+                    <label>INFORMACIÓN DEL DESPACHO</label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-6">
+                    <label>#OVAS FACTURADAS</label>
+                </div>
+                <div class="col-6">
+                    <label>{{Facturado | number}}</label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-6">
+                    <label>#OVAS ADICIONALES</label>
+                </div>
+                <div class="col-6">
+                    <label>{{Facturado | number}}</label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-6">
+                    <label>#OVAS REPOSICION</label>
+                </div>
+                <div class="col-6">
+                    <label>{{Facturado | number}}</label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-6">
+                    <label>#OVAS DESPACHADAS</label>
+                </div>
+                <div class="col-6">
+                    <label>{{Facturado | number}}</label>
+                </div>
+            </div>
+        </div>
+     
+    </mat-card-content>
+    <mat-card-actions>
+        <button mat-button>LIKE</button>
+        <button mat-button>SHARE</button>
+    </mat-card-actions>
+</mat-card>

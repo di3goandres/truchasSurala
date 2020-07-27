@@ -286,3 +286,75 @@ truncate table bandeja_lote;
 truncate table lotes;
 truncate table pedidos;
 truncate table despachos;
+
+
+
+DELIMITER //
+
+CREATE PROCEDURE verTrazabilidadPedido (
+  IN idPedido INT(255)
+)
+BEGIN
+    SELECT 
+           
+           tra.id idtrazabilidad,
+           fincas.id_municipio, 
+           fincas.direccion,
+           fincas.nombre,
+           tra.id_pedido,
+           tra.id_finca,
+           tra.remision, 
+           tra.total_ovas_enviadas,
+           tra.nombre_reclama,
+           tra.tipo_identificacion_reclama,
+           tra.numero_identificacion_reclama,
+           tra.telefono_reclama,
+           tbandeja.id_trazabilidad,
+           tbandeja.id_bandeja_lote,
+           tbandeja.cantidad 
+FROM trazabilidad tra
+    left join pedidos ped on ped.id = tra.id_pedido
+    left join trazabilidad_bandejas tbandeja on tbandeja.id_trazabilidad = tra.id
+    left join fincas on fincas.id = ped.id_finca
+
+    where id_pedido = idPedido;
+//
+
+DELIMITER //
+
+CREATE PROCEDURE verLoteTrazabilidad (
+  IN idTrazabilidad INT(255)
+)
+BEGIN
+SELECT 
+fecha_desove,
+ linea_genetica,
+ numero_lote,
+ edad_tcu,
+ tamanio FROM Lotes
+ where id in 
+  (SELECT bl.id_lote 
+    FROM trazabilidad t 
+    left join trazabilidad_bandejas tb on tb.id_trazabilidad = t.id 
+    left join bandeja_lote bl on bl.id = tb.id_bandeja_lote
+     WHERE t.id = idTrazabilidad);
+end;
+//
+
+
+DELIMITER //
+
+CREATE PROCEDURE ObtenerCajas (
+  IN idTrazabilidad INT(255)
+)
+BEGIN
+SELECT bl.numero_bandeja, tb.cantidad, bl.id_lote, l.caja_numero
+    FROM trazabilidad t 
+    left join trazabilidad_bandejas tb on tb.id_trazabilidad = t.id 
+    left join bandeja_lote bl on bl.id = tb.id_bandeja_lote
+    left join lotes l on l.id = bl.id_lote
+    WHERE t.id = idTrazabilidad;
+
+
+END
+//
