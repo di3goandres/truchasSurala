@@ -8,126 +8,151 @@
     </mat-card-header>
     <mat-card-content>
         <div class="container">
+         
             <div class="row">
-                <div class="col-6">
+                <div class="col-6 text-center">
                     <label>Fecha Entrega</label>
                 </div>
-                <div class="col-6">
+                <div class="col-6 text-center">
                     <label>{{contacto.FechaEntrega }}</label>
                 </div>
             </div>
             <div class="row">
-                <div class="col-6">
+                <div class="col-6 text-center">
                     <label>Cliente</label>
                 </div>
-                <div class="col-6">
+                <div class="col-6 text-center">
                     <label>{{contacto.Cliente | uppercase}}</label>
                 </div>
             </div>
             <div class="row">
-                <div class="col-6">
+                <div class="col-6 text-center">
                     <label>Destino</label>
                 </div>
-                <div class="col-6">
+                <div class="col-6 text-center">
                     <label>{{contacto.Destino }}</label>
                 </div>
             </div>
             <div class="row">
-                <div class="col-6">
+                <div class="col-6 text-center">
                     <label>Remision</label>
                 </div>
-                <div class="col-6">
+                <div class="col-6 text-center">
                     <label>{{contacto.Remision | uppercase}}</label>
                 </div>
             </div>
             <div class="row">
-                <div class="center">
+                <div class="text-center center">
                     <label>TRAZABILIDAD DEL LOTE</label>
                 </div>
             </div>
             <div class="row">
-                <div class="col-6">
+                <div class="col-6 text-center">
                     <label>Lote #</label>
                 </div>
-                <div class="col-6">
+                <div class="col-6 text-center">
                     <label>{{Lote}}</label>
                 </div>
             </div>
             <div class="row">
-                <div class="col-6">
+                <div class="col-6 text-center">
                     <label>FECHA DESOVE</label>
                 </div>
-                <div class="col-6">
+                <div class="col-6 text-center">
                     <label>{{Fecha}}</label>
                 </div>
             </div>
             <div class="row">
-                <div class="col-6">
+                <div class="col-6 text-center">
                     <label>LINEA GENETICA</label>
                 </div>
-                <div class="col-6">
+                <div class="col-6 text-center">
                     <label>{{lineaGenetica}}</label>
                 </div>
             </div>
             <div class="row">
-                <div class="col-6">
+                <div class="col-6 text-center">
                     <label>EDAD (TCU)</label>
                 </div>
-                <div class="col-6">
+                <div class="col-6 text-center">
                     <label>{{edad}}</label>
                 </div>
             </div>
             <div class="row">
-                <div class="col-6">
+                <div class="col-6 text-center">
                     <label>TAMAÑO OVA (mm)</label>
                 </div>
-                <div class="col-6">
+                <div class="col-6 text-center">
                     <label>{{Tamanio}}</label>
                 </div>
             </div>
             <div class="row">
-                <div class="col-6">
+                <div class="col-6 text-center">
                     <label>OVAS/ml</label>
                 </div>
-                <div class="col-6">
+                <div class="col-6 text-center">
                     <label>{{ovas_ml}}</label>
                 </div>
             </div>
             <div class="row">
-                <div class="center">
+                <div class="center text-center">
                     <label>INFORMACIÓN DEL DESPACHO</label>
                 </div>
             </div>
             <div class="row">
-                <div class="col-6">
+                <div class="col-6 text-center">
                     <label>#OVAS FACTURADAS</label>
                 </div>
-                <div class="col-6">
-                    <label>{{Facturado | number}}</label>
+                <div class="col-6 text-center">
+                    <label>{{contacto.Facturado | number}}</label>
                 </div>
             </div>
             <div class="row">
-                <div class="col-6">
+                <div class="col-6 text-center">
                     <label>#OVAS ADICIONALES</label>
                 </div>
-                <div class="col-6">
-                    <label>{{Facturado | number}}</label>
+                <div class="col-6 text-center">
+                    <label>{{contacto.Adicionales | number}}</label>
                 </div>
             </div>
             <div class="row">
-                <div class="col-6">
+                <div class="col-6 text-center">
                     <label>#OVAS REPOSICION</label>
                 </div>
-                <div class="col-6">
-                    <label>{{Facturado | number}}</label>
+                <div class="col-6 text-center">
+                    <label>{{contacto.Reposicion | number}}</label>
                 </div>
             </div>
             <div class="row">
-                <div class="col-6">
+                <div class="col-6 text-center">
                     <label>#OVAS DESPACHADAS</label>
                 </div>
-                <div class="col-6">
-                    <label>{{Facturado | number}}</label>
+                <div class="col-6 text-center">
+                    <label>{{contacto.Total | number}}</label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-6 text-center">
+                    <label>BANDEJA #</label>
+                </div>
+                <div class="col-6 text-center">
+                    <label># DE OVAS</label>
+                </div>
+            </div>
+            <div class="row" *ngFor="let item of bandejas; let i = index">
+                <div class="col-6 text-center">
+                    <label>#{{i +1}}</label>
+                </div>
+                <div class="col-6 text-center">
+                    <label>{{item.Cantidad | number}}</label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-6 text-center">
+                    <label>TOTAL OVAS EN ESTA CAJA</label>
+                </div>
+                <div class="col-6 text-center">
+                    <label>{{contacto.Total_enviado | number}}</label>
                 </div>
             </div>
         </div>

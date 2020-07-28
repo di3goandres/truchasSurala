@@ -247,7 +247,6 @@ class TrazabilidadController extends Controller {
 
 //        var_dump($distribuciones);
         // con este valor se arman las bandejas
-
         if (is_array($distribuciones) && count($distribuciones) > 0) {
             $pedido = Pedidos::find($id);
 
@@ -255,7 +254,7 @@ class TrazabilidadController extends Controller {
             $Trazabilidades = Trazabilidad::where('id_pedido', '=', $id)->get();
 
             foreach ($Trazabilidades as $trazabilidad) {
-
+                $tnum = 0;
                 $cajas = \DB::select('call ObtenerCajas(?)', array($trazabilidad->id));
                 foreach ($cajas as $caja) {
                     $infoDespacho[$bandejas]['Cantidad'] = $caja->cantidad;
@@ -264,14 +263,28 @@ class TrazabilidadController extends Controller {
                     $bandejas += 1;
                 }
                 $bandejas = 0;
+                $contacto['Remision'] = $trazabilidad->remision;
 
                 foreach ($distribuciones as $distribucion) {
                     if ($tnum === 0) {
+                        $maximoLote = \DB::select('select max(bl.tamanio_inicial)  maximo from despachos d
+                                                    left join lotes l on l.id_despacho = d.id
+                                                    left join bandeja_lote bl on bl.id_lote = l.id
+                                                    where d.id = ?', array($distribucion->id_despacho))[0];
+
                         $contacto['FechaEntrega'] = $distribucion->fecha; // del pedido mas un dia
                         $contacto['Cliente'] = $distribucion->name . ' ' . $distribucion->surname; // del dueño de la finca tabela usuarios
                         $contacto['Destino'] = $distribucion->id_municipio; // ubicacion de la finca/ Municipio departamento
                         $contacto['Finca'] = $distribucion->nombre;
-                        $contacto['Remision'] = $distribucion->remision; // ubicacion de la finca/ Municipio departamento  
+                       // ubicacion de la finca/ Municipio departamento  
+                        $contacto['Facturado'] = $distribucion->Facturadas;
+                        $contacto['Adicionales'] = $distribucion->Adicionales;
+                        $contacto['Reposicion'] = $distribucion->Repo;
+                        $contacto['Total'] = $distribucion->TotalPedido;
+                        $contacto['Total_enviado'] = $trazabilidad->total_ovas_enviadas;
+                        $contacto['Maximo'] = $maximoLote->maximo;
+
+
 // ubicacion de la finca/ Municipio departamento  
                     }
 
@@ -280,15 +293,14 @@ class TrazabilidadController extends Controller {
                         foreach ($lotes as $lote) {
                             $bagrupada[$tnum]['NumLote'] = $lote->numero_lote;
                             $bagrupada[$tnum]['Fechadesove'] = $lote->fecha_desove;
-
                             $bagrupada[$tnum]['LineaGenetica'] = $lote->linea_genetica;
                             $bagrupada[$tnum]['edad'] = $lote->edad_tcu;
                             $bagrupada[$tnum]['tamanio'] = $lote->tamanio;
                             $bagrupada[$tnum]['ovas_ml'] = $lote->ovas_ml;
-                            $bagrupada[$tnum]['Facturado'] = $distribucion->Facturadas;
-                            $bagrupada[$tnum]['Adicionales'] = $distribucion->Adicionales;
-                            $bagrupada[$tnum]['Reposicion'] = $distribucion->Repo;
-                            $bagrupada[$tnum]['Total'] = $distribucion->TotalPedido;
+//                            $bagrupada[$tnum]['Facturado'] = $distribucion->Facturadas;
+//                            $bagrupada[$tnum]['Adicionales'] = $distribucion->Adicionales;
+//                            $bagrupada[$tnum]['Reposicion'] = $distribucion->Repo;
+//                            $bagrupada[$tnum]['Total'] = $distribucion->TotalPedido;
                         }
                     }
                     $tnum += 1;
@@ -296,12 +308,14 @@ class TrazabilidadController extends Controller {
                 $Trazabilidad[$inicial]['contacto'] = $contacto;
                 $Trazabilidad[$inicial]['trazabilidad'] = $bagrupada;
                 $Trazabilidad[$inicial]['InfoDespacho'] = $infoDespacho;
+
+                $contacto =[];
                 $infoDespacho = [];
 
                 $inicial += 1;
-                $tnum = 0;
+                $tnum = $tnum - $tnum;
             }
-//            $maximoLote = Lotes::where('id_despacho', '=', $pedido->id_despacho)->max('total_lote');
+//         
             $data = ['code' => 200,
                 'status' => 'success',
                 'distribucion' => $Trazabilidad,

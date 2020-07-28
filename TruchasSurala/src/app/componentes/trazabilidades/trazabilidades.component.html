@@ -14,8 +14,8 @@
 
 
 <mat-tab-group class="center">
-    <mat-tab *ngFor="let item of distribucion; let i = index " label={{i+1}}>
-        <app-trazabilidad [traza]="item" style="width: 100%;"> 
+    <mat-tab *ngFor="let item of distribucion; let i = index " [label]="item.contacto.Remision">
+        <app-trazabilidad [traza]="item"> 
         </app-trazabilidad>
     </mat-tab>
  

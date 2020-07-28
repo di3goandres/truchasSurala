@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { DistribucionTrazabilidad, Contacto } from '../../../models/Trazabilidad';
+import { DistribucionTrazabilidad, Contacto, InfoDespacho } from '../../../models/Trazabilidad';
 
 @Component({
   selector: 'app-trazabilidad',
@@ -9,6 +9,7 @@ import { DistribucionTrazabilidad, Contacto } from '../../../models/Trazabilidad
 export class TrazabilidadComponent implements OnInit {
 
   @Input() traza: DistribucionTrazabilidad;
+  bandejas: InfoDespacho[];
   contacto: Contacto;
   Lote: string;
   Fecha: string;
@@ -16,12 +17,12 @@ export class TrazabilidadComponent implements OnInit {
   edad:number;
   Tamanio: number;
   ovas_ml: number;
-  Facturado: number;
   constructor() { }
 
   ngOnInit(): void {
     
     this.contacto = this.traza.contacto;
+    this.bandejas = this.traza.InfoDespacho;
     this.traza.trazabilidad.forEach(info => {
       this.Lote = info.NumLote;
       this.Fecha= info.Fechadesove;
@@ -29,7 +30,7 @@ export class TrazabilidadComponent implements OnInit {
       this.edad = info.edad;
       this.Tamanio = info.tamanio;
       this.ovas_ml = info.ovas_ml
-      this.Facturado = info.Facturado
+      
     });
   }
 

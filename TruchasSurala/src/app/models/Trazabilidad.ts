@@ -24,6 +24,12 @@ export class Contacto {
     Destino:      number;
     Finca:        string;
     Remision:     string;
+    Facturado:    number;
+    Adicionales:  number;
+    Reposicion:   number;
+    Total:        number;
+    Total_enviado:number;
+    Maximo:       number;
 }
 
 export class Trazabilidad {
@@ -33,8 +39,5 @@ export class Trazabilidad {
     edad:          number;
     tamanio:       number;
     ovas_ml:       number;
-    Facturado:     number;
-    Adicionales:   number;
-    Reposicion:    number;
-    Total:         number;
+
 }
