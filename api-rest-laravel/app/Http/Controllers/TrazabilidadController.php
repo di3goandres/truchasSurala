@@ -193,6 +193,34 @@ class TrazabilidadController extends Controller {
     private function generarTrazasLote($pedido, $lote, $primeraVez, $traza, $bandeja, $tamanio) {
         if ($primeraVez) {
 
+            
+            /// CONSEGUIR EL CONSECUTIVO REMISION
+            
+            /*
+                BEGIN
+
+                    declare REMISION varchar(500);
+
+                    update parametros
+                    set valor = CONVERT(valor, integer) + 1
+                    WHERE  tipo_parametro = 'remision';
+
+                    SELECT  VALOR INTO REMISION FROM parametros WHERE 
+                    tipo_parametro = 'remision' ;
+
+
+
+                    update trazabilidad
+                    set remision = REMISION + DATE_FORMAT(NOW(), '%y')
+                    where id = new.id;
+
+                END
+                             *              */
+            
+            $remision = \DB::select('call ObtenerRemision()');
+            
+        
+
             $traza = new Trazabilidad();
             $traza->id_finca = $pedido->id_finca;
             $traza->id_pedido = $pedido->id;
@@ -203,7 +231,7 @@ class TrazabilidadController extends Controller {
             $traza->ovas_adicionales = $pedido->adicional;
             $traza->ovas_facturadas = $pedido->pedido;
             $traza->ovas_reposicion = $pedido->reposicion;
-            $traza->remision = 'Remision';
+            $traza->remision = $remision[0]->valor;
 // se debe crear un consecutivo por medio de algun sp que consulte cual es siguiente
 
             $traza->total_ovas_enviadas = 0;
@@ -335,11 +363,14 @@ class TrazabilidadController extends Controller {
     }
 
     private function GuardarTraza($pedido) {
+        
+        $remision = \DB::select('call ObtenerRemision()');
+        
         $traza = new Trazabilidad();
         $traza->id_finca = $pedido->id_finca;
         $traza->id_pedido = $pedido->id;
         $traza->nombre_reclama = 'pendiente';
-        $traza->remision = 'Remision';
+        $traza->remision = $remision[0]->valor;
         $traza->nombre_reclama = 'pendiente';
 // se debe crear un consecutivo por medio de algun sp que consulte cual es siguiente o al momento de guardar
         $traza->total_ovas_enviadas = 0; //$params_array['total_ovas_enviadas'];
@@ -350,6 +381,10 @@ class TrazabilidadController extends Controller {
     }
 
     public function store(Request $request) {
+        
+//        $remision = \DB::select('call ObtenerRemision()');
+//        var_dump($remision[0]->valor);
+//        die();
         //recoger los datos por post 
         $json = $request->input('json', null);
 

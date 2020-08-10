@@ -33,6 +33,7 @@ export class LoginComponent implements OnInit {
 
 
   onLogin(formulario): void {
+    this.status = '';
 
     this.userService.loginUser(this.user).subscribe(
       response => {

@@ -1,30 +1,50 @@
 <div class="container">
   <!--Contendor principal-->
   <br />
-  <nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <img
-      src="../assets//logo/Logo_Surala.png"
-      width="100"
-      height="50"
-      alt=""
-      loading="lazy"
-    />
 
-    <a class="navbar-brand" routerLink='/surala/home' >Truchas Surala</a>
-    <button
-      class="navbar-toggler"
-      type="button"
-      data-toggle="collapse"
-      data-target="#navbarSupportedContent"
-      aria-controls="navbarSupportedContent"
-      aria-expanded="false"
-      aria-label="Toggle navigation"
-    >
+  <mat-menu #menu="matMenu">
+    <button mat-menu-item routerLink='/surala/despacho/create'>
+      <mat-icon>arrow_right_alt</mat-icon>
+      <span>Crear Proximo Pedido</span>
+    </button>
+    <button mat-menu-item routerLink='/surala/despacho/view'>
+      <mat-icon>voicemail</mat-icon>
+      <span>Ver Despachos</span>
+    </button>
+    <button mat-menu-item>
+      <mat-icon>notifications_off</mat-icon>
+      <span>Disable alerts</span>
+    </button>
+  </mat-menu>
+  <mat-toolbar class="surala-azul">
+    <button  [matMenuTriggerFor]="menu"  mat-icon-button class="example-icon" aria-label="Example icon-button with menu icon">
+      <mat-icon>menu</mat-icon>
+
+    </button>
+    <img src="../assets//logo/Logo_Surala.png" width="100" height="50" alt="" loading="lazy" />
+    <span class="example-spacer"></span>
+
+    <span>Truchas Surala</span>
+    <span class="example-spacer"></span>
+    <button mat-icon-button class="example-icon favorite-icon" aria-label="Example icon-button with heart icon">
+      <mat-icon>favorite</mat-icon>
+    </button>
+    <button mat-icon-button class="example-icon" aria-label="Example icon-button with share icon">
+      <mat-icon>share</mat-icon>
+    </button>
+    <img src="../assets//logo/banner1.png" width="100px" height="50px" alt="" loading="lazy" />
+  </mat-toolbar>
+  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <img src="../assets//logo/Logo_Surala.png" width="100" height="50" alt="" loading="lazy" />
+
+    <a class="navbar-brand" routerLink='/surala/home'>Truchas Surala</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+      aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
 
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul class="navbar-nav mr-auto" *ngIf="identity && identity.name" >
+      <ul class="navbar-nav mr-auto" *ngIf="identity && identity.name">
         <!-- <li class="nav-item active">
           <a class="nav-link" routerLink='/surala/home'
             >Home <span class="sr-only">(current)</span></a
@@ -32,15 +52,8 @@
         </li> -->
 
         <li class="nav-item dropdown">
-          <a
-            class="nav-link dropdown-toggle"
-            href="#"
-            id="navbarDropdownDespacho"
-            role="button"
-            data-toggle="dropdown"
-            aria-haspopup="true"
-            aria-expanded="false"
-          >
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownDespacho" role="button" data-toggle="dropdown"
+            aria-haspopup="true" aria-expanded="false">
             Despachos
           </a>
           <div class="dropdown-menu" aria-labelledby="navbarDropdown">
@@ -59,15 +72,13 @@
           <a class="nav-link" href="#">Aeropuertos</a>
         </li>
       </ul>
-      <ul class="navbar-nav mr-auto" *ngIf="!identity" >
+      <ul class="navbar-nav mr-auto" *ngIf="!identity">
         <li class="nav-item active">
-          <a class="nav-link" routerLink='/surala/visitante'
-            >Inicio <span class="sr-only">(current)</span></a
-          >
+          <a class="nav-link" routerLink='/surala/visitante'>Inicio <span class="sr-only">(current)</span></a>
         </li>
 
       </ul>
-      <ul class="navbar-nav navbar-right" *ngIf="!identity" >
+      <ul class="navbar-nav navbar-right" *ngIf="!identity">
         <li class="nav-item active">
           <a class="nav-link" routerLink='/surala/login'>Login</a>
         </li>
@@ -75,17 +86,10 @@
           <a class="nav-link" routerLink='/surala/register'>Registrate</a>
         </li>
       </ul>
-      <ul class="navbar-nav navbar-right" *ngIf="identity && identity.name" >
+      <ul class="navbar-nav navbar-right" *ngIf="identity && identity.name">
         <li class="nav-item dropdown">
-          <a
-            class="nav-link dropdown-toggle"
-            href="#"
-            id="navbarDropdown"
-            role="button"
-            data-toggle="dropdown"
-            aria-haspopup="true"
-            aria-expanded="false"
-          >
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
+            aria-haspopup="true" aria-expanded="false">
             {{identity.name + ' ' + identity.surname | uppercase}}
           </a>
           <div class="dropdown-menu" aria-labelledby="navbarDropdown">
@@ -121,9 +125,9 @@
     </div>
   </nav>
 
- <router-outlet>
-  <!-- <main id="logout-button-holder">
+  <router-outlet>
+    <!-- <main id="logout-button-holder">
     <button mat-raised-button id="logout-button" (click)="openModal()">Logout</button>
 </main> -->
- </router-outlet>
+  </router-outlet>
 </div>

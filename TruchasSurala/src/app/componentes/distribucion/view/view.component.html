@@ -1,6 +1,6 @@
 <div class="container">
 
-<br>
+  <br>
   <div *ngIf="pedido">
     <mat-card>
       <mat-card-title>Pedido</mat-card-title>
@@ -11,7 +11,7 @@
             <div class="col">
               <label>Pedido => {{pedido.pedido | number}}</label>
             </div>
-             <div class="col">
+            <div class="col">
               <label>Adicional => {{pedido.porcentaje | number}}%</label>
             </div>
             <div class="col">
@@ -21,22 +21,22 @@
           <div class="row">
             <div class="col">
               <label>Reposicion => {{pedido.reposicion | number}}</label>
-  
+
             </div>
-          
+
             <div class="col">
-  
-  
-             </div>
-  
+
+
+            </div>
+
           </div>
         </div>
-  
+
         <br>
       </mat-card-content>
-  
+
     </mat-card>
-  
+
     <div class="row" style="align-content: center;margin: auto;">
       <div class="col-4"></div>
 
@@ -46,10 +46,13 @@
           <button mat-raised-button id="logout-button" class="btn btn-primary btn-block" style="width:50%"
             (click)="open()">Agregar Distribucion</button>
         </div>
-       
+
 
       </div>
       <div class="col-3"></div>
+       <span><a *ngIf="pedido.genero_trazabilidad" [routerLink]="['/surala/distribucion/ver/', pedido.id]">
+        Ver Trazabilidad </a>
+       </span>
       <label *ngIf="pedido.genero_trazabilidad" color="red">Ya generaste distribución</label>
     </div>
   </div>
@@ -61,5 +64,5 @@
     </div>
   </ng-template>
 
-  <app-lista [distribuciones]="distribuciones"></app-lista>
+  <app-lista [idPedido]="id"></app-lista>
 </div>

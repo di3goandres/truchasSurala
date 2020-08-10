@@ -1,6 +1,6 @@
 <div class="col-md-12 mt-2">
   <h1>{{ title }}</h1>
-
+<form>
   <mat-card>
     <mat-card-title>Pedido</mat-card-title>
     <mat-card-subtitle>Total Pedido {{pedido.total | number}}</mat-card-subtitle>
@@ -54,7 +54,7 @@
                 <mat-select stlye="z-index: 99999 !important;" (selectionChange)="onChange($event.value)"
                   [disabled]="pendientes==0" focused="true" [(value)]="idCaja">
                   <mat-optgroup *ngFor="let group of cajas" label='Linea genetica {{group.name}}'>
-                    <mat-option *ngFor="let item of group.cajas" [value]="item.id" [disabled]="item.habilitado">
+                    <mat-option *ngFor="let item of group.cajas" [value]="item.id" [disabled]="!item.habilitado">
                       Caja # {{ item.caja_numero}}
                     </mat-option>
                   </mat-optgroup>
@@ -94,7 +94,9 @@
                 <mat-label>Cantidad a tomar</mat-label>
                 <mat-icon matSuffix>sentiment_very_satisfied</mat-icon>
 
-                <input matInput placeholder="Tomar de la bandeja" [(ngModel)]='valoratomar' type="number" [max]='maximo'
+                <input matInput placeholder="Tomar de la bandeja" 
+                (change)="algoCambio()"
+                [(ngModel)]='valoratomar' type="number" [max]="maximo"
                   [disabled]="pendientes==0" name="cantidaTomar">
 
 
@@ -157,5 +159,5 @@
       </form>
     </article>
   </div>
-
+</form>
 </div>

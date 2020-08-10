@@ -12,6 +12,7 @@ import { environment } from '../../../environments/environment';
 import { Despachosroot } from '../../models/despacho';
 import { PedidosRootObject } from '../../models/pedidos';
 import { TopTrazabilidad } from '../../models/Trazabilidad';
+import { DistribucionResponse } from '../../models/distribucion.response';
 
 
 @Injectable({
@@ -45,7 +46,7 @@ export class UserService {
   // tslint:disable-next-line: typedef
   private ejecutarQuery<T>(query: string) {
     this.header = new HttpHeaders().set('Authorization', this.token);
-    return this.http.get<T>(query, { headers: this.header });
+    return this.http.get<T>(this.url  + query, { headers: this.header });
 
   }
 
@@ -53,7 +54,7 @@ export class UserService {
   private ejecutarQueryPost(query: string, params: string) {
     this.header = new HttpHeaders().set('Authorization', this.token)
       .set('Content-Type', 'application/x-www-form-urlencoded');
-    return this.http.post(query, params, { headers: this.header });
+    return this.http.post(this.url  + query, params, { headers: this.header });
 
   }
 
@@ -62,7 +63,7 @@ export class UserService {
 
     this.json = JSON.stringify(despacho);
     this.params = 'json=' + this.json;
-    return this.ejecutarQueryPost('api/Despacho', this.params);
+    return this.ejecutarQueryPost('/api/Despacho', this.params);
 
   }
 
@@ -105,7 +106,7 @@ export class UserService {
 
   // tslint:disable-next-line: typedef
   getDistribucion(id) {
-    return this.ejecutarQuery<DistribucionRootObject>('/api/Distribucion/' + id);
+    return this.ejecutarQuery<DistribucionResponse>('/api/Distribucion/' + id);
   }
 
 
@@ -164,7 +165,7 @@ export class UserService {
 
 
 
-    return this.http.post('/api/login', this.params, { headers: this.header });
+    return this.http.post(this.url + '/api/login', this.params, { headers: this.header });
   }
 
 
@@ -197,7 +198,7 @@ export class UserService {
 
   getFincasUser($id = null): Observable<any> {
     if ($id == null) {
-      return this.ejecutarQuery<FincaRootObject>('api/usuarios/fincas');
+      return this.ejecutarQuery<FincaRootObject>('/api/usuarios/fincas');
 
     } else {
       return this.ejecutarQuery<FincaRootObject>('/api/usuarios/fincas/' + $id);

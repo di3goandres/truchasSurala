@@ -8,6 +8,7 @@ import { Cajas } from '../../../models/cajas';
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 import { CreardistribucionComponent } from '../creardistribucion/creardistribucion.component';
 import { ChangeDetectorRef } from '@angular/core';
+import { DistribucionResponse } from '../../../models/distribucion.response';
 @Component({
   selector: 'app-view',
   templateUrl: './view.component.html',
@@ -16,7 +17,7 @@ import { ChangeDetectorRef } from '@angular/core';
 export class ViewComponent implements OnInit {
 
   id: string;
-  distribuciones: Distribucion[] = [];
+  distribuciones: DistribucionResponse[] = [];
 
   bandeja: BandejaDistribucion[] = [];
   cajas: Grupocaja[] = [];
@@ -50,18 +51,12 @@ export class ViewComponent implements OnInit {
     //este es el id del pedido
     this.id = this.route.snapshot.paramMap.get('id');
 
-    this.obtenerListaDistribucion();
+    // this.obtenerListaDistribucion();
     this.obtenerPedido();
   }
 
   // tslint:disable-next-line: typedef
-  private sumar() {
-
-    // tslint:disable-next-line: no-shadowed-variable
-    const sum = this.distribuciones.reduce((sum, current) => sum + current.total_ovas_enviadas, 0);
-    this.agregados = sum;
-
-  }
+ 
 
   // tslint:disable-next-line: typedef
   private obtenerPedido() {
@@ -84,10 +79,9 @@ export class ViewComponent implements OnInit {
       response => {
 
         if (response.status !== 'error') {
-          this.distribuciones = [];
-          console.log(response.distribucion);
-          this.distribuciones.push(...response.distribucion);
-          this.sumar();
+         
+          console.log('Distribucionesesss', response);
+          
           this.mostrar = true;
 
 
@@ -106,7 +100,7 @@ export class ViewComponent implements OnInit {
           this.cajas.push(...response.grupocajas);
           this.bandeja.push(...response.bandejas);
 
-
+          console.log(this.cajas)
 
 
 

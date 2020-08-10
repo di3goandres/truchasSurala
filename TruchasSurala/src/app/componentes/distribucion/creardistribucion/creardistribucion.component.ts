@@ -18,8 +18,8 @@ export class CreardistribucionComponent implements OnInit {
   @Input() cajas: Grupocaja[] = [];
   @Input() bandeja: BandejaDistribucion[] = [];
   @Output() passEntry: EventEmitter<any> = new EventEmitter();
-  @Input() idCaja: number;
-  @Input() pendientes: number;
+  @Input() idCaja: number = 0;
+  @Input() pendientes: number = 0;
 
   cajaActual: CajaDistribucion;
   cajaTotales: CajaDistribucion[] = [];
@@ -56,7 +56,7 @@ export class CreardistribucionComponent implements OnInit {
 
   }
   ngAfterContentInit(): void {
-
+    this.pendientes = 0;
     this.valoratomar = 0;
     this.maximo = 0;
     this.title = 'Agregar Distribución';
@@ -75,6 +75,10 @@ export class CreardistribucionComponent implements OnInit {
 
     this.onChange(this.idCaja);
     this.pendientes = this.pedido.total - this.pendientes;
+
+    console.log(this.pedido.total)
+
+
 
   }
   actualizarValorBandeja(actualizas) {
@@ -105,16 +109,28 @@ export class CreardistribucionComponent implements OnInit {
 
 
   }
+
+  algoCambio() {
+    if (this.valoratomar > this.maximo) {
+
+    this.calcularValorAtomar();
+    
+    }
+  }
   agregarBandeja() {
-    if (this.pendientes > 0) {
+    console.log(this.maximo)
+    console.log(this.valoratomar)
+
+
+    if (this.pendientes > 0 && this.bandejaSeleccionada.tamanio_final >0 ) {
 
       const element = this.bandejaSeleccionada;
       this.bandejasGuardar.push(new BandejaGuardar(
-                              element.id,
-                              this.valoratomar,
-                              element.id_lote,
-                              'Caja #' + this.cajaActual.caja_numero,
-                              'Bandeja #' + element.numero_bandeja));
+        element.id,
+        this.valoratomar,
+        element.id_lote,
+        'Caja #' + this.cajaActual.caja_numero,
+        'Bandeja #' + element.numero_bandeja));
 
       this.pendientes = this.pendientes - this.valoratomar;
       this.bandejaSeleccionada.tamanio_final = element.tamanio_final - this.valoratomar;
@@ -134,7 +150,7 @@ export class CreardistribucionComponent implements OnInit {
   agregarCaja() {
 
 
-    if (this.pendientes > 0) {
+    if (this.pendientes > 0 && this.cajaActual.habilitado) {
       this.cajaActual.habilitado = false;
       let linea = this.cajaActual.linea_genetica;
       let encontrada = this.cajas.find(function (caja) {
@@ -150,20 +166,20 @@ export class CreardistribucionComponent implements OnInit {
           if (this.pendientes > 0) {
             if (calculo > 0) {
               this.bandejasGuardar.push(new BandejaGuardar(
-                                             element.id,
-                                             element.tamanio_final,
-                                             element.id_lote,
-                                             'Caja #' + this.cajaActual.caja_numero,
-                                             'Bandeja #' + element.numero_bandeja));
+                element.id,
+                element.tamanio_final,
+                element.id_lote,
+                'Caja #' + this.cajaActual.caja_numero,
+                'Bandeja #' + element.numero_bandeja));
               this.pendientes = this.pendientes - element.tamanio_final;
               element.tamanio_final = element.tamanio_final - element.tamanio_final;
             } else {
               this.bandejasGuardar.push(new BandejaGuardar(
-                                            element.id,
-                                            this.pendientes,
-                                            element.id_lote,
-                                            'Caja #' + this.cajaActual.caja_numero,
-                                            'Bandeja #' + element.numero_bandeja));
+                element.id,
+                this.pendientes,
+                element.id_lote,
+                'Caja #' + this.cajaActual.caja_numero,
+                'Bandeja #' + element.numero_bandeja));
               element.tamanio_final = element.tamanio_final - this.pendientes;
 
               this.pendientes = this.pendientes - this.pendientes;
@@ -178,8 +194,11 @@ export class CreardistribucionComponent implements OnInit {
       });
       this.idCaja = this.cajaActual.id;
       this.onChange(this.idCaja);
+
+
     }
 
+    console.log('entre')
   }
 
   onChange(id) {
@@ -191,17 +210,12 @@ export class CreardistribucionComponent implements OnInit {
     this.bandejaMostrar = this.bandeja.filter(function (bandejas) {
       return bandejas.id_lote === id;
     });
+    this.calcularValorAtomar();
 
+    
   }
 
-
-  onChangeBandeja(id) {
-    id = parseInt(id);
-    this.bandejaSeleccionada = this.bandejaMostrar.find(function (bandejas) {
-      return bandejas.id === id;
-    });
-    this.maximo = this.bandejaSeleccionada.tamanio_final;
-    this.colorBandeja = this.setColor(this.maximo);
+  calcularValorAtomar(){
     const valor = Math.abs((this.maximo - this.pedido.total) / (this.maximo));
     const pendiente = this.pendientes - this.maximo;
     if (valor > 1) {
@@ -212,7 +226,27 @@ export class CreardistribucionComponent implements OnInit {
     } else {
       this.valoratomar = this.maximo - (this.maximo - this.pendientes);
     }
+  }
 
+  onChangeBandeja(id) {
+    id = parseInt(id);
+    this.bandejaSeleccionada = this.bandejaMostrar.find(function (bandejas) {
+      return bandejas.id === id;
+    });
+    this.maximo = this.bandejaSeleccionada.tamanio_final;
+    this.colorBandeja = this.setColor(this.maximo);
+    this.calcularValorAtomar();
+    // const valor = Math.abs((this.maximo - this.pedido.total) / (this.maximo));
+    // const pendiente = this.pendientes - this.maximo;
+    // if (valor > 1) {
+    //   this.valoratomar = this.maximo;
+    // }
+    // if (pendiente > 0) {
+    //   this.valoratomar = this.maximo;
+    // } else {
+    //   this.valoratomar = this.maximo - (this.maximo - this.pendientes);
+    // }
+    console.log(this.maximo)
   }
   onAdd(formulario) {
 

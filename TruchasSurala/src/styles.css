@@ -22,3 +22,18 @@ mat-dialog-container#modal-component {
     z-index: 99999 !important;
 
  }
+
+
+ .surala-azul{
+  background-color: rgb(14, 105, 179);
+  opacity: 100%;
+  color: white;
+
+ }
+ 
+
+ body > app-root > div > nav > a
+{
+  color: white;
+ }
+ 

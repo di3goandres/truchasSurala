@@ -34,9 +34,12 @@ import { MatInputModule } from '@angular/material/input';
 import { MatIconModule } from '@angular/material/icon';
 import { MatGridListModule } from '@angular/material/grid-list';
 import {MatDividerModule} from '@angular/material/divider';
+import {MatTreeModule} from '@angular/material/tree'
 
 import {MatTabsModule} from '@angular/material/tabs';
-
+import {MatToolbarModule} from '@angular/material/toolbar';
+import {MatMenuModule} from '@angular/material/menu';
+import {MatTableModule} from '@angular/material/table'
 
 import { PedidosComponent } from './componentes/despacho/pedidos/pedidos.component';
 import { DespachoactualComponent } from './componentes/cabecera/despachoactual/despachoactual.component';
@@ -86,7 +89,11 @@ import { TrazabilidadComponent } from './componentes/trazabilidades/trazabilidad
     MatIconModule,
     MatGridListModule,
     MatDividerModule,
-    MatTabsModule
+    MatTabsModule,
+    MatToolbarModule,
+    MatMenuModule,
+    MatTreeModule,
+    MatTableModule
 
 
   ],

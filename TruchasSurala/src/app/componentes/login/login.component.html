@@ -44,8 +44,12 @@
          Conectarse
         </button>
       </div>
+
+      <div  *ngIf="status === 'error'">
+        <span> Usuario y/o contraseña incorrecta</span>
+      </div>
       <!-- form-group// -->
-      <p class="text-center">no tienes una cuenta? <a routerLink='/surala/register'>Registrate</a></p>
+      <!-- <p class="text-center">no tienes una cuenta? <a routerLink='/surala/register'>Registrate</a></p> -->
 
 
 

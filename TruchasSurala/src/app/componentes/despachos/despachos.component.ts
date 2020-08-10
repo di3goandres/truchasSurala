@@ -18,12 +18,14 @@ export class DespachosComponent implements OnInit {
   constructor(private userService: UserService) { }
 
   ngOnInit(): void {
-    this.userService.getDespachos().subscribe(resp => {
+    this.userService.getDespachos().subscribe(
+      resp => {
       // console.log('noticias', resp );
       this.respuesta = resp;
       console.log(this.respuesta);
       if (this.respuesta.status !== 'error') {
 
+        
         this.despachos.push(... this.respuesta.despachos);
         this.actual = this.despachos[0];
     //    this.despachos =  this.despachos.sort();
