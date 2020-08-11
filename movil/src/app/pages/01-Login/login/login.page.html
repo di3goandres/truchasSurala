@@ -61,6 +61,11 @@
             </ion-col>
           </ion-row>
          
+          <ion-row *ngIf="status==='error'">
+            <ion-col>
+              <ion-label>Usuario o Contraseña incorrecta</ion-label>
+            </ion-col>
+          </ion-row>
 
         </ion-grid>
       </form>
@@ -83,7 +88,7 @@
   <ion-toolbar>
     <ion-row>
       <ion-col>
-      <ion-title color="primary">Si no eres Cliente</ion-title>
+      <ion-title class="titlecenter" color="primary">Si no eres Cliente</ion-title>
     </ion-col>
     </ion-row>
     <ion-row>

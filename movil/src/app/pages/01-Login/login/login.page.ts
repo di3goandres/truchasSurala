@@ -49,7 +49,9 @@ export class LoginPage implements OnInit {
   }
 
   onLogin(formulario){
-    console.log(this.user);
+    this.status = 'success';
+
+   
     this.userService.loginUser(this.user).subscribe(
       response => {
         console.log(response)
@@ -68,6 +70,8 @@ export class LoginPage implements OnInit {
         }
       },
       error => {
+        console.log(error)
+        
         this.status = 'error';
       }
 

@@ -84,7 +84,7 @@ export class UserService {
   // tslint:disable-next-line: typedef
   private ejecutarQuery<T>(query: string) {
     this.header = new HttpHeaders().set('Authorization', this.token);
-    return this.http.get<T>(query, { headers: this.header });
+    return this.http.get<T>(this.url + query, { headers: this.header });
 
   }
 
@@ -92,7 +92,7 @@ export class UserService {
   private ejecutarQueryPost(query: string, params: string) {
     this.header = new HttpHeaders().set('Authorization', this.token)
       .set('Content-Type', 'application/x-www-form-urlencoded');
-    return this.http.post(query, params, { headers: this.header });
+    return this.http.post(this.url + query, params, { headers: this.header });
 
   }
   
@@ -103,7 +103,7 @@ export class UserService {
     this.json = JSON.stringify(user);
     this.params = 'json=' + this.json;
     this.header = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded');
-    return this.http.post('/api/login', this.params, { headers: this.header });
+    return this.http.post(this.url + '/api/login', this.params, { headers: this.header });
   }
   
 }
