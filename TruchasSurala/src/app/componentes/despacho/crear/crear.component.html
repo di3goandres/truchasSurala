@@ -1,4 +1,113 @@
-<div class="col-md-12 mt-2">
+<div class="container">
+<mat-horizontal-stepper [linear]="false">
+  <mat-step [stepControl]="firstFormGroup">
+    <form [formGroup]="firstFormGroup" class="registroDespacho" (ngSubmit)="onRegister(firstFormGroup)">
+      <ng-template matStepLabel>Registro del despacho</ng-template>
+      <br>
+      <div class="row">
+        <div class="col-12 main-blue-text">
+          <label>{{title}}</label>
+        </div>
+      </div>
+    
+      <div class="row">
+        <div class="col-3"></div>
+        <div class=col-6>
+    
+    
+    
+          <mat-form-field appearance="fill">
+            <mat-label>Fecha del despacho</mat-label>
+            <input matInput formControlName="FechaDesove" [matDatepicker]="pickerDesembolso"
+              ng-keydown="$event.preventDefault();" [min]="minDate" [max]="maxDate" [(ngModel)]="despacho.fecha" required>
+            <mat-datepicker-toggle matSuffix [for]="pickerDesembolso">
+            </mat-datepicker-toggle>
+            <mat-datepicker touchUi #pickerDesembolso></mat-datepicker>
+            <!-- <input type="button" value="Agregar Fecha"/> -->
+    
+          </mat-form-field>
+        </div>
+        <div class="col-3"></div>
+
+      </div>
+    
+      <div class="row">
+        <div class="col-3"></div>
+    
+        <div class=col-6>
+    
+          <mat-form-field appearance="fill">
+            <mat-label>Numero de Factura</mat-label>
+            <input matInput [(ngModel)]="despacho.numero_factura" formControlName="NumeroFactura" required />
+    
+          </mat-form-field>
+    
+        </div>
+        <div class="col-3"></div>
+
+      </div>
+    
+      <div class="row">
+        <div class="col-3"></div>
+
+    
+        <div class=col-6>
+    
+          <mat-form-field appearance="fill">
+            <mat-label>Numero de Ovas aproximadas</mat-label>
+            <input matInput [(ngModel)]="despacho.numero_ovas" formControlName="NumeroDeOvas" required />
+          </mat-form-field>
+    
+        </div>
+        <div class="col-3"></div>
+
+      </div>
+    
+      <div class="row">
+        <div class="col-3"></div>
+
+    
+        <div class=col-6>
+    
+          <mat-form-field appearance="fill">
+            <mat-label>% Adicional</mat-label>
+            <input matInput type="number" [(ngModel)]="despacho.porcentaje
+            " formControlName="Porcentaje" required min="0" max="100"/>
+          </mat-form-field>
+    
+        </div>
+
+        <div class="col-3"></div>
+
+    
+      </div>
+
+
+      <div class="row">
+        <div class="col-3"></div>
+
+    
+        <div class=col-6>
+    
+          <button  mat-raised-button 
+          type="submit" class="btn btn-primary btn-block" [disabled]="!firstFormGroup.valid">
+            Crear Despacho
+          </button>
+    
+        </div>
+
+        <div class="col-3"></div>
+
+    
+      </div>
+     
+    
+    </form>
+  </mat-step>
+
+</mat-horizontal-stepper>
+</div>
+<!-- <div class="col-md-12 mt-2">
   <h1>{{ title }}</h1>
 
   <p>
@@ -48,4 +157,4 @@
 
   </div>
 
-</div>
+</div> -->

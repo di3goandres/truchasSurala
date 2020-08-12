@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { UserService } from 'src/app/service/user/user.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Bandeja } from '../../models/bandejasCajas';
@@ -9,6 +9,7 @@ import { Bandeja } from '../../models/bandejasCajas';
   styleUrls: ['./bandejascaja.component.css']
 })
 export class BandejascajaComponent implements OnInit {
+  @Input() idConsulta: number;
   public id;
   public bandejas: Bandeja[] = [];
   constructor(
@@ -19,7 +20,7 @@ export class BandejascajaComponent implements OnInit {
 
   ngOnInit(): void {
     this.id = this.route.snapshot.paramMap.get('id');
-    this.userService.getBandejasCaja(this.id).subscribe(resp => {
+    this.userService.getBandejasCaja(this.idConsulta).subscribe(resp => {
       // console.log('noticias', resp );
 
       if (resp.status !== 'error') {

@@ -214,6 +214,9 @@ BEGIN
     where id = new.id_trazabilidad;
 
 
+
+
+
 END;//
 
 
@@ -355,6 +358,69 @@ SELECT bl.numero_bandeja, tb.cantidad, bl.id_lote, l.caja_numero
     left join lotes l on l.id = bl.id_lote
     WHERE t.id = idTrazabilidad;
 
+
+END
+//
+
+
+SELECT * FROM `parametros` WHERE 
+tipo_parametro = 'remision';
+
+update parametros
+set valor= CONVERT(valor, integer) + 1;
+
+
+
+
+CREATE TABLE parametros
+ (
+id              int(255) auto_increment not null, 
+tipo_parametro  varchar(255) NOT NULL ,
+valor         varchar(500),
+
+CONSTRAINT pk_parametros PRIMARY KEY(id),
+
+)ENGINE=InnoDb;
+
+
+
+
+DELIMITER //
+CREATE TRIGGER TriggerinsertarTrazabilidad
+AFTER INSERT
+   ON trazabilidad FOR EACH ROW
+ BEGIN
+
+                    declare REMISION varchar(500);
+
+                    update parametros
+                    set valor = CONVERT(valor, integer) + 1
+                    WHERE  tipo_parametro = 'remision';
+
+                    SELECT  VALOR INTO REMISION FROM parametros WHERE 
+                    tipo_parametro = 'remision' ;
+
+
+
+                    update trazabilidad
+                    set remision = REMISION + DATE_FORMAT(NOW(), '%y')
+                    where id = new.id;
+
+                END;//
+
+
+DELIMITER //
+
+CREATE PROCEDURE ObtenerRemision (
+
+)
+BEGIN
+    update parametros
+    set valor = CONVERT(valor, integer) + 1
+    WHERE  tipo_parametro = 'remision';
+
+    SELECT  concat(VALOR,'-', DATE_FORMAT(NOW(), '%y') )FROM parametros WHERE 
+    tipo_parametro = 'remision'
 
 END
 //

@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { UserService } from '../../../service/user/user.service';
 import { DatePipe } from '@angular/common';
 import { Router, ActivatedRoute } from '@angular/router';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-crear',
@@ -11,6 +12,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 })
 export class CrearComponent implements OnInit {
 
+  firstFormGroup: FormGroup;
   minDate: Date;
   maxDate: Date;
   despacho: DespachoClass;
@@ -23,7 +25,8 @@ export class CrearComponent implements OnInit {
               private userService: UserService,
               public datepipe: DatePipe,
               private router: Router,
-              private route: ActivatedRoute) {
+              private route: ActivatedRoute,
+              private _formBuilder: FormBuilder) {
     this.title = 'Creacion de un despacho';
     this.minDate = new Date();
     this.maxDate = new Date();
@@ -34,13 +37,22 @@ export class CrearComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.despacho = new DespachoClass('', '', '', 1);
+
+    this.firstFormGroup =this._formBuilder.group({
+      FechaDesove: ['', Validators.required],
+      NumeroFactura: ['', Validators.required],
+      NumeroDeOvas: ['', Validators.required],
+      Porcentaje: ['', Validators.required],
+    });
+    this.despacho = new DespachoClass('', '', '',0.0, 0);
     this.agregar = false;
   }
 
   onRegister(formulario): void {
 
     this.despacho.fecha = this.datepipe.transform(this.despacho.fecha, 'yyyy-MM-dd');
+  
+    console.log(this.despacho)
     this.userService.storeDespacho(this.despacho).subscribe(
       response => {
         console.log(response);

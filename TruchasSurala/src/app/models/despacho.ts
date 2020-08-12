@@ -44,6 +44,9 @@ export class DespachoClass {
     // tslint:disable-next-line: variable-name
     public numero_ovas: string,
 
+
+    public porcentaje: number,
+
     public repetir: number,
 
   ){}

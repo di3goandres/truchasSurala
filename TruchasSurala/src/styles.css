@@ -37,3 +37,11 @@ mat-dialog-container#modal-component {
   color: white;
  }
  
+
+ .main-blue-text{
+   color:  rgb(14, 105, 179);
+   font-size: xx-large;
+   filter:opacity(0.8);
+   padding-left: 10px;
+   
+ }

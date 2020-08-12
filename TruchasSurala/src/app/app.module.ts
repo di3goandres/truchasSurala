@@ -3,7 +3,7 @@ import { ShortNumberPipe } from './pipes/short-number.pipe';
 
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { FroalaEditorModule, FroalaViewModule } from 'angular-froala-wysiwyg';
 import { AppComponent } from './app.component';
@@ -32,6 +32,9 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { MatCardModule } from '@angular/material/card';
 import { MatInputModule } from '@angular/material/input';
 import { MatIconModule } from '@angular/material/icon';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatMomentDateModule, MomentDateAdapter } from "@angular/material-moment-adapter";
+
 import { MatGridListModule } from '@angular/material/grid-list';
 import {MatDividerModule} from '@angular/material/divider';
 import {MatTreeModule} from '@angular/material/tree'
@@ -40,6 +43,9 @@ import {MatTabsModule} from '@angular/material/tabs';
 import {MatToolbarModule} from '@angular/material/toolbar';
 import {MatMenuModule} from '@angular/material/menu';
 import {MatTableModule} from '@angular/material/table'
+import {MatStepperModule} from '@angular/material/stepper';
+
+import { MatPaginatorModule } from '@angular/material/paginator';
 
 import { PedidosComponent } from './componentes/despacho/pedidos/pedidos.component';
 import { DespachoactualComponent } from './componentes/cabecera/despachoactual/despachoactual.component';
@@ -50,6 +56,7 @@ import { CreardistribucionComponent } from './componentes/distribucion/creardist
 import { SortByPipePipe } from './pipes/sort-by-pipe.pipe';
 import { TrazabilidadesComponent } from './componentes/trazabilidades/trazabilidades.component';
 import { TrazabilidadComponent } from './componentes/trazabilidades/trazabilidad/trazabilidad.component';
+import { MAT_FORM_FIELD_DEFAULT_OPTIONS } from '@angular/material/form-field';
 
 @NgModule({
   declarations: [
@@ -73,11 +80,12 @@ import { TrazabilidadComponent } from './componentes/trazabilidades/trazabilidad
     CreardistribucionComponent,
     SortByPipePipe,
     TrazabilidadesComponent,
-    TrazabilidadComponent
+    TrazabilidadComponent,
+
 
   ],
   imports: [
-    BrowserModule, FormsModule, HttpClientModule,
+    BrowserModule, FormsModule, HttpClientModule,ReactiveFormsModule,
     FroalaEditorModule.forRoot(), FroalaViewModule.forRoot(), AppRoutingModule,
     BrowserAnimationsModule,
     BsDatepickerModule.forRoot(),
@@ -93,11 +101,19 @@ import { TrazabilidadComponent } from './componentes/trazabilidades/trazabilidad
     MatToolbarModule,
     MatMenuModule,
     MatTreeModule,
-    MatTableModule
+    MatTableModule,
+    MatDatepickerModule,
+    MatMomentDateModule,
+    MatStepperModule,
+    MatPaginatorModule
 
 
   ],
-  providers: [DatePipe],
+  providers: [
+    {provide: MAT_FORM_FIELD_DEFAULT_OPTIONS, useValue: {appearence: 'fill'}},
+    DatePipe,
+    MatDatepickerModule],
+    
   bootstrap: [AppComponent]
 })
 export class AppModule { }

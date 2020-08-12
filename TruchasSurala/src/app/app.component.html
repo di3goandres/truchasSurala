@@ -4,11 +4,11 @@
 
   <mat-menu #menu="matMenu">
     <button mat-menu-item routerLink='/surala/despacho/create'>
-      <mat-icon>arrow_right_alt</mat-icon>
+      <mat-icon>next_week</mat-icon>
       <span>Crear Proximo Pedido</span>
     </button>
     <button mat-menu-item routerLink='/surala/despacho/view'>
-      <mat-icon>voicemail</mat-icon>
+      <mat-icon>local_see</mat-icon>
       <span>Ver Despachos</span>
     </button>
     <button mat-menu-item>
@@ -16,8 +16,30 @@
       <span>Disable alerts</span>
     </button>
   </mat-menu>
+
+  <mat-menu #menuDerecha="matMenu">
+    <!-- <a class="nav-link"  role="button" 
+            aria-haspopup="true" aria-expanded="false">
+            {{identity.name + ' ' + identity.surname | uppercase}}
+          </a> -->
+    <button mat-menu-item routerLink='/surala/despacho/view'>
+      <mat-icon>person_pin</mat-icon>
+      <span>Mi Perfil</span>
+    </button>
+
+    <button mat-menu-item routerLink='/surala/despacho/view'>
+      <mat-icon>voicemail</mat-icon>
+      <span>Ajustes</span>
+    </button>
+    <div class="dropdown-divider"></div>
+    <button mat-menu-item [routerLink]="['/surala/logout/1']">
+      <mat-icon>exit_to_app</mat-icon>
+      <span>Salir</span>
+    </button>
+  </mat-menu>
   <mat-toolbar class="surala-azul">
-    <button  [matMenuTriggerFor]="menu"  mat-icon-button class="example-icon" aria-label="Example icon-button with menu icon">
+    <button [matMenuTriggerFor]="menu" mat-icon-button class="example-icon"
+      aria-label="Example icon-button with menu icon" *ngIf="identity && identity.name">
       <mat-icon>menu</mat-icon>
 
     </button>
@@ -26,105 +48,17 @@
 
     <span>Truchas Surala</span>
     <span class="example-spacer"></span>
-    <button mat-icon-button class="example-icon favorite-icon" aria-label="Example icon-button with heart icon">
-      <mat-icon>favorite</mat-icon>
-    </button>
-    <button mat-icon-button class="example-icon" aria-label="Example icon-button with share icon">
-      <mat-icon>share</mat-icon>
-    </button>
+
+
     <img src="../assets//logo/banner1.png" width="100px" height="50px" alt="" loading="lazy" />
-  </mat-toolbar>
-  <nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <img src="../assets//logo/Logo_Surala.png" width="100" height="50" alt="" loading="lazy" />
+    <button [matMenuTriggerFor]="menuDerecha" mat-icon-button class="example-icon" *ngIf="identity && identity.name"
+      aria-label="Example icon-button with menu icon">
+      <mat-icon>menu</mat-icon>
 
-    <a class="navbar-brand" routerLink='/surala/home'>Truchas Surala</a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
-      aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
     </button>
+  </mat-toolbar>
 
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul class="navbar-nav mr-auto" *ngIf="identity && identity.name">
-        <!-- <li class="nav-item active">
-          <a class="nav-link" routerLink='/surala/home'
-            >Home <span class="sr-only">(current)</span></a
-          >
-        </li> -->
-
-        <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownDespacho" role="button" data-toggle="dropdown"
-            aria-haspopup="true" aria-expanded="false">
-            Despachos
-          </a>
-          <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-            <a class="dropdown-item" routerLink='/surala/despacho/create'>Crear Despachos</a>
-            <a class="dropdown-item" routerLink='/surala/despacho/view'>Ver Despacho</a>
-            <div class="dropdown-divider"></div>
-            <!-- <a class="dropdown-item" routerLink='/surala/despacho/view'>Ver Pedidos</a> -->
-
-            <!-- <div class="dropdown-divider"></div>
-            <a class="dropdown-item" href="#">Mi Perfil</a>
-            <a class="dropdown-item" href="#">Ajustes</a>
-            <a class="dropdown-item" [routerLink]="['/surala/logout/1']">Salir</a> -->
-          </div>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#">Aeropuertos</a>
-        </li>
-      </ul>
-      <ul class="navbar-nav mr-auto" *ngIf="!identity">
-        <li class="nav-item active">
-          <a class="nav-link" routerLink='/surala/visitante'>Inicio <span class="sr-only">(current)</span></a>
-        </li>
-
-      </ul>
-      <ul class="navbar-nav navbar-right" *ngIf="!identity">
-        <li class="nav-item active">
-          <a class="nav-link" routerLink='/surala/login'>Login</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" routerLink='/surala/register'>Registrate</a>
-        </li>
-      </ul>
-      <ul class="navbar-nav navbar-right" *ngIf="identity && identity.name">
-        <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
-            aria-haspopup="true" aria-expanded="false">
-            {{identity.name + ' ' + identity.surname | uppercase}}
-          </a>
-          <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-            <a class="dropdown-item" routerLink='/surala/despacho/view'>Ver Despachos</a>
-            <a class="dropdown-item" href="#">Generar Aeropuertos</a>
-            <div class="dropdown-divider"></div>
-            <a class="dropdown-item" href="#">Mi Perfil</a>
-            <a class="dropdown-item" href="#">Ajustes</a>
-            <a class="dropdown-item" [routerLink]="['/surala/logout/1']">Salir</a>
-          </div>
-        </li>
-        <!-- <li class="nav-item">
-          <a
-            class="nav-link disabled"
-            href="#"
-            tabindex="-1"
-            aria-disabled="true"
-            >Disabled</a
-          >
-        </li> -->
-      </ul>
-      <!-- <form class="form-inline my-2 my-lg-0">
-        <input
-          class="form-control mr-sm-2"
-          type="search"
-          placeholder="Search"
-          aria-label="Search"
-        />
-        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">
-          Search
-        </button>
-      </form> -->
-    </div>
-  </nav>
-
+  <br>
   <router-outlet>
     <!-- <main id="logout-button-holder">
     <button mat-raised-button id="logout-button" (click)="openModal()">Logout</button>

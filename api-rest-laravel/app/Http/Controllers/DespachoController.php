@@ -66,6 +66,8 @@ class DespachoController extends Controller
                         'fecha' => 'required',
                         'numero_factura' => 'required',
                         'numero_ovas' => 'required|integer',
+                        'porcentaje' => 'required|numeric|between:0,99.99',
+
             ]);
 
 
@@ -92,9 +94,10 @@ class DespachoController extends Controller
                 $despacho->fecha= $params_array['fecha'];
                 $despacho->numero_factura = $params_array['numero_factura'];
                 $despacho->numero_ovas = $params_array['numero_ovas'];
-                
+                $despacho->porcentaje = $params_array['porcentaje'];
 
-                //Guardar el Usuario
+                
+              
                 $despacho->save();
                 //devolver array con resultado
                 $data = array(

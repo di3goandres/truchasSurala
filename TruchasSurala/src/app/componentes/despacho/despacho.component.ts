@@ -1,14 +1,17 @@
 
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { UserService } from '../../service/user/user.service';
 import { Despachosroot, Caja, DespachoRootObject, Despacho } from '../../models/despacho';
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 import { switchMap } from 'rxjs/operators';
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 import { AgregarcajaComponent } from './agregarcaja/agregarcaja.component';
+import {MatPaginator} from '@angular/material/paginator';
+import { MatTableDataSource } from '@angular/material/table';
+import { BandejascajaComponent } from '../bandejascaja/bandejascaja.component';
 
 
-
+const ELEMENT_DATA: Caja[] = []
 @Component({
   selector: 'app-despacho',
   templateUrl: './despacho.component.html',
@@ -16,10 +19,19 @@ import { AgregarcajaComponent } from './agregarcaja/agregarcaja.component';
 })
 export class DespachoComponent implements OnInit {
 
+  displayedColumns: string[] = ['position', 'FechaDesove', 
+  'LineaGenetica', 
+  'EdadTcu', 'Tamaño', 'Ovasml', 
+  'NumberoBandejas', 'TotalCaja', 'TotalUsados', 'VerBandejas'];
+
+  
   public despacho: Despachosroot;
   public id;
   public actual: Despacho;
-  public cajas: Caja[] = [];
+  // public dataSource: Caja[] = [];
+  dataSource = new MatTableDataSource<Caja>(ELEMENT_DATA);
+
+  @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
   public agregar: boolean;
   public closeResult: string;
   constructor(
@@ -29,7 +41,7 @@ export class DespachoComponent implements OnInit {
     private modalService: NgbModal) { }
 
   ngOnInit(): void {
-
+    this.dataSource.paginator = this.paginator;
     this.consultaInicial();
   }
 
@@ -46,8 +58,8 @@ export class DespachoComponent implements OnInit {
       // console.log('noticias', resp );
       if (resp.status !== 'error') {
 
-        this.cajas = [];
-        this.cajas.push(...resp.cajas);
+        
+        this.dataSource.data = resp.cajas
 
         this.despacho = resp;
         this.actual = resp.despacho;
@@ -66,8 +78,29 @@ export class DespachoComponent implements OnInit {
     // this.router.navigate(['surala/despacho/caja/create/', this.id]);
   }
 
+  openBandejas(id){
 
-  open(content): void {
+    const modalRef = this.modalService.open(BandejascajaComponent);
+    modalRef.componentInstance.idConsulta = id
+    modalRef.result.then((result) => {
+      this.closeResult = `Closed with: ${result}`;
+      console.log('result', result);
+    }, (reason) => {
+
+
+
+
+      this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+ 
+      if (reason === 'OK') {
+     
+        this.consultaInicial(this.id);
+      }
+    });
+
+  }
+
+  open(): void {
     const modalRef = this.modalService.open(AgregarcajaComponent);
     modalRef.componentInstance.idDespacho = this.id;
     modalRef.result.then((result) => {
@@ -79,9 +112,9 @@ export class DespachoComponent implements OnInit {
 
 
       this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
-      console.log('reason', reason);
+ 
       if (reason === 'OK') {
-        console.log('entrre perras!!');
+     
         this.consultaInicial(this.id);
       }
     });
