@@ -19,17 +19,18 @@ const ELEMENT_DATA: Caja[] = []
 })
 export class DespachoComponent implements OnInit {
 
+  habilitarAgregar:boolean = false;
   displayedColumns: string[] = ['position', 'FechaDesove', 
-  'LineaGenetica', 
+  'LineaGenetica', 'NumLote',
   'EdadTcu', 'Tamaño', 'Ovasml', 
   'NumberoBandejas', 'TotalCaja', 'TotalUsados', 'VerBandejas'];
 
   
-  public despacho: Despachosroot;
+  public despacho: Despachosroot = new Despachosroot();
   public id;
   public actual: Despacho;
   // public dataSource: Caja[] = [];
-  dataSource = new MatTableDataSource<Caja>(ELEMENT_DATA);
+  dataSource = new MatTableDataSource<any>();
 
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
   public agregar: boolean;
@@ -42,7 +43,9 @@ export class DespachoComponent implements OnInit {
 
   ngOnInit(): void {
     this.dataSource.paginator = this.paginator;
+
     this.consultaInicial();
+    
   }
 
   private consultaInicial(id = null) {
@@ -55,14 +58,17 @@ export class DespachoComponent implements OnInit {
     }
     // console.log('id2:', this.route.snapshot.paramMap.get('id'));
     this.userService.getDespacho(this.id).subscribe(resp => {
-      // console.log('noticias', resp );
+ 
       if (resp.status !== 'error') {
 
         
-        this.dataSource.data = resp.cajas
+        this.dataSource =  new MatTableDataSource( resp.cajas)
+        this.dataSource.paginator = this.paginator;
 
         this.despacho = resp;
         this.actual = resp.despacho;
+
+        this.habilitarAgregar = resp.despacho.Activo === 1 ? false: true;
         return;
       }
       this.despacho = resp;
@@ -70,6 +76,7 @@ export class DespachoComponent implements OnInit {
 
 
     });
+
   }
 
   crearCaja(): void {
@@ -80,7 +87,7 @@ export class DespachoComponent implements OnInit {
 
   openBandejas(id){
 
-    const modalRef = this.modalService.open(BandejascajaComponent);
+    const modalRef = this.modalService.open(BandejascajaComponent, {size: 'lg'});
     modalRef.componentInstance.idConsulta = id
     modalRef.result.then((result) => {
       this.closeResult = `Closed with: ${result}`;
@@ -94,14 +101,14 @@ export class DespachoComponent implements OnInit {
  
       if (reason === 'OK') {
      
-        this.consultaInicial(this.id);
+       
       }
     });
 
   }
 
   open(): void {
-    const modalRef = this.modalService.open(AgregarcajaComponent);
+    const modalRef = this.modalService.open(AgregarcajaComponent ,  {size: 'lg'});
     modalRef.componentInstance.idDespacho = this.id;
     modalRef.result.then((result) => {
       this.closeResult = `Closed with: ${result}`;

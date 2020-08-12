@@ -1,7 +1,11 @@
-export interface Despacho {
+export class Despacho {
+  constructor(){
+    this.fecha =""
+  }
   id: number;
   fecha: string;
   numero_factura: string;
+  Activo: number;
   numero_ovas: string;
   created_at: string;
   updated_at: string;
@@ -17,12 +21,16 @@ export interface Caja {
   numero_bandejas: number;
   ovas_ml: number;
   total_lote: number;
+  numero_lote: string;
   tamanio_usado: number;
   created_at: string;
   updated_at: string;
 }
 
-export interface Despachosroot {
+export class Despachosroot {
+  constructor(){
+    this.despacho = new Despacho()
+  }
   code: number;
   status: string;
   despacho: Despacho;

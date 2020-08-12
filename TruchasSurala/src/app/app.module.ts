@@ -2,7 +2,7 @@ import { ShortNumberPipe } from './pipes/short-number.pipe';
 
 
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { LOCALE_ID,NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { FroalaEditorModule, FroalaViewModule } from 'angular-froala-wysiwyg';
@@ -57,7 +57,11 @@ import { SortByPipePipe } from './pipes/sort-by-pipe.pipe';
 import { TrazabilidadesComponent } from './componentes/trazabilidades/trazabilidades.component';
 import { TrazabilidadComponent } from './componentes/trazabilidades/trazabilidad/trazabilidad.component';
 import { MAT_FORM_FIELD_DEFAULT_OPTIONS } from '@angular/material/form-field';
+import {registerLocaleData} from '@angular/common'
+import  localCo from '@angular/common/locales/es-CO';
 
+
+registerLocaleData(localCo);
 @NgModule({
   declarations: [
     AppComponent,
@@ -109,7 +113,9 @@ import { MAT_FORM_FIELD_DEFAULT_OPTIONS } from '@angular/material/form-field';
 
 
   ],
+
   providers: [
+    {provide: LOCALE_ID, useValue: 'es-Co'},
     {provide: MAT_FORM_FIELD_DEFAULT_OPTIONS, useValue: {appearence: 'fill'}},
     DatePipe,
     MatDatepickerModule],

@@ -12,7 +12,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 })
 export class PedidosComponent implements OnInit {
 
-  actual: Despacho;
+  actual: Despacho = new Despacho();
   pedidos: Pedido[] = [];
   id: string;
   constructor(private userService: UserService,

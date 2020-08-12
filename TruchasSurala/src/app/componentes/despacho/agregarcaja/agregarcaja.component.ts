@@ -5,6 +5,7 @@ import { UserService } from '../../../service/user/user.service';
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 import { DatePipe } from '@angular/common';
 import { Router, ActivatedRoute } from '@angular/router';
+import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
 
 @Component({
   selector: 'app-agregarcaja',
@@ -13,10 +14,13 @@ import { Router, ActivatedRoute } from '@angular/router';
 })
 export class AgregarcajaComponent implements OnInit {
   @Input() idDespacho: number;
+
+
+  firstFormGroup: FormGroup;
   title: string;
   minDate: Date;
   maxDate: Date;
-  caja: Cajas ;
+  caja: Cajas;
   size: number;
   total_bandeja: number;
   status: string;
@@ -26,21 +30,38 @@ export class AgregarcajaComponent implements OnInit {
   closeResult: string;
 
   constructor(private userService: UserService,
-              private modalService: NgbModal,
-              public datepipe: DatePipe,
-              private router: Router,
-              private route: ActivatedRoute) {
+    private modalService: NgbModal,
+    public datepipe: DatePipe,
+    private router: Router,
+    private route: ActivatedRoute,
+    private _formBuilder: FormBuilder) {
 
-    this.title = 'Registro de Cajas para el Despacho';
+    this.title = 'Registro de Cajas';
   }
 
   ngOnInit(): void {
 
+    this.firstFormGroup = this._formBuilder.group({
+      Iguales: ['', Validators.required],
+      NumeroBandejas: ['5', Validators.required],
+      Conteo: ['0', Validators.required],
+      Total: new FormControl({ value: '', disabled: true }),
+      Ovaml: new FormControl({ value: '', disabled: true }),
+
+      FechaDesove: ['', Validators.required],
+
+      NumLote: ['', Validators.required],
+      Linea: ['', Validators.required],
+      Size: ['5', Validators.required],
+      Tamanio: ['', Validators.required],
+      Edad: ['', Validators.required],
+
+    });
     this.minDate = new Date();
     this.maxDate = new Date();
     this.minDate.setDate(this.minDate.getDate() - 240);
     this.maxDate.setDate(this.maxDate.getDate());
-    this.caja = new Cajas(this.idDespacho, this.idDespacho, '', 5, 0.0, 0.0, 0, 0, '', 1);
+    this.caja = new Cajas(this.idDespacho);
   }
 
   registrarCaja(formulario) {
@@ -56,7 +77,6 @@ export class AgregarcajaComponent implements OnInit {
           formulario.reset();
           this.modalService.dismissAll('OK');
 
-          this.router.navigate(['/surala/despacho/', this.idDespacho]);
         } else {
           this.status = 'error';
         }
@@ -71,11 +91,11 @@ export class AgregarcajaComponent implements OnInit {
 
   }
 
-  actualizar(){
-    this.caja.ovasml = (this.size * 33.8)/1000
+  actualizar() {
+    this.caja.ovasml = (this.size * 33.8) / 1000
   }
 
-  actualizarBandeja(){
+  actualizarBandeja() {
     this.caja.total_lote = (this.total_bandeja * this.caja.numero_cajas)
   }
 
@@ -84,7 +104,7 @@ export class AgregarcajaComponent implements OnInit {
 
 
   }
-  open(content): void{
+  open(content): void {
     this.modalService.open(content, { ariaLabelledBy: 'modal-basic-title' }).result.then((result) => {
       this.closeResult = `Closed with: ${result}`;
     }, (reason) => {

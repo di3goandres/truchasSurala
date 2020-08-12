@@ -1,34 +1,45 @@
-<div class="col-md-12">
-<div class="card-columns" *ngIf="actual">
-  <article class="card w-100">
-    <div class="card-header">
+<mat-card class="example-card" *ngIf="actual">
+  <mat-card-header>
+    <mat-card-title>Despacho Actual</mat-card-title>
+    <mat-card-subtitle>Fecha del despacho: {{ actual.fecha | date: "MMM/dd/yyyy"| uppercase}}</mat-card-subtitle>
+    <mat-card-content>
+      <div class="row">
+        <div class="col-6">
+          <mat-label>
+            Número Factura: {{ actual.numero_factura | uppercase}}
+          </mat-label>
+        </div>
+        <div class="col-6">
+          <mat-label>
+            Numero ovas: {{ actual.numero_ovas | number }}
+          </mat-label>
+        </div>
+      </div>
 
-      <h3 style="color:red">Actual</h3>
-      <h3>Fecha despacho :
-        <br>
-        <small>{{ actual.fecha }}</small></h3>
-    </div>
-    <div> Numero Factura: {{ actual.numero_factura }}
-      <br>
-      Numero ovas: {{ actual.numero_ovas | number }}
-      <br>
-      <a [routerLink]="['/surala/despacho/', actual.id]">Ver despacho</a>
-      <a>
-        <main id="logout-button-holder">
-          <button mat-raised-button id="logout-button" class="btn btn-primary btn-block"  style="width:50%" (click)="open()">Agregar Pedido</button>
-        <br>
-        </main>
-        <!-- <button *ngIf="!agregar"  class="btn btn-primary btn-block" style="width:50%"  (click)="open()">Agregar Caja</button> -->
-      </a>
-    </div>
-  </article>
+ 
+        <div class="row">
+          <div class="col-6">
+            <mat-label>
+              <button mat-raised-button id="logout-button" class="btn btn-primary btn-block" 
+              color="primary" [routerLink]="['/surala/despacho/', actual.id]">Ver Despacho</button>
 
-</div>
+            </mat-label>
+          </div>
+          <div class="col-6">
+            <mat-label>
+              <button mat-raised-button
+               id="logout-button" 
+               color="tertiary"
+               (click)="open()">Agregar Pedido</button>
 
-<ng-template  let-modal>
-  <div  #mymodal >
-    <app-agregarpedido [idDespacho]="actual.id"></app-agregarpedido>
-  </div>
-</ng-template>
+            </mat-label>
+          </div>
+        </div>
+     
 
-</div>
+      <mat-label>
+      
+      </mat-label>
+    </mat-card-content>
+  </mat-card-header>
+</mat-card> 

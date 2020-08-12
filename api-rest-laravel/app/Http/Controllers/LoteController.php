@@ -69,6 +69,7 @@ class LoteController extends Controller {
                         'total_lote' => 'required|numeric',
                         'numero_cajas' => 'required|numeric',
                         'edad' => 'required|numeric',
+                        'numero_lote' => 'required',
                         'repetir' => 'numeric'
             ]);
 
