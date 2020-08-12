@@ -1,0 +1,94 @@
+@import '~@angular/material/theming';
+@include mat-core();
+
+
+$md-surala-blue: (
+    50 : #e2edf6,
+    100 : #b7d2e8,
+    200 : #87b4d9,
+    300 : #5696ca,
+    400 : #3280be,
+    500 : #0e69b3,
+    600 : #0c61ac,
+    700 : #0a56a3,
+    800 : #084c9a,
+    900 : #043b8b,
+    A100 : #b7d0ff,
+    A200 : #84aeff,
+    A400 : #518dff,
+    A700 : #377cff,
+    contrast: (
+        50 : #000000,
+        100 : #000000,
+        200 : #000000,
+        300 : #000000,
+        400 : #ffffff,
+        500 : #ffffff,
+        600 : #ffffff,
+        700 : #ffffff,
+        800 : #ffffff,
+        900 : #ffffff,
+        A100 : #000000,
+        A200 : #000000,
+        A400 : #000000,
+        A700 : #ffffff,
+    )
+);
+//##0e69b3
+
+
+/* For use in src/lib/core/theming/_palette.scss */
+$md-suralaova: (
+    50 : #fee8e1,
+    100 : #fbc5b3,
+    200 : #f99e80,
+    300 : #f7774d,
+    400 : #f55a27,
+    500 : #f33d01,
+    600 : #f13701,
+    700 : #ef2f01,
+    800 : #ed2701,
+    900 : #ea1a00,
+    A100 : #ffffff,
+    A200 : #ffe0de,
+    A400 : #ffb0ab,
+    A700 : #ff9891,
+    contrast: (
+        50 : #000000,
+        100 : #000000,
+        200 : #000000,
+        300 : #000000,
+        400 : #000000,
+        500 : #ffffff,
+        600 : #ffffff,
+        700 : #ffffff,
+        800 : #ffffff,
+        900 : #ffffff,
+        A100 : #000000,
+        A200 : #000000,
+        A400 : #000000,
+        A700 : #000000,
+    )
+);
+
+
+//#f33d01
+
+
+$my-app-primary: mat-palette($md-surala-blue);
+$my-app-secondary:  mat-palette($md-suralaova, 500, 900, A100);
+$my-app-accent:  mat-palette($mat-yellow, 400);
+
+$my-app-warn:    mat-palette($mat-deep-orange);
+$my-app-theme: mat-light-theme($my-app-primary, $my-app-accent, $my-app-warn);
+@include angular-material-theme($my-app-theme);
+
+
+.alternate-theme {
+    $alternate-primary: mat-palette($md-suralaova);
+    $alternate-secondary:  mat-palette($md-surala-blue  , 500, 900, A100);
+
+    $alternate-accent:  mat-palette($md-suralaova, 400);
+    $alternate-theme: mat-light-theme($alternate-primary, $alternate-secondary, $alternate-accent);
+    @include angular-material-theme($alternate-theme);
+  }

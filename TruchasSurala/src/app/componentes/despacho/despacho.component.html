@@ -1,4 +1,4 @@
-<div class="container">
+<div class="container alternate-theme">
   <mat-horizontal-stepper [linear]="false">
     <mat-step>
       <mat-card class="example-card">
@@ -6,12 +6,16 @@
           <div mat-card-avatar class="example-header-image"></div>
           <mat-card-title>Datos del despacho</mat-card-title>
           <mat-card-subtitle>Agregar las Cajas del despacho con fecha: {{despacho.despacho.fecha|date :"MMM/dd/yyyy"}}</mat-card-subtitle>
+          <button type="button" mat-mini-fab color="secondary"  mat-raised-button
+          aria-label="caja" (click)="open()">
+            <mat-icon>plus_one</mat-icon>
+          </button>
         </mat-card-header>
 
         <a>
           <main id="logout-button-holder">
-            <button mat-raised-button id="logout-button" class="btn btn-primary btn-block" style="width:50%"
-              (click)="open()">Agregar Caja</button>
+  
+             
             <br>
           </main>
           <!-- <button *ngIf="!agregar"  class="btn btn-primary btn-block" style="width:50%"  (click)="open()">Agregar Caja</button> -->
@@ -32,7 +36,7 @@
             <!-- Name Column -->
             <ng-container matColumnDef="FechaDesove">
               <th mat-header-cell *matHeaderCellDef> Fecha desove </th>
-              <td mat-cell *matCellDef="let element"> {{element.fecha_desove}} </td>
+              <td mat-cell *matCellDef="let element"> {{element.fecha_desove |date :"MMM/dd/yyyy"}} </td>
             </ng-container>
           
             <!-- Weight Column -->
@@ -82,6 +86,7 @@
               <td mat-cell *matCellDef="let element"> 
                 <!-- <a [routerLink]="['/surala/cajas/bandejas', element.id]">Ver bandejas</a> -->
                 <button mat-raised-button id="logout-button" class="btn btn-primary btn-block" style="width:50%"
+                color="primary"
                 (click)="openBandejas(element.id)">Ver</button>
                </td>
             </ng-container>
