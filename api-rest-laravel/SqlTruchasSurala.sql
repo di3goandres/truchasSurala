@@ -424,3 +424,16 @@ BEGIN
 
 END
 //
+
+
+DELIMITER //
+
+CREATE PROCEDURE ObtenerMunicipios (
+
+)
+BEGIN
+SELECT  
+    id as Codigo, cod_dane_departamento as CodigDepartamento,  municipio  from municipios
+
+END
+//

@@ -79,6 +79,8 @@ Route::get('/api/Lotes/prueba/{id}', 'LoteController@prueba');
 
 Route::get('/api/usuarios/fincas', 'FincasController@getUserFincas');
 Route::get('/api/usuarios/fincas/{id}', 'FincasController@getFincasUser');
+Route::get('/api/datos/departamentos/', 'DatosGeneralesController@index');
+
 
 
 

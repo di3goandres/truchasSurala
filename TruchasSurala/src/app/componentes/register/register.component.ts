@@ -39,8 +39,21 @@ export class RegisterComponent implements OnInit {
 
   ngOnInit(): void {
     //  console.log( this.userService.test());
+    this.consultarDatosDepartamentos();
   }
 
+  consultarDatosDepartamentos()
+  {
+    this.userService.getDatosDepartamentos().subscribe(
+      reponse => 
+      {
+        console.log(reponse)
+      },
+      error => {
+        console.log(error);
+      }
+    )
+  }
   onRegister(formulario): void {
 
 

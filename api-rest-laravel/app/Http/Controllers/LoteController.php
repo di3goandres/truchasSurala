@@ -117,6 +117,8 @@ class LoteController extends Controller {
                         $lote->caja_numero = $countLotes;
                         $lote->numero_bandejas = $params_array['numero_cajas'];
                         $lote->edad_tcu = $params_array['edad'];
+                        $lote->numero_lote = $params_array['numero_lote'];
+
                         $lote->tamanio_usado = 0;
 
                         //Guardar el Usuario

@@ -13,6 +13,7 @@ import { Despachosroot } from '../../models/despacho';
 import { PedidosRootObject } from '../../models/pedidos';
 import { TopTrazabilidad } from '../../models/Trazabilidad';
 import { DistribucionResponse } from '../../models/distribucion.response';
+import { GeneralesRoot } from '../../models/Datos.generales';
 
 
 @Injectable({
@@ -110,6 +111,9 @@ export class UserService {
   }
 
 
+  getDatosDepartamentos(){
+    return this.ejecutarQuery<GeneralesRoot>('/api/datos/departamentos');
+  }
   // tslint:disable-next-line: typedef
   getDatosDistribucion(id) {
     return this.ejecutarQuery<DatosDistribucion>('/api/Distribucion/Obtenerdatos/' + id);
