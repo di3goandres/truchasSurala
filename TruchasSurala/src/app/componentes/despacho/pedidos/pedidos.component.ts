@@ -4,6 +4,7 @@ import { UserService } from '../../../service/user/user.service';
 import { User } from 'src/app/models/users';
 import { Despacho } from 'src/app/models/despacho';
 import { ActivatedRoute, Router } from '@angular/router';
+import { MatTableDataSource } from '@angular/material/table';
 
 @Component({
   selector: 'app-pedidos',
@@ -12,6 +13,13 @@ import { ActivatedRoute, Router } from '@angular/router';
 })
 export class PedidosComponent implements OnInit {
 
+  dataSource = new MatTableDataSource<any>();
+  displayedColumns: string[] = ['position', 'NombreFinca', 
+  'Pedido', 'Porcentaje',
+  'adicionales', 'reposicion', 'totalPedido', 
+  'FechaCreacion',  'VerGenerar'];
+
+  
   actual: Despacho = new Despacho();
   pedidos: Pedido[] = [];
   id: string;
@@ -32,7 +40,7 @@ export class PedidosComponent implements OnInit {
         if (response.status === 'success') {
           this.pedidos = [];
           this.pedidos.push(...response.pedido);
-
+          this.dataSource = new MatTableDataSource(this.pedidos);
           console.log(response.pedido);
           this.actual = response.pedido[0].despacho;
         }

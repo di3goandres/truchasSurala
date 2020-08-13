@@ -25,9 +25,11 @@ export class DespachoactualComponent implements OnInit {
   }
 
 
-  open(content): void {
+  open(): void {
     const modalRef = this.modalService.open(AgregarpedidoComponent);
     modalRef.componentInstance.idDespacho = this.actual.id;
+    modalRef.componentInstance.porcentaje = this.actual.porcentaje
+    
     modalRef.result.then((result) => {
       this.closeResult = `Closed with: ${result}`;
       console.log('result', result);

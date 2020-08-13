@@ -1,86 +1,84 @@
-<div class="container"  >
-  <div >
-    <h4>{{ title}}</h4>
+<div class="container" *ngIf="show" >
+  <mat-horizontal-stepper>
+    <mat-step>
+      <ng-template matStepLabel>Datos del pedido</ng-template>
+      <mat-card class="example-card">
+        <!-- <mat-card-header>
+          <div mat-card-avatar class="example-header-image"></div>
+        
+        </mat-card-header> -->
 
+        <mat-card-content>
+          <form #crearPedidoform="ngForm" (ngSubmit)="registrarPedido(crearPedidoform)" *ngIf="show" >
+            <div class="row">
+              <div class="col-xs-12 col-12 form-group">
+                <label>Cliente</label>
+                <select class="form-control" (change)="onChange($event.target.value)">
+                  <option *ngFor="let c of usuarios" [value]="c.id">
+                    {{c.numeroIdentificacion +' - ' + c.nombre}}
+                  </option>
+                </select>
+              </div>
+             <div class="col-xs-12 col-12  form-group">
+              <label>Finca</label>
+    
+                <select class="form-control"  name="fincasid"  #ifica="ngModel" [(ngModel)]="pedido.id_finca" required>
+                  <option *ngFor="let c of fincas" [value]="c.id"
+                  >
+                    {{ c.nombre}}
+                  </option>
+                </select>
+              </div>
+    
+            </div>
+            <div class="row">
+              <div class="col-xs-12 col-6  form-group">
+                <label>Pedido</label>
+                <input name="pedido" type="number" placeholder="Numero de Ovas" class="form-control" #name="ngModel"
+                  [(ngModel)]="pedido.pedido" required (change)="actualizar()" [min]="pedidoMinimo" />
+              </div>
+              <div class="col-xs-12 col-6 form-group">
+                <label>Porcentaje adicional</label>
+                <input name="porcentaje" type="number" placeholder="Porcentaje adicional" class="form-control" #name="ngModel"
+                [(ngModel)]="pedido.porcentaje" required (change)="actualizar()" disabled/>
+                <br>
+    
+              </div>
+    
+    
+            </div>
+            <div class="row">
+              <div class="col-xs-12 col-6 form-group">
+                <label>Reposición</label>
+                <input name="linea_genetica" type="number" placeholder="Reposicion" class="form-control" #name="ngModel"
+                  [(ngModel)]="pedido.reposicion" required (change)="actualizar()" />
+              </div>
+              <div class="col-xs-12 col-6  form-group">
+                <label>Adicional: </label>
+                <input disabled="disabled" name="adicional" type="number" placeholder="Numero de Ovas" class="form-control" #name="ngModel"
+                [(ngModel)]="pedido.adicional" required />
+              </div>
+    
+            </div>
+            <div class="row">
+              <div class="col-xs-12 col-12 form-group" >
+                <label>Total</label>
+                <input name="total" type="number" placeholder="Reposicion" class="form-control" #name="ngModel"
+                  [(ngModel)]="pedido.total" />
+              </div>
+    
+    
+            </div>
+    
+    
+            <div class="col-xs-12 col-12  form-group">
+              <button  mat-raised-button type="submit" class="btn btn-primary btn-block" [disabled]="!crearPedidoform.valid">
+               Agregar Pedido
+              </button>
+            </div>
+          </form>
+        </mat-card-content>
+        </mat-card>
 
-
-    <div class="card" style="width: 100%">
-      <div class="card-body">
-        <h5 class="card-title">Datos Del Pedido</h5>
-        <!-- <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6> -->
-        <p class="card-text">En esta Seccion Empezaremos a crear Nuestros Pedidos Asociados al Despachos</p>
-
-      </div>
-      <form #crearPedidoform="ngForm" (ngSubmit)="registrarPedido(crearPedidoform)" *ngIf="show" >
-        <div class="row">
-          <div class="col-xs-12 col-12 form-group">
-            <label>Cliente</label>
-            <select class="form-control" (change)="onChange($event.target.value)">
-              <option *ngFor="let c of usuarios" [value]="c.id">
-                {{c.numeroIdentificacion +' - ' + c.nombre}}
-              </option>
-            </select>
-          </div>
-         <div class="col-xs-12 col-12  form-group">
-          <label>Finca</label>
-
-            <select class="form-control"  name="fincasid"  #ifica="ngModel" [(ngModel)]="pedido.id_finca" required>
-              <option *ngFor="let c of fincas" [value]="c.id"
-              >
-                {{ c.nombre}}
-              </option>
-            </select>
-          </div>
-
-        </div>
-        <div class="row">
-          <div class="col-xs-12 col-6  form-group">
-            <label>Pedido</label>
-            <input name="pedido" type="number" placeholder="Numero de Ovas" class="form-control" #name="ngModel"
-              [(ngModel)]="pedido.pedido" required (change)="actualizar()" [min]="pedidoMinimo" />
-          </div>
-          <div class="col-xs-12 col-6 form-group">
-            <label>Porcentaje adicional</label>
-            <input name="porcentaje" type="number" placeholder="Porcentaje adicional" class="form-control" #name="ngModel"
-            [(ngModel)]="pedido.porcentaje" required (change)="actualizar()"/>
-            <br>
-
-          </div>
-
-
-        </div>
-        <div class="row">
-          <div class="col-xs-12 col-6 form-group">
-            <label>Reposición</label>
-            <input name="linea_genetica" type="number" placeholder="Reposicion" class="form-control" #name="ngModel"
-              [(ngModel)]="pedido.reposicion" required (change)="actualizar()" />
-          </div>
-          <div class="col-xs-12 col-6  form-group">
-            <label>Adicional: </label>
-            <input disabled="disabled" name="adicional" type="number" placeholder="Numero de Ovas" class="form-control" #name="ngModel"
-            [(ngModel)]="pedido.adicional" required />
-          </div>
-
-        </div>
-        <div class="row">
-          <div class="col-xs-12 col-12 form-group" >
-            <label>Total</label>
-            <input name="total" type="number" placeholder="Reposicion" class="form-control" #name="ngModel"
-              [(ngModel)]="pedido.total" />
-          </div>
-
-
-        </div>
-
-
-        <div class="col-xs-12 col-12  form-group">
-          <button  mat-raised-button type="submit" class="btn btn-primary btn-block" [disabled]="!crearPedidoform.valid">
-           Agregar Pedido
-          </button>
-        </div>
-      </form>
-
-    </div>
-
-  </div>
-</div>
+    </mat-step>
+  </mat-horizontal-stepper>

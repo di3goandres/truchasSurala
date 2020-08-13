@@ -14,6 +14,8 @@ import { PedidoClass } from '../../../models/pedidos';
 export class AgregarpedidoComponent implements OnInit {
 
   @Input() idDespacho: number;
+  @Input() porcentaje: number;
+
   title: string;
   pedido: PedidoClass;
 
@@ -37,7 +39,8 @@ export class AgregarpedidoComponent implements OnInit {
     this.pedidoMinimo = 5000;
     this.show = false;
     this.title = 'Agregar Pedido';
-    this.pedido = new PedidoClass(this.idDespacho, 0, 5000, 0.0, 0, 0, 5000);
+    this.pedido = new PedidoClass(this.idDespacho, this.porcentaje);
+    console.log(this.porcentaje)
     this.userService.getFincasUser().subscribe(resp => {
       // console.log('noticias', resp );
       if (resp.status !== 'error') {

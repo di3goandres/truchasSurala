@@ -45,3 +45,16 @@ mat-dialog-container#modal-component {
    padding-left: 10px;
    
  }
+
+
+ body {
+  text-align: center;
+}
+form {
+  display: inline-block;
+}
+
+table {
+  width: 100%;
+}
+
