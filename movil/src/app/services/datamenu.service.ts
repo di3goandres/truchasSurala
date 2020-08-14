@@ -26,7 +26,7 @@ export class DatamenuService {
 
   enableAuthenticatedMenu() {
     this.activar = false;
-    console.log('dato:', this.userService.getToken() );
+
     if(this.userService.getToken() != null){
       console.log('activo')
      this.activar = true;

@@ -171,4 +171,40 @@ class FincasController extends Controller {
         ]);
     }
 
+
+    public function getFincasUserToken(Request $request)
+    {
+        $token = $request->header('Authorization');
+        $jwtAuth = new \JwtAuth();
+        $checktoken = $jwtAuth->checkToken($token);
+        $json = $request->input('json', null);
+        $params = json_decode($json); //objeto
+        $params_array = json_decode($json, true); // array
+        if ($checktoken)
+        {
+            // recoger los datos por post / get
+            $user = $jwtAuth->checkToken($token, true);
+
+
+         
+           $fincas  = Fincas::where('user_id', $user->sub)->get();
+            // actualizar usuario
+          
+            $data = array(
+                'code' => 200,
+                'status' => 'success',
+                'fincas' => $fincas
+            );
+        }
+        else
+        {
+            $data = array(
+                'code' => 200,
+                'status' => 'error',
+                'message' => 'Usuario no identificado'
+            );
+        }
+        return response()->json($data, $data['code']);
+    }
+
 }

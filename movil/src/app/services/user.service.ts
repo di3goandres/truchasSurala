@@ -4,6 +4,7 @@ import { environment } from '../../environments/environment.prod';
 import { User } from '../models/user';
 import { Observable } from 'rxjs';
 import { NavController } from '@ionic/angular';
+import { FincasUser } from '../models/fincas.user';
 
 
 
@@ -93,6 +94,13 @@ export class UserService {
     this.header = new HttpHeaders().set('Authorization', this.token)
       .set('Content-Type', 'application/x-www-form-urlencoded');
     return this.http.post(this.url + query, params, { headers: this.header });
+
+  }
+
+
+  getFincasUsuario(){
+    
+    return this.ejecutarQuery<FincasUser>('/api/datos/fincabytoken');
 
   }
   

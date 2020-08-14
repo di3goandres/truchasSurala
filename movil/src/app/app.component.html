@@ -12,7 +12,7 @@
       <ion-content>
         <ion-list>
 
-          <ion-menu-toggle autoHide="true" *ngFor="let c of componentes | async">
+          <ion-menu-toggle autoHide="false" *ngFor="let c of componentes | async">
             <ion-item [routerLink]="c.redirectTo">
               <ion-icon slot="start" [name]="c.icon"></ion-icon>
               <ion-label>{{ c.name }}</ion-label>
@@ -33,7 +33,7 @@
       <ion-content>
         <ion-list>
 
-          <ion-menu-toggle autoHide="true" *ngFor="let c of componentesInvitado | async">
+          <ion-menu-toggle autoHide="false" *ngFor="let c of componentesInvitado | async">
             <ion-item [routerLink]="c.redirectTo">
               <ion-icon slot="start" [name]="c.icon"></ion-icon>
               <ion-label>{{ c.name }}</ion-label>
@@ -46,7 +46,7 @@
     </ion-menu>
 
 
-    <ion-router-outlet id="principal"></ion-router-outlet>
+    <ion-router-outlet id="principal"  ></ion-router-outlet>
 
   </ion-split-pane>
 </ion-app>

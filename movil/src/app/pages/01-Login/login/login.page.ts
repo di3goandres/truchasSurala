@@ -49,7 +49,7 @@ export class LoginPage implements OnInit {
   }
 
   onLogin(formulario){
-    this.status = 'success';
+   
 
    
     this.userService.loginUser(this.user).subscribe(
@@ -61,7 +61,7 @@ export class LoginPage implements OnInit {
           this.status = 'success';
           this.token = response;
           this.ObtenerdatosUser();
-          formulario.reset();
+          // formulario.reset();
 
         
         } else {

@@ -12,7 +12,19 @@
 <ion-content>
   <ion-buttons>
     <ion-buttons slot="start">
-      <ion-button color="primary" [routerLink]="['/logout/1']" >Cambiar Menu</ion-button>
+
     </ion-buttons>
   </ion-buttons>
+  <ion-card *ngFor="let finca of fincas">
+    <ion-card-header>
+      <ion-card-title>{{finca.nombre}}</ion-card-title>
+      <ion-card-subtitle>{{finca.direccion}}</ion-card-subtitle>
+      <ion-img src="https://cdn.needish.tools/is-prod-deals/ZTT2WXf38Do4jIh3HLdzGg/scale/900x600.jpg"></ion-img>
+    </ion-card-header>
+    <ion-card-content>
+      <ion-label> 
+       Tempertura: {{finca.temperatura_centigrados}}
+      </ion-label>
+    </ion-card-content>
+  </ion-card>
 </ion-content>
