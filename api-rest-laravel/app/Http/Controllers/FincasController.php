@@ -175,6 +175,7 @@ class FincasController extends Controller {
     public function getFincasUserToken(Request $request)
     {
         $token = $request->header('Authorization');
+        //aca
         $jwtAuth = new \JwtAuth();
         $checktoken = $jwtAuth->checkToken($token);
         $json = $request->input('json', null);
