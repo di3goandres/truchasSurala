@@ -18,4 +18,15 @@
     RewriteCond %{REQUEST_FILENAME} !-d
     RewriteCond %{REQUEST_FILENAME} !-f
     RewriteRule ^ index.php [L]
+
+    # Enable cross domain access control
+        SetEnvIf Origin "^http(s)?://(.+\.)?(localhost\.com|asovagar\.com)$" REQUEST_ORIGIN=$0
+        Header always set Access-Control-Allow-Origin %{REQUEST_ORIGIN}e env=REQUEST_ORIGIN
+        Header always set Access-Control-Allow-Methods "GET, POST, PUT, DELETE"
+        Header always set Access-Control-Allow-Headers: Authorization
+
+        # Force to request 200 for options
+        RewriteEngine On
+        RewriteCond %{REQUEST_METHOD} OPTIONS
+        RewriteRule .* / [R=200,L]
 </IfModule>
