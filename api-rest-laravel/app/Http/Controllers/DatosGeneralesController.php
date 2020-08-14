@@ -20,7 +20,7 @@ class DatosGeneralesController extends Controller
         
         $i = 0;
         foreach ($municipios as $value) {
-           unset( $municipios[$i]['id']);
+           
            unset( $municipios[$i]['created_at']);
            unset( $municipios[$i]['updated_at']);
            $i+=1;

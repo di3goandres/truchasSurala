@@ -1,0 +1,27 @@
+<div class="row">
+    <div class="col-6">
+        <mat-form-field appearance="fill">
+            <mat-label>Departamentos</mat-label>
+
+            <mat-select (selectionChange)="cambioDepartamento($event.value)">
+                <mat-option *ngFor="let departamento of Departamentos" [value]="departamento.id_departamento">
+                    {{departamento.departamento}}
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+    </div>
+    <div class="col-6">
+        <mat-form-field appearance="fill">
+            <mat-label>Municipio</mat-label>
+
+            <mat-select (selectionChange)="cambioMunicipio($event.value)">
+                <mat-option *ngFor="let municipio of MunicipioSeleccionado"
+                 [value]="municipio.id">
+                    {{municipio.municipio}}
+
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+    </div>
+  
+</div>

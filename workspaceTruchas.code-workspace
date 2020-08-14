@@ -5,6 +5,9 @@
 		},
 		{
 			"path": "movil"
+		},
+		{
+			"path": "api-rest-laravel"
 		}
 	],
 	"settings": {}

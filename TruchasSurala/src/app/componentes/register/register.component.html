@@ -1,150 +1,243 @@
-<div class="container alternate-theme">
-  <mat-horizontal-stepper [linear]="false">
-    <mat-step>
-      <ng-template matStepLabel>REGISTRO DE UN NUEVO USUARIO/FINCA</ng-template>
+<!-- <div class="container alternate-theme"> -->
 
-      <mat-card class="example-card">
-        <mat-card-header>
-          <div mat-card-avatar class="example-header-image"></div>
-          <mat-card-title>Datos del Usuario</mat-card-title>
+<mat-horizontal-stepper [linear]="true">
+  <article class="card-body mx-auto" style="max-width: 80%;" *ngIf="mail">
+    El Correo ingresado ya existe, si no recuerda su contraseña dirijase a...
+    o intente con otro correo.
+  </article>
 
-        </mat-card-header>
-        <mat-card-content>
-          <!-- <article class="card-body mx-auto" style="max-width: 80%;" *ngIf="mail">
-            El Correo ingresado ya existe, si no recuerda su contraseña dirijase a...
-            o intente con otro correo.
-          </article>
+  <article class="card-body mx-auto" style="max-width: 80%;" *ngIf="identificacion">
+    El numero de identificacion ya se encuentra registrado, si no recuerda su contraseña dirijase a...
+  </article>
 
-          <article class="card-body mx-auto" style="max-width: 80%;" *ngIf="identificacion">
-            El numero de identificacion ya se encuentra registrado, si no recuerda su contraseña dirijase a...
-          </article> -->
+  <!--formulario de confirmacion-->
+  <div class="alert bg-light alert-success" *ngIf="status==='success'">
+    <article class="card-body mx-auto" style="max-width: 80%;">
+      El registro fue exitoso
+    </article>
+  </div>
+  <mat-step [stepControl]="firstFormGroup">
+    <ng-template matStepLabel>USUARIO</ng-template>
 
-          <!--formulario de confirmacion-->
-          <!-- <div class="alert bg-light alert-success" *ngIf="status==='success'">
-            <article class="card-body mx-auto" style="max-width: 80%;">
-              El registro fue exitoso
-            </article>
-          </div> -->
+    <mat-card class="example-card">
+      <mat-card-header>
+        <div mat-card-avatar class="example-header-image"></div>
+        <mat-card-title style="text-align: center;">Datos del Usuario</mat-card-title>
 
-       
-      
-            <form #registerform="ngForm" (ngSubmit)="onRegister(registerform)">
+      </mat-card-header>
+      <mat-card-content>
 
-              <div class="row">
-                <div class=col-6>
+        <form [formGroup]="firstFormGroup" style="width: 100%;">
+
+
+          <div class="row">
+            <div class=col-6>
+
+              <mat-form-field appearance="fill">
+                <mat-icon matSuffix>person</mat-icon>
+                <mat-label>Nombres</mat-label>
+                <input matInput [(ngModel)]="user.name" formControlName="nombrePersona" placeholder="Nombres"
+                  required />
+
+              </mat-form-field>
+
+
+            </div>
+
+            <div class=col-6>
+
+              <mat-form-field appearance="fill">
+                <mat-icon matSuffix>person</mat-icon>
+                <mat-label>Apellidos</mat-label>
+                <input matInput [(ngModel)]="user.surname" formControlName="surname" placeholder="Apellidos" required />
+
+              </mat-form-field>
+
+            </div>
+          </div>
+
+          <div class="row">
+
+            <div class=col-6>
+
+              <mat-form-field appearance="fill">
+                <mat-icon matSuffix>person</mat-icon>
+                <mat-label>Tipo de identificación</mat-label>
+                <mat-select [(ngModel)]="user.tipo_identificacion" formControlName="TipoIden">
+                  <mat-option *ngFor="let identi of tiposIdentificacion" [value]="identi.value">
+                    {{identi.viewValue}}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+
+            </div>
+            <div class=col-6>
+
+              <mat-form-field appearance="fill">
+                <mat-icon matSuffix>person</mat-icon>
+                <mat-label>Numero de identificación</mat-label>
+                <input matInput [(ngModel)]="user.numero_identificacion" 
+                formControlName="NumeroIden"
+                  placeholder="Apellidos" required />
+              </mat-form-field>
+
+            </div>
+          </div>
+
+          <div class="row">
+            <div class=col-6>
+
+              <mat-form-field appearance="fill">
+                <mat-icon matSuffix>email</mat-icon>
+                <mat-label>Email</mat-label>
+                <input matInput [(ngModel)]="user.email" formControlName="Email" placeholder="Email" required />
+
+              </mat-form-field>
+
+
+            </div>
+            <div class=col-6>
+
+              <mat-form-field appearance="fill">
+                <mat-icon matSuffix>phone</mat-icon>
+                <mat-label>Telefono</mat-label>
+                <input matInput 
+                [(ngModel)]="user.telefono" formControlName="Telefono" placeholder="Telefono" required />
+
+              </mat-form-field>
+
+
+            </div>
+          </div>
+
+
+          <div class="row" style="text-align: center;">
+
+            <div class="col-12">
+              <button type="button" matStepperNext mat-raised-button color="secondary"
+                [disabled]="!firstFormGroup.valid">Continuar</button>
+
+            </div>
+
+
+          </div>
+        </form>
+
+
+      </mat-card-content>
+    </mat-card>
+
+  </mat-step>
+
+  <mat-step [stepControl]="secondFormGroup">
+    <ng-template matStepLabel>FINCA</ng-template>
+    <mat-card>
+      <form [formGroup]="secondFormGroup" style="width: 100%;">
+        <div class="row">
+          <div class=col-12>
+
+            <label>Datos de la Finca</label>
+
+          </div>
+        </div>
+
+        <app-departamentos (datoSalida)='onNotificar($event)'> </app-departamentos>
+
+        <div class="row">
+          <div class=col-6>
+
+            <mat-form-field appearance="fill">
+              <mat-icon matSuffix>person</mat-icon>
+              <mat-label>Dirección</mat-label>
+              <input matInput formControlName="direccion" [(ngModel)]="finca.direccion" placeholder="Apellidos"
+                required />
+            </mat-form-field>
+
+          </div>
+          <div class=col-6>
+
+            <mat-form-field appearance="fill">
+              <mat-icon matSuffix>person</mat-icon>
+              <mat-label>Nombre Finca</mat-label>
+              <input matInput [(ngModel)]="Nombre" formControlName="Nombre" placeholder="Apellidos" required />
+            </mat-form-field>
+
+          </div>
+        </div>
+
+        <div clas="row" style="text-align: center;">
+          <div class="col-12">
+            <button type="button" mat-raised-button color="primary" (click)="addFinca()"
+              [disabled]="!(datosDepartamento.Valido&& (secondFormGroup.invalid===false))">Agregar</button>
+
+          </div>
+        </div>
+        <br>
+        <div class="row" style="padding-top: 10px;">
+          <div class="col-12">
+            <table #tablefincas mat-table [dataSource]="fincas" class="mat-elevation-z8">
+              <ng-container matColumnDef="position">
+                <th mat-header-cell *matHeaderCellDef> No. </th>
+                <td mat-cell *matCellDef="let element; let i = index"> {{i + 1}} </td>
+              </ng-container>
+
+              <ng-container matColumnDef="Departamento">
+                <th mat-header-cell *matHeaderCellDef> Departamento</th>
+                <td mat-cell *matCellDef="let element"> {{element.NombreDepartamento}} </td>
+              </ng-container>
+
+              <ng-container matColumnDef="Municipio">
+                <th mat-header-cell *matHeaderCellDef> Municipio </th>
+                <td mat-cell *matCellDef="let element"> {{element.NombreMunicipio}} </td>
+              </ng-container>
+
+              <ng-container matColumnDef="Direccion">
+                <th mat-header-cell *matHeaderCellDef> Direcion </th>
+                <td mat-cell *matCellDef="let element"> {{element.direccion}} </td>
+              </ng-container>
+
+              <ng-container matColumnDef="NombreDeLaFinca">
+                <th mat-header-cell *matHeaderCellDef> Nombre Finca </th>
+                <td mat-cell *matCellDef="let element"> {{element.nombre| uppercase}} </td>
+              </ng-container>
+
+              <ng-container matColumnDef="Quitar">
+                <th mat-header-cell *matHeaderCellDef> Quitar </th>
+                <td mat-cell *matCellDef="let element">
+                  <button mat-mini-fab (click)="eliminar(element)">
+                    <mat-icon>delete_outline</mat-icon>
+                  </button>
+
+                </td>
+              </ng-container>
+              <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+              <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+            </table>
+          </div>
+        </div>
+        <div clas="row" style="text-align: center;padding-top: 23px;">
+          <div class="col-12">
+            <button matStepperPrevious mat-raised-button color="primary">Anterior</button>
           
-                  <mat-form-field appearance="fill">
-                    <mat-icon matSuffix>person</mat-icon>
-                    <mat-label>Nombres</mat-label>
-                    <input matInput [(ngModel)]="user.name" placeholder="Nombres"
-                   
-                    formControlName="Iguales" required />
-            
-                  </mat-form-field>
-            
-                </div>
+            <button matStepperNext mat-raised-button color="secondary" [disabled]="!continuarGuardar">Continuar</button>
 
-                <div class=col-6>
-          
-                  <mat-form-field appearance="fill">
-                    <mat-icon matSuffix>person</mat-icon>
-                    <mat-label>Apellidos</mat-label>
-                    <input matInput [(ngModel)]="user.surname" placeholder="Apellidos"
-                   
-                    formControlName="Iguales" required />
-            
-                  </mat-form-field>
-            
-                </div>
-              </div> 
-
-
-<!-- 
-              <div class="form-group input-group" style="width: 100%;">
-                <div class="input-group-prepend">
-                  <span class="input-group-text"> <i class="fa fa-user"></i> </span>
-                </div>
-                <input name="nombre" class="form-control" placeholder="Nombres" type="text" #name="ngModel"
-                  [(ngModel)]="user.name" required pattern="[a-zA-Z\s]+" />
-                <small *ngIf="!name.valid && name.touched" class="invalid-feedback d-block">
-                  Nombre no valido
-                </small>
-              </div>
-            
-              <div class="form-group input-group" style="width: 100%;">
-                <div class="input-group-prepend">
-                  <span class="input-group-text"> <i class="fa fa-user"></i> </span>
-                </div>
-                <input name="apellidos" class="form-control" placeholder="Apellidos" type="text" #surname="ngModel"
-                  [(ngModel)]="user.surname" pattern="[a-zA-Z\s]+" required />
-                <small *ngIf="!surname.valid && surname.touched" class="invalid-feedback d-block">
-                  Apellido no valido
-                </small>
-              </div>
-         
-              <div class="form-group input-group">
-                <div class="input-group-prepend">
-                  <span class="input-group-text">
-                    <i class="fa fa-envelope"></i>
-                  </span>
-                </div>
-                <input name="email" class="form-control" placeholder="correo electronico" type="email" #email="ngModel"
-                  [(ngModel)]="user.email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" />
-                <small *ngIf="!email.valid && email.touched" class="invalid-feedback d-block">
-                  Correo no valido
-                </small>
-              </div>
-  
-              <div class="form-group input-group">
-                <div class="input-group-prepend">
-                  <span class="input-group-text">
-                    <i class="fa fa-building"></i>
-                  </span>
-                </div>
-  
-                <select name="tipoIdent" class="form-control" #tipoident="ngModel" [(ngModel)]="user.tipo_identificacion"
-                  required>
-                  <option selected="selected" value="1">CC</option>
-                  <option value="2">NIT</option>
-                </select>
-                <input name="numeroIdentificacion" class="form-control" placeholder="Numero de Identificacion"
-                  type="number" autocomplete="off" #numeroident="ngModel" [(ngModel)]="user.numero_identificacion"
-                  pattern="[0-9]+" required />
-                <small *ngIf="!numeroident.valid && numeroident.touched" class="invalid-feedback d-block">
-                  Numero de identificacion no valido, Solo numeros
-                </small>
-              </div>
-                            <div class="form-group input-group">
-                <div class="input-group-prepend">
-                  <span class="input-group-text"> <i class="fa fa-lock"></i> </span>
-                </div>
-                <input name="password" class="form-control" placeholder="contraseña" type="password" autocomplete="off"
-                  #password="ngModel" [(ngModel)]="user.password" required />
-              
-                <small *ngIf="!password.valid && password.touched" class="invalid-feedback d-block">
-                  contraseña no valida, debe contener un digito
-                  al menos una minuscula
-                  una mayuscula, y al menos 8 caracteres
-                </small>
-              </div>
-          
-  
-              <div class="form-group">
-                <button type="submit" class="btn btn-primary btn-block" [disabled]="!registerform.valid">
-                  Crear Cuenta
-                </button>
-              </div>
-    
-   -->
-  
-  
-  
-            </form>
-  
+          </div>
   
         
-        </mat-card-content>
-      </mat-card>
-    </mat-step>
-  </mat-horizontal-stepper>
+        </div>
+      </form>
 
+     
+
+    </mat-card>
+  </mat-step>
+  <mat-step>
+    <div clas="row" style="text-align: center;">
+      <div class="col-12">
+        <button matStepperNext mat-raised-button color="secondary" (click)="Guardar()">Guardar</button>
+      </div>
+
+    
+    </div>
+  </mat-step>
+</mat-horizontal-stepper>

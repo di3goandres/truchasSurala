@@ -2,6 +2,16 @@
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
-        <group/>
+        <group>
+            <file>file:/Applications/XAMPP/htdocs/truchasSurala/api-rest-laravel/app/Http/Controllers/LoteController.php</file>
+            <file>file:/Applications/XAMPP/htdocs/truchasSurala/api-rest-laravel/.env</file>
+            <file>file:/Applications/XAMPP/htdocs/truchasSurala/api-rest-laravel/app/BandejasLotes.php</file>
+            <file>file:/Applications/XAMPP/htdocs/truchasSurala/api-rest-laravel/.gitignore</file>
+            <file>file:/Applications/XAMPP/htdocs/truchasSurala/api-rest-laravel/SqlTruchasSurala.sql</file>
+            <file>file:/Applications/XAMPP/htdocs/truchasSurala/api-rest-laravel/sql/Municipios.sql</file>
+            <file>file:/Applications/XAMPP/htdocs/truchasSurala/api-rest-laravel/app/Despacho.php</file>
+            <file>file:/Applications/XAMPP/htdocs/truchasSurala/api-rest-laravel/app/Http/Controllers/DespachoController.php</file>
+            <file>file:/Applications/XAMPP/htdocs/truchasSurala/api-rest-laravel/sql/Departamento.sql</file>
+        </group>
     </open-files>
 </project-private>

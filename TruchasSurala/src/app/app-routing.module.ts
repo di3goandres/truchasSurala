@@ -70,7 +70,7 @@ const routes: Routes = [
  //
   {
     path: '**',
-    redirectTo: 'surala/error',
+    redirectTo: 'surala/login',
     pathMatch: 'full'
   }
 ];

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use App\User;
+use App\Fincas;
 
 class UserController extends Controller {
 
@@ -27,14 +28,17 @@ class UserController extends Controller {
         if (!empty($params) && !empty($params_array))
         {
             //limpiar datos
-            $params_array = array_map('trim', $params_array);
+            // $params_array = array_map('trim', $params_array);
             // validar datos
             $validate = \Validator::make($params_array, [
                         'name' => 'required|regex:/^[\pL\s\-]+$/u',
                         'surname' => 'required|regex:/^[\pL\s\-]+$/u',
                         'numero_identificacion' => 'required|numeric|unique:users', //comprueba que el numero de identificacion sea unico
                         'email' => 'required|email|unique:users', //comprueba si el usuario esta duplicaod
-                        'password' => 'required',
+                        'telefono' =>'numeric',
+                        'Fincas' =>'required|array|min:1'
+
+
             ]);
 
             if ($validate->fails())
@@ -48,9 +52,12 @@ class UserController extends Controller {
             }
             else
             {
+                
+               
+                
                 // Cifrar la contraseña
                 // $pwd = password_hash($params->password, PASSWORD_BCRYPT, ['cost' => 4]);
-                $pwd = hash('sha256', $params->password);
+                $pwd = hash('sha256', $params->numero_identificacion);
                 // Comprobar si el usuario ya existe(duplicado)
                 // Crear usuario
                 $user = new User();
@@ -59,15 +66,22 @@ class UserController extends Controller {
                 $user->email = $params_array['email'];
                 $user->id_identificacion = $params_array['tipo_identificacion'];
                 $user->numero_identificacion = $params_array['numero_identificacion'];
-
+                $user->telefono = $params_array['telefono'];
 
                 $user->password = $pwd;
-                $user->role = 'ROLE_USER';
-
-
+                $user->role = 'USUARIO';
                 //Guardar el Usuario
                 $user->save();
+                
+                foreach ($params->Fincas as $finca) {
+                   $fincasave = new Fincas();
+                   $fincasave->user_id = $user->id;
+                   $fincasave->nombre = $finca->nombre;
+                   $fincasave->id_municipio = $finca->municipio;
+                   $fincasave->direccion = $finca->direccion;
+                   $fincasave->save();
 
+                }
 
                 $data = array(
                     'status' => 'success',

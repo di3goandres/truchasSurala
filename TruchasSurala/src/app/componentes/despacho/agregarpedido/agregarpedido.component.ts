@@ -42,7 +42,7 @@ export class AgregarpedidoComponent implements OnInit {
     this.pedido = new PedidoClass(this.idDespacho, this.porcentaje);
     console.log(this.porcentaje)
     this.userService.getFincasUser().subscribe(resp => {
-      // console.log('noticias', resp );
+     console.log('noticias', resp );
       if (resp.status !== 'error') {
 
         this.usuarios = [];

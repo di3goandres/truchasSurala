@@ -12,7 +12,15 @@ export interface Departamento {
 }
 
 export interface Municipio {
+    id: number;
     cod_dane:              string;
     cod_dane_departamento: number;
     municipio:             string;
 }
+
+
+
+export interface Select {
+    value: string;
+    viewValue: string;
+  }

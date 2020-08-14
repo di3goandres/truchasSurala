@@ -122,7 +122,7 @@ class FincasController extends Controller {
 
     public function getUserFincas()
     {
-        $duenios = User:: where('role', '=', 'ROLE_USER')->get();
+        $duenios = User:: where('role', '=', 'USUARIO')->get();
         $pos = 0;
         $retorno = [];
         $retorno[$pos]['numeroIdentificacion'] = '';

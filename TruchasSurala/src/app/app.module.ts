@@ -59,6 +59,7 @@ import { TrazabilidadComponent } from './componentes/trazabilidades/trazabilidad
 import { MAT_FORM_FIELD_DEFAULT_OPTIONS } from '@angular/material/form-field';
 import {registerLocaleData} from '@angular/common'
 import  localCo from '@angular/common/locales/es-CO';
+import { DepartamentosComponent } from './componentes/01-Comunes/departamentos/departamentos.component';
 
 
 registerLocaleData(localCo);
@@ -85,6 +86,7 @@ registerLocaleData(localCo);
     SortByPipePipe,
     TrazabilidadesComponent,
     TrazabilidadComponent,
+    DepartamentosComponent,
 
 
   ],

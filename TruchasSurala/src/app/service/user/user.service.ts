@@ -201,7 +201,8 @@ export class UserService {
 
 
   getFincasUser($id = null): Observable<any> {
-    if ($id == null) {
+    console.log($id)
+    if ($id === null || $id === 0) {
       return this.ejecutarQuery<FincaRootObject>('/api/usuarios/fincas');
 
     } else {

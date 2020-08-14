@@ -29,9 +29,9 @@ export class DespachosComponent implements OnInit {
 
     this.userService.getDespachos().subscribe(
       resp => {
-      // console.log('noticias', resp );
+      
       this.respuesta = resp;
-      // console.log(resp);
+     
       if (this.respuesta.status !== 'error') {
 
         
