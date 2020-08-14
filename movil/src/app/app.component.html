@@ -9,11 +9,11 @@
           <ion-title>Menú Principal</ion-title>
         </ion-toolbar>
       </ion-header>
-      <ion-content>
+      <ion-content class="content-with-full-height">
         <ion-list>
 
           <ion-menu-toggle autoHide="false" *ngFor="let c of componentes | async">
-            <ion-item [routerLink]="c.redirectTo">
+            <ion-item [routerLink]="c.redirectTo" class="equal-sized-item">
               <ion-icon slot="start" [name]="c.icon"></ion-icon>
               <ion-label>{{ c.name }}</ion-label>
             </ion-item>
