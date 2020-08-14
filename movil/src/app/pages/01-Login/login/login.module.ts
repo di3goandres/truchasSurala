@@ -8,6 +8,9 @@ import { LoginPageRoutingModule } from './login-routing.module';
 
 import { LoginPage } from './login.page';
 
+import { Camera, CameraOptions } from '@ionic-native/camera/ngx';
+
+
 @NgModule({
   imports: [
     CommonModule,

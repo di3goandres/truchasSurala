@@ -6,6 +6,7 @@ import { IonSlides, MenuController } from '@ionic/angular';
 import { Login } from '../../../models/login';
 import { UserService } from 'src/app/services/user.service';
 import { DatamenuService } from '../../../services/datamenu.service';
+import { Camera, CameraOptions } from '@ionic-native/camera/ngx';
 
 @Component({
   selector: 'app-login',
@@ -20,15 +21,33 @@ export class LoginPage implements OnInit {
   public status: string;
   public token: string;
   public identity;
-  
+  options: CameraOptions = {
+    quality: 100,
+    destinationType: this.camera.DestinationType.FILE_URI,
+    encodingType: this.camera.EncodingType.JPEG,
+    mediaType: this.camera.MediaType.PICTURE
+  }
   constructor(
     private userService: UserService,
     private router: Router,
     private route: ActivatedRoute,
     private menuCtrl: MenuController,
-    private dataService: DatamenuService
+    private dataService: DatamenuService,
+    private camera: Camera
+
   ) { }
 
+
+
+  openCamera(){
+    this.camera.getPicture(this.options).then((imageData) => {
+      // imageData is either a base64 encoded string or a file URI
+      // If it's base64 (DATA_URL):
+      let base64Image = 'data:image/jpeg;base64,' + imageData;
+     }, (err) => {
+      // Handle error
+     });
+  }
   ngOnInit() {
     this.logOut();
     this.verificarLogueo();
