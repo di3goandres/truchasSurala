@@ -87,7 +87,7 @@ class UserController extends Controller {
                     'status' => 'success',
                     'code' => 200,
                     'message' => 'El usuario se creo correctamente',
-                    'user' => $user
+                   
                 );
             }
         }

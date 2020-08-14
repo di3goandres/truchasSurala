@@ -19,25 +19,25 @@ export class RegisterComponent implements OnInit {
   Municipios: Municipio[] = [];
   MunicipioSeleccionado: Municipio[] = [];
   codigoDepartamento: number;
-  continuarGuardar:boolean = false;
+  continuarGuardar: boolean = false;
   datosDepartamento: DatosDepartamento = new DatosDepartamento();
   codigoMunicipio: number;
 
-  
-  @ViewChild('tablefincas') table :MatTable<any>;
-  displayedColumns: string[] = ['position','Departamento',
-   'Municipio', 
-  'NombreDeLaFinca', 'Direccion' ,'Quitar'];
-  dataSource: FincasUsuario[]=[]
-  tiposIdentificacion: Select[]=[
-    {value: '1', viewValue: 'CC'},
-    {value: '2', viewValue: 'NIT'}
+
+  @ViewChild('tablefincas') table: MatTable<any>;
+  displayedColumns: string[] = ['position', 'Departamento',
+    'Municipio',
+    'NombreDeLaFinca', 'Direccion', 'Quitar'];
+  dataSource: FincasUsuario[] = []
+  tiposIdentificacion: Select[] = [
+    { value: '1', viewValue: 'CC' },
+    { value: '2', viewValue: 'NIT' }
 
   ]
   firstFormGroup: FormGroup;
   secondFormGroup: FormGroup;
 
-
+  ocultar: boolean = false;
   user: User;
   public title: string;
   public status: string;
@@ -48,35 +48,35 @@ export class RegisterComponent implements OnInit {
   public Nombre: string;
 
   public errors: any[];
-  fincas: FincasUsuario[]=[];
+  fincas: FincasUsuario[] = [];
   finca: FincasUsuario;
 
   constructor(
     private userService: UserService,
     private _formBuilder: FormBuilder
-    ) {
+  ) {
     this.password = false;
     this.title = 'Registro';
     this.user = new User();
-   
+
 
   }
-  eliminar(element: FincasUsuario){
-    this.fincas = this.fincas.filter(item=> {
+  eliminar(element: FincasUsuario) {
+    this.fincas = this.fincas.filter(item => {
       return item.position !== element.position
     })
     let conteo2 = 0;
 
-    this.fincas.forEach(item=> {
-      conteo2+=1;
+    this.fincas.forEach(item => {
+      conteo2 += 1;
       item.position = conteo2;
     })
 
     let conteo = this.fincas.length;
-    if(conteo=== 0){
-    this.continuarGuardar = false;
-    }else{
-    this.continuarGuardar = true;
+    if (conteo === 0) {
+      this.continuarGuardar = false;
+    } else {
+      this.continuarGuardar = true;
 
     }
     this.table.renderRows();
@@ -84,48 +84,48 @@ export class RegisterComponent implements OnInit {
 
   }
 
-  onNotificar(item: DatosDepartamento){
-   
-    this.finca.municipio =item.Codigo;
-    this.finca.NombreDepartamento =item.NombreDepartamento;
-    this.finca.NombreMunicipio =item.NombreMunicipio;
+  onNotificar(item: DatosDepartamento) {
+
+    this.finca.municipio = item.Codigo;
+    this.finca.NombreDepartamento = item.NombreDepartamento;
+    this.finca.NombreMunicipio = item.NombreMunicipio;
     this.datosDepartamento = item;
 
   }
 
-  activarFormulario(){
+  activarFormulario() {
     const stakeControl = this.secondFormGroup.get('direccion');
     const stakeControl2 = this.secondFormGroup.get('Nombre');
 
-    if(this.continuarGuardar){
+    if (this.continuarGuardar) {
       stakeControl.setValidators([Validators.nullValidator]);
       stakeControl2.setValidators([Validators.nullValidator]);
 
-    }else{
+    } else {
       stakeControl.setValidators([Validators.required]);
       stakeControl2.setValidators([Validators.nullValidator]);
-      
+
 
     }
     stakeControl.updateValueAndValidity();
     stakeControl2.updateValueAndValidity();
 
   }
-  addFinca(){
+  addFinca() {
 
-    let conteo = this.fincas.length +1;
+    let conteo = this.fincas.length + 1;
     this.finca.position = conteo;
     this.finca.nombre = this.Nombre
 
     let nuevo = new FincasUsuario(
-                                 conteo,
-                                 this.Nombre,
-                                 this.finca.municipio,
-                                 this.finca.NombreMunicipio,
-                                 this.finca.NombreDepartamento,
-                                 this.finca.direccion);
+      conteo,
+      this.Nombre,
+      this.finca.municipio,
+      this.finca.NombreMunicipio,
+      this.finca.NombreDepartamento,
+      this.finca.direccion);
 
-    
+
 
 
 
@@ -133,42 +133,20 @@ export class RegisterComponent implements OnInit {
 
     this.fincas.push(nuevo);
 
-    this.fincas.forEach(item=> {
-      conteo2+=1;
+    this.fincas.forEach(item => {
+      conteo2 += 1;
       item.position = conteo2;
     })
-    this.Nombre ="";
+    this.Nombre = "";
     this.finca.direccion = ""
     this.continuarGuardar = true;
-    this.table.renderRows();  
+    this.table.renderRows();
     this.activarFormulario();
-  
+
 
   }
-  ngOnInit(): void {
 
-    this.consultarDatosDepartamentos();
-
-    this.finca = new FincasUsuario(0, '', 0, '', '', '');
-    
-    this.firstFormGroup = this._formBuilder.group({
-      nombrePersona: ['', Validators.required],
-      surname: ['', Validators.required],
-      TipoIden: ['', Validators.required],
-      NumeroIden: ['', Validators.required],
-      Email: ['', Validators.required],
-      Telefono: ['', Validators.required],
-
-    });
-
-
-    this.secondFormGroup = this._formBuilder.group({
-      direccion: ['', Validators.required],
-      Nombre: ['', Validators.required],
-    })
-    
-  }
-cambioDepartamento(id) {
+  cambioDepartamento(id) {
 
     this.MunicipioSeleccionado = this.Municipios.filter(municipio => {
       return municipio.cod_dane_departamento === id;
@@ -176,18 +154,18 @@ cambioDepartamento(id) {
 
     this.codigoDepartamento = id;
 
-    let depar = this.Departamentos.find(depar=> {
+    let depar = this.Departamentos.find(depar => {
       return depar.id_departamento === this.codigoDepartamento;
     })
     this.datosDepartamento.NombreDepartamento = depar.departamento
-  
+
   }
 
   cambioMunicipio(id) {
     this.codigoMunicipio = id;
 
 
-    let muni = this.MunicipioSeleccionado.find(munic=> {
+    let muni = this.MunicipioSeleccionado.find(munic => {
       return munic.id === this.codigoMunicipio;
     })
     this.datosDepartamento.NombreMunicipio = muni.municipio;
@@ -197,12 +175,10 @@ cambioDepartamento(id) {
 
   }
 
-  consultarDatosDepartamentos()
-  {
+  consultarDatosDepartamentos() {
     this.userService.getDatosDepartamentos().subscribe(
-      response => 
-      {
-        this.Departamentos= [];
+      response => {
+        this.Departamentos = [];
         this.Departamentos.push(...response.departamentos)
         this.Municipios.push(...response.municipios)
       },
@@ -211,11 +187,11 @@ cambioDepartamento(id) {
       }
     )
   }
- 
+
   Guardar(): void {
 
 
-    this.user.Fincas =[];
+    this.user.Fincas = [];
     this.user.Fincas = this.fincas;
 
     this.userService.registerUser(this.user).subscribe(
@@ -223,11 +199,11 @@ cambioDepartamento(id) {
         console.log(response);
         // tslint:disable-next-line: triple-equals
         if (response.status == 'success') {
-          
+
           this.status = response.status;
           this.mail = false;
           this.identificacion = false;
-
+          this.ocultar = true;
 
         } else {
           this.status = 'error';
@@ -250,5 +226,27 @@ cambioDepartamento(id) {
     // f
 
   }
+  ngOnInit(): void {
+ 
+    this.consultarDatosDepartamentos();
 
+    this.finca = new FincasUsuario(0, '', 0, '', '', '');
+
+    this.firstFormGroup = this._formBuilder.group({
+      nombrePersona: ['', Validators.required],
+      surname: ['', Validators.required],
+      TipoIden: ['', Validators.required],
+      NumeroIden: ['', Validators.required],
+      Email: ['', Validators.required],
+      Telefono: ['', Validators.required],
+
+    });
+
+
+    this.secondFormGroup = this._formBuilder.group({
+      direccion: ['', Validators.required],
+      Nombre: ['', Validators.required],
+    })
+
+  }
 }

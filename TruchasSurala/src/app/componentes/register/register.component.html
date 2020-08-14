@@ -1,6 +1,6 @@
 <!-- <div class="container alternate-theme"> -->
 
-<mat-horizontal-stepper [linear]="true">
+<mat-horizontal-stepper [linear]="true" *ngIf="ocultar===false">
   <article class="card-body mx-auto" style="max-width: 80%;" *ngIf="mail">
     El Correo ingresado ya existe, si no recuerda su contraseña dirijase a...
     o intente con otro correo.
@@ -76,8 +76,7 @@
               <mat-form-field appearance="fill">
                 <mat-icon matSuffix>person</mat-icon>
                 <mat-label>Numero de identificación</mat-label>
-                <input matInput [(ngModel)]="user.numero_identificacion" 
-                formControlName="NumeroIden"
+                <input matInput [(ngModel)]="user.numero_identificacion" formControlName="NumeroIden"
                   placeholder="Apellidos" required />
               </mat-form-field>
 
@@ -101,8 +100,8 @@
               <mat-form-field appearance="fill">
                 <mat-icon matSuffix>phone</mat-icon>
                 <mat-label>Telefono</mat-label>
-                <input matInput 
-                [(ngModel)]="user.telefono" formControlName="Telefono" placeholder="Telefono" required />
+                <input matInput [(ngModel)]="user.telefono" formControlName="Telefono" placeholder="Telefono"
+                  required />
 
               </mat-form-field>
 
@@ -218,16 +217,16 @@
         <div clas="row" style="text-align: center;padding-top: 23px;">
           <div class="col-12">
             <button matStepperPrevious mat-raised-button color="primary">Anterior</button>
-          
+
             <button matStepperNext mat-raised-button color="secondary" [disabled]="!continuarGuardar">Continuar</button>
 
           </div>
-  
-        
+
+
         </div>
       </form>
 
-     
+
 
     </mat-card>
   </mat-step>
@@ -237,7 +236,42 @@
         <button matStepperNext mat-raised-button color="secondary" (click)="Guardar()">Guardar</button>
       </div>
 
-    
+
+
     </div>
   </mat-step>
 </mat-horizontal-stepper>
+
+<div class="row">
+  <div class="col-4"></div>
+  <div class="col-6">
+
+    <mat-card *ngIf="status==='success'" style="width: 50%;">
+      <mat-card-title>Registro Exitoso</mat-card-title>
+      <mat-card-content>
+        <button mat-raised-button color="secondary" routerLink='/surala/home'>Inicio</button>
+
+      </mat-card-content>
+    </mat-card>
+
+    <mat-card *ngIf="status==='error'" style="width: 50%;">
+      <mat-card-title>Registro No Exitoso</mat-card-title>
+      <mat-card-content>
+
+        <article class="card-body mx-auto" style="max-width: 80%;">
+          Verifique por favor los datos ingresados
+        </article>
+        <article class="card-body mx-auto" style="max-width: 80%;" *ngIf="mail">
+          El Correo ingresado ya existe, intente con otro correo.
+        </article>
+      
+        <article class="card-body mx-auto" style="max-width: 80%;" *ngIf="identificacion">
+          El numero de identificacion ya se encuentra registrado
+        </article>
+
+      </mat-card-content>
+    </mat-card>
+  </div>
+  <div class="col-2"></div>
+
+</div>
