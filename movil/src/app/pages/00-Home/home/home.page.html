@@ -23,9 +23,25 @@
     </ion-card-header>
     <ion-card-content>
       <ion-label> 
-       Tempertura: {{finca.temperatura_centigrados}}
+       Temperatura: {{finca.temperatura_centigrados}}°C
       </ion-label>
-      <button (click)="openCamera()">Abrir foto</button>
+    
     </ion-card-content>
   </ion-card>
+  <button mat-raised-button (click)="photoService.takePicture()"></button>
+
+  <ion-grid>
+   
+ 
+
+    <ion-card  *ngFor="let photo of photoService.photos">
+      <ion-card-header>
+        
+       
+        <img [src]="_DomSanitizationService.bypassSecurityTrustUrl(photo.data)" />
+
+      </ion-card-header>
+     
+    </ion-card>
+</ion-grid>
 </ion-content>

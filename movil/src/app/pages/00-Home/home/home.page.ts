@@ -1,9 +1,13 @@
 import { Component, OnInit } from '@angular/core';
-import { MenuController } from '@ionic/angular';
+import { MenuController, NavController } from '@ionic/angular';
 import { DatamenuService } from '../../../services/datamenu.service';
 import { UserService } from '../../../services/user.service';
 import { Finca } from '../../../models/fincas.user';
-import { Camera, CameraOptions } from '@ionic-native/camera/ngx';
+import { DomSanitizer } from '@angular/platform-browser';
+import { PhotoProvider } from '../../../services/photo-provider.service';
+
+
+
 
 
 @Component({
@@ -14,12 +18,8 @@ import { Camera, CameraOptions } from '@ionic-native/camera/ngx';
 
 
 export class HomePage implements OnInit {
-  options: CameraOptions = {
-    quality: 100,
-    destinationType: this.camera.DestinationType.FILE_URI,
-    encodingType: this.camera.EncodingType.JPEG,
-    mediaType: this.camera.MediaType.PICTURE
-  }
+
+ url: any;
   fincas: Finca[]=[]
   activar: boolean;
 
@@ -28,27 +28,24 @@ export class HomePage implements OnInit {
   constructor( private dataService: DatamenuService,
                 private userService: UserService,
                private menuCtrl: MenuController,
-               private camera: Camera
+               public _DomSanitizationService: DomSanitizer,
+               public navCtrl: NavController, public photoService: PhotoProvider
                ) { }
   
 
 
-  openCamera(){
-    this.camera.getPicture(this.options).then((imageData) => {
-      // imageData is either a base64 encoded string or a file URI
-      // If it's base64 (DATA_URL):
-      let base64Image = 'data:image/jpeg;base64,' + imageData;
-     }, (err) => {
-      // Handle error
-     });
-  }
+
   ngOnInit() {
     this.dataService.enableAuthenticatedMenu();
     this.activar = false;
 
     this.traerFincas()
 
-    
+ this.url =this._DomSanitizationService
+ .bypassSecurityTrustUrl('data:image/jpeg;base64,file:///storage/emulated/0/Android/data/io.ionic.starter/cache/1597459591105.jpg')
+
+   console.log( this._DomSanitizationService
+      .bypassSecurityTrustUrl('data:image/jpeg;base64,file:///storage/emulated/0/Android/data/io.ionic.starter/cache/1597459591105.jpg'))
   }
 
   traerFincas(){

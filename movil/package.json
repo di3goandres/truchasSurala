@@ -7,6 +7,7 @@
     "ng": "ng",
     "start": "ng serve",
     "build": "ng build",
+    "cel": "ng run app:ionic-cordova-serve --host=localhost --port=80 --platform=android",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e"
