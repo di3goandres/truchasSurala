@@ -5,7 +5,18 @@
       <ion-button (click)="toggleMenu()">
         <ion-icon slot="icon-only" name="menu"></ion-icon>
       </ion-button>
+      <button mat-raised-button (click)="photoService.takePicture()">
+        <ion-icon slot="icon-only" name="menu"></ion-icon>
+        Tomar Una foto
+      </button>
+
+      <button mat-raised-button (click)="photoService.postFile()">
+        <ion-icon slot="icon-only" name="menu"></ion-icon>
+        enviar
+      </button>
+
     </ion-buttons>
+
   </ion-toolbar>
 </ion-header>
 
@@ -22,26 +33,31 @@
       <ion-img src="https://cdn.needish.tools/is-prod-deals/ZTT2WXf38Do4jIh3HLdzGg/scale/900x600.jpg"></ion-img>
     </ion-card-header>
     <ion-card-content>
-      <ion-label> 
-       Temperatura: {{finca.temperatura_centigrados}}°C
+      <ion-label>
+        Temperatura: {{finca.temperatura_centigrados}}°C
       </ion-label>
-    
+
     </ion-card-content>
   </ion-card>
-  <button mat-raised-button (click)="photoService.takePicture()"></button>
 
   <ion-grid>
-   
- 
 
-    <ion-card  *ngFor="let photo of photoService.photos">
+
+    <ion-slides pager="true" [options]="slideOpts">
+      <ion-slide *ngFor="let photo of photoService.photos">
+        <ion-img [src]="photo.base64"></ion-img>
+
+      </ion-slide>
+
+    </ion-slides>
+    <!-- <ion-card *ngFor="let photo of photoService.photos">
       <ion-card-header>
-        
-       
-        <img [src]="_DomSanitizationService.bypassSecurityTrustUrl(photo.data)" />
+
+        <ion-img [src]="photo.base64"></ion-img>
+
 
       </ion-card-header>
-     
-    </ion-card>
-</ion-grid>
+
+    </ion-card> -->
+  </ion-grid>
 </ion-content>

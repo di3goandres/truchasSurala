@@ -1,10 +1,11 @@
 <IfModule mod_rewrite.c>
+
     <IfModule mod_negotiation.c>
         Options -MultiViews -Indexes
     </IfModule>
 
     RewriteEngine On
-
+    
     # Handle Authorization Header
     RewriteCond %{HTTP:Authorization} .
     RewriteRule .* - [E=HTTP_AUTHORIZATION:%{HTTP:Authorization}]
@@ -20,9 +21,9 @@
     RewriteRule ^ index.php [L]
 
     # Enable cross domain access control
-        SetEnvIf Origin "^http(s)?://(.+\.)?(localhost:8100\.com|asovagar\.com)$" REQUEST_ORIGIN=$0
-        Header always set Access-Control-Allow-Origin %{REQUEST_ORIGIN}e env=REQUEST_ORIGIN
-        Header always set Access-Control-Allow-Methods "GET, POST, PUT, DELETE"
+        SetEnvIf Origin "^(http(s)?|capacitor)://(.+\.)?(localhost:8100|asovagar\.com|localhost|truchasapp\.asovagar\.com)$" REQUEST_ORIGIN=$0
+        Header always set Access-Control-Allow-Origin: *
+        Header always set Access-Control-Allow-Methods: "GET, POST, PUT, DELETE"
         Header always set Access-Control-Allow-Headers: Authorization
 
         # Force to request 200 for options

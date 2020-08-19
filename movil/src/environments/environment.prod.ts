@@ -3,3 +3,5 @@ export const environment = {
   apiUrl: 'http://apitruchas.asovagar.com'
 
 };
+
+//http://apitruchas.asovagar.com

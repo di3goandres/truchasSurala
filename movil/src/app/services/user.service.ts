@@ -5,6 +5,8 @@ import { User } from '../models/user';
 import { Observable } from 'rxjs';
 import { NavController } from '@ionic/angular';
 import { FincasUser } from '../models/fincas.user';
+import { Respuesta } from '../models/Response';
+import { Photo } from '../models/photos';
 
 
 
@@ -90,10 +92,10 @@ export class UserService {
   }
 
   // tslint:disable-next-line: typedef
-  private ejecutarQueryPost(query: string, params: string) {
+  private ejecutarQueryPost<T>(query: string, params: FormData) {
     this.header = new HttpHeaders().set('Authorization', this.token)
       .set('Content-Type', 'application/x-www-form-urlencoded');
-    return this.http.post(this.url + query, params, { headers: this.header });
+    return this.http.post<T>(this.url + query, params, { headers: this.header });
 
   }
 
@@ -114,4 +116,35 @@ export class UserService {
     return this.http.post(this.url + '/api/login', this.params, { headers: this.header });
   }
   
+  getUrlImage(nameImage){
+    return this.url  + '/api/user/avatar/' + this.getToken() +  '/' + nameImage;
+  }
+
+
+  private  b64toBlob(dataURI) {
+
+    var byteString = atob(dataURI.split(',')[1]);
+    var ab = new ArrayBuffer(byteString.length);
+    var ia = new Uint8Array(ab);
+
+    for (var i = 0; i < byteString.length; i++) {
+        ia[i] = byteString.charCodeAt(i);
+    }
+    return new File([ab], 'Avatar.jpeg', { type: 'image/jpeg' });
+    
+    // return new Blob([ab], { type: 'image/jpeg' });
+}
+  postFile(fileToUpload: Photo) {
+   
+    let blob = this.b64toBlob(fileToUpload.base64);
+  
+ 
+    const formData: FormData = new FormData();
+    
+    formData.append('file0',blob);
+
+    return this.ejecutarQueryPost<Respuesta>( '/api/user/upload',
+    formData);
+    
+}
 }

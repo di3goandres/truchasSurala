@@ -7,13 +7,14 @@ use Illuminate\Http\Response;
 use App\User;
 use App\Fincas;
 
-class UserController extends Controller {
+class UserController extends Controller
+{
 
     public function pruebas(Request $request)
     {
         return "Accion de pruebas de user controller";
     }
-    
+
 
     public function register(Request $request)
     {
@@ -25,36 +26,32 @@ class UserController extends Controller {
         $params = json_decode($json); //objeto
         $params_array = json_decode($json, true); // array
 
-        if (!empty($params) && !empty($params_array))
-        {
+        if (!empty($params) && !empty($params_array)) {
             //limpiar datos
             // $params_array = array_map('trim', $params_array);
             // validar datos
             $validate = \Validator::make($params_array, [
-                        'name' => 'required|regex:/^[\pL\s\-]+$/u',
-                        'surname' => 'required|regex:/^[\pL\s\-]+$/u',
-                        'numero_identificacion' => 'required|numeric|unique:users', //comprueba que el numero de identificacion sea unico
-                        'email' => 'required|email|unique:users', //comprueba si el usuario esta duplicaod
-                        'telefono' =>'numeric',
-                        'Fincas' =>'required|array|min:1'
+                'name' => 'required|regex:/^[\pL\s\-]+$/u',
+                'surname' => 'required|regex:/^[\pL\s\-]+$/u',
+                'numero_identificacion' => 'required|numeric|unique:users', //comprueba que el numero de identificacion sea unico
+                'email' => 'required|email|unique:users', //comprueba si el usuario esta duplicaod
+                'telefono' => 'numeric',
+                'Fincas' => 'required|array|min:1'
 
 
             ]);
 
-            if ($validate->fails())
-            {
+            if ($validate->fails()) {
                 $data = array(
                     'status' => 'error',
                     'code' => 200,
                     'message' => 'El usuario no se ha creado',
                     'errors' => $validate->errors()
                 );
-            }
-            else
-            {
-                
-               
-                
+            } else {
+
+
+
                 // Cifrar la contraseña
                 // $pwd = password_hash($params->password, PASSWORD_BCRYPT, ['cost' => 4]);
                 $pwd = hash('sha256', $params->numero_identificacion);
@@ -72,27 +69,24 @@ class UserController extends Controller {
                 $user->role = 'USUARIO';
                 //Guardar el Usuario
                 $user->save();
-                
-                foreach ($params->Fincas as $finca) {
-                   $fincasave = new Fincas();
-                   $fincasave->user_id = $user->id;
-                   $fincasave->nombre = $finca->nombre;
-                   $fincasave->id_municipio = $finca->municipio;
-                   $fincasave->direccion = $finca->direccion;
-                   $fincasave->save();
 
+                foreach ($params->Fincas as $finca) {
+                    $fincasave = new Fincas();
+                    $fincasave->user_id = $user->id;
+                    $fincasave->nombre = $finca->nombre;
+                    $fincasave->id_municipio = $finca->municipio;
+                    $fincasave->direccion = $finca->direccion;
+                    $fincasave->save();
                 }
 
                 $data = array(
                     'status' => 'success',
                     'code' => 200,
                     'message' => 'El usuario se creo correctamente',
-                   
+
                 );
             }
-        }
-        else
-        {
+        } else {
             $data = array(
                 'status' => 'error',
                 'code' => 200,
@@ -112,41 +106,32 @@ class UserController extends Controller {
 
         $params = json_decode($json); //objeto
         $params_array = json_decode($json, true); // array
-        if (!empty($params) && !empty($params_array))
-        {//
+        if (!empty($params) && !empty($params_array)) { //
             $validate = \Validator::make($params_array, [
-                        'email' => 'required|email', //comprueba si el usuario esta duplicaod
-                        'password' => 'required',
+                'email' => 'required|email', //comprueba si el usuario esta duplicaod
+                'password' => 'required',
             ]);
 
-            if ($validate->fails())
-            {
+            if ($validate->fails()) {
                 $signup = array(
                     'status' => 'error',
                     'code' => 200,
                     'message' => 'Los datos enviados no son correctos',
                     'errors' => $validate->errors()
                 );
-            }
-            else
-            {
+            } else {
                 //
                 $email = $params_array['email'];
                 $password = $params_array['password'];
                 $pwd = hash('sha256', $params->password);
 
-                if (!empty($params->gettoken))
-                {
+                if (!empty($params->gettoken)) {
                     $signup = $jwtAuth->signup($email, $pwd, true);
-                }
-                else
-                {
+                } else {
                     $signup = $jwtAuth->signup($email, $pwd);
                 }
             }
-        }
-        else
-        {
+        } else {
             $signup = array(
                 'status' => 'error',
                 'code' => 200,
@@ -166,22 +151,20 @@ class UserController extends Controller {
         $json = $request->input('json', null);
         $params = json_decode($json); //objeto
         $params_array = json_decode($json, true); // array
-        if ($checktoken && !empty($params) && !empty($params_array))
-        {
+        if ($checktoken && !empty($params) && !empty($params_array)) {
             // recoger los datos por post
             $user = $jwtAuth->checkToken($token, true);
 
 
             //validar datos
             $validate = \Validator::make($params_array, [
-                        'name' => 'required|alpha',
-                        'surname' => 'required|alpha',
-                        'email' => 'required|email|unique:users', //.$user->sub,
-                            //comprueba si el email esta duplido, siempre y cuando no sea el mism
+                'name' => 'required|alpha',
+                'surname' => 'required|alpha',
+                'email' => 'required|email|unique:users', //.$user->sub,
+                //comprueba si el email esta duplido, siempre y cuando no sea el mism
             ]);
 
-            if ($validate->fails())
-            {
+            if ($validate->fails()) {
                 $data = array(
                     'status' => 'error',
                     'code' => 404,
@@ -205,9 +188,7 @@ class UserController extends Controller {
                 'status' => 'success',
                 'message' => $user_update
             );
-        }
-        else
-        {
+        } else {
             $data = array(
                 'code' => 400,
                 'status' => 'error',
@@ -219,33 +200,46 @@ class UserController extends Controller {
 
     public function upload(Request $request)
     {
-        // recoger datos de la peticion
-        $imagen = $request->file('file0');
 
+        $token = $request->header('Authorization');
+        $jwtAuth = new \JwtAuth();
+        $checktoken = $jwtAuth->checkToken($token);
+        $json = $request->input('json', null);
+        $params = json_decode($json); //objeto
+        $params_array = json_decode($json, true); // array
+        if ($checktoken) {
 
-        //Validar si es una imagen
-        $validate = \Validator::make($request->all(), [
-                    'file0' => 'required|image|mimes:jpg,jpeg,png,gif'
-        ]);
-        //Guardar Imagen
+            // recoger datos de la peticion
+            $imagen = $request->file('file0');
+            $user = $jwtAuth->checkToken($token, true);
 
-        if (!$imagen || $validate->fails())
-        {
-            $data = array(
-                'code' => 400,
-                'status' => 'error',
-                'image' => 'Error al subir la imagen'
-            );
-        }
-        else
-        {
-            $image_name = time() . $imagen->getClientOriginalName();
-            \Storage::disk('users')->put($image_name, \File::get($imagen));
+            //Validar si es una imagen
+            $validate = \Validator::make($request->all(), [
+                'file0' => 'required|image|mimes:jpg,jpeg,png,gif'
+            ]);
+            //Guardar Imagen
 
+            if (!$imagen || $validate->fails()) {
+                $data = array(
+                    'code' => 400,
+                    'status' => 'error',
+                    'image' => 'Error al subir la imagen'
+                );
+            } else {
+                $image_name = time() . $imagen->getClientOriginalName();
+                \Storage::disk('users')->put($user->sub . '\\' . $image_name, \File::get($imagen));
+
+                $data = array(
+                    'code' => 200,
+                    'status' => 'success',
+                    'image' => $image_name,
+
+                );
+            }
+        } else {
             $data = array(
                 'code' => 200,
-                'status' => 'success',
-                'image' => $image_name,
+                'status' => 'error',
             );
         }
 
@@ -256,37 +250,49 @@ class UserController extends Controller {
         return response()->json($data, $data['code']);
     }
 
-    public function getImage($filename)
+    public function getImage($user, $filename)
     {
-        $isset = \Storage::disk('users')->exists($filename);
-        if ($isset)
-        {
-            $file = \Storage::disk('users')->get($filename);
-            return new Response($file);
-        }
-        else
-        {
+
+
+        $token = $user;
+        $jwtAuth = new \JwtAuth();
+        $checktoken = $jwtAuth->checkToken($token);
+
+        if ($checktoken) {
+            $userId = $jwtAuth->checkToken($token, true);
+
+            $isset = \Storage::disk('users')->exists($userId->sub . "//" . $filename);
+            if ($isset) {
+                $file = \Storage::disk('users')->get( $userId->sub . "//" . $filename);
+                return new Response($file, 200);
+            } else {
+                $data = array(
+                    'code' => 200,
+                    'status' => 'error',
+                    'user' => "/" .$userId->sub . "/" . $filename
+                );
+            }
+        }else {
             $data = array(
-                'code' => 400,
+                'code' => 200,
                 'status' => 'error',
             );
         }
+
+
         return response()->json($data, $data['code']);
     }
 
     public function detail($id)
     {
         $user = User::find($id);
-        if (is_object($user))
-        {
+        if (is_object($user)) {
             $data = array(
                 'code' => 200,
                 'status' => 'success',
                 'user' => $user
             );
-        }
-        else
-        {
+        } else {
             $data = array(
                 'code' => 400,
                 'status' => 'error',
@@ -295,10 +301,4 @@ class UserController extends Controller {
         }
         return response()->json($data, $data['code']);
     }
-
-
-    
-
-
-
 }

@@ -9,7 +9,6 @@ import { PhotoProvider } from '../../../services/photo-provider.service';
 
 
 
-
 @Component({
   selector: 'app-home',
   templateUrl: './home.page.html',
@@ -18,13 +17,16 @@ import { PhotoProvider } from '../../../services/photo-provider.service';
 
 
 export class HomePage implements OnInit {
-
- url: any;
+  fileToUpload: File = null;
+  url: any;
   fincas: Finca[]=[]
   activar: boolean;
 
 
-
+  slideOpts = {
+    initialSlide: 1,
+    speed: 400
+  };
   constructor( private dataService: DatamenuService,
                 private userService: UserService,
                private menuCtrl: MenuController,

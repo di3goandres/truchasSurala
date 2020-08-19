@@ -1,5 +1,8 @@
 export const environment = {
   production: true,
-  apiUrl: 'http://apitruchas.asovagar.com'
+  apiUrl: 'http://www.dummy-api-rest.com'
 
 };
+
+//http://apitruchas.asovagar.com'/
+// 

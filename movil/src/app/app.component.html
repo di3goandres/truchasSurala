@@ -3,28 +3,40 @@
 
 
     <!-- <app-menu></app-menu> -->
-    <ion-menu side="start"  menuId="authenticated" contentId="principal">
+    <ion-menu side="start" menuId="authenticated" contentId="principal">
       <ion-header>
         <ion-toolbar color="primary">
           <ion-title>Menú Principal</ion-title>
         </ion-toolbar>
       </ion-header>
-      <ion-content class="content-with-full-height">
+      <ion-content>
+        <!-- <ion-grid  class="content-with-full-height"  autoHide="true">
+          <ion-row justify-content-around *ngFor="let c of componentes | async"  class="equal-sized-item">
+            <ion-col>
+              <ion-button expand="block" fill="clear" [routerLink]="c.redirectTo">
+        
+              <ion-icon slot="start" [name]="c.icon"></ion-icon>
+
+              </ion-button>
+            </ion-col>
+          </ion-row>
+        </ion-grid> -->
         <ion-list>
 
           <ion-menu-toggle autoHide="false" *ngFor="let c of componentes | async">
             <ion-item [routerLink]="c.redirectTo" class="equal-sized-item">
-              <ion-icon slot="start" [name]="c.icon"></ion-icon>
+              <ion-icon slot="start" size="large" [name]="c.icon"></ion-icon>
               <ion-label>{{ c.name }}</ion-label>
             </ion-item>
           </ion-menu-toggle>
 
-
         </ion-list>
+
+
       </ion-content>
     </ion-menu>
 
-    <ion-menu side="end"  menuId="unauthenticated" contentId="principal">
+    <ion-menu side="end" menuId="unauthenticated" contentId="principal">
       <ion-header>
         <ion-toolbar color="primary">
           <ion-title>Menú Invitados</ion-title>
@@ -46,7 +58,7 @@
     </ion-menu>
 
 
-    <ion-router-outlet id="principal"  ></ion-router-outlet>
+    <ion-router-outlet id="principal"></ion-router-outlet>
 
   </ion-split-pane>
 </ion-app>

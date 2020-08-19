@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { UserService } from '../../service/user/user.service';
+
 
 @Component({
   selector: 'app-default',
@@ -8,11 +10,14 @@ import { Component, OnInit } from '@angular/core';
 export class DefaultComponent implements OnInit {
 
   title: string;
-  constructor() {
+  constructor(
+    private userService: UserService
+  ) {
     this.title = 'Bienvenido a la pagina de Trucha Surala';
   }
-
+  urlImage: string
   ngOnInit(): void {
+      this.urlImage = this.userService.getUrlImage('1597775491banner1.png')
   }
 
 }

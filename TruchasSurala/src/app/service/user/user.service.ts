@@ -212,6 +212,11 @@ export class UserService {
 
   }
 
+  getUrlImage(nameImage){
+    return this.url  + '/api/user/avatar/' + this.getToken() +  '/' + nameImage;
+  }
+
+
 }
 
 
