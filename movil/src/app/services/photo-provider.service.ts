@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Photo } from '../models/photos';
 import { Camera, CameraOptions, PictureSourceType } from '@ionic-native/camera/ngx';
 import { FileTransfer, FileUploadOptions, FileTransferObject } from '@ionic-native/file-transfer/ngx';
-import { File } from '@ionic-native/file/ngx';
+import { File, FileEntry, IFile, IWriteOptions } from '@ionic-native/file/ngx';
 
 import { WebView } from '@ionic-native/ionic-webview/ngx';
 import { UserService } from './user.service';
@@ -37,9 +37,17 @@ export class PhotoProvider {
 
   async takePicture() {
 
-  await  this.camera.getPicture(this.options).then(async (tempImage) => {
+    await this.camera.getPicture(this.options).then(async (tempImage) => {
+      let fileName: IFile;
+      this.file.resolveLocalFilesystemUrl(tempImage).then((entry: FileEntry) => {
+        entry.file(file => {
+          fileName = file;
+
+        });
+      });
       // Add new photo to gallery
-      console.log('Nombre', tempImage)
+
+     
       // Extract just the filename. Result example: cdv_photo_003.jpg
       const tempFilename = tempImage.substr(tempImage.lastIndexOf('/') + 1);
 
@@ -61,20 +69,19 @@ export class PhotoProvider {
       // Result example: file:///var/mobile/Containers/Data/Application
       // /E4A79B4A-E5CB-4E0C-A7D9-0603ECD48690/Library/NoCloud/cdv_photo_003.jpg
       const storedPhoto = newBaseFilesystemPath + tempFilename;
-      console.log('storage', storedPhoto)
+     
 
       const displayImage = this.webview.convertFileSrc(storedPhoto);
-    await  this.file.readAsDataURL(tempBaseFilesystemPath, tempFilename).then(result => {
-        console.log('r', result)
+      await this.file.readAsDataURL(tempBaseFilesystemPath, tempFilename).then(result => {
+      
         this.photos.unshift({
           data: displayImage,
-          base64: result
+          base64: result, 
+          fileName: fileName
         });
         this.base64File = result;
-      }, error => console.log('e',error));
+      }, error => {});
 
-     
-      console.log(this.photos);
 
     }, (err) => {
       // Handle error
@@ -96,11 +103,7 @@ export class PhotoProvider {
     //   });
   }
 
-  postFile(){
-    this.http.postFile(this.photos[0]).subscribe(
-      result => {console.log(result)},
-      error => {console.log(error)}
-
-    )
+  postFile() {
+    this.http.postFile(this.photos[0]);
   }
 }

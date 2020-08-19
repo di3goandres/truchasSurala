@@ -198,7 +198,7 @@ class UserController extends Controller
         return response()->json($data, $data['code']);
     }
 
-    public function upload(Request $request)
+    public function uploadBase64(Request $request)
     {
 
         $token = $request->header('Authorization');
@@ -250,6 +250,50 @@ class UserController extends Controller
         return response()->json($data, $data['code']);
     }
 
+    public function upload(Request $request)
+    {
+
+        $token = $request->header('Authorization');
+        $jwtAuth = new \JwtAuth();
+        $checktoken = $jwtAuth->checkToken($token);
+        $json = $request->input('json', null);
+        $params = json_decode($json); //objeto
+        $params_array = json_decode($json, true); // array
+        if ($checktoken && !empty($params) && !empty($params_array)) {
+            $user = $jwtAuth->checkToken($token, true);
+
+            // recoger datos de la peticion
+            $imagen = $params_array['file'];
+            $imagen = str_replace('data:image/jpeg;base64,', '', $imagen);
+            $imagen = str_replace(' ', '+', $imagen);
+            $image_name = time() . $params_array['nombre'];
+           
+            \Storage::disk('users')->put($user->sub . '\\' . $image_name, base64_decode($imagen));
+
+
+            // $imagen = $request->file('file0');
+
+            $data = array(
+                'code' => 200,
+                'status' => 'OK',
+                'image' => $image_name
+            );
+         
+        } else {
+            $data = array(
+                'code' => 200,
+                'status' => 'error',
+              
+
+            );
+        }
+
+
+        // devolver el resultado
+
+
+        return response()->json($data, $data['code']);
+    }
     public function getImage($user, $filename)
     {
 
