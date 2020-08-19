@@ -271,7 +271,7 @@ class UserController extends Controller
             \Storage::disk('users')->put($user->sub . '\\' . $image_name, base64_decode($imagen));
 
 
-            // $imagen = $request->file('file0');
+            
 
             $data = array(
                 'code' => 200,
