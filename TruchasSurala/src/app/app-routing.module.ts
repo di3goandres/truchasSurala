@@ -15,6 +15,8 @@ import { PedidosComponent } from './componentes/despacho/pedidos/pedidos.compone
 import { ViewComponent } from './componentes/distribucion/view/view.component';
 import { TrazabilidadComponent } from './componentes/trazabilidades/trazabilidad/trazabilidad.component';
 import { TrazabilidadesComponent } from './componentes/trazabilidades/trazabilidades.component';
+import { UsuarioGuard } from './guards/usuario.guard';
+import { ListausuarioComponent } from './componentes/02-Usuario/01-lista/listausuario/listausuario.component';
 
 
 
@@ -23,10 +25,10 @@ const routes: Routes = [
     path: 'surala/login', component: LoginComponent
   },
   {
-    path: 'surala/register', component: RegisterComponent
+    path: 'surala/register', component: RegisterComponent, canLoad: [UsuarioGuard]
   },
   {
-    path: 'surala/home', component: DefaultComponent
+    path: 'surala/home', component: DefaultComponent, canLoad: [UsuarioGuard]
   },
   {
     path: 'surala/error', component: ErrorComponent
@@ -35,39 +37,45 @@ const routes: Routes = [
     path: 'surala/visitante', component: InvitadoComponent
   },
   {
-    path: 'surala/logout/:sure', component: LoginComponent,
+    path: 'surala/logout/:sure', component: LoginComponent, canLoad: [UsuarioGuard]
   },
   { // rutas de despacho
-    path: 'surala/despacho/view', component: DespachosComponent,
+    path: 'surala/despacho/view', component: DespachosComponent, canLoad: [UsuarioGuard]
   },
 
   { // rutas de despacho
-    path: 'surala/despacho/create', component: CrearComponent,
+    path: 'surala/despacho/create', component: CrearComponent, canLoad: [UsuarioGuard]
   },
   {
-    path: 'surala/despacho/:id', component: DespachoComponent,
+    path: 'surala/despacho/:id', component: DespachoComponent, canLoad: [UsuarioGuard]
   },
   {
-    path: 'surala/cajas/bandejas/:id', component: BandejascajaComponent,
+    path: 'surala/cajas/bandejas/:id', component: BandejascajaComponent, canLoad: [UsuarioGuard]
   },
 
   { // rutas de despacho
-    path: 'surala/despacho/caja/create/:id', component: AgregarcajaComponent,
+    path: 'surala/despacho/caja/create/:id', component: AgregarcajaComponent, canLoad: [UsuarioGuard]
   },
 
   { // rutas de despacho
-    path: 'surala/pedidos/:id', component: PedidosComponent,
+    path: 'surala/pedidos/:id', component: PedidosComponent, canLoad: [UsuarioGuard]
   },
   { // rutas de despacho
-    path: 'surala/distribucion/:id', component:  ViewComponent,
+    path: 'surala/distribucion/:id', component: ViewComponent, canLoad: [UsuarioGuard]
   },
   { // rutas de despacho
-    path: 'surala/distribucion/Generar/:id', component:  ViewComponent,
+    path: 'surala/distribucion/Generar/:id', component: ViewComponent, canLoad: [UsuarioGuard]
   },
   { // rutas de despacho
-    path: 'surala/distribucion/ver/:id', component:  TrazabilidadesComponent,
+    path: 'surala/distribucion/ver/:id', component: TrazabilidadesComponent, canLoad: [UsuarioGuard]
   },
- //
+  { // rutas de despacho
+    path: 'surala/distribucion/ver/:id', component: TrazabilidadesComponent, canLoad: [UsuarioGuard]
+  },
+  { // rutas de usuarios
+    path: 'surala/usuarios', component:ListausuarioComponent , canLoad: [UsuarioGuard]
+  },
+  //
   {
     path: '**',
     redirectTo: 'surala/login',
@@ -79,7 +87,7 @@ const routes: Routes = [
   declarations: [],
   imports: [
     CommonModule,
-    RouterModule.forRoot(routes,  { useHash: true }),
+    RouterModule.forRoot(routes, { useHash: true }),
 
   ],
   exports: [RouterModule],

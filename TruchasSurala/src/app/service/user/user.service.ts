@@ -14,6 +14,9 @@ import { PedidosRootObject } from '../../models/pedidos';
 import { TopTrazabilidad } from '../../models/Trazabilidad';
 import { DistribucionResponse } from '../../models/distribucion.response';
 import { GeneralesRoot } from '../../models/Datos.generales';
+import { UsuariosFincasResponse } from '../../models/usuarios.fincas';
+import { Router, ActivatedRoute, Params } from '@angular/router';
+
 
 
 @Injectable({
@@ -34,11 +37,15 @@ export class UserService {
   });
 
   user: User;
-  constructor(public http: HttpClient) {
+  constructor(public http: HttpClient,
+              private router: Router,
+              private route: ActivatedRoute 
+              ){
     this.url = environment.apiUrl;
     this.header = new HttpHeaders();
     this.getIdentity();
     this.getToken();
+
 
   }
 
@@ -200,6 +207,25 @@ export class UserService {
   }
 
 
+  validaToken(): Promise<boolean> {
+
+    if (this.getIdentity() == null || this.getToken() == null) {
+      this.router.navigate(['/login']);
+
+      Promise.resolve(false);
+    }
+    return new Promise(resolve => {
+
+      if (this.getIdentity() == null || this.getToken() == null) {
+        this.router.navigate(['/login']);
+        resolve(false);
+      } else {
+        resolve(true);
+      }
+    })
+  }
+
+
   getFincasUser($id = null): Observable<any> {
     console.log($id)
     if ($id === null || $id === 0) {
@@ -214,6 +240,12 @@ export class UserService {
 
   getUrlImage(nameImage){
     return this.url  + '/api/user/avatar/' + this.getToken() +  '/' + nameImage;
+  }
+
+
+
+  getUsuarios(): Observable<any> {
+      return this.ejecutarQuery<UsuariosFincasResponse>('/api/users/get');
   }
 
 

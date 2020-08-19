@@ -21,7 +21,7 @@
     RewriteRule ^ index.php [L]
 
     # Enable cross domain access control
-        SetEnvIf Origin "^(http(s)?|capacitor)://(.+\.)?(localhost:8100|asovagar\.com|localhost|truchasapp\.asovagar\.com)$" REQUEST_ORIGIN=$0
+        SetEnvIf Origin "^(http(s)?|capacitor)://(.+\.)?(localhost:8100|asovagar\.com|localhost|truchasapp\.asovagar\.com|localhost:4200)$" REQUEST_ORIGIN=$0
         Header always set Access-Control-Allow-Origin: *
         Header always set Access-Control-Allow-Methods: "GET, POST, PUT, DELETE"
         Header always set Access-Control-Allow-Headers: Authorization

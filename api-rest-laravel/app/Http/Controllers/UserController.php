@@ -345,4 +345,14 @@ class UserController extends Controller
         }
         return response()->json($data, $data['code']);
     }
+
+    public function GetAllUserFincas(){
+        $usuarios = User::all();
+
+        return response()->json([
+                    'code' => 200,
+                    'status' => 'success',
+                    'Usuarios' => $usuarios
+        ]);
+    }
 }

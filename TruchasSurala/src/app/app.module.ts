@@ -60,6 +60,8 @@ import { MAT_FORM_FIELD_DEFAULT_OPTIONS } from '@angular/material/form-field';
 import {registerLocaleData} from '@angular/common'
 import  localCo from '@angular/common/locales/es-CO';
 import { DepartamentosComponent } from './componentes/01-Comunes/departamentos/departamentos.component';
+import { ActualizarComponent } from './componentes/02-Usuario/02-update/actualizar/actualizar.component';
+import { ListausuarioComponent } from './componentes/02-Usuario/01-lista/listausuario/listausuario.component';
 
 
 registerLocaleData(localCo);
@@ -87,6 +89,8 @@ registerLocaleData(localCo);
     TrazabilidadesComponent,
     TrazabilidadComponent,
     DepartamentosComponent,
+    ListausuarioComponent,
+    ActualizarComponent,
 
 
   ],
