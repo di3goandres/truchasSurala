@@ -16,6 +16,7 @@ import { DistribucionResponse } from '../../models/distribucion.response';
 import { GeneralesRoot } from '../../models/Datos.generales';
 import { UsuariosFincasResponse } from '../../models/usuarios.fincas';
 import { Router, ActivatedRoute, Params } from '@angular/router';
+import { FincasResponse } from '../../models/fincas.response';
 
 
 
@@ -38,9 +39,9 @@ export class UserService {
 
   user: User;
   constructor(public http: HttpClient,
-              private router: Router,
-              private route: ActivatedRoute 
-              ){
+    private router: Router,
+    private route: ActivatedRoute
+  ) {
     this.url = environment.apiUrl;
     this.header = new HttpHeaders();
     this.getIdentity();
@@ -54,7 +55,7 @@ export class UserService {
   // tslint:disable-next-line: typedef
   private ejecutarQuery<T>(query: string) {
     this.header = new HttpHeaders().set('Authorization', this.token);
-    return this.http.get<T>(this.url  + query, { headers: this.header });
+    return this.http.get<T>(this.url + query, { headers: this.header });
 
   }
 
@@ -62,7 +63,7 @@ export class UserService {
   private ejecutarQueryPost(query: string, params: string) {
     this.header = new HttpHeaders().set('Authorization', this.token)
       .set('Content-Type', 'application/x-www-form-urlencoded');
-    return this.http.post(this.url  + query, params, { headers: this.header });
+    return this.http.post(this.url + query, params, { headers: this.header });
 
   }
 
@@ -118,7 +119,7 @@ export class UserService {
   }
 
 
-  getDatosDepartamentos(){
+  getDatosDepartamentos() {
     return this.ejecutarQuery<GeneralesRoot>('/api/datos/departamentos');
   }
   // tslint:disable-next-line: typedef
@@ -159,6 +160,8 @@ export class UserService {
 
   registerUser(user): Observable<any> {
     this.json = JSON.stringify(user);
+    console.log(this.json);
+
     this.params = 'json=' + this.json;
     this.header = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded');
 
@@ -238,16 +241,27 @@ export class UserService {
 
   }
 
-  getUrlImage(nameImage){
-    return this.url  + '/api/user/avatar/' + this.getToken() +  '/' + nameImage;
+  getUrlImage(nameImage) {
+    return this.url + '/api/user/avatar/' + this.getToken() + '/' + nameImage;
   }
 
 
 
   getUsuarios(): Observable<any> {
-      return this.ejecutarQuery<UsuariosFincasResponse>('/api/users/get');
+    return this.ejecutarQuery<UsuariosFincasResponse>('/api/users/get');
   }
 
+ 
+ getFincasUsuarios(id): Observable<FincasResponse> {
+    return this.ejecutarQuery<FincasResponse>('/api/users/fincasget/' + id);
+  }
+  updatePassUser(user): Observable<any> {
+
+    this.json = JSON.stringify(user);
+    console.log(this.json);
+    this.params = 'json=' + this.json;
+    return this.ejecutarQueryPost('/api/user/resetadmin', this.params);
+  }
 
 }
 

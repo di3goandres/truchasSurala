@@ -64,6 +64,10 @@ class FincasController extends Controller {
                         'userid' => 'integer',
                         'altura' => 'integer',
                         'municipio' => 'required|numeric',
+                        'NombreMunicipio' => 'required',
+                        'nombreDepartamento' => 'required',
+
+
             ]);
 
 
@@ -94,6 +98,9 @@ class FincasController extends Controller {
                 $finca->direccion = $params_array['direccion'];
                 $finca->altura_nivel_mar = $params_array['altura'];
                 $finca->id_municipio = $params_array['municipio'];
+                $finca->municipio = $params_array['NombreMunicipio'];
+                $finca->departamento = $params_array['NombreDepartamento'];
+
                 $finca->temperatura_centigrados = $params_array['temperatura'];
 
                 //Guardar el Usuario
@@ -102,7 +109,8 @@ class FincasController extends Controller {
                 $data = array(
                     'code' => 200,
                     'status' => 'success',
-                    'finca' => $finca
+                    'finca' => $finca,
+                    'datos'=>$params_array
                 );
             }
         }
@@ -144,6 +152,21 @@ class FincasController extends Controller {
                     'code' => 200,
                     'status' => 'success',
                     'userFincas' => $retorno
+        ]);
+    }
+
+
+    public function getFincasByUser($id)
+    {
+        $fincas = Fincas:: where('user_id', '=', $id)->get();
+       
+
+
+
+        return response()->json([
+                    'code' => 200,
+                    'status' => 'success',
+                    'fincas' => $fincas
         ]);
     }
 

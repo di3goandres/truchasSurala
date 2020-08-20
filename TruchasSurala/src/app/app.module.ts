@@ -62,6 +62,8 @@ import  localCo from '@angular/common/locales/es-CO';
 import { DepartamentosComponent } from './componentes/01-Comunes/departamentos/departamentos.component';
 import { ActualizarComponent } from './componentes/02-Usuario/02-update/actualizar/actualizar.component';
 import { ListausuarioComponent } from './componentes/02-Usuario/01-lista/listausuario/listausuario.component';
+import { ListafincasComponent } from './componentes/02-Usuario/03-Fincas/listafincas/listafincas.component';
+import { PasswordComponent } from './componentes/02-Usuario/04-update/password/password.component';
 
 
 registerLocaleData(localCo);
@@ -91,6 +93,8 @@ registerLocaleData(localCo);
     DepartamentosComponent,
     ListausuarioComponent,
     ActualizarComponent,
+    ListafincasComponent,
+    PasswordComponent,
 
 
   ],

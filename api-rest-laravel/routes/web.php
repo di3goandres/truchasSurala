@@ -56,9 +56,12 @@ Route::get('/api/user/avatar/{user}/{filename}', 'UserController@getImage') ;
 Route::get('/api/user/detail/{id}', 'UserController@detail');
 Route::get('/api/users/get', 'UserController@GetAllUserFincas');
 
-
+/// ADMINISRADOR
+Route::post('/api/user/resetadmin', 'UserController@resetPasswordByAdmin');
 
 // Routes of Controller     Fincas
+Route::get('/api/users/fincasget/{id}', 'FincasController@getFincasByUser');
+
 Route::resource('/api/fincas', 'FincasController');
 Route::resource('/api/CajasLotes', 'LoteController');
 Route::resource('/api/Despacho', 'DespachoController');

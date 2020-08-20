@@ -34,7 +34,18 @@
                 <th mat-header-cell *matHeaderCellDef> Actualizar</th>
                 <td mat-cell mat-cell *matCellDef="let element">
                   <button mat-raised-button id="logout-button" class="btn btn-primary btn-block" style="width:50%"
-                    color="primary" [routerLink]="['/surala/despacho/', element.id]">Ver</button>
+                    color="primary"  (click)="openPassword(element.id)"> <mat-icon>refresh</mat-icon></button>
+                </td>
+  
+              </ng-container>
+
+              <ng-container matColumnDef="ver">
+                <th mat-header-cell *matHeaderCellDef> Ver fncas</th>
+                <td mat-cell mat-cell *matCellDef="let element">
+                  <button mat-raised-button id="logout-button" class="btn btn-primary btn-block" style="width:50%"
+                    color="primary"  (click)="openBandejas(element.id)">
+                    <mat-icon>local_florist</mat-icon>
+                    </button>
                 </td>
   
               </ng-container>

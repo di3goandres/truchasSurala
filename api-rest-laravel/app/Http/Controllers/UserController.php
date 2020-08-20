@@ -46,7 +46,9 @@ class UserController extends Controller
                     'status' => 'error',
                     'code' => 200,
                     'message' => 'El usuario no se ha creado',
-                    'errors' => $validate->errors()
+                    'errors' => $validate->errors(),
+
+
                 );
             } else {
 
@@ -76,6 +78,8 @@ class UserController extends Controller
                     $fincasave->nombre = $finca->nombre;
                     $fincasave->id_municipio = $finca->municipio;
                     $fincasave->direccion = $finca->direccion;
+                    $fincasave->municipio = $finca->NombreMunicipio;
+                    $fincasave->departamento = $finca->NombreDepartamento;
                     $fincasave->save();
                 }
 
@@ -84,6 +88,7 @@ class UserController extends Controller
                     'code' => 200,
                     'message' => 'El usuario se creo correctamente',
 
+
                 );
             }
         } else {
@@ -91,7 +96,7 @@ class UserController extends Controller
                 'status' => 'error',
                 'code' => 200,
                 'message' => 'Los datos enviados no son correctos',
-                'ENVIADO' => $json
+
             );
         }
 
@@ -267,23 +272,22 @@ class UserController extends Controller
             $imagen = str_replace('data:image/jpeg;base64,', '', $imagen);
             $imagen = str_replace(' ', '+', $imagen);
             $image_name = time() . $params_array['nombre'];
-           
+
             \Storage::disk('users')->put($user->sub . '\\' . $image_name, base64_decode($imagen));
 
 
-            
+
 
             $data = array(
                 'code' => 200,
                 'status' => 'OK',
                 'image' => $image_name
             );
-         
         } else {
             $data = array(
                 'code' => 200,
                 'status' => 'error',
-              
+
 
             );
         }
@@ -307,16 +311,16 @@ class UserController extends Controller
 
             $isset = \Storage::disk('users')->exists($userId->sub . "//" . $filename);
             if ($isset) {
-                $file = \Storage::disk('users')->get( $userId->sub . "//" . $filename);
+                $file = \Storage::disk('users')->get($userId->sub . "//" . $filename);
                 return new Response($file, 200);
             } else {
                 $data = array(
                     'code' => 200,
                     'status' => 'error',
-                    'user' => "/" .$userId->sub . "/" . $filename
+                    'user' => "/" . $userId->sub . "/" . $filename
                 );
             }
-        }else {
+        } else {
             $data = array(
                 'code' => 200,
                 'status' => 'error',
@@ -346,13 +350,75 @@ class UserController extends Controller
         return response()->json($data, $data['code']);
     }
 
-    public function GetAllUserFincas(){
+    public function GetAllUserFincas()
+    {
         $usuarios = User::all();
 
         return response()->json([
+            'code' => 200,
+            'status' => 'success',
+            'Usuarios' => $usuarios
+        ]);
+    }
+
+
+
+    public function resetPasswordByAdmin(Request $request)
+    {
+        $token = $request->header('Authorization');
+        $jwtAuth = new \JwtAuth();
+        $checktoken = $jwtAuth->checkToken($token);
+        $json = $request->input('json', null);
+        $params = json_decode($json); //objeto
+        $params_array = json_decode($json, true); // array
+        if ($checktoken && !empty($params) && !empty($params_array)) {
+            // recoger los datos por post
+            $user = $jwtAuth->checkToken($token, true);
+
+            if ($user->rol === "ADMIN") {
+
+
+                $pwd = hash('sha256', $params->password);
+
+                //quitar los campos que n quiero actualizar por si los llegan a envir
+                unset($params_array["id"]);
+                unset($params_array["role"]);
+                unset($params_array["name"]);
+                unset($params_array["telefono"]);
+                unset($params_array["surname"]);
+                unset($params_array["numero_identificacion"]);
+                unset($params_array["tipo_identificacion"]);
+                unset($params_array["email"]);
+                unset($params_array["description"]);
+                unset($params_array["image"]);
+                unset($params_array["created_at"]);
+                unset($params_array["updated_at"]);
+
+                $params_array['password'] = $pwd;
+
+
+                // actualizar usuario
+                $user_update = User::where('id', $params->id)->update($params_array);
+                //devolver array con resultado
+                $data = array(
                     'code' => 200,
                     'status' => 'success',
-                    'Usuarios' => $usuarios
-        ]);
+                    'message' => $user_update
+                );
+            } else {
+                $data = array(
+                    'code' => 200,
+                    'status' => 'error',
+                    'message' => 'No autorizado a cambiar'
+                );
+            }
+        } else {
+            $data = array(
+                'code' => 200,
+                'status' => 'error',
+                'message' => 'Usuario no identificado'
+            );
+        }
+        return response()->json($data, $data['code']);
     }
 }
