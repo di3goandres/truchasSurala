@@ -41,11 +41,11 @@ export class PasswordComponent implements OnInit {
     console.log(this.usuario);
     this.userService.updatePassUser(this.usuario).subscribe(
       ok => {{
-        // this.activeModal.close('OK')
+         this.activeModal.close('OK')
          console.log(ok);
       }},
       error =>{
-        // this.activeModal.close('Error')
+         this.activeModal.close('Error')
       }
     )
 
