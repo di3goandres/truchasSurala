@@ -15,7 +15,7 @@ use \App\Http\Middleware\ApiAuthMiddleware;
  */
 
 Route::get('/', function () {
-    return "<p>Hello laravel<p>";
+    return redirect('Administrador/App/');
 });
 
 
