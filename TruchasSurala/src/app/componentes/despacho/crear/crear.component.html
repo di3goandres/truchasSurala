@@ -12,17 +12,32 @@
     
       <div class="row">
         <div class="col-3"></div>
-        <div class=col-6>
+        <div class=col-3>
     
     
     
           <mat-form-field appearance="fill">
-            <mat-label>Fecha del despacho</mat-label>
-            <input matInput formControlName="FechaDesove" [matDatepicker]="pickerDesembolso"
-              ng-keydown="$event.preventDefault();" [min]="minDate" [max]="maxDate" [(ngModel)]="despacho.fecha" required>
-            <mat-datepicker-toggle matSuffix [for]="pickerDesembolso">
+            <mat-label>Fecha de entrada</mat-label>
+            <input matInput formControlName="FechaEntrada" [matDatepicker]="pickerentrada"
+              ng-keydown="$event.preventDefault();" [min]="minDate" [max]="maxDate" [(ngModel)]="despacho.fechaEntrada" required>
+            <mat-datepicker-toggle matSuffix [for]="pickerentrada">
             </mat-datepicker-toggle>
-            <mat-datepicker touchUi #pickerDesembolso></mat-datepicker>
+            <mat-datepicker touchUi #pickerentrada></mat-datepicker>
+            <!-- <input type="button" value="Agregar Fecha"/> -->
+    
+          </mat-form-field>
+        </div>
+        <div class=col-3>
+    
+    
+    
+          <mat-form-field appearance="fill">
+            <mat-label>Fecha de Salida</mat-label>
+            <input matInput formControlName="FechaSalida" [matDatepicker]="pickersalida"
+              ng-keydown="$event.preventDefault();" [min]="despacho.fechaEntrada" [max]="maxDate" [(ngModel)]="despacho.fechaEntrega" required>
+            <mat-datepicker-toggle matSuffix [for]="pickersalida">
+            </mat-datepicker-toggle>
+            <mat-datepicker touchUi #pickersalida></mat-datepicker>
             <!-- <input type="button" value="Agregar Fecha"/> -->
     
           </mat-form-field>
@@ -55,7 +70,7 @@
     
           <mat-form-field appearance="fill">
             <mat-label>Numero de Ovas aproximadas</mat-label>
-            <input matInput [(ngModel)]="despacho.numero_ovas" formControlName="NumeroDeOvas" required />
+            <input matInput type="number" [(ngModel)]="despacho.numero_ovas" formControlName="NumeroDeOvas" required />
           </mat-form-field>
     
         </div>
@@ -71,8 +86,8 @@
     
           <mat-form-field appearance="fill">
             <mat-label>% Adicional</mat-label>
-            <input matInput type="number" [(ngModel)]="despacho.porcentaje
-            " formControlName="Porcentaje" required min="0" max="100"/>
+            <input matInput type="number" [(ngModel)]="despacho.porcentaje"
+             formControlName="Porcentaje" required min="0" max="100"/>
           </mat-form-field>
     
         </div>

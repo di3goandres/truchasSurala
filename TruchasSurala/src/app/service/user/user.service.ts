@@ -17,6 +17,7 @@ import { GeneralesRoot } from '../../models/Datos.generales';
 import { UsuariosFincasResponse } from '../../models/usuarios.fincas';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { FincasResponse } from '../../models/fincas.response';
+import { DespachoResponseActual } from '../../models/despacho.response';
 
 
 
@@ -134,9 +135,12 @@ export class UserService {
   getDespachos() {
 
     return this.ejecutarQuery<DespachoRootObject>('/api/Despacho/');
-
   }
 
+
+  getDespachoActual() {
+    return this.ejecutarQuery<DespachoResponseActual>('/api/despacho/actual/');
+  }
   getTrazabilidad(id) {
     return this.ejecutarQuery<TopTrazabilidad>('/api/Distribucion/' + id);
   }

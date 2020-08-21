@@ -64,6 +64,7 @@ class DespachoController extends Controller
         {
             $validate = \Validator::make($params_array, [
                         'fecha' => 'required',
+                        'fechaSalida' => 'required',
                         'numero_factura' => 'required',
                         'numero_ovas' => 'required|integer',
                         'porcentaje' => 'required|numeric|between:0,99.99',
@@ -92,14 +93,15 @@ class DespachoController extends Controller
 
                 $despacho = new Despacho();
                 $despacho->fecha= $params_array['fecha'];
+                $despacho->fecha_salida= $params_array['fechaSalida'];
                 $despacho->numero_factura = $params_array['numero_factura'];
                 $despacho->numero_ovas = $params_array['numero_ovas'];
                 $despacho->porcentaje = $params_array['porcentaje'];
-
-                
-              
                 $despacho->save();
                 //devolver array con resultado
+
+                Despacho::where('id', '<>', $despacho->id)
+                      ->update(['Activo' => 0]);
                 $data = array(
                     'code' => 200,
                     'status' => 'success',
@@ -119,6 +121,30 @@ class DespachoController extends Controller
         }
         // guardar los datos
         // devolver el resutlado
+        return response()->json($data, $data['code']);
+    }
+
+
+    public function getDespachoActual()
+    {
+        $despacho = Despacho::where('Activo', '=', 1)->get();
+     
+        if (is_object($despacho ))
+        {
+            
+            $data = ['code' => 200,
+                'status' => 'OK',
+                'despacho' => $despacho,
+                 ];
+        }
+        else
+        {
+            $data = ['code' => 200,
+                'message' => 'Despacho No encontrada',
+                'status' => 'error',
+            ];
+        }
+
         return response()->json($data, $data['code']);
     }
 }

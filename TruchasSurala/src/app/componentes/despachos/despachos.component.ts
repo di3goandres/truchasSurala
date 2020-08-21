@@ -11,12 +11,12 @@ import { MatPaginator } from '@angular/material/paginator';
 })
 export class DespachosComponent implements OnInit {
 
-  displayedColumns: string[] = ['position','Activo', 'FechaFactura', 
+  displayedColumns: string[] = ['position','Activo', 'FechaFactura', 'FechaSalida',
   'NumeroFactura', 'NumeroOvas',
   'Porcentaje',  'VerDespacho', 'VerPedidos'];
 
   public respuesta: DespachoRootObject;
-  public dataSource = new MatTableDataSource<Despacho>();;
+  public dataSource = new MatTableDataSource<Despacho>();
   public actual: Despacho;
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
 
@@ -25,11 +25,13 @@ export class DespachosComponent implements OnInit {
   constructor(private userService: UserService) { }
 
   ngOnInit(): void {
-
+    this.actual = new Despacho();
     this.userService.getDespachos().subscribe(
       resp => {
       
       this.respuesta = resp;
+     
+
      
       if (this.respuesta.status !== 'error') {
 

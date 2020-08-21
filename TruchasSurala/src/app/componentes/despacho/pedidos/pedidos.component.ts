@@ -5,6 +5,7 @@ import { User } from 'src/app/models/users';
 import { Despacho } from 'src/app/models/despacho';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MatTableDataSource } from '@angular/material/table';
+import { DespachosComponent } from '../../despachos/despachos.component';
 
 @Component({
   selector: 'app-pedidos',
@@ -25,11 +26,14 @@ export class PedidosComponent implements OnInit {
   id: string;
   constructor(private userService: UserService,
               private route: ActivatedRoute,
-              private router: Router) { }
+              private router: Router,
+             ) { }
 
   ngOnInit(): void {
-
+  
     this.id = this.route.snapshot.paramMap.get('id');
+
+
 
     if (this.id == null) {
       this.router.navigate(['/surala/error']);
@@ -37,12 +41,14 @@ export class PedidosComponent implements OnInit {
     }
     this.userService.getPedidos(this.id).subscribe(
       response => {
+        console.log(response)
         if (response.status === 'success') {
           this.pedidos = [];
-          this.pedidos.push(...response.pedido);
+          if(response.pedido.length!==0){
+            this.pedidos.push(...response.pedido);
+           
+          }
           this.dataSource = new MatTableDataSource(this.pedidos);
-          console.log(response.pedido);
-          this.actual = response.pedido[0].despacho;
         }
       },
       error => { }

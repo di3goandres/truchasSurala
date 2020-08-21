@@ -1,6 +1,6 @@
 export const environment = {
   production: true,
-  apiUrl: ''
+  apiUrl: 'http://apitruchas.asovagar.com'
 
 };
 

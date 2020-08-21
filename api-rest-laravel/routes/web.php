@@ -66,6 +66,9 @@ Route::get('/api/users/fincasget/{id}', 'FincasController@getFincasByUser');
 Route::post('/api/fincas/update/', 'FincasController@ActualizarFinca');
 
 
+//despachos
+Route::get('/api/despacho/actual/', 'DespachoController@getDespachoActual');
+
 Route::resource('/api/fincas', 'FincasController');
 Route::resource('/api/CajasLotes', 'LoteController');
 Route::resource('/api/Despacho', 'DespachoController');

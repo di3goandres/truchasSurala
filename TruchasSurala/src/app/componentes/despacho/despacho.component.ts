@@ -9,6 +9,7 @@ import { AgregarcajaComponent } from './agregarcaja/agregarcaja.component';
 import {MatPaginator} from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { BandejascajaComponent } from '../bandejascaja/bandejascaja.component';
+import { DespachosComponent } from '../despachos/despachos.component';
 
 
 const ELEMENT_DATA: Caja[] = []
@@ -39,9 +40,11 @@ export class DespachoComponent implements OnInit {
     private userService: UserService,
     private route: ActivatedRoute,
     private router: Router,
-    private modalService: NgbModal) { }
+    private modalService: NgbModal,
+    ) { }
 
   ngOnInit(): void {
+  
     this.dataSource.paginator = this.paginator;
 
     this.consultaInicial();
@@ -66,7 +69,7 @@ export class DespachoComponent implements OnInit {
         this.dataSource.paginator = this.paginator;
 
         this.despacho = resp;
-        this.actual = resp.despacho;
+        
 
         this.habilitarAgregar = resp.despacho.Activo === 1 ? false: true;
         return;

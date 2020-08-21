@@ -1,9 +1,10 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { Despacho } from 'src/app/models/despacho';
+
 import { UserService } from 'src/app/service/user/user.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 import { AgregarpedidoComponent } from '../../despacho/agregarpedido/agregarpedido.component';
+import { Despacho } from '../../../models/despacho.response';
 
 @Component({
   selector: 'app-despachoactual',
@@ -13,7 +14,7 @@ import { AgregarpedidoComponent } from '../../despacho/agregarpedido/agregarpedi
 export class DespachoactualComponent implements OnInit {
   public closeResult: string;
   public url: string;
-  @Input() actual: Despacho;
+  actual : Despacho;
   constructor(
     private userService: UserService,
     private route: ActivatedRoute,
@@ -22,8 +23,23 @@ export class DespachoactualComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+  this.traerActual()
   }
+  
 
+
+  traerActual(){
+    this.userService.getDespachoActual().subscribe(
+      response=> {
+        if(response.status==="OK"){
+          if(response.despacho.length>0){
+            this.actual = response.despacho[0];
+          }
+        }
+      }
+      
+    );
+  }
 
   open(): void {
     const modalRef = this.modalService.open(AgregarpedidoComponent);

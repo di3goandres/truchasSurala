@@ -21,6 +21,8 @@
 export interface Despacho {
   id: number;
   fecha: string;
+  fecha_salida: string;
+
   numero_factura: string;
   Activo: number;
   porcentaje: number;

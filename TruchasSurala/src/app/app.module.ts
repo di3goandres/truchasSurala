@@ -130,7 +130,8 @@ registerLocaleData(localCo);
     {provide: LOCALE_ID, useValue: 'es-Co'},
     {provide: MAT_FORM_FIELD_DEFAULT_OPTIONS, useValue: {appearence: 'fill'}},
     DatePipe,
-    MatDatepickerModule],
+    MatDatepickerModule,
+    DespachosComponent],
     
   bootstrap: [AppComponent]
 })

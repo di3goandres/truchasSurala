@@ -285,11 +285,22 @@ set tamanio_usado =0;
 update bandeja_lote
 set tamanio_final = tamanio_inicial;
 
+
+
+--para borrar los archivos
+set foreign_key_checks=0;
+
+TRUNCATE TABLE trazabilidad_bandejas;
+truncate table trazabilidad;
+
+
+
+
 truncate table bandeja_lote;
 truncate table lotes;
 truncate table pedidos;
 truncate table despachos;
-
+set foreign_key_checks=1;
 
 
 DELIMITER //

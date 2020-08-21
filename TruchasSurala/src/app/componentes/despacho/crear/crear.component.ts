@@ -39,18 +39,21 @@ export class CrearComponent implements OnInit {
   ngOnInit(): void {
 
     this.firstFormGroup =this._formBuilder.group({
-      FechaDesove: ['', Validators.required],
+      FechaEntrada: ['', Validators.required],
+      FechaSalida: ['', Validators.required],
       NumeroFactura: ['', Validators.required],
       NumeroDeOvas: ['', Validators.required],
       Porcentaje: ['', Validators.required],
     });
-    this.despacho = new DespachoClass('', '', '',0.0, 0);
+    this.despacho = new DespachoClass();
     this.agregar = false;
   }
 
   onRegister(formulario): void {
 
-    this.despacho.fecha = this.datepipe.transform(this.despacho.fecha, 'yyyy-MM-dd');
+     this.despacho.fecha = this.datepipe.transform(this.despacho.fechaEntrada, 'yyyy-MM-dd');
+     this.despacho.fechaSalida = this.datepipe.transform(this.despacho.fechaEntrega, 'yyyy-MM-dd');
+
   
     console.log(this.despacho)
     this.userService.storeDespacho(this.despacho).subscribe(

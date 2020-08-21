@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpHeaders, HttpClientModule, HttpClient } from '@angular/common/http';
-import { environment } from '../../environments/environment.prod';
+import { environment } from '../../environments/environment';
 import { User } from '../models/user';
 import { Observable } from 'rxjs';
 import { NavController } from '@ionic/angular';

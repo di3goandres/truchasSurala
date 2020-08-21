@@ -4,6 +4,7 @@ export class Despacho {
   }
   id: number;
   fecha: string;
+  fecha_salida: string;
   numero_factura: string;
   Activo: number;
   porcentaje: number;
@@ -46,19 +47,28 @@ export interface DespachoRootObject {
 
 export class DespachoClass {
   constructor(
+ 
+  ){
+    this.fechaEntrada = new Date()
+    this.fechaEntrega = new Date()
+    this.numero_factura = '',
+    this.porcentaje =0;
+    this.repetir =0;
+  }
+  public fechaEntrada: Date;
+  public fechaEntrega: Date;
+  public fecha: string;
+  public fechaSalida: string;
+  public fecha_salida: string;
 
-    public fecha: string,
-    // tslint:disable-next-line: variable-name
-    public numero_factura: string,
-    // tslint:disable-next-line: variable-name
-    public numero_ovas: string,
+  // tslint:disable-next-line: variable-name
+  public numero_factura: string;
+  // tslint:disable-next-line: variable-name
+  public numero_ovas: string;
 
 
-    public porcentaje: number,
+  public porcentaje: number;
 
-    public repetir: number,
-
-  ){}
-
+  public repetir: number;
 
 }
