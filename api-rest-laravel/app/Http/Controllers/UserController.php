@@ -32,7 +32,7 @@ class UserController extends Controller
             // validar datos
             $validate = \Validator::make($params_array, [
                 'name' => 'required',
-                'surname' => 'required',
+               // 'surname' => 'required',
                 'numero_identificacion' => 'required|numeric|unique:users', //comprueba que el numero de identificacion sea unico
                 'email' => 'required|email|unique:users', //comprueba si el usuario esta duplicaod
                 'telefono' => 'numeric',
