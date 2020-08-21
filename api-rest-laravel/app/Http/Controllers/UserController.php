@@ -352,7 +352,7 @@ class UserController extends Controller
 
     public function GetAllUserFincas()
     {
-        $usuarios = User::all();
+        $usuarios = User::where('role', '=', 'USUARIO')->get();
 
         return response()->json([
             'code' => 200,
