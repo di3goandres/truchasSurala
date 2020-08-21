@@ -27,7 +27,8 @@ export class ListausuarioComponent implements OnInit {
   public dataSource = new MatTableDataSource<any>();;
 
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
-  ngOnInit(): void {
+
+  refresh(){
     this.dataSource.paginator = this.paginator;
     this.userService.getUsuarios().subscribe(
       response => {
@@ -41,6 +42,9 @@ export class ListausuarioComponent implements OnInit {
       },
       error => {console.log(error)}
     )
+  }
+  ngOnInit(): void {
+   this.refresh();
   }
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;

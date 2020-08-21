@@ -6,6 +6,7 @@ import { Select, Municipio } from 'src/app/models/Datos.generales';
 import { MatTableDataSource, MatTable } from '@angular/material/table';
 import { DatosDepartamento } from '../../models/dato.departament';
 import { Departamento } from '../../models/Datos.generales';
+import { MatStepper } from '@angular/material/stepper';
 
 @Component({
   selector: 'app-register',
@@ -23,6 +24,7 @@ export class RegisterComponent implements OnInit {
   datosDepartamento: DatosDepartamento = new DatosDepartamento();
   codigoMunicipio: number;
 
+  @ViewChild('stepper') private myStepper: MatStepper;
 
   @ViewChild('tablefincas') table: MatTable<any>;
   displayedColumns: string[] = ['position', 'Departamento',
@@ -188,6 +190,13 @@ export class RegisterComponent implements OnInit {
     )
   }
 
+  goInicio(){
+      this.fincas =[];
+      this.status =''
+      this.user = new User();
+      this.ocultar = false;
+      this.myStepper.reset();
+  }
   Guardar(): void {
 
 
@@ -199,7 +208,6 @@ export class RegisterComponent implements OnInit {
         console.log(response);
         // tslint:disable-next-line: triple-equals
         if (response.status == 'success') {
-
           this.status = response.status;
           this.mail = false;
           this.identificacion = false;
@@ -227,6 +235,7 @@ export class RegisterComponent implements OnInit {
 
   }
   ngOnInit(): void {
+ 
  
     this.consultarDatosDepartamentos();
 

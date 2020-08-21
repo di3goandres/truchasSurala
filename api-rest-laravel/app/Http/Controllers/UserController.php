@@ -31,8 +31,8 @@ class UserController extends Controller
             // $params_array = array_map('trim', $params_array);
             // validar datos
             $validate = \Validator::make($params_array, [
-                'name' => 'required|regex:/^[\pL\s\-]+$/u',
-                'surname' => 'required|regex:/^[\pL\s\-]+$/u',
+                'name' => 'required',
+                'surname' => 'required',
                 'numero_identificacion' => 'required|numeric|unique:users', //comprueba que el numero de identificacion sea unico
                 'email' => 'required|email|unique:users', //comprueba si el usuario esta duplicaod
                 'telefono' => 'numeric',
