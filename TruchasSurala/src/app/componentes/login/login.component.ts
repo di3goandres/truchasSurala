@@ -30,6 +30,7 @@ export class LoginComponent implements OnInit {
   ngOnInit(): void {
     
     this.logOut();
+    this.verificarLogueo();
   }
 
 
@@ -84,6 +85,14 @@ export class LoginComponent implements OnInit {
 
   }
 
+  verificarLogueo(){
+    if(this.userService.getIdentity()!=null && this.userService.getToken() != null){
+      this.router.navigate(['surala/home']);
+      
+    }else {
+      this.router.navigate(['/surala/login']);
+    }
+  }
   logOut(): void {
     this.route.params.subscribe(
       params => {

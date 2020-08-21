@@ -263,6 +263,13 @@ export class UserService {
     return this.ejecutarQueryPost('/api/user/resetadmin', this.params);
   }
 
+  updateFinca(finca){
+    this.json = JSON.stringify(finca);
+    console.log(this.json);
+    this.params = 'json=' + this.json;
+    return this.ejecutarQueryPost('/api/fincas/update', this.params);
+  }
+
 }
 
 

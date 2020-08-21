@@ -64,6 +64,7 @@ import { ActualizarComponent } from './componentes/02-Usuario/02-update/actualiz
 import { ListausuarioComponent } from './componentes/02-Usuario/01-lista/listausuario/listausuario.component';
 import { ListafincasComponent } from './componentes/02-Usuario/03-Fincas/listafincas/listafincas.component';
 import { PasswordComponent } from './componentes/02-Usuario/04-update/password/password.component';
+import { FincaupdateComponent } from './componentes/02-Usuario/04-update/fincaupdate/fincaupdate.component';
 
 
 registerLocaleData(localCo);
@@ -95,6 +96,7 @@ registerLocaleData(localCo);
     ActualizarComponent,
     ListafincasComponent,
     PasswordComponent,
+    FincaupdateComponent,
 
 
   ],

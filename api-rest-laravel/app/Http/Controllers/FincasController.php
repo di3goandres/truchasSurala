@@ -231,4 +231,58 @@ class FincasController extends Controller {
         return response()->json($data, $data['code']);
     }
 
+
+    ///Solo actualiza el nombre y la direccion de la finca.
+    public function ActualizarFinca(Request $request){
+        $token = $request->header('Authorization');
+        $jwtAuth = new \JwtAuth();
+        $checktoken = $jwtAuth->checkToken($token);
+        $json = $request->input('json', null);
+        $params = json_decode($json); //objeto
+        $params_array = json_decode($json, true); // array
+        if ($checktoken && !empty($params) && !empty($params_array)) {
+            // recoger los datos por post
+            $user = $jwtAuth->checkToken($token, true);
+
+            if ($user->rol === "ADMIN") {
+
+                //quitar los campos que n quiero actualizar por si los llegan a envir
+                unset($params_array["id"]);
+                unset($params_array["user_id"]);
+                unset($params_array["name"]);
+                unset($params_array["id_municipio"]);
+                unset($params_array["municipio"]);
+                unset($params_array["departamento"]);
+          
+                unset($params_array["altura_nivel_mar"]);
+                unset($params_array["temperatura_centrigrador"]);
+                unset($params_array["image"]);
+                unset($params_array["created_at"]);
+                unset($params_array["updated_at"]);
+
+                // actualizar usuario
+                $finca_update = Fincas::where('id', $params->id)->update($params_array);
+                //devolver array con resultado
+                $data = array(
+                    'code' => 200,
+                    'status' => 'success',
+                   
+                );
+            } else {
+                $data = array(
+                    'code' => 200,
+                    'status' => 'error',
+                    'message' => 'No autorizado a cambiar'
+                );
+            }
+        } else {
+            $data = array(
+                'code' => 200,
+                'status' => 'error',
+                'message' => 'Usuario no identificado'
+            );
+        }
+        return response()->json($data, $data['code']);
+    }
+
 }

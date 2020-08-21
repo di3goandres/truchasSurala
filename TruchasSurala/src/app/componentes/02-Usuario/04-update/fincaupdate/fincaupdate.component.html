@@ -1,0 +1,60 @@
+<div class="container alternate-theme">
+    <form [formGroup]="secondFormGroup">
+        <div class="container">
+            <div class="row">
+
+            </div>
+            <div class="row">
+                <div class="col-12 update">
+                    <label>
+                        <h1>Actualizar Finca</h1>
+                    </label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="row">
+                    <div class="col-6">
+
+                        <mat-form-field appearance="fill">
+                            <mat-icon matSuffix>person</mat-icon>
+                            <mat-label>Nombre</mat-label>
+                            <input matInput formControlName="nombre" [(ngModel)]="fincaUpdate.nombre"
+                                required />
+                        </mat-form-field>
+
+                    </div>
+
+                    <div class="col-6">
+
+                        <mat-form-field appearance="fill">
+                            <mat-icon matSuffix>person</mat-icon>
+                            <mat-label>Direccion</mat-label>
+                            <input matInput formControlName="direccion" [(ngModel)]="fincaUpdate.direccion" required />
+                        </mat-form-field>
+
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-3"></div>
+                <div class="col-3 col-md-offset-3">
+                    <button ngbAutofocus mat-raised-button color="primary" class="btn btn-primary btn-block"
+                        (click)="Cerrar()" style="width:50%">
+                        <mat-icon>cancel_presentation</mat-icon>
+                </button>
+                </div>
+                <div class="col-3 col-md-offset-3">
+                    <button ngbAutofocus mat-raised-button class="btn btn-primary btn-block"
+                        (click)="actualizarCampos()" color="primary" style="width:50%"
+                        [disabled]="secondFormGroup.invalid">
+                        <mat-icon>refresh</mat-icon>
+                    </button>
+                </div>
+                <div class="col-3"></div>
+
+            </div>
+            <div class="row"></div>
+        </div>
+    </form>
+
+</div>

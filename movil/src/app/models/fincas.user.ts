@@ -6,7 +6,11 @@ export interface FincasUser {
     fincas: Finca[];
 }
 
-export interface Finca {
+export class Finca {
+    constructor(){
+        this.nombre='';
+        this.direccion=''
+    }
     id:                      number;
     user_id:                 number;
     nombre:                  string;

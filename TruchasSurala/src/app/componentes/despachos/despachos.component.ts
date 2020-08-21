@@ -16,7 +16,7 @@ export class DespachosComponent implements OnInit {
   'Porcentaje',  'VerDespacho', 'VerPedidos'];
 
   public respuesta: DespachoRootObject;
-  public dataSource = new MatTableDataSource<any>();;
+  public dataSource = new MatTableDataSource<Despacho>();;
   public actual: Despacho;
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
 
@@ -25,7 +25,6 @@ export class DespachosComponent implements OnInit {
   constructor(private userService: UserService) { }
 
   ngOnInit(): void {
-    this.dataSource.paginator = this.paginator;
 
     this.userService.getDespachos().subscribe(
       resp => {
@@ -37,16 +36,14 @@ export class DespachosComponent implements OnInit {
         
         this.dataSource = new MatTableDataSource(this.respuesta.despachos);
         this.actual = this.respuesta.despachos[0];
-    //    this.despachos =  this.despachos.sort();
+        this.dataSource.paginator = this.paginator;
 
-
-        return;
       }
 
 
     });
   }
-  // tslint:disable-next-line: typedef
+
 
 
 }
