@@ -44,7 +44,7 @@ import {MatToolbarModule} from '@angular/material/toolbar';
 import {MatMenuModule} from '@angular/material/menu';
 import {MatTableModule} from '@angular/material/table'
 import {MatStepperModule} from '@angular/material/stepper';
-
+import {MatSortModule} from '@angular/material/sort';
 import { MatPaginatorModule } from '@angular/material/paginator';
 
 import { PedidosComponent } from './componentes/despacho/pedidos/pedidos.component';
@@ -121,7 +121,8 @@ registerLocaleData(localCo);
     MatDatepickerModule,
     MatMomentDateModule,
     MatStepperModule,
-    MatPaginatorModule
+    MatPaginatorModule,
+    MatSortModule
 
 
   ],

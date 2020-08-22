@@ -1,11 +1,12 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, ChangeDetectorRef } from '@angular/core';
 import { UserService } from '../../../../service/user/user.service';
 import { Usuario } from '../../../../models/usuarios.fincas';
-import { MatTableDataSource } from '@angular/material/table';
+import { MatTableDataSource, MatTable } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ListafincasComponent } from '../../03-Fincas/listafincas/listafincas.component';
 import { PasswordComponent } from '../../04-update/password/password.component';
+import { MatSort } from '@angular/material/sort';
 
 
 @Component({
@@ -15,28 +16,35 @@ import { PasswordComponent } from '../../04-update/password/password.component';
 })
 export class ListausuarioComponent implements OnInit {
   usuario: Usuario[]=[];
-  
   constructor(
     private userService:UserService,
-    private modalService: NgbModal
-
+    private modalService: NgbModal,
+    private changeDetectorRefs: ChangeDetectorRef
     ) { }
-  displayedColumns: string[] = ['position','NumeroIdentificacion', 'Nombre', 
+  displayedColumns: string[] = ['position','numero_identificacion', 'name', 'surname',
   'email', 'Actualizar', 'ver'];
 
-  public dataSource = new MatTableDataSource<any>();;
+  public dataSource: MatTableDataSource<Usuario>;
 
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
+  @ViewChild(MatSort, {static: true}) sort: MatSort;
+
+  
 
   refresh(){
-    this.dataSource.paginator = this.paginator;
+
+
     this.userService.getUsuarios().subscribe(
       response => {
         if(response.status=="success"){
+          this.usuario = []
           this.usuario.push(... response.Usuarios)
-          this.dataSource = new MatTableDataSource(response.Usuarios);
+          this.dataSource = new MatTableDataSource(this.usuario);
           this.dataSource.paginator = this.paginator;
-      
+          
+          this.dataSource.sort = this.sort;
+          console.log(this.dataSource)
+          // this.changeDetectorRefs.detectChanges();
         }
        
       },
@@ -44,6 +52,11 @@ export class ListausuarioComponent implements OnInit {
     )
   }
   ngOnInit(): void {
+   this.dataSource =  new MatTableDataSource<Usuario>();
+   this.dataSource.sort = this.sort;
+   this.dataSource.paginator = this.paginator;
+
+
    this.refresh();
   }
   applyFilter(event: Event) {

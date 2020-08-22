@@ -17,3 +17,7 @@ body > ngb-modal-window > div > div {
   .modal-dialog {
     flex-grow: 1;
   }
+
+  th.mat-sort-header-sorted {
+    color: black;
+  }

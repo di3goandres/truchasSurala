@@ -251,7 +251,7 @@ export class UserService {
 
 
 
-  getUsuarios(): Observable<any> {
+  getUsuarios(): Observable<UsuariosFincasResponse> {
     return this.ejecutarQuery<UsuariosFincasResponse>('/api/users/get');
   }
 
