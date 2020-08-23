@@ -102,7 +102,7 @@ export class LoginComponent implements OnInit {
           localStorage.removeItem('token');
           this.identity = null;
           this.token = null;
-
+        
           // redireccion a la pagina principal.
           this.router.navigate(['/surala/login']);
 

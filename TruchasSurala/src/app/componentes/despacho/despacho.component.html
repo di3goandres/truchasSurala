@@ -41,7 +41,7 @@
             <!-- Name Column -->
             <ng-container matColumnDef="FechaDesove">
               <th mat-header-cell *matHeaderCellDef> Fecha desove </th>
-              <td mat-cell *matCellDef="let element"> {{element.fecha_desove |date :"MMM/dd/yyyy" | uppercase }} </td>
+              <td mat-cell *matCellDef="let element"> {{element.fecha_desove.replace(' 00:00:00', 'T00:00:00') |date :"MMM/dd/yyyy" | uppercase }} </td>
             </ng-container>
           
             <!-- Weight Column -->

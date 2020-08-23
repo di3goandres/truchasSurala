@@ -22,7 +22,7 @@ export class ListaComponent implements OnInit {
   displayedColumns: string[] = ['position', 'Cantidad', 'Bandeja'];
   treeControl = new NestedTreeControl<InfoR>(node => node.childrend);
   dataSource: InfoR[] = []
-  
+
   @Input() idPedido: number;
   constructor(
     private userService: UserService,
@@ -39,29 +39,29 @@ export class ListaComponent implements OnInit {
 
 
   calcularCajas() {
-    let children: InfoR[]=[];
-    let Todos: InfoR[]=[];
+    let children: InfoR[] = [];
+    let Todos: InfoR[] = [];
     let index = 1;
     this.distribuciones.distribucion.forEach(item => {
-          item.InfoDespacho.forEach(element => {
-            children.push(
-              new InfoR(
-                element.Cantidad,
-                element.caja_numero,
-                element.bandeja_numero))
-          });
+      item.InfoDespacho.forEach(element => {
+        children.push(
+          new InfoR(
+            element.Cantidad,
+            element.caja_numero,
+            element.bandeja_numero))
+      });
 
-          Todos.push(new InfoR(item.contacto.Total_enviado, 0, 0 , children));
-          children =[];
+      Todos.push(new InfoR(item.contacto.Total_enviado, 0, 0, children));
+      children = [];
 
-        
+
 
 
 
     });
 
     console.log(Todos);
-    this.dataSource= Todos;
+    this.dataSource = Todos;
     //   var groups =  this.distribuciontotal.reduce(function(obj,item){
     //     obj[item.numeroCaja] = obj[item.numeroCaja]  || [];
     //     obj[item.numeroCaja].push(item);
@@ -83,29 +83,33 @@ export class ListaComponent implements OnInit {
     //     cajaNumero = item.numeroCaja;
     //   });
 
-  //   this.mostrar.push(new InfoR(1, total, cajaNumero, numerosBandejas))
-  //   numerosBandejas = [];
+    //   this.mostrar.push(new InfoR(1, total, cajaNumero, numerosBandejas))
+    //   numerosBandejas = [];
 
-  // });
+    // });
 
- 
-    
+
+
   }
 
   private obtenerListaDistribucion() {
-  this.userService.getDistribucion(this.idPedido).subscribe(
-    response => {
+    this.userService.getDistribucion(this.idPedido).subscribe(
+      response => {
 
 
-      console.log('En lista', response);
+        console.log('En lista', response);
 
-      this.distribuciones = response
-      this.calcularCajas()
-      console.log('Distribuciones', this.distribuciones)
+        // if(response.status!=='error'){
+          this.distribuciones = response
+        
+          if (this.distribuciones.distribucion.length > 0) { this.calcularCajas() }
+          console.log('Distribuciones', this.distribuciones)
+        // }
+       
 
 
-    },
-    error => { });
-}
+      },
+      error => { });
+  }
 
 }

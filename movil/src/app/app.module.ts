@@ -20,6 +20,7 @@ import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { ComponentsModule } from './components/components.module';
 import { Camera, CameraOptions } from '@ionic-native/camera/ngx';
+import { HomePage } from './pages/00-Home/home/home.page';
 
 
 @NgModule({
@@ -39,6 +40,7 @@ import { Camera, CameraOptions } from '@ionic-native/camera/ngx';
     File,
     WebView,
     Camera,
+    HomePage,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
   ],
   bootstrap: [AppComponent]

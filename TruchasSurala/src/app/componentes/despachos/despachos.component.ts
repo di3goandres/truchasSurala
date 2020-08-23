@@ -31,7 +31,7 @@ export class DespachosComponent implements OnInit {
       
       this.respuesta = resp;
      
-
+     
      
       if (this.respuesta.status !== 'error') {
 

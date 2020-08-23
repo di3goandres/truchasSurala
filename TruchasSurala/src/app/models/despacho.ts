@@ -1,10 +1,10 @@
 export class Despacho {
   constructor(){
-    this.fecha =""
+    this.fecha = new Date()
   }
   id: number;
-  fecha: string;
-  fecha_salida: string;
+  fecha: Date;
+  fecha_salida: Date;
   numero_factura: string;
   Activo: number;
   porcentaje: number;

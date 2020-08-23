@@ -29,8 +29,7 @@ export class PedidosComponent implements OnInit {
               private router: Router,
              ) { }
 
-  ngOnInit(): void {
-  
+  refresh(){
     this.id = this.route.snapshot.paramMap.get('id');
 
 
@@ -54,6 +53,11 @@ export class PedidosComponent implements OnInit {
       error => { }
 
     );
+  }
+  ngOnInit(): void {
+    
+    this.refresh()
+   
   }
 
 }

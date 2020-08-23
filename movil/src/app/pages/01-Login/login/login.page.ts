@@ -4,9 +4,11 @@ import { Router, ActivatedRoute } from '@angular/router';
 
 import { IonSlides, MenuController } from '@ionic/angular';
 import { Login } from '../../../models/login';
-import { UserService } from 'src/app/services/user.service';
+
 import { DatamenuService } from '../../../services/datamenu.service';
 import { Camera, CameraOptions } from '@ionic-native/camera/ngx';
+import { UserService } from '../../../services/user.service';
+import { HomePage } from '../../00-Home/home/home.page';
 
 @Component({
   selector: 'app-login',
@@ -33,7 +35,8 @@ export class LoginPage implements OnInit {
     private route: ActivatedRoute,
     private menuCtrl: MenuController,
     private dataService: DatamenuService,
-    private camera: Camera
+    private camera: Camera,
+    private home: HomePage
 
   ) { }
 
@@ -62,6 +65,7 @@ export class LoginPage implements OnInit {
 
   verificarLogueo(){
     if(this.userService.getIdentity()!=null && this.userService.getToken() != null){
+      this.router.onSameUrlNavigation = 'reload';
       this.router.navigate(['home']);
       this.dataService.enableAuthenticatedMenu();
     }
@@ -73,14 +77,21 @@ export class LoginPage implements OnInit {
    
     this.userService.loginUser(this.user).subscribe(
       response => {
+        this.userService.logout();
+
         console.log(response)
         // tslint:disable-next-line: triple-equals
         if (response.status == null) {
 
           this.status = 'success';
+          this.token = ''
           this.token = response;
-          this.ObtenerdatosUser();
-          // formulario.reset();
+          localStorage.setItem('token', this.token);
+           this.ObtenerdatosUser();
+          // // formulario.reset();
+          // this.router.onSameUrlNavigation = 'reload';
+          
+          // this.router.navigate(['home']);
 
         
         } else {
@@ -107,12 +118,13 @@ export class LoginPage implements OnInit {
 
         this.status = 'success';
         this.identity = response;
-        localStorage.setItem('token', this.token);
+        // localStorage.setItem('token', this.token);
         localStorage.setItem('identity', JSON.stringify(this.identity));
         this.dataService.enableAuthenticatedMenu();
-
+        this.router.onSameUrlNavigation = 'reload';
+        // 
         this.router.navigate(['home']);
-
+        // this.home.iniciar();
 
       },
       error => {
@@ -129,11 +141,12 @@ export class LoginPage implements OnInit {
       params => {
         let logout = +params.sure;
         if (logout === 1) {
+          this.token='';
           localStorage.removeItem('identity');
           localStorage.removeItem('token');
           this.identity = null;
           this.token = null;
-
+          this.userService.logout();
           // redireccion a la pagina principal.
           // this.router.navigate(['login']);
 

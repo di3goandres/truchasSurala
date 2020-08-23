@@ -38,6 +38,11 @@ export class UserService {
 
   }
 
+  logout(){
+    this.identity = null;
+    this.token = null;
+  }
+
   // tslint:disable-next-line: typedef
   getIdentity() {
     // tslint:disable-next-line: prefer-const
@@ -86,7 +91,11 @@ export class UserService {
 
   // tslint:disable-next-line: typedef
   private ejecutarQuery<T>(query: string) {
-    this.header = new HttpHeaders().set('Authorization', this.token);
+
+    this.header = new HttpHeaders().set('Authorization', this.token)
+    // .set('Cache-Control',  'no-cache, no-store, must-revalidate, post-check=0, pre-check=0')
+    // .set('Pragma','no-cache')
+    // .set('Expires', '0');
     return this.http.get<T>(this.url + query, { headers: this.header });
 
   }
@@ -94,14 +103,17 @@ export class UserService {
   // tslint:disable-next-line: typedef
   private ejecutarQueryPost<T>(query: string, params: FormData) {
     this.header = new HttpHeaders().set('Authorization', this.token)
-      .set('Content-Type', 'application/x-www-form-urlencoded');
+      .set('Content-Type', 'application/x-www-form-urlencoded')
+      // .set('Cache-Control',  'no-cache, no-store, must-revalidate, post-check=0, pre-check=0')
+      // .set('Pragma','no-cache')
+      // .set('Expires', '0');
     return this.http.post<T>(this.url + query, params, { headers: this.header });
 
   }
 
 
   getFincasUsuario() {
-
+     console.log('entre')
     return this.ejecutarQuery<FincasUser>('/api/datos/fincabytoken');
 
   }

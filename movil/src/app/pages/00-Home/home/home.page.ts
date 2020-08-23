@@ -1,10 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef, AfterContentInit, OnDestroy, HostListener, AfterViewInit } from '@angular/core';
 import { MenuController, NavController } from '@ionic/angular';
 import { DatamenuService } from '../../../services/datamenu.service';
 import { UserService } from '../../../services/user.service';
 import { Finca } from '../../../models/fincas.user';
 import { DomSanitizer } from '@angular/platform-browser';
 import { PhotoProvider } from '../../../services/photo-provider.service';
+import { Router, ActivatedRoute, NavigationEnd } from '@angular/router';
 
 
 
@@ -16,58 +17,73 @@ import { PhotoProvider } from '../../../services/photo-provider.service';
 })
 
 
-export class HomePage implements OnInit {
+export class HomePage implements OnInit, AfterContentInit, OnDestroy, AfterViewInit {
   fileToUpload: File = null;
   url: any;
-  fincas: Finca[]=[]
-  activar: boolean;
 
+  activar: boolean;
+  mySubscription: any;
 
   slideOpts = {
     initialSlide: 1,
     speed: 400
   };
-  constructor( private dataService: DatamenuService,
-                private userService: UserService,
-               private menuCtrl: MenuController,
-               public _DomSanitizationService: DomSanitizer,
-               public navCtrl: NavController, public photoService: PhotoProvider
-               ) { }
+  constructor(private dataService: DatamenuService,
+    private userService: UserService,
+    private menuCtrl: MenuController,
+    public _DomSanitizationService: DomSanitizer,
+    public navCtrl: NavController, public photoService: PhotoProvider,
+    private changeDetectorRefs: ChangeDetectorRef,
+    private router: Router, private activatedRoute: ActivatedRoute
+
+  ) {
+
+    setInterval(() => {
+      this.changeDetectorRefs.detectChanges();
+     }, 5000);
+ 
+
+    this.router.routeReuseStrategy.shouldReuseRoute = () => false;
+    this.mySubscription = this.router.events.subscribe((event) => {
+      if (event instanceof NavigationEnd) {
+         // Trick the Router into believing it's last link wasn't previously loaded
+         this.router.navigated = false;
+      }
+    }); 
+  }
+  ngAfterViewInit(): void {
+    this.changeDetectorRefs.detectChanges();
+
+
+  }
+  @HostListener('unloaded')
+  ngOnDestroy(): void {
   
+    console.log('Items destroyed');
+    if (this.mySubscription) {
+      this.mySubscription.unsubscribe();
+    }
+  }
+  ngAfterContentInit(): void {
+    this.changeDetectorRefs.detectChanges();
+
+  }
 
 
 
   ngOnInit() {
-    this.dataService.enableAuthenticatedMenu();
-    this.activar = false;
+   
+    this.changeDetectorRefs.detectChanges();
 
-    this.traerFincas()
-
- this.url =this._DomSanitizationService
- .bypassSecurityTrustUrl('data:image/jpeg;base64,file:///storage/emulated/0/Android/data/io.ionic.starter/cache/1597459591105.jpg')
-
-   console.log( this._DomSanitizationService
-      .bypassSecurityTrustUrl('data:image/jpeg;base64,file:///storage/emulated/0/Android/data/io.ionic.starter/cache/1597459591105.jpg'))
   }
-
-  traerFincas(){
-    this.userService.getFincasUsuario().subscribe(
-      response=> {
-        console.log(response)
-        this.fincas.push(...response.fincas);
-      },
-      error=> {
-        console.log(error)
-
-      }
-    )
-  }
+ 
+  
   toggleMenu() {
     console.log(this.menuCtrl.getMenus())
     this.menuCtrl.toggle();
   }
 
-  cambiarMenu(){
+  cambiarMenu() {
 
     this.menuCtrl.enable(this.activar, 'authenticated');
     this.menuCtrl.enable(!this.activar, 'unauthenticated');

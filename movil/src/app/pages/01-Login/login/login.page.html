@@ -8,7 +8,8 @@
     
     <ion-slide>
    
-      <form (ngSubmit)="onLogin( fLogin )" #fLogin="ngForm" style="padding-bottom: 7%;padding-top: 5%;">
+      <form (ngSubmit)="onLogin( fLogin )"
+       #fLogin="ngForm" style="padding-bottom: 7%;padding-top: 5%;">
         <ion-grid fixed >
 
           <ion-row>
@@ -68,7 +69,25 @@
               <ion-label style="color:red">Usuario o Contraseña incorrecta</ion-label>
             </ion-col>
           </ion-row>
-
+          <ion-row>
+            <ion-col>
+            <ion-label class="titlecenter" color="primary">Si no eres Cliente</ion-label>
+          </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col>
+             
+                <ion-button shape="round"
+                            expand="full"
+                            size="small"
+                            fill="outline"
+                            color="primary"
+                            (click)="toggleMenu()">
+                  Da una vuelta
+                </ion-button>
+            </ion-col>
+      
+          </ion-row>
         </ion-grid>
       </form>
     
@@ -84,42 +103,13 @@
 
 </ion-content>
 
-
+<!-- 
 <ion-footer no-border style=" padding-left: 10%;padding-right: 10%;padding-top: 10px;">
  
   <ion-toolbar>
-    <ion-row>
-      <ion-col>
-      <ion-title class="titlecenter" color="primary">Si no eres Cliente</ion-title>
-    </ion-col>
-    </ion-row>
-    <ion-row>
-      <ion-col>
-       
-          <ion-button shape="round"
-                      expand="full"
-                      size="small"
-                      fill="outline"
-                      color="primary"
-                      (click)="toggleMenu()">
-            Da una vuelta
-          </ion-button>
-      </ion-col>
-
-      <!-- <ion-col>
-        <ion-button shape="round"
-                    expand="full"
-                    size="small"
-                    fill="outline"
-                    color="primary"
-                    (click)="mostrarLogin()">
-          Registrarme
-        </ion-button>
-      </ion-col> -->
-
-    </ion-row>
+   
 
 
 
   </ion-toolbar>
-</ion-footer>
+</ion-footer> -->

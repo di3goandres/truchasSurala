@@ -382,14 +382,12 @@ class TrazabilidadController extends Controller {
 
     public function store(Request $request) {
         
-//        $remision = \DB::select('call ObtenerRemision()');
-//        var_dump($remision[0]->valor);
-//        die();
+
         //recoger los datos por post 
         $json = $request->input('json', null);
 
         $params_array = json_decode($json, true); // array
-// validar los datos
+
 
 
         if (!empty($params_array)) {
@@ -422,29 +420,33 @@ class TrazabilidadController extends Controller {
                     );
                 } else {
                     $bandejas = $params_array['bandejas'];
-                    $conteo = 1;
+                    $conteo = 0;
                     $idTraza = 0;
                     $cantidadGuardada = 0;
                     $ids = '';
                     $maximoLote = Lotes::where('id_despacho', '=', $pedido->id_despacho)->max('total_lote');
                     foreach ($bandejas as $bandeja) {
-
+                      
+ 
                         $cantidad = $bandeja['cantidad'];
                         $id = $bandeja['id_bandeja_lote'];
                         $cantidadGuardada = $cantidadGuardada + $cantidad;
 ////Guardar trazabilidad
-                        if ($conteo == 1) {
+                        if ($conteo == 0) {
 
                             $idTraza = $this->GuardarTraza($pedido);
-                            $conteo = 2;
 //                            $ids = $ids . ',' . $idTraza;
-                        } else if ($cantidadGuardada > $maximoLote) {
+                        } 
+                        else if ($conteo % 5 === 0) {
+
+                        // else if ($cantidadGuardada > $maximoLote) {
                             $cantidadGuardada = 0;
                             $cantidadGuardada = $cantidadGuardada + $cantidad;
 //                         var_dump('cantidad Guardad: ' . $cantidadGuardada . ' Esto es el maximoLote: ' . $maximoLote);
                             $idTraza = $this->GuardarTraza($pedido);
 //                            $ids = $ids . ',' . $idTraza;
                         }
+                        $conteo+=1;
                         $tbandeja = new TrazabilidadBandeja();
                         $tbandeja->id_bandeja_lote = $id;
                         $tbandeja->id_trazabilidad = $idTraza;
