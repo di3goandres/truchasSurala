@@ -9,14 +9,19 @@ use App\Despacho;
 use App\BandejasLotes;
 use App\Pedidos;
 use App\Lotes;
+use App\Fincas;
 
-class TrazabilidadController extends Controller {
 
-    public function getTraza($id) {
+class TrazabilidadController extends Controller
+{
+
+    public function getTraza($id)
+    {
         $traza = Trazabilidad::find($id);
         $bandejas = $traza->bandejas;
 
-        $data = ['code' => 200,
+        $data = [
+            'code' => 200,
             'status' => 'success',
             'trazabilidad' => $traza,
         ];
@@ -24,8 +29,9 @@ class TrazabilidadController extends Controller {
         return response()->json($data, $data['code']);
     }
 
-    public function generarTrazaPorDespacho($id) {
-//traigo el pedido
+    public function generarTrazaPorDespacho($id)
+    {
+        //traigo el pedido
         $despacho = Despacho::find($id);
 
 
@@ -37,8 +43,8 @@ class TrazabilidadController extends Controller {
             $totalPedidos = count($pedidos);
 
 
-//            return $this->generarTrazaPorPedido(Pedidos::find(1));
-//           die();
+            //            return $this->generarTrazaPorPedido(Pedidos::find(1));
+            //           die();
             foreach ($pedidos as $pedido) {
                 $this->generarTrazaPorPedido($pedido);
             }
@@ -49,22 +55,23 @@ class TrazabilidadController extends Controller {
             // consulto mis pedidos
             $totalPedido['pedidos'] = $pedidos;
 
-//            return response()->json([
-//                        'code' => 200,
-//                        'status' => 'success',
-//                        'datos' => $totalPedido
-//            ]);
+            //            return response()->json([
+            //                        'code' => 200,
+            //                        'status' => 'success',
+            //                        'datos' => $totalPedido
+            //            ]);
         } else {
             return response()->json([
-                        'code' => 200,
-                        'status' => 'error',
-                        'message' => ' No hay datos'
+                'code' => 200,
+                'status' => 'error',
+                'message' => ' No hay datos'
             ]);
         }
     }
 
-    public function obtenerCajasBandejas($id) {
-//traigo el pedido
+    public function obtenerCajasBandejas($id)
+    {
+        //traigo el pedido
         $despacho = Despacho::find($id);
 
 
@@ -74,8 +81,8 @@ class TrazabilidadController extends Controller {
 
 
             $lineasGeneticas = Lotes::select('linea_genetica')->where('id_despacho', '=', $id)
-                    ->groupBy('linea_genetica')
-                    ->get();
+                ->groupBy('linea_genetica')
+                ->get();
 
 
             $lotes = $despacho->Lotes;  //Lotes::where('id_despacho', '=', $id)->whereRaw('ttotal')->get();
@@ -90,9 +97,9 @@ class TrazabilidadController extends Controller {
             $grupo = [];
 
             foreach ($lineasGeneticas as $value) {
-//                var_dump($value['linea_genetica']);
+                //                var_dump($value['linea_genetica']);
                 foreach ($lotes as $lote) {
-//                    var_dump( $value['linea_genetica'], strcmp($bandeja['lineaGenetica'],  $value['linea_genetica']));
+                    //                    var_dump( $value['linea_genetica'], strcmp($bandeja['lineaGenetica'],  $value['linea_genetica']));
 
                     if (strcmp($lote['linea_genetica'], $value['linea_genetica']) == 0) {
                         $retornoAgrupado[$agrupadoPos] = $lote;
@@ -115,28 +122,29 @@ class TrazabilidadController extends Controller {
             }
 
             return response()->json([
-                        'code' => 200,
-                        'status' => 'success',
-                        'grupocajas' => $grupo,
-                        'bandejas' => $allBandejas,
-//                        'agrupado' => $grupo
+                'code' => 200,
+                'status' => 'success',
+                'grupocajas' => $grupo,
+                'bandejas' => $allBandejas,
+                //                        'agrupado' => $grupo
             ]);
         } else {
             return response()->json([
-                        'code' => 200,
-                        'status' => 'error',
-                        'message' => ' No hay datos'
+                'code' => 200,
+                'status' => 'error',
+                'message' => ' No hay datos'
             ]);
         }
     }
 
-    private function generarTrazaPorPedido($pedido) {
+    private function generarTrazaPorPedido($pedido)
+    {
 
         $lotes = $pedido->lotes;
         $retorno = [];
         $continuar = True;
         $primeraVez = True;
-// Variable que contiene el pedido total del cliente 
+        // Variable que contiene el pedido total del cliente 
         $total = $pedido->total;
         $totalPendiente = $pedido->total;
         $traza = new Trazabilidad();
@@ -147,13 +155,13 @@ class TrazabilidadController extends Controller {
         $allBandejas = $this->getAllBandejas($lotes);
 
 
-//        return response()->json([
-//                    'code' => 200,
-//                    'status' => 'success',
-//                    'trazabilidad' => $allBandejas
-//        ]);
-//        die();
-////        
+        //        return response()->json([
+        //                    'code' => 200,
+        //                    'status' => 'success',
+        //                    'trazabilidad' => $allBandejas
+        //        ]);
+        //        die();
+        ////        
         $posicion = 0;
         foreach ($allBandejas as $value) {
             $trazabilidad[$posicion]['idLote'] = $value['bandejas']['id_lote'];
@@ -161,15 +169,16 @@ class TrazabilidadController extends Controller {
             $posicion = $posicion + 1;
         }
 
-//                return response()->json([
-//                    'code' => 200,
-//                    'status' => 'success',
-//                    'trazabilidad' => $trazabilidad
-//        ]);
-//        die();
+        //                return response()->json([
+        //                    'code' => 200,
+        //                    'status' => 'success',
+        //                    'trazabilidad' => $trazabilidad
+        //        ]);
+        //        die();
     }
 
-    private function getAllBandejas($lotes) {
+    private function getAllBandejas($lotes)
+    {
         $allBandejas = [];
         $posicion = 0;
         foreach ($lotes as $lote) {
@@ -180,7 +189,7 @@ class TrazabilidadController extends Controller {
                 unset($value["created_at"]);
                 unset($value["updated_at"]);
                 $value['lineaGenetica'] = $lote->linea_genetica;
-//                $allBandejas[$posicion]['bandejas']['idLote'] = $lote->id;
+                //                $allBandejas[$posicion]['bandejas']['idLote'] = $lote->id;
                 $allBandejas[$posicion] = $value;
                 $posicion = $posicion + 1;
             }
@@ -190,12 +199,13 @@ class TrazabilidadController extends Controller {
     }
 
     /// generar Traza por Pedio
-    private function generarTrazasLote($pedido, $lote, $primeraVez, $traza, $bandeja, $tamanio) {
+    private function generarTrazasLote($pedido, $lote, $primeraVez, $traza, $bandeja, $tamanio)
+    {
         if ($primeraVez) {
 
-            
+
             /// CONSEGUIR EL CONSECUTIVO REMISION
-            
+
             /*
                 BEGIN
 
@@ -216,10 +226,10 @@ class TrazabilidadController extends Controller {
 
                 END
                              *              */
-            
+
             $remision = \DB::select('call ObtenerRemision()');
-            
-        
+
+
 
             $traza = new Trazabilidad();
             $traza->id_finca = $pedido->id_finca;
@@ -232,11 +242,11 @@ class TrazabilidadController extends Controller {
             $traza->ovas_facturadas = $pedido->pedido;
             $traza->ovas_reposicion = $pedido->reposicion;
             $traza->remision = $remision[0]->valor;
-// se debe crear un consecutivo por medio de algun sp que consulte cual es siguiente
+            // se debe crear un consecutivo por medio de algun sp que consulte cual es siguiente
 
             $traza->total_ovas_enviadas = 0;
 
-//Guardar el Usuario
+            //Guardar el Usuario
             $traza->save();
         }
 
@@ -259,7 +269,8 @@ class TrazabilidadController extends Controller {
         return $traza;
     }
 
-    public function show($id) {
+    public function show($id)
+    {
 
         $tnum = 0;
         $bandejas = 0;
@@ -273,12 +284,12 @@ class TrazabilidadController extends Controller {
         $Trazabilidad = [];
         $distribuciones = \DB::select('call verTrazabilidadPedido(?)', array($id));
 
-//        var_dump($distribuciones);
+        //        var_dump($distribuciones);
         // con este valor se arman las bandejas
         if (is_array($distribuciones) && count($distribuciones) > 0) {
             $pedido = Pedidos::find($id);
 
-//            $Trazabilidades = Trazabilidad::find($id);
+            //            $Trazabilidades = Trazabilidad::find($id);
             $Trazabilidades = Trazabilidad::where('id_pedido', '=', $id)->get();
 
             foreach ($Trazabilidades as $trazabilidad) {
@@ -304,7 +315,7 @@ class TrazabilidadController extends Controller {
                         $contacto['Cliente'] = $distribucion->name . ' ' . $distribucion->surname; // del dueño de la finca tabela usuarios
                         $contacto['Destino'] = $distribucion->id_municipio; // ubicacion de la finca/ Municipio departamento
                         $contacto['Finca'] = $distribucion->nombre;
-                       // ubicacion de la finca/ Municipio departamento  
+                        // ubicacion de la finca/ Municipio departamento  
                         $contacto['Facturado'] = $distribucion->Facturadas;
                         $contacto['Adicionales'] = $distribucion->Adicionales;
                         $contacto['Reposicion'] = $distribucion->Repo;
@@ -313,7 +324,7 @@ class TrazabilidadController extends Controller {
                         $contacto['Maximo'] = $maximoLote->maximo;
 
 
-// ubicacion de la finca/ Municipio departamento  
+                        // ubicacion de la finca/ Municipio departamento  
                     }
 
                     if ($distribucion->idtrazabilidad == $trazabilidad->id && $tnum === 0) {
@@ -325,10 +336,10 @@ class TrazabilidadController extends Controller {
                             $bagrupada[$tnum]['edad'] = $lote->edad_tcu;
                             $bagrupada[$tnum]['tamanio'] = $lote->tamanio;
                             $bagrupada[$tnum]['ovas_ml'] = $lote->ovas_ml;
-//                            $bagrupada[$tnum]['Facturado'] = $distribucion->Facturadas;
-//                            $bagrupada[$tnum]['Adicionales'] = $distribucion->Adicionales;
-//                            $bagrupada[$tnum]['Reposicion'] = $distribucion->Repo;
-//                            $bagrupada[$tnum]['Total'] = $distribucion->TotalPedido;
+                            //                            $bagrupada[$tnum]['Facturado'] = $distribucion->Facturadas;
+                            //                            $bagrupada[$tnum]['Adicionales'] = $distribucion->Adicionales;
+                            //                            $bagrupada[$tnum]['Reposicion'] = $distribucion->Repo;
+                            //                            $bagrupada[$tnum]['Total'] = $distribucion->TotalPedido;
                         }
                     }
                     $tnum += 1;
@@ -337,19 +348,21 @@ class TrazabilidadController extends Controller {
                 $Trazabilidad[$inicial]['trazabilidad'] = $bagrupada;
                 $Trazabilidad[$inicial]['InfoDespacho'] = $infoDespacho;
 
-                $contacto =[];
+                $contacto = [];
                 $infoDespacho = [];
 
                 $inicial += 1;
                 $tnum = $tnum - $tnum;
             }
-//         
-            $data = ['code' => 200,
+            //         
+            $data = [
+                'code' => 200,
                 'status' => 'success',
                 'distribucion' => $Trazabilidad,
             ];
         } else {
-            $data = ['code' => 200,
+            $data = [
+                'code' => 200,
                 'message' => 'Sin',
                 'status' => 'error',
             ];
@@ -358,21 +371,22 @@ class TrazabilidadController extends Controller {
         return response()->json($data, $data['code']);
     }
 
-    public function index(Request $request) {
-        
+    public function index(Request $request)
+    {
     }
 
-    private function GuardarTraza($pedido) {
-        
+    private function GuardarTraza($pedido)
+    {
+
         $remision = \DB::select('call ObtenerRemision()');
-        
+
         $traza = new Trazabilidad();
         $traza->id_finca = $pedido->id_finca;
         $traza->id_pedido = $pedido->id;
         $traza->nombre_reclama = 'pendiente';
         $traza->remision = $remision[0]->valor;
         $traza->nombre_reclama = 'pendiente';
-// se debe crear un consecutivo por medio de algun sp que consulte cual es siguiente o al momento de guardar
+        // se debe crear un consecutivo por medio de algun sp que consulte cual es siguiente o al momento de guardar
         $traza->total_ovas_enviadas = 0; //$params_array['total_ovas_enviadas'];
         $traza->save();
 
@@ -380,8 +394,9 @@ class TrazabilidadController extends Controller {
         return $traza->id;
     }
 
-    public function store(Request $request) {
-        
+    public function store(Request $request)
+    {
+
 
         //recoger los datos por post 
         $json = $request->input('json', null);
@@ -394,13 +409,13 @@ class TrazabilidadController extends Controller {
 
 
             $validate = \Validator::make($params_array, [
-                        "bandejas" => "required|array|min:1",
-                        "bandejas.*.id_bandeja_lote" => "required|numeric|min:1",
-                        "bandejas.*.cantidad" => "required|numeric|min:1",
-                        'bandejas.*.id_lote' => 'required|numeric|min:1',
-                        'id_pedido' => 'required|numeric',
-                        'id_finca' => 'required|numeric',
-                        'total_ovas_enviadas' => 'required|numeric',
+                "bandejas" => "required|array|min:1",
+                "bandejas.*.id_bandeja_lote" => "required|numeric|min:1",
+                "bandejas.*.cantidad" => "required|numeric|min:1",
+                'bandejas.*.id_lote' => 'required|numeric|min:1',
+                'id_pedido' => 'required|numeric',
+                'id_finca' => 'required|numeric',
+                'total_ovas_enviadas' => 'required|numeric',
             ]);
             if ($validate->fails()) {
                 $data = array(
@@ -423,35 +438,56 @@ class TrazabilidadController extends Controller {
                     $conteo = 0;
                     $idTraza = 0;
                     $cantidadGuardada = 0;
-                    $ids = '';
+                    // $cantidadBandejas = 0;
+                    // $ids = '';
                     $maximoLote = Lotes::where('id_despacho', '=', $pedido->id_despacho)->max('total_lote');
+                    $propia = Fincas::where('id', '=', $pedido->id_finca)->get();
+                    // $maximaBandeja =   \DB::select('SELECT max(bl.tamanio_inicial) FROM u557099357_api_restrucha.pedidos p
+                    // left join u557099357_api_restrucha.lotes l on l.id_despacho = p.id
+                    // left join u557099357_api_restrucha.bandeja_lote bl on bl.id_lote = l.id
+                    // where p.id = ?', array($pedido->id_despacho))[0];
+                    // $conteoAlmacenado = 0;
+                    /*
+                     una trazabilidad tienen maximo 5 bandejas al maximo si
+                     es un cliente normal y si es un cliente como pesca se envia como
+                     llega la caja con el maximo del lote.
+
+                    */
+                    // $cantidadBandejas = count($bandejas);
+                    // $noContar = false;
                     foreach ($bandejas as $bandeja) {
-                      
- 
+                        $cantidad = 0;
                         $cantidad = $bandeja['cantidad'];
                         $id = $bandeja['id_bandeja_lote'];
                         $cantidadGuardada = $cantidadGuardada + $cantidad;
-////Guardar trazabilidad
+                        ////Guardar trazabilidad
                         if ($conteo == 0) {
-
                             $idTraza = $this->GuardarTraza($pedido);
-//                            $ids = $ids . ',' . $idTraza;
-                        } 
-                        else if ($conteo % 5 === 0) {
-
-                        // else if ($cantidadGuardada > $maximoLote) {
-                            $cantidadGuardada = 0;
-                            $cantidadGuardada = $cantidadGuardada + $cantidad;
-//                         var_dump('cantidad Guardad: ' . $cantidadGuardada . ' Esto es el maximoLote: ' . $maximoLote);
-                            $idTraza = $this->GuardarTraza($pedido);
-//                            $ids = $ids . ',' . $idTraza;
+                        } else if ($propia->propia) {
+                            /** si la finca es propia, se va al maximo de lo que venga */
+                            if ($cantidadGuardada > $maximoLote) {
+                                $cantidadGuardada = 0;
+                                $cantidadGuardada = $cantidadGuardada + $cantidad;
+                                $idTraza = $this->GuardarTraza($pedido);        
+                            }
+                        } else {
+                            /** de lo contrario si la finca no es propia se debe ir a maximo 5 bandejas
+                             * se debe agregar bandejas siempre y cuando no sumen el valor de la bandeja.
+                             * y no pase de 5 bandejas.
+                             */
+                            // if ($cantidadGuardada > $maximoLote) {
+                            if ($conteo % 5 === 0) {
+                                $cantidadGuardada = 0;
+                                $cantidadGuardada = $cantidadGuardada + $cantidad;
+                                $idTraza = $this->GuardarTraza($pedido);
+                                //                         
+                            }
                         }
-                        $conteo+=1;
+                        $conteo +=1;
                         $tbandeja = new TrazabilidadBandeja();
                         $tbandeja->id_bandeja_lote = $id;
                         $tbandeja->id_trazabilidad = $idTraza;
                         $tbandeja->cantidad = $cantidad;
-
                         $tbandeja->save();
                     }
                     $pedido->genero_trazabilidad = true;
@@ -471,9 +507,8 @@ class TrazabilidadController extends Controller {
                 'message' => 'Sin datos que procesar',
             );
         }
-// guardar los datos
-// devolver el resutlado
+        // guardar los datos
+        // devolver el resutlado
         return response()->json($data, $data['code']);
     }
-
 }
