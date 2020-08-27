@@ -20,7 +20,7 @@ import { CrearComponent } from './componentes/despacho/crear/crear.component';
 
 import { MatSelectModule } from '@angular/material/select';
 
-
+import {MatRadioModule} from '@angular/material/radio';
 // Datepicker module
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
@@ -128,7 +128,8 @@ registerLocaleData(localCo);
     MatStepperModule,
     MatPaginatorModule,
     MatSortModule,
-    MatTableExporterModule
+    MatTableExporterModule,
+    MatRadioModule
 
 
   ],

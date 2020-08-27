@@ -100,12 +100,12 @@ export class ListaComponent implements OnInit {
 
         console.log('En lista', response);
 
-        // if(response.status!=='error'){
+         if(response.status!=='error'){
           this.distribuciones = response
         
           if (this.distribuciones.distribucion.length > 0) { this.calcularCajas() }
           console.log('Distribuciones', this.distribuciones)
-        // }
+         }
        
 
 

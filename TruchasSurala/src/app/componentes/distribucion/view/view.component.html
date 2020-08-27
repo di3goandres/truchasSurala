@@ -41,7 +41,7 @@
       <div class="col-4"></div>
 
       <div class="col-6">
-        <div *ngIf="!pedido.genero_trazabilidad">
+        <div *ngIf="!pedido.genero_trazabilidad && cajas.length>0">
 
           <button mat-raised-button id="logout-button" class="btn btn-primary btn-block" style="width:50%"
             (click)="open()">Agregar Distribucion</button>

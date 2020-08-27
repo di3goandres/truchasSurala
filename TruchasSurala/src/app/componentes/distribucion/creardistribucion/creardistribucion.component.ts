@@ -33,10 +33,12 @@ export class CreardistribucionComponent implements OnInit {
   distribucionGuardar: DistribucionGuardar;
   bandejasGuardar: BandejaGuardar[] = [];
   maximo: number;
+  numeroBandejas = "5";
+
   @Input() pedido: Pedido;
   ovasPendiente: number;
   colorBandeja = 'defaultClass';
-
+  porMaximo = 'true';
   selected = '0';
   nuevaDistribucion: DistribucionClass;
   title: string;
@@ -52,6 +54,15 @@ export class CreardistribucionComponent implements OnInit {
   //   this.cdRef.detectChanges();
   // }
   ngOnInit() {
+
+
+  }
+  mostrar(value) {
+    this.porMaximo = value;
+
+  }
+  CambioNumero(value) {
+    this.numeroBandejas = value;
 
 
   }
@@ -76,7 +87,7 @@ export class CreardistribucionComponent implements OnInit {
     this.onChange(this.idCaja);
     this.pendientes = this.pedido.total - this.pendientes;
 
-    console.log(this.pedido.total)
+
 
 
 
@@ -113,8 +124,8 @@ export class CreardistribucionComponent implements OnInit {
   algoCambio() {
     if (this.valoratomar > this.maximo) {
 
-    this.calcularValorAtomar();
-    
+      this.calcularValorAtomar();
+
     }
   }
   agregarBandeja() {
@@ -122,7 +133,7 @@ export class CreardistribucionComponent implements OnInit {
     console.log(this.valoratomar)
 
 
-    if (this.pendientes > 0 && this.bandejaSeleccionada.tamanio_final >0 ) {
+    if (this.pendientes > 0 && this.bandejaSeleccionada.tamanio_final > 0) {
 
       const element = this.bandejaSeleccionada;
       this.bandejasGuardar.push(new BandejaGuardar(
@@ -212,10 +223,10 @@ export class CreardistribucionComponent implements OnInit {
     });
     this.calcularValorAtomar();
 
-    
+
   }
 
-  calcularValorAtomar(){
+  calcularValorAtomar() {
     const valor = Math.abs((this.maximo - this.pedido.total) / (this.maximo));
     const pendiente = this.pendientes - this.maximo;
     if (valor > 1) {
@@ -236,33 +247,30 @@ export class CreardistribucionComponent implements OnInit {
     this.maximo = this.bandejaSeleccionada.tamanio_final;
     this.colorBandeja = this.setColor(this.maximo);
     this.calcularValorAtomar();
-    // const valor = Math.abs((this.maximo - this.pedido.total) / (this.maximo));
-    // const pendiente = this.pendientes - this.maximo;
-    // if (valor > 1) {
-    //   this.valoratomar = this.maximo;
-    // }
-    // if (pendiente > 0) {
-    //   this.valoratomar = this.maximo;
-    // } else {
-    //   this.valoratomar = this.maximo - (this.maximo - this.pendientes);
-    // }
-    console.log(this.maximo)
+
   }
   onAdd(formulario) {
-
+    this.porMaximo
+    this.numeroBandejas
     this.distribucionGuardar.bandejas = [];
+
+    this.distribucionGuardar.por_maximo = this.porMaximo == "true" ? true : false;
+    this.distribucionGuardar.numero_bandejas_por_trazabilidad = parseInt(this.numeroBandejas);
+
 
     this.distribucionGuardar.bandejas.push(...this.bandejasGuardar);
     this.bandejasGuardar = []
-    this.userService.storeDistribucion(this.distribucionGuardar).subscribe(
-      response => {
-        this.distribucionGuardar.bandejas = [];
-        this.passEntry.emit(response);
-      },
-      error => {
-        console.log(error);
-        this.distribucionGuardar.bandejas = []
-      });
+
+    console.log(this.distribucionGuardar)
+    // this.userService.storeDistribucion(this.distribucionGuardar).subscribe(
+    //   response => {
+    //     this.distribucionGuardar.bandejas = [];
+    //     this.passEntry.emit(response);
+    //   },
+    //   error => {
+    //     console.log(error);
+    //     this.distribucionGuardar.bandejas = []
+    //   });
 
 
   }

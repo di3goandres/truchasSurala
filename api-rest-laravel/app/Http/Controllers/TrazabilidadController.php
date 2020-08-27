@@ -420,6 +420,10 @@ class TrazabilidadController extends Controller
                 'id_pedido' => 'required|numeric',
                 'id_finca' => 'required|numeric',
                 'total_ovas_enviadas' => 'required|numeric',
+                'por_maximo' => 'required', // campo para validar si es por maximo
+                'numero_bandejas_por_trazabilidad' => 'required|numeric'
+                // si viene maximo en false debe venir este minimo 5 maximo 7 bandejas
+
             ]);
             if ($validate->fails()) {
                 $data = array(
@@ -442,16 +446,15 @@ class TrazabilidadController extends Controller
                     $conteo = 0;
                     $idTraza = 0;
                     $cantidadGuardada = 0;
-                    // $cantidadBandejas = 0;
-                    // $ids = '';
+
+                    $porMaximo =  $params_array['por_maximo'];
+                    $porNumero =  $params_array['numero_bandejas_por_trazabilidad'];
+
+
                     $maximoLote = Lotes::where('id_despacho', '=', $pedido->id_despacho)->max('total_lote');
-                    // $propia = Fincas::where('id', '=', $pedido->id_finca)->get();
+
                     $propia = Fincas::find($pedido->id_finca);
-                    // $maximaBandeja =   \DB::select('SELECT max(bl.tamanio_inicial) FROM u557099357_api_restrucha.pedidos p
-                    // left join u557099357_api_restrucha.lotes l on l.id_despacho = p.id
-                    // left join u557099357_api_restrucha.bandeja_lote bl on bl.id_lote = l.id
-                    // where p.id = ?', array($pedido->id_despacho))[0];
-                    // $conteoAlmacenado = 0;
+
                     /*
                      una trazabilidad tienen maximo 5 bandejas al maximo si
                      es un cliente normal y si es un cliente como pesca se envia como
@@ -480,12 +483,16 @@ class TrazabilidadController extends Controller
                              * se debe agregar bandejas siempre y cuando no sumen el valor de la bandeja.
                              * y no pase de 5 bandejas.
                              */
-                            // if ($cantidadGuardada > $maximoLote) {
-                            if ($conteo % 5 === 0) {
+                            if ($porMaximo) {
+                                if ($cantidadGuardada > $maximoLote) {
+                                    $cantidadGuardada = 0;
+                                    $cantidadGuardada = $cantidadGuardada + $cantidad;
+                                    $idTraza = $this->GuardarTraza($pedido);
+                                }
+                            } else  if ($conteo %  $porNumero === 0) {
                                 $cantidadGuardada = 0;
                                 $cantidadGuardada = $cantidadGuardada + $cantidad;
                                 $idTraza = $this->GuardarTraza($pedido);
-                                //                         
                             }
                         }
                         $conteo += 1;
@@ -497,7 +504,7 @@ class TrazabilidadController extends Controller
                     }
                     $pedido->genero_trazabilidad = true;
                     $pedido->save();
-                    //devolver array con resultado
+           
                     $data = array(
                         'code' => 200,
                         'status' => 'success',
@@ -540,24 +547,24 @@ class TrazabilidadController extends Controller
         //        var_dump($distribuciones);
         // con este valor se arman las bandejas
         if (is_array($distribuciones) && count($distribuciones) > 0) {
-          
 
-       
-         
+
+
+
 
             foreach ($trazabilidades as $trazabilidad) {
                 $bandejas = 0;
-                foreach($distribuciones as $distribucion){
-                    if($trazabilidad->idtrazabilidad===$distribucion->idtrazabilidad){
+                foreach ($distribuciones as $distribucion) {
+                    if ($trazabilidad->idtrazabilidad === $distribucion->idtrazabilidad) {
 
 
-                      
+
                         $infoDespacho[$bandejas]['Cantidad'] = $distribucion->cantidad;
                         $infoDespacho[$bandejas]['caja_numero'] = $distribucion->caja_numero;
                         $infoDespacho[$bandejas]['bandeja_numero'] = $distribucion->numero_bandeja;
                         $infoDespacho[$bandejas]['ovas_ml'] = $distribucion->ovas_ml;
-                       
-                        if($bandejas===0){
+
+                        if ($bandejas === 0) {
                             $bagrupada[$bandejas]['NumLote'] = $distribucion->numero_lote;
                             $bagrupada[$bandejas]['Fechadesove'] = $distribucion->fecha_desove;
                             $bagrupada[$bandejas]['LineaGenetica'] = $distribucion->linea_genetica;
@@ -566,7 +573,7 @@ class TrazabilidadController extends Controller
                             $bagrupada[$bandejas]['ovas_ml'] = $distribucion->ovas_ml;
                             $contacto['FechaEntrega'] = $distribucion->fecha; // del pedido mas un dia
                             $contacto['Cliente'] = $distribucion->name . ' ' . $distribucion->surname;
-                                // del dueño de la finca tabela usuarios
+                            // del dueño de la finca tabela usuarios
                             $contacto['Destino'] = $distribucion->id_municipio; // ubicacion de la finca/ Municipio departamento
                             $contacto['Finca'] = $distribucion->nombre;
                             // ubicacion de la finca/ Municipio departamento  
@@ -578,21 +585,18 @@ class TrazabilidadController extends Controller
                             $contacto['Maximo'] = 0;
                         }
                         $bandejas += 1;
-
                     }
-
-                    
                 }
                 $Trazabilidad[$inicial]['contacto'] = $contacto;
-                    $Trazabilidad[$inicial]['trazabilidad'] = $bagrupada;
-                    $Trazabilidad[$inicial]['InfoDespacho'] = $infoDespacho;
-                    $bandejas = 0;
-                    $contacto = [];
-                    $infoDespacho = [];
-                    $bagrupada =[];
-                    $inicial += 1;
+                $Trazabilidad[$inicial]['trazabilidad'] = $bagrupada;
+                $Trazabilidad[$inicial]['InfoDespacho'] = $infoDespacho;
+                $bandejas = 0;
+                $contacto = [];
+                $infoDespacho = [];
+                $bagrupada = [];
+                $inicial += 1;
             }
-       
+
             $data = [
                 'code' => 200,
                 'status' => 'success',

@@ -100,7 +100,7 @@ export class ViewComponent implements OnInit {
           this.cajas.push(...response.grupocajas);
           this.bandeja.push(...response.bandejas);
 
-          console.log(this.cajas)
+         
 
 
 

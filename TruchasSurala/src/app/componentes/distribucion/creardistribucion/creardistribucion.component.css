@@ -3,3 +3,31 @@
 .shippedClass { color:orange;}
 .defaultClass { color:#000;}
 
+.example-radio-group {
+    display: flex;
+    flex-direction: column;
+    margin: 15px 0;
+  }
+  
+  .example-radio-button {
+    margin: 5px;
+    /* color: red;
+    border-color: blue;
+    background-color: red */
+  }
+
+  .mat-radio-button {
+    border-color: blue !important
+
+  }
+
+  .mat-radio-outer-circle .mat-accent:active{
+    border-color: red !important
+  }
+
+  /* .mat-radio-button.mat-accent.mat-radio-checked .mat-radio-outer-circle{
+    color:red;
+  } */
+
+
+

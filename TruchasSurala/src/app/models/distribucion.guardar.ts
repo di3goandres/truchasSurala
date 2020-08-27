@@ -1,21 +1,19 @@
 export class BandejaGuardar {
-constructor(  // tslint:disable-next-line: variable-name
-  public id_bandeja_lote: number,
-  public cantidad: number,
-   // tslint:disable-next-line: variable-name
-  public id_lote: number,
+  constructor(  // tslint:disable-next-line: variable-name
+    public id_bandeja_lote: number,
+    public cantidad: number,
+    // tslint:disable-next-line: variable-name
+    public id_lote: number,
 
-  public numerobandeja: string,
-  public numerocaja: string
+    public numerobandeja: string,
+    public numerocaja: string
 
 
-  )
-  {}
+  ) { }
 }
 
 export class DistribucionGuardar {
   constructor(
-
     // tslint:disable-next-line: variable-name
     public id_pedido: number,
     // tslint:disable-next-line: variable-name
@@ -28,7 +26,12 @@ export class DistribucionGuardar {
     public bandejas: BandejaGuardar[]
   ) {
 
-  }
+    this.por_maximo = false;
+    this.numero_bandejas_por_trazabilidad = 5;
 
+  }
+  public por_maximo: boolean;
+
+  public numero_bandejas_por_trazabilidad: number;
 
 }
