@@ -441,7 +441,8 @@ class TrazabilidadController extends Controller
                     // $cantidadBandejas = 0;
                     // $ids = '';
                     $maximoLote = Lotes::where('id_despacho', '=', $pedido->id_despacho)->max('total_lote');
-                    $propia = Fincas::where('id', '=', $pedido->id_finca)->get();
+                    // $propia = Fincas::where('id', '=', $pedido->id_finca)->get();
+                    $propia = Fincas::find($pedido->id_finca);
                     // $maximaBandeja =   \DB::select('SELECT max(bl.tamanio_inicial) FROM u557099357_api_restrucha.pedidos p
                     // left join u557099357_api_restrucha.lotes l on l.id_despacho = p.id
                     // left join u557099357_api_restrucha.bandeja_lote bl on bl.id_lote = l.id
