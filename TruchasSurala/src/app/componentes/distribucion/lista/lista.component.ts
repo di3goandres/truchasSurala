@@ -48,10 +48,11 @@ export class ListaComponent implements OnInit {
           new InfoR(
             element.Cantidad,
             element.caja_numero,
-            element.bandeja_numero))
+            element.bandeja_numero,
+            element.ovas_ml))
       });
 
-      Todos.push(new InfoR(item.contacto.Total_enviado, 0, 0, children));
+      Todos.push(new InfoR(item.contacto.Total_enviado, 0, 0, 0, children));
       children = [];
 
 

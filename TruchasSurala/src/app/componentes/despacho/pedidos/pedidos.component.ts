@@ -15,7 +15,7 @@ import { DespachosComponent } from '../../despachos/despachos.component';
 export class PedidosComponent implements OnInit {
 
   dataSource = new MatTableDataSource<any>();
-  displayedColumns: string[] = ['position', 'NombreFinca', 
+  displayedColumns: string[] = ['position', 'usuario','NombreFinca', 
   'Pedido', 'Porcentaje',
   'adicionales', 'reposicion', 'totalPedido', 
   'FechaCreacion',  'VerGenerar'];

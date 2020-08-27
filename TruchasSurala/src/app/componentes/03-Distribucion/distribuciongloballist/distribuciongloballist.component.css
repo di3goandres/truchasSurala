@@ -1,19 +1,4 @@
-body {
-    text-align: center;
-}
-form {
-    display: inline-block;
-}
-
-table {
-    width: 100%;
-  }
-
-  .toolbar-button {
-    padding: 0;
-}
-
-  #customers {
+#customers {
     font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
     border-collapse: collapse;
     width: 100%;
@@ -36,3 +21,7 @@ table {
     color: white;
   }
 
+  
+table {
+    width: 100%;
+  }

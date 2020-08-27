@@ -54,14 +54,14 @@ export class UserService {
 
 
   // tslint:disable-next-line: typedef
-  private ejecutarQuery<T>(query: string) {
+  public ejecutarQuery<T>(query: string) {
     this.header = new HttpHeaders().set('Authorization', this.token);
     return this.http.get<T>(this.url + query, { headers: this.header });
 
   }
 
   // tslint:disable-next-line: typedef
-  private ejecutarQueryPost(query: string, params: string) {
+  public ejecutarQueryPost(query: string, params: string) {
     this.header = new HttpHeaders().set('Authorization', this.token)
       .set('Content-Type', 'application/x-www-form-urlencoded');
     return this.http.post(this.url + query, params, { headers: this.header });

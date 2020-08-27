@@ -12,10 +12,10 @@ use App\TrazabilidadBandeja;
 
 class PedidosController extends Controller {
 
-    public function __construct()
-    {
-        $this->middleware('api.auth', ['except' => ['index', 'show']]);
-    }
+    // public function __construct()
+    // {
+    //     $this->middleware('api.auth', ['except' => ['index', 'show']]);
+    // }
 
     public function index()
     {
@@ -40,6 +40,8 @@ class PedidosController extends Controller {
             {
                 $retorno[$id] = ($pedido);
                 $retorno[$id]['nombre'] = $pedido->finca->nombre;
+                $retorno[$id]['usuario'] = $pedido->finca->user->name.' '. $pedido->finca->user->surname ;
+
                 $retorno[$id]['despacho'] = $pedido->despacho;
 
                 unset($retorno[$id]['finca']);

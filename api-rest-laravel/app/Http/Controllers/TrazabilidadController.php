@@ -377,8 +377,12 @@ class TrazabilidadController extends Controller
 
     private function GuardarTraza($pedido)
     {
-
-        $remision = \DB::select('call ObtenerRemision()');
+        $propia = Fincas::find($pedido->id_finca);
+        if ($propia->propia) {
+            $remision = \DB::select('call ObtenerRemisionPropio()');
+        } else {
+            $remision = \DB::select('call ObtenerRemision()');
+        }
 
         $traza = new Trazabilidad();
         $traza->id_finca = $pedido->id_finca;
@@ -469,7 +473,7 @@ class TrazabilidadController extends Controller
                             if ($cantidadGuardada > $maximoLote) {
                                 $cantidadGuardada = 0;
                                 $cantidadGuardada = $cantidadGuardada + $cantidad;
-                                $idTraza = $this->GuardarTraza($pedido);        
+                                $idTraza = $this->GuardarTraza($pedido);
                             }
                         } else {
                             /** de lo contrario si la finca no es propia se debe ir a maximo 5 bandejas
@@ -484,7 +488,7 @@ class TrazabilidadController extends Controller
                                 //                         
                             }
                         }
-                        $conteo +=1;
+                        $conteo += 1;
                         $tbandeja = new TrazabilidadBandeja();
                         $tbandeja->id_bandeja_lote = $id;
                         $tbandeja->id_trazabilidad = $idTraza;
@@ -510,6 +514,98 @@ class TrazabilidadController extends Controller
         }
         // guardar los datos
         // devolver el resutlado
+        return response()->json($data, $data['code']);
+    }
+
+
+
+    //recibimos el id del despacho
+    public function showAll($idDespacho)
+    {
+
+        $tnum = 0;
+        $bandejas = 0;
+        $inicial = 0;
+
+        $bagrupada = [];
+        $infoDespacho = [];
+
+        $contacto = [];
+
+        $Trazabilidad = [];
+        $distribuciones = \DB::select('call verTrazabilidadDespacho(?)', array($idDespacho));
+        $trazabilidades = \DB::select('call obtenerTrazabilidadDespacho(?)', array($idDespacho));
+
+
+        //        var_dump($distribuciones);
+        // con este valor se arman las bandejas
+        if (is_array($distribuciones) && count($distribuciones) > 0) {
+          
+
+       
+         
+
+            foreach ($trazabilidades as $trazabilidad) {
+                $bandejas = 0;
+                foreach($distribuciones as $distribucion){
+                    if($trazabilidad->idtrazabilidad===$distribucion->idtrazabilidad){
+
+
+                      
+                        $infoDespacho[$bandejas]['Cantidad'] = $distribucion->cantidad;
+                        $infoDespacho[$bandejas]['caja_numero'] = $distribucion->caja_numero;
+                        $infoDespacho[$bandejas]['bandeja_numero'] = $distribucion->numero_bandeja;
+                        $infoDespacho[$bandejas]['ovas_ml'] = $distribucion->ovas_ml;
+                       
+                        if($bandejas===0){
+                            $bagrupada[$bandejas]['NumLote'] = $distribucion->numero_lote;
+                            $bagrupada[$bandejas]['Fechadesove'] = $distribucion->fecha_desove;
+                            $bagrupada[$bandejas]['LineaGenetica'] = $distribucion->linea_genetica;
+                            $bagrupada[$bandejas]['edad'] = $distribucion->edad_tcu;
+                            $bagrupada[$bandejas]['tamanio'] = $distribucion->tamanio;
+                            $bagrupada[$bandejas]['ovas_ml'] = $distribucion->ovas_ml;
+                            $contacto['FechaEntrega'] = $distribucion->fecha; // del pedido mas un dia
+                            $contacto['Cliente'] = $distribucion->name . ' ' . $distribucion->surname;
+                                // del dueño de la finca tabela usuarios
+                            $contacto['Destino'] = $distribucion->id_municipio; // ubicacion de la finca/ Municipio departamento
+                            $contacto['Finca'] = $distribucion->nombre;
+                            // ubicacion de la finca/ Municipio departamento  
+                            $contacto['Facturado'] = $distribucion->Facturadas;
+                            $contacto['Adicionales'] = $distribucion->Adicionales;
+                            $contacto['Reposicion'] = $distribucion->Repo;
+                            $contacto['Total'] = $distribucion->TotalPedido;
+                            $contacto['Total_enviado'] = $distribucion->total_ovas_enviadas;
+                            $contacto['Maximo'] = 0;
+                        }
+                        $bandejas += 1;
+
+                    }
+
+                    
+                }
+                $Trazabilidad[$inicial]['contacto'] = $contacto;
+                    $Trazabilidad[$inicial]['trazabilidad'] = $bagrupada;
+                    $Trazabilidad[$inicial]['InfoDespacho'] = $infoDespacho;
+                    $bandejas = 0;
+                    $contacto = [];
+                    $infoDespacho = [];
+                    $bagrupada =[];
+                    $inicial += 1;
+            }
+       
+            $data = [
+                'code' => 200,
+                'status' => 'success',
+                'distribucion' => $Trazabilidad,
+            ];
+        } else {
+            $data = [
+                'code' => 200,
+                'message' => 'Sin',
+                'status' => 'error',
+            ];
+        }
+
         return response()->json($data, $data['code']);
     }
 }

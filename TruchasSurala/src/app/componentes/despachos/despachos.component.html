@@ -8,7 +8,8 @@
 
         </mat-card-header>
         <mat-card-content>
-          <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+          <table id="customers" matTableExporter #exporter="matTableExporter"
+           mat-table [dataSource]="dataSource" class="mat-elevation-z8">
             <ng-container matColumnDef="position">
               <th mat-header-cell *matHeaderCellDef> No. </th>
               <td mat-cell *matCellDef="let element; let i = index"> {{i + 1}} </td>
@@ -56,11 +57,20 @@
 
               </td>
             </ng-container>
+
+            <ng-container matColumnDef="VerDistribucion">
+              <th mat-header-cell *matHeaderCellDef> Ver Distribucion </th>
+              <td mat-cell *matCellDef="let element">
+                <button mat-raised-button color="secondary" id="logout-button" class="btn btn-primary btn-block"
+                  style="width:50%" (click)="openDistribucion(element.id)">Ver</button>
+
+              </td>
+            </ng-container>
             <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
             <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
           </table>
           <mat-paginator [pageSizeOptions]="[15, 30, 50]" showFirstLastButtons></mat-paginator>
-
+          <button mat-raised-button (click)="exporter.exportTable('xlsx', {fileName:'test', sheet: 'sheet_name', Props: {Author: 'Talha'}})">Excel</button>
         </mat-card-content>
       </mat-card>
     </mat-step>

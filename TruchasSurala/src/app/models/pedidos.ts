@@ -1,23 +1,4 @@
 
-// export interface Pedido {
-//   id: number;
-//   id_despacho: number;
-//   id_finca: number;
-//   pedido: number;
-//   porcentaje: number;
-//   adicional: number;
-//   reposicion: number;
-//   total: number;
-//   created_at: string;
-//   updated_at: string;
-//   nombre: string;
-// }
-
-// export interface PedidosRootObject {
-//   code: number;
-//   status: string;
-//   pedido: Pedido[];
-// }
 export interface Despacho {
   id: number;
   fecha: string;
@@ -43,6 +24,8 @@ export interface Pedido {
   created_at: string;
   updated_at: string;
   nombre: string;
+  usuario: string;
+
   despacho: Despacho;
   genero_trazabilidad: boolean;
 }

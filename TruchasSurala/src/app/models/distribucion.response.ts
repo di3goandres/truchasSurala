@@ -16,6 +16,7 @@ export interface InfoDespacho {
     Cantidad:       number;
     caja_numero:    number;
     bandeja_numero: number;
+    ovas_ml:        number;
 }
 
 export interface Contacto {
@@ -74,9 +75,14 @@ export class InfoR {
         public Cantidad:       number,
         public caja_numero:    number,
         public bandeja_numero: number,    
+        public oval_ml: number,
         public childrend?: InfoR[],
     ){
-
     }
+    public position: number;
+    public Nombre: string;
+    public Finca: string;
+
+
    
 }

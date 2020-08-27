@@ -47,6 +47,8 @@ import {MatStepperModule} from '@angular/material/stepper';
 import {MatSortModule} from '@angular/material/sort';
 import { MatPaginatorModule } from '@angular/material/paginator';
 
+import { MatTableExporterModule } from 'mat-table-exporter';
+
 import { PedidosComponent } from './componentes/despacho/pedidos/pedidos.component';
 import { DespachoactualComponent } from './componentes/cabecera/despachoactual/despachoactual.component';
 import { AgregarpedidoComponent } from './componentes/despacho/agregarpedido/agregarpedido.component';
@@ -65,6 +67,7 @@ import { ListausuarioComponent } from './componentes/02-Usuario/01-lista/listaus
 import { ListafincasComponent } from './componentes/02-Usuario/03-Fincas/listafincas/listafincas.component';
 import { PasswordComponent } from './componentes/02-Usuario/04-update/password/password.component';
 import { FincaupdateComponent } from './componentes/02-Usuario/04-update/fincaupdate/fincaupdate.component';
+import { DistribuciongloballistComponent } from './componentes/03-Distribucion/distribuciongloballist/distribuciongloballist.component';
 
 
 registerLocaleData(localCo);
@@ -98,6 +101,8 @@ registerLocaleData(localCo);
     PasswordComponent,
     FincaupdateComponent,
 
+    DistribuciongloballistComponent,
+
 
   ],
   imports: [
@@ -122,7 +127,8 @@ registerLocaleData(localCo);
     MatMomentDateModule,
     MatStepperModule,
     MatPaginatorModule,
-    MatSortModule
+    MatSortModule,
+    MatTableExporterModule
 
 
   ],
