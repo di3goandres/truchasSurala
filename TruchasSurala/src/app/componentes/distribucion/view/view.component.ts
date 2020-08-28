@@ -102,6 +102,7 @@ export class ViewComponent implements OnInit {
 
          
 
+          console.log('cajas', this.cajas)
 
 
 

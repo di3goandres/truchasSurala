@@ -262,15 +262,15 @@ export class CreardistribucionComponent implements OnInit {
     this.bandejasGuardar = []
 
     console.log(this.distribucionGuardar)
-    // this.userService.storeDistribucion(this.distribucionGuardar).subscribe(
-    //   response => {
-    //     this.distribucionGuardar.bandejas = [];
-    //     this.passEntry.emit(response);
-    //   },
-    //   error => {
-    //     console.log(error);
-    //     this.distribucionGuardar.bandejas = []
-    //   });
+    this.userService.storeDistribucion(this.distribucionGuardar).subscribe(
+      response => {
+        this.distribucionGuardar.bandejas = [];
+        this.passEntry.emit(response);
+      },
+      error => {
+        console.log(error);
+        this.distribucionGuardar.bandejas = []
+      });
 
 
   }
