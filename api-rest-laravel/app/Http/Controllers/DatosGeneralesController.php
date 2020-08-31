@@ -54,6 +54,7 @@ class DatosGeneralesController extends Controller
 
       $conteo += 1;
     }
+    
 
     return response()->json([
       'code' => 200,
