@@ -99,6 +99,8 @@ Route::get('/api/datos/fincabytoken', 'FincasController@getFincasUserToken');
 
 
 
+/**datos estadistica */
+Route::get('/api/estadistica/mensual/', 'DatosGeneralesController@EstadisticaMes');
 
 
 

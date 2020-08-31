@@ -48,6 +48,7 @@ import {MatSortModule} from '@angular/material/sort';
 import { MatPaginatorModule } from '@angular/material/paginator';
 
 import { MatTableExporterModule } from 'mat-table-exporter';
+import { NgxChartsModule } from '@swimlane/ngx-charts';
 
 import { PedidosComponent } from './componentes/despacho/pedidos/pedidos.component';
 import { DespachoactualComponent } from './componentes/cabecera/despachoactual/despachoactual.component';
@@ -68,6 +69,8 @@ import { ListafincasComponent } from './componentes/02-Usuario/03-Fincas/listafi
 import { PasswordComponent } from './componentes/02-Usuario/04-update/password/password.component';
 import { FincaupdateComponent } from './componentes/02-Usuario/04-update/fincaupdate/fincaupdate.component';
 import { DistribuciongloballistComponent } from './componentes/03-Distribucion/distribuciongloballist/distribuciongloballist.component';
+
+import { CantidaddespachadoComponent } from './componentes/04-Estadistica/cantidaddespachado/cantidaddespachado.component';
 
 
 registerLocaleData(localCo);
@@ -103,6 +106,10 @@ registerLocaleData(localCo);
 
     DistribuciongloballistComponent,
 
+  
+
+    CantidaddespachadoComponent,
+
 
   ],
   imports: [
@@ -129,7 +136,8 @@ registerLocaleData(localCo);
     MatPaginatorModule,
     MatSortModule,
     MatTableExporterModule,
-    MatRadioModule
+    MatRadioModule,
+    NgxChartsModule
 
 
   ],
