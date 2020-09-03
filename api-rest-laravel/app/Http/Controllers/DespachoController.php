@@ -143,8 +143,8 @@ class DespachoController extends Controller
         {
             $validate = \Validator::make($params_array, [
                         'id' => 'required',
-                        'fecha' => 'required',
-                        'fecha_salida' => 'required',
+                        'fechaEntrada' => 'required',
+                        'fechaEntrega' => 'required',
                         'numero_factura' => 'required',
                         'numero_ovas' => 'required|integer',
                         'ovas_regalo' => 'required|integer',
@@ -173,8 +173,8 @@ class DespachoController extends Controller
                 unset($params_array["created_at"]);
                 unset($params_array["updated_at"]);
                 $despacho = Despacho::find($params_array['id']);
-                $despacho->fecha= $params_array['fecha'];
-                $despacho->fecha_salida= $params_array['fecha_salida'];
+                $despacho->fecha= $params_array['fechaEntrada'];
+                $despacho->fecha_salida= $params_array['fechaEntrega'];
                 $despacho->numero_factura = $params_array['numero_factura'];
                 $despacho->numero_ovas = $params_array['numero_ovas'];
                 $despacho->ovas_regalo = $params_array['ovas_regalo'];

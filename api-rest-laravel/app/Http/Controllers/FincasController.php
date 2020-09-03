@@ -11,7 +11,7 @@ class FincasController extends Controller {
 
     public function __construct()
     {
-        $this->middleware('api.auth', ['except' => ['index', 'show']]);
+        $this->middleware('api.auth', ['except' => ['index', 'show', 'getUserFincas']]);
     }
 
     public function index()
@@ -139,11 +139,21 @@ class FincasController extends Controller {
         $retorno[$pos]['id'] = 0;
         foreach ($duenios as $value)
         {
-            $pos += 1;
 
-            $retorno[$pos]['numeroIdentificacion'] = $value->numero_identificacion;
-            $retorno[$pos]['nombre'] = strtoupper($value->name . '  ' . $value->surname);
-            $retorno[$pos]['id'] = $value->id;
+            foreach($value->fincas as $finca){
+                $retorno[$pos]['numeroIdentificacion'] = $value->numero_identificacion;
+                $retorno[$pos]['nombre'] = strtoupper($value->name . ' ' . $value->surname);
+    
+                $retorno[$pos]['id'] = $finca->id;
+                $retorno[$pos]['nombreFinca'] = $finca->nombre;
+                $retorno[$pos]['Ubicacion'] = strtoupper($finca->departamento . ' - ' . $finca->municipio);
+                $pos += 1;
+
+            }
+
+            // $retorno[$pos]['numeroIdentificacion'] = $value->numero_identificacion;
+            // $retorno[$pos]['nombre'] = strtoupper($value->name . '  ' . $value->surname);
+            // $retorno[$pos]['id'] = $value->id;
         }
 
 

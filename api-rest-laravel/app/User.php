@@ -40,6 +40,6 @@ class User extends Authenticatable
     }
     
       public function fincas(){
-        return $this->hasMany('App\Fincas');
+        return $this->hasMany('App\Fincas', 'user_id');
     }
 }
