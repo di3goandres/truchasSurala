@@ -77,6 +77,9 @@ Route::get('/api/Pedidos/ObtenerPedido/{id}', 'PedidosController@getPedido');
 
 Route::resource('/api/Distribucion', 'TrazabilidadController');
 Route::get('/api/Distribucion/Despacho/{idDespacho}', 'TrazabilidadController@showAll');
+Route::post('/api/despacho/actualizar/', 'DespachoController@actualizar');
+
+
 
 
 

@@ -67,6 +67,9 @@ class DespachoController extends Controller
                         'fechaSalida' => 'required',
                         'numero_factura' => 'required',
                         'numero_ovas' => 'required|integer',
+                        'ovas_regalo' => 'required|integer',
+                        'ovas_adicionales' => 'required|integer',
+                        'ovas_reposicion' => 'required|integer',
                         'porcentaje' => 'required|numeric|between:0,99.99',
 
             ]);
@@ -96,6 +99,9 @@ class DespachoController extends Controller
                 $despacho->fecha_salida= $params_array['fechaSalida'];
                 $despacho->numero_factura = $params_array['numero_factura'];
                 $despacho->numero_ovas = $params_array['numero_ovas'];
+                $despacho->ovas_regalo = $params_array['ovas_regalo'];
+                $despacho->ovas_adicionales = $params_array['ovas_adicionales'];
+                $despacho->ovas_reposicion = $params_array['ovas_reposicion'];
                 $despacho->porcentaje = $params_array['porcentaje'];
                 $despacho->save();
                 //devolver array con resultado
@@ -124,6 +130,80 @@ class DespachoController extends Controller
         return response()->json($data, $data['code']);
     }
 
+    public function actualizar(Request $request)
+    {
+        //recoger los datos por post 
+        $json = $request->input('json', null);
+
+        $params_array = json_decode($json, true); // array
+        // validar los datos
+
+     
+        if (!empty($params_array))
+        {
+            $validate = \Validator::make($params_array, [
+                        'id' => 'required',
+                        'fecha' => 'required',
+                        'fecha_salida' => 'required',
+                        'numero_factura' => 'required',
+                        'numero_ovas' => 'required|integer',
+                        'ovas_regalo' => 'required|integer',
+                        'ovas_adicionales' => 'required|integer',
+                        'ovas_reposicion' => 'required|integer',
+                        'porcentaje' => 'required|numeric|between:0,99.99',
+
+            ]);
+
+
+            if ($validate->fails())
+            {
+                $data = array(
+                    'status' => 'error',
+                    'code' => 200,
+                    'message' => 'Despacho, no se pudo crear',
+                    'errors' => $validate->errors(),
+                    'data' =>$params_array
+                );
+            }
+            else
+            {
+
+                //quitar los campos que n quiero actualizar por si los llegan a envir
+        
+                unset($params_array["created_at"]);
+                unset($params_array["updated_at"]);
+                $despacho = Despacho::find($params_array['id']);
+                $despacho->fecha= $params_array['fecha'];
+                $despacho->fecha_salida= $params_array['fecha_salida'];
+                $despacho->numero_factura = $params_array['numero_factura'];
+                $despacho->numero_ovas = $params_array['numero_ovas'];
+                $despacho->ovas_regalo = $params_array['ovas_regalo'];
+                $despacho->ovas_adicionales = $params_array['ovas_adicionales'];
+                $despacho->ovas_reposicion = $params_array['ovas_reposicion'];
+                $despacho->porcentaje = $params_array['porcentaje'];
+                $despacho->save();
+              
+                $data = array(
+                    'code' => 200,
+                    'status' => 'success',
+                    'despacho' => $despacho
+                );
+            }
+        }
+        else
+        {
+            $data = array(
+                'status' => 'error',
+                'code' => 200,
+                'dato' => $params_array,
+                
+                'message' => 'Sin datos que procesar',
+            );
+        }
+        // guardar los datos
+        // devolver el resutlado
+        return response()->json($data, $data['code']);
+    }
 
     public function getDespachoActual()
     {
