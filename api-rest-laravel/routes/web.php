@@ -73,6 +73,10 @@ Route::resource('/api/fincas', 'FincasController');
 Route::resource('/api/CajasLotes', 'LoteController');
 Route::resource('/api/Despacho', 'DespachoController');
 Route::resource('/api/Pedidos', 'PedidosController');
+Route::post('/api/pedidos/actualizarpedido', 'PedidosController@ActualizarPedido');
+
+
+
 Route::get('/api/Pedidos/ObtenerPedido/{id}', 'PedidosController@getPedido');
 
 Route::resource('/api/Distribucion', 'TrazabilidadController');

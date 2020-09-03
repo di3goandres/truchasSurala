@@ -324,5 +324,72 @@ class PedidosController extends Controller {
         return response()->json($data, $data['code']);
     }
 
+
+    public function ActualizarPedido(Request $request)
+    {
+//recoger los datos por post 
+        $json = $request->input('json', null);
+
+        $params_array = json_decode($json, true); // array
+// validar los datos
+
+
+        if (!empty($params_array))
+        {
+            $validate = \Validator::make($params_array, [
+                        'id' => 'required|numeric',
+                        'pedido' => 'required|numeric',
+                        'porcentaje' => 'required|numeric',
+                        'reposicion' => 'required|numeric',
+                        'adicional' => 'required|numeric',
+                        'total' => 'required|numeric',
+            ]);
+
+
+            if ($validate->fails())
+            {
+                $data = array(
+                    'status' => 'error',
+                    'code' => 200,
+                    'message' => 'Pedido, no se ha actualizado',
+                    'errors' => $validate->errors(),
+                    'data' => $params_array
+                );
+            }
+            else
+            {
+              
+                unset($params_array["created_at"]);
+                unset($params_array["updated_at"]);
+
+                $pedido = Pedidos::find($params_array['id']);
+                $pedido->pedido = $params_array['pedido'];
+                $pedido->porcentaje = $params_array['porcentaje'];
+                $pedido->reposicion = $params_array['reposicion'];
+                $pedido->adicional = $params_array['adicional'];
+                $pedido->total = $params_array['total'];
+                $pedido->save();
+                $data = array(
+                    'code' => 200,
+                    'status' => 'success',
+                    'finca' => $pedido
+                );
+            }
+        }
+        else
+        {
+            $data = array(
+                'status' => 'error',
+                'code' => 200,
+                'dato' => $params_array,
+                'message' => 'Sin datos que procesar',
+            );
+        }
+// guardar los datos
+// devolver el resutlado
+        return response()->json($data, $data['code']);
+    }
+
+
     
 }
