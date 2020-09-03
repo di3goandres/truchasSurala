@@ -55,6 +55,9 @@ export class UserService {
 
   // tslint:disable-next-line: typedef
   public ejecutarQuery<T>(query: string) {
+    if(this.token === null){
+      this.getToken();
+    }
     this.header = new HttpHeaders().set('Authorization', this.token);
     return this.http.get<T>(this.url + query, { headers: this.header });
 
@@ -67,6 +70,8 @@ export class UserService {
     return this.http.post(this.url + query, params, { headers: this.header });
 
   }
+
+  
 
   // tslint:disable-next-line: typedef
   storeDespacho(despacho: any): Observable<any> {
@@ -217,14 +222,14 @@ export class UserService {
   validaToken(): Promise<boolean> {
 
     if (this.getIdentity() == null || this.getToken() == null) {
-      this.router.navigate(['/login']);
+      this.router.navigate(['surala/login']);
 
       Promise.resolve(false);
     }
     return new Promise(resolve => {
 
       if (this.getIdentity() == null || this.getToken() == null) {
-        this.router.navigate(['/login']);
+        this.router.navigate(['surala/login']);
         resolve(false);
       } else {
         resolve(true);

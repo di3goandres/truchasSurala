@@ -23,7 +23,7 @@ export class LoginComponent implements OnInit {
     private route: ActivatedRoute
 
   ) {
-    this.title = 'Identificate';
+    this.title = 'Identifícate';
     this.user = new Login('', '');
   }
 
@@ -46,7 +46,7 @@ export class LoginComponent implements OnInit {
           this.token = response;
           this.ObtenerdatosUser();
           formulario.reset();
-          this.router.navigate(['/surala/home']);
+         
         } else {
           this.status = 'error';
 
@@ -72,8 +72,8 @@ export class LoginComponent implements OnInit {
 
         localStorage.setItem('token', this.token);
         localStorage.setItem('identity', JSON.stringify(this.identity));
-
-
+        this.userService.getToken();
+        this.router.navigate(['/surala/home']);
 
       },
       error => {

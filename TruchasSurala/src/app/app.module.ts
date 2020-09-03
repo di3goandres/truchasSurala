@@ -71,6 +71,10 @@ import { FincaupdateComponent } from './componentes/02-Usuario/04-update/fincaup
 import { DistribuciongloballistComponent } from './componentes/03-Distribucion/distribuciongloballist/distribuciongloballist.component';
 
 import { CantidaddespachadoComponent } from './componentes/04-Estadistica/cantidaddespachado/cantidaddespachado.component';
+import { CreardespachoComponent } from './componentes/05-Despacho/creardespacho/creardespacho.component';
+import { RegistroExitosoComponent } from './componentes/01-Comunes/registro-exitoso/registro-exitoso.component';
+import { VerlistardespachosComponent } from './componentes/05-Despacho/verlistardespachos/verlistardespachos.component';
+import { EditardespachoComponent } from './componentes/05-Despacho/editardespacho/editardespacho.component';
 
 
 registerLocaleData(localCo);
@@ -109,6 +113,22 @@ registerLocaleData(localCo);
   
 
     CantidaddespachadoComponent,
+
+  
+
+    CreardespachoComponent,
+
+  
+
+    RegistroExitosoComponent,
+
+  
+
+    VerlistardespachosComponent,
+
+  
+
+    EditardespachoComponent,
 
 
   ],

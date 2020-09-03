@@ -8,7 +8,10 @@ export class Despacho {
   numero_factura: string;
   Activo: number;
   porcentaje: number;
-  numero_ovas: string;
+  numero_ovas: number;
+  ovas_regalo: number;
+  ovas_adicionales: number;
+  ovas_reposicion: number;
   created_at: string;
   updated_at: string;
 }
@@ -65,6 +68,10 @@ export class DespachoClass {
   public numero_factura: string;
   // tslint:disable-next-line: variable-name
   public numero_ovas: string;
+  public ovas_regalo: number;
+  public ovas_adicionales: number;
+  public ovas_reposicion: number;
+
 
 
   public porcentaje: number;

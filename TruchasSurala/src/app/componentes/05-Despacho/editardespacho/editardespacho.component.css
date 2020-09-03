@@ -1,0 +1,14 @@
+.mat-form-field{
+    width: 100%;
+}
+.registroDespacho{
+    width: 100%;
+    align-items: center;
+}
+
+body {
+    text-align: center;
+}
+form {
+    display: inline-block;
+}

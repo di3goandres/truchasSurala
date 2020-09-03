@@ -9,6 +9,7 @@ import { UserService } from '../../service/user/user.service';
 })
 export class DefaultComponent implements OnInit {
 
+  mostrar= false;
   title: string;
   constructor(
     private userService: UserService
@@ -18,6 +19,7 @@ export class DefaultComponent implements OnInit {
   urlImage: string
   ngOnInit(): void {
       this.urlImage = this.userService.getUrlImage('1597775491banner1.png')
+      this.mostrar = true;
   }
 
 }

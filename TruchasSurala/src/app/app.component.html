@@ -7,14 +7,13 @@
       <mat-icon>home</mat-icon>
       <span>Inicio</span>
     </button>
-    <button mat-menu-item routerLink='/surala/despacho/create'>
-      <mat-icon>next_week</mat-icon>
-      <span>Crear Proximo Despacho</span>
-    </button>
-    <button mat-menu-item routerLink='/surala/despacho/view'>
-      <mat-icon>local_shipping</mat-icon>
-      <span>Ver Despachos</span>
-    </button>
+    <button mat-menu-item [matMenuTriggerFor]="usuarios"> <mat-icon>contacts</mat-icon> <span>Usuarios</span></button>
+    <button mat-menu-item [matMenuTriggerFor]="ovas"> <mat-icon>fiber_manual_record</mat-icon> <span>Ovas</span></button>
+
+  
+  </mat-menu>
+
+  <mat-menu  #usuarios="matMenu">
     <button mat-menu-item routerLink='/surala/register'>
       <mat-icon>verified_user</mat-icon>
       <span>Registro de Usuarios</span>
@@ -24,6 +23,20 @@
       <mat-icon>list_alt</mat-icon>
       <span>Administrar Usuarios</span>
     </button>
+  </mat-menu>
+  
+  <mat-menu #ovas="matMenu">
+   
+   
+    <button mat-menu-item routerLink='/surala/despacho/create'>
+      <mat-icon>next_week</mat-icon>
+      <span>Crear Proximo Despacho</span>
+    </button>
+    <button mat-menu-item routerLink='/surala/despacho/view'>
+      <mat-icon>local_shipping</mat-icon>
+      <span>Ver Despachos</span>
+    </button>
+  
   </mat-menu>
 
   <mat-menu #menuDerecha="matMenu">
@@ -47,6 +60,7 @@
     </button>
   </mat-menu>
   <mat-toolbar color="primary">
+    <!-- <button mat-button [matMenuTriggerFor]="animals"><mat-icon>menu</mat-icon></button> -->
     <button [matMenuTriggerFor]="menu" mat-icon-button class="example-icon"
       aria-label="Example icon-button with menu icon" *ngIf="identity && identity.name">
       <mat-icon>menu</mat-icon>

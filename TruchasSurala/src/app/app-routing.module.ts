@@ -17,6 +17,8 @@ import { TrazabilidadComponent } from './componentes/trazabilidades/trazabilidad
 import { TrazabilidadesComponent } from './componentes/trazabilidades/trazabilidades.component';
 import { UsuarioGuard } from './guards/usuario.guard';
 import { ListausuarioComponent } from './componentes/02-Usuario/01-lista/listausuario/listausuario.component';
+import { CreardespachoComponent } from './componentes/05-Despacho/creardespacho/creardespacho.component';
+import { VerlistardespachosComponent } from './componentes/05-Despacho/verlistardespachos/verlistardespachos.component';
 
 
 
@@ -25,10 +27,10 @@ const routes: Routes = [
     path: 'surala/login', component: LoginComponent
   },
   {
-    path: 'surala/register', component: RegisterComponent, canLoad: [UsuarioGuard]
+    path: 'surala/register', component: RegisterComponent, canLoad: [UsuarioGuard], canActivate:  [UsuarioGuard]
   },
   {
-    path: 'surala/home', component: DefaultComponent, canLoad: [UsuarioGuard]
+    path: 'surala/home', component: DefaultComponent, canLoad: [UsuarioGuard], canActivate:  [UsuarioGuard]
   },
   {
     path: 'surala/error', component: ErrorComponent
@@ -37,43 +39,43 @@ const routes: Routes = [
     path: 'surala/visitante', component: InvitadoComponent
   },
   {
-    path: 'surala/logout/:sure', component: LoginComponent, canLoad: [UsuarioGuard]
+    path: 'surala/logout/:sure', component: LoginComponent, canLoad: [UsuarioGuard], canActivate:  [UsuarioGuard]
   },
   { // rutas de despacho
-    path: 'surala/despacho/view', component: DespachosComponent, canLoad: [UsuarioGuard]
+    path: 'surala/despacho/view', component: VerlistardespachosComponent, canLoad: [UsuarioGuard], canActivate:  [UsuarioGuard]
   },
 
   { // rutas de despacho
-    path: 'surala/despacho/create', component: CrearComponent, canLoad: [UsuarioGuard]
+    path: 'surala/despacho/create', component: CreardespachoComponent, canLoad: [UsuarioGuard], canActivate:  [UsuarioGuard]
   },
   {
-    path: 'surala/despacho/:id', component: DespachoComponent, canLoad: [UsuarioGuard]
+    path: 'surala/despacho/:id', component: DespachoComponent, canLoad: [UsuarioGuard], canActivate:  [UsuarioGuard]
   },
   {
-    path: 'surala/cajas/bandejas/:id', component: BandejascajaComponent, canLoad: [UsuarioGuard]
+    path: 'surala/cajas/bandejas/:id', component: BandejascajaComponent, canLoad: [UsuarioGuard], canActivate:  [UsuarioGuard]
   },
 
   { // rutas de despacho
-    path: 'surala/despacho/caja/create/:id', component: AgregarcajaComponent, canLoad: [UsuarioGuard]
+    path: 'surala/despacho/caja/create/:id', component: AgregarcajaComponent, canLoad: [UsuarioGuard], canActivate:  [UsuarioGuard]
   },
 
   { // rutas de despacho
-    path: 'surala/pedidos/:id', component: PedidosComponent, canLoad: [UsuarioGuard]
+    path: 'surala/pedidos/:id', component: PedidosComponent, canLoad: [UsuarioGuard], canActivate:  [UsuarioGuard]
   },
   { // rutas de despacho
-    path: 'surala/distribucion/:id', component: ViewComponent, canLoad: [UsuarioGuard]
+    path: 'surala/distribucion/:id', component: ViewComponent, canLoad: [UsuarioGuard], canActivate:  [UsuarioGuard]
   },
   { // rutas de despacho
-    path: 'surala/distribucion/Generar/:id', component: ViewComponent, canLoad: [UsuarioGuard]
+    path: 'surala/distribucion/Generar/:id', component: ViewComponent, canLoad: [UsuarioGuard], canActivate:  [UsuarioGuard]
   },
   { // rutas de despacho
-    path: 'surala/distribucion/ver/:id', component: TrazabilidadesComponent, canLoad: [UsuarioGuard]
+    path: 'surala/distribucion/ver/:id', component: TrazabilidadesComponent, canLoad: [UsuarioGuard], canActivate:  [UsuarioGuard]
   },
   { // rutas de despacho
-    path: 'surala/distribucion/ver/:id', component: TrazabilidadesComponent, canLoad: [UsuarioGuard]
+    path: 'surala/distribucion/ver/:id', component: TrazabilidadesComponent, canLoad: [UsuarioGuard], canActivate:  [UsuarioGuard]
   },
   { // rutas de usuarios
-    path: 'surala/usuarios', component:ListausuarioComponent , canLoad: [UsuarioGuard]
+    path: 'surala/usuarios', component:ListausuarioComponent , canLoad: [UsuarioGuard], canActivate:  [UsuarioGuard]
   },
   //
   {
