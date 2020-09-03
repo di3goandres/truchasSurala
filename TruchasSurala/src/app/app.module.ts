@@ -2,7 +2,7 @@ import { ShortNumberPipe } from './pipes/short-number.pipe';
 
 
 import { BrowserModule } from '@angular/platform-browser';
-import { LOCALE_ID,NgModule } from '@angular/core';
+import { LOCALE_ID, NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { FroalaEditorModule, FroalaViewModule } from 'angular-froala-wysiwyg';
@@ -20,7 +20,7 @@ import { CrearComponent } from './componentes/despacho/crear/crear.component';
 
 import { MatSelectModule } from '@angular/material/select';
 
-import {MatRadioModule} from '@angular/material/radio';
+import { MatRadioModule } from '@angular/material/radio';
 // Datepicker module
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
@@ -36,15 +36,15 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatMomentDateModule, MomentDateAdapter } from "@angular/material-moment-adapter";
 
 import { MatGridListModule } from '@angular/material/grid-list';
-import {MatDividerModule} from '@angular/material/divider';
-import {MatTreeModule} from '@angular/material/tree'
+import { MatDividerModule } from '@angular/material/divider';
+import { MatTreeModule } from '@angular/material/tree'
 
-import {MatTabsModule} from '@angular/material/tabs';
-import {MatToolbarModule} from '@angular/material/toolbar';
-import {MatMenuModule} from '@angular/material/menu';
-import {MatTableModule} from '@angular/material/table'
-import {MatStepperModule} from '@angular/material/stepper';
-import {MatSortModule} from '@angular/material/sort';
+import { MatTabsModule } from '@angular/material/tabs';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatMenuModule } from '@angular/material/menu';
+import { MatTableModule } from '@angular/material/table'
+import { MatStepperModule } from '@angular/material/stepper';
+import { MatSortModule } from '@angular/material/sort';
 import { MatPaginatorModule } from '@angular/material/paginator';
 
 import { MatTableExporterModule } from 'mat-table-exporter';
@@ -60,8 +60,8 @@ import { SortByPipePipe } from './pipes/sort-by-pipe.pipe';
 import { TrazabilidadesComponent } from './componentes/trazabilidades/trazabilidades.component';
 import { TrazabilidadComponent } from './componentes/trazabilidades/trazabilidad/trazabilidad.component';
 import { MAT_FORM_FIELD_DEFAULT_OPTIONS } from '@angular/material/form-field';
-import {registerLocaleData} from '@angular/common'
-import  localCo from '@angular/common/locales/es-CO';
+import { registerLocaleData } from '@angular/common'
+import localCo from '@angular/common/locales/es-CO';
 import { DepartamentosComponent } from './componentes/01-Comunes/departamentos/departamentos.component';
 import { ActualizarComponent } from './componentes/02-Usuario/02-update/actualizar/actualizar.component';
 import { ListausuarioComponent } from './componentes/02-Usuario/01-lista/listausuario/listausuario.component';
@@ -75,6 +75,10 @@ import { CreardespachoComponent } from './componentes/05-Despacho/creardespacho/
 import { RegistroExitosoComponent } from './componentes/01-Comunes/registro-exitoso/registro-exitoso.component';
 import { VerlistardespachosComponent } from './componentes/05-Despacho/verlistardespachos/verlistardespachos.component';
 import { EditardespachoComponent } from './componentes/05-Despacho/editardespacho/editardespacho.component';
+import { ListapedidosComponent } from './componentes/06-Pedidos/listapedidos/listapedidos.component';
+import { CrearpedidosComponent } from './componentes/06-Pedidos/crearpedidos/crearpedidos.component';
+import { ListausuariosComponent } from './componentes/06-Pedidos/listausuarios/listausuarios.component';
+import { EditarpedidoComponent } from './componentes/06-Pedidos/editarpedido/editarpedido.component';
 
 
 registerLocaleData(localCo);
@@ -107,33 +111,14 @@ registerLocaleData(localCo);
     ListafincasComponent,
     PasswordComponent,
     FincaupdateComponent,
-
-    DistribuciongloballistComponent,
-
-  
-
-    CantidaddespachadoComponent,
-
-  
-
-    CreardespachoComponent,
-
-  
-
-    RegistroExitosoComponent,
-
-  
-
-    VerlistardespachosComponent,
-
-  
-
-    EditardespachoComponent,
+    DistribuciongloballistComponent, CantidaddespachadoComponent, CreardespachoComponent,
+    RegistroExitosoComponent, VerlistardespachosComponent, EditardespachoComponent, ListapedidosComponent,
+    CrearpedidosComponent, ListausuariosComponent, EditarpedidoComponent,
 
 
   ],
   imports: [
-    BrowserModule, FormsModule, HttpClientModule,ReactiveFormsModule,
+    BrowserModule, FormsModule, HttpClientModule, ReactiveFormsModule,
     FroalaEditorModule.forRoot(), FroalaViewModule.forRoot(), AppRoutingModule,
     BrowserAnimationsModule,
     BsDatepickerModule.forRoot(),
@@ -163,12 +148,12 @@ registerLocaleData(localCo);
   ],
 
   providers: [
-    {provide: LOCALE_ID, useValue: 'es-Co'},
-    {provide: MAT_FORM_FIELD_DEFAULT_OPTIONS, useValue: {appearence: 'fill'}},
+    { provide: LOCALE_ID, useValue: 'es-Co' },
+    { provide: MAT_FORM_FIELD_DEFAULT_OPTIONS, useValue: { appearence: 'fill' } },
     DatePipe,
-    MatDatepickerModule,
+    MatDatepickerModule, ListapedidosComponent,DespachoactualComponent,
     DespachosComponent],
-    
+
   bootstrap: [AppComponent]
 })
 export class AppModule { }

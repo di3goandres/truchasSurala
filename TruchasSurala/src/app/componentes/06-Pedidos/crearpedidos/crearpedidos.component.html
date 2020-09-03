@@ -1,0 +1,75 @@
+<div class="container">
+
+    <mat-card class="example-card">
+     
+        <mat-card-content>
+            <form #crearPedidoform="ngForm" (ngSubmit)="registrarPedido(crearPedidoform)">
+                <div class="row">
+                    <div class="col-xs-12 col-12 form-group">
+                        <label>Seleccione un cliente</label>
+                        <button type="button" mat-mini-fab class="buttton-aldea" aria-label="fecha"
+                        (click)="openUsuarios()">
+                        <mat-icon>person</mat-icon>
+                    </button>
+                    </div>
+                    <div class="col-xs-12 col-12  form-group" *ngIf="usuario.id!=0">
+                        <label>Cliente/Finca</label>
+
+                        <input disabled="true" class="form-control"
+                        [(value)]="usuario.nombre + '-'+ usuario.nombreFinca+ '-'+ usuario.Ubicacion"  
+                       />
+                    </div>
+
+                </div>
+                <div class="row">
+                    <div class="col-xs-12 col-6  form-group">
+                        <label>Pedido</label>
+                        <input name="pedido" type="number" placeholder="Numero de Ovas" class="form-control"
+                            #name="ngModel" [(ngModel)]="pedido.pedido" required (change)="actualizar()"
+                            [min]="pedidoMinimo" />
+                    </div>
+                    <div class="col-xs-12 col-6 form-group">
+                        <label>Porcentaje adicional</label>
+                        <input name="porcentaje" type="number" placeholder="Porcentaje adicional" class="form-control"
+                            #name="ngModel" [(ngModel)]="pedido.porcentaje" required (change)="actualizar()"/>
+                        <br>
+
+                    </div>
+
+
+                </div>
+                <div class="row">
+                    <div class="col-xs-12 col-6 form-group">
+                        <label>Reposición</label>
+                        <input name="linea_genetica" type="number" placeholder="Reposicion" class="form-control"
+                            #name="ngModel" [(ngModel)]="pedido.reposicion" required (change)="actualizar()" />
+                    </div>
+                    <div class="col-xs-12 col-6  form-group">
+                        <label>Adicional: </label>
+                        <input disabled="disabled" name="adicional" type="number" placeholder="Numero de Ovas"
+                            class="form-control" #name="ngModel" [(ngModel)]="pedido.adicional" required />
+                    </div>
+
+                </div>
+                <div class="row">
+                    <div class="col-xs-12 col-12 form-group">
+                        <label>Total</label>
+                        <input name="total" type="number" placeholder="Reposicion" class="form-control" #name="ngModel"
+                            [(ngModel)]="pedido.total" />
+                    </div>
+
+
+                </div>
+
+
+                <div class="col-xs-12 col-12  form-group">
+                
+            <button mat-raised-button type="submit" class="btn btn-primary btn-block"
+                        [disabled]="((!crearPedidoform.valid==true||usuario.id==0?true:false))">
+                        Agregar Pedido
+                    </button>
+                </div>
+            </form>
+        </mat-card-content>
+    </mat-card>
+</div>

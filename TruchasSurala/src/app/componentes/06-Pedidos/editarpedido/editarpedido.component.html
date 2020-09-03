@@ -1,0 +1,74 @@
+<div class="container">
+
+    <mat-card class="example-card">
+        <mat-card-header>
+            <mat-card-title>Actualización del Pedidos</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+
+            <form #crearPedidoform="ngForm" (ngSubmit)="registrarPedido(crearPedidoform)">
+                <div class="row">
+
+                    <div class="col-xs-12 col-12  form-group">
+                        <label>Cliente/Finca</label>
+
+                        <input disabled="true" class="form-control" [(value)]="pedidoupdate.usuario + '-'+ pedidoupdate.nombre" />
+                    </div>
+
+                </div>
+                <div class="row">
+                    <div class="col-xs-12 col-6  form-group">
+                        <label>Pedido</label>
+                        <input name="pedido" type="number" placeholder="Numero de Ovas" class="form-control"
+                            #name="ngModel" [(ngModel)]="pedidoupdate.pedido" required (change)="actualizar()" />
+                    </div>
+                    <div class="col-xs-12 col-6 form-group">
+                        <label>Porcentaje adicional</label>
+                        <input name="porcentaje" type="number" placeholder="Porcentaje adicional" class="form-control"
+                            #name="ngModel" [(ngModel)]="pedidoupdate.porcentaje" required (change)="actualizar()" />
+                        <br>
+
+                    </div>
+
+
+                </div>
+                <div class="row">
+                    <div class="col-xs-12 col-6 form-group">
+                        <label>Reposición</label>
+                        <input name="linea_genetica" type="number" placeholder="Reposicion" class="form-control"
+                            #name="ngModel" [(ngModel)]="pedidoupdate.reposicion" required (change)="actualizar()" />
+                    </div>
+                    <div class="col-xs-12 col-6  form-group">
+                        <label>Adicional: </label>
+                        <input disabled="disabled" name="adicional" type="number" placeholder="Numero de Ovas"
+                            class="form-control" #name="ngModel" [(ngModel)]="pedidoupdate.adicional" required />
+                    </div>
+
+                </div>
+                <div class="row">
+                    <div class="col-xs-12 col-12 form-group">
+                        <label>Total</label>
+                        <input name="total" type="number" placeholder="Reposicion" class="form-control" #name="ngModel"
+                            [(ngModel)]="pedidoupdate.total" />
+                    </div>
+
+
+                </div>
+
+
+                <div class="col-xs-12 col-12  form-group">
+
+                    
+                    <div class=col-3>
+                        <button mat-raised-button ngbAutofocus (click)="cerrar()">
+                            <mat-icon>cancel_presentation</mat-icon></button>
+                    </div>
+                    <button mat-raised-button type="submit" class="btn btn-primary btn-block"
+                        [disabled]="!crearPedidoform.valid">
+                        Actualizar Pedido
+                    </button>
+                </div>
+            </form>
+        </mat-card-content>
+    </mat-card>
+</div>

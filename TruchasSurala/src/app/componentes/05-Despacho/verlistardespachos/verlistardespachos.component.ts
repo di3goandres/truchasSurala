@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, ChangeDetectorRef, OnChanges, SimpleChanges } from '@angular/core';
 import { DespachoRootObject, Despacho } from 'src/app/models/despacho';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
@@ -12,7 +12,7 @@ import { EditardespachoComponent } from '../editardespacho/editardespacho.compon
   templateUrl: './verlistardespachos.component.html',
   styleUrls: ['./verlistardespachos.component.css']
 })
-export class VerlistardespachosComponent implements OnInit {
+export class VerlistardespachosComponent implements OnInit , OnChanges {
 
 
   displayedColumns: string[] = ['position', 'Activo', 'FechaFactura', 'FechaSalida',
@@ -28,8 +28,12 @@ export class VerlistardespachosComponent implements OnInit {
 
   constructor(
     private userService: UserService,
-    private modalService: NgbModal
+    private modalService: NgbModal,
+    private changeDetectorRefs: ChangeDetectorRef
   ) { }
+  ngOnChanges(changes: SimpleChanges): void {
+    this. cargaInicial();
+  }
 
 
   cargaInicial(){
@@ -47,7 +51,7 @@ export class VerlistardespachosComponent implements OnInit {
           this.dataSource = new MatTableDataSource(this.respuesta.despachos);
           this.actual = this.respuesta.despachos[0];
           this.dataSource.paginator = this.paginator;
-
+          // this.changeDetectorRefs.detectChanges();
         }
 
 

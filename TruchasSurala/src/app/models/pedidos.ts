@@ -12,7 +12,8 @@ export interface Despacho {
   updated_at: string;
 }
 
-export interface Pedido {
+export class Pedido {
+  constructor(){}
   id: number;
   id_despacho: number;
   id_finca: number;

@@ -19,6 +19,7 @@ import { UsuarioGuard } from './guards/usuario.guard';
 import { ListausuarioComponent } from './componentes/02-Usuario/01-lista/listausuario/listausuario.component';
 import { CreardespachoComponent } from './componentes/05-Despacho/creardespacho/creardespacho.component';
 import { VerlistardespachosComponent } from './componentes/05-Despacho/verlistardespachos/verlistardespachos.component';
+import { ListapedidosComponent } from './componentes/06-Pedidos/listapedidos/listapedidos.component';
 
 
 
@@ -60,7 +61,7 @@ const routes: Routes = [
   },
 
   { // rutas de despacho
-    path: 'surala/pedidos/:id', component: PedidosComponent, canLoad: [UsuarioGuard], canActivate:  [UsuarioGuard]
+    path: 'surala/pedidos/:id', component: ListapedidosComponent, canLoad: [UsuarioGuard], canActivate:  [UsuarioGuard]
   },
   { // rutas de despacho
     path: 'surala/distribucion/:id', component: ViewComponent, canLoad: [UsuarioGuard], canActivate:  [UsuarioGuard]

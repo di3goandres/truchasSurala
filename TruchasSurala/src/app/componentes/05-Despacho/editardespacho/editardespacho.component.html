@@ -1,3 +1,4 @@
+<div class="container alternate-theme">
 <mat-card>
     <mat-card-header>
         <mat-card-title>Edición Pedido</mat-card-title>
@@ -22,8 +23,8 @@
                     <mat-form-field appearance="fill">
                         <mat-label>Fecha de entrada</mat-label>
                         <input matInput formControlName="FechaEntrada" [matDatepicker]="pickerentrada"
-                            ng-keydown="$event.preventDefault();" [max]="maxDate"
-                            [(ngModel)]="despacho.fecha" required>
+                            ng-keydown="$event.preventDefault();" [min]="minDate" [max]="maxDate"
+                            [(ngModel)]="despachoupdate.fecha" required>
                         <mat-datepicker-toggle matSuffix [for]="pickerentrada">
                         </mat-datepicker-toggle>
                         <mat-datepicker touchUi #pickerentrada></mat-datepicker>
@@ -38,8 +39,8 @@
                     <mat-form-field appearance="fill">
                         <mat-label>Fecha de Salida</mat-label>
                         <input matInput formControlName="FechaSalida" [matDatepicker]="pickersalida"
-                            ng-keydown="$event.preventDefault();" [min]="despacho.fecha" [max]="maxDate"
-                            [(ngModel)]="despacho.fecha_salida" required>
+                            ng-keydown="$event.preventDefault();" [min]="despachoupdate.fecha" [max]="maxDate"
+                            [(ngModel)]="despachoupdate.fecha_salida" required>
                         <mat-datepicker-toggle matSuffix [for]="pickersalida">
                         </mat-datepicker-toggle>
                         <mat-datepicker touchUi #pickersalida></mat-datepicker>
@@ -58,7 +59,7 @@
 
                     <mat-form-field appearance="fill">
                         <mat-label>Número de Factura</mat-label>
-                        <input matInput [(ngModel)]="despacho.numero_factura" formControlName="NumeroFactura"
+                        <input matInput [(ngModel)]="despachoupdate.numero_factura" formControlName="NumeroFactura"
                             required />
 
                     </mat-form-field>
@@ -68,88 +69,97 @@
 
                     <mat-form-field appearance="fill">
                         <mat-label>Número de Ovas</mat-label>
-                        <input matInput type="number" [(ngModel)]="despacho.numero_ovas"
+                        <input matInput type="number" [(ngModel)]="despachoupdate.numero_ovas"
                             formControlName="NumeroDeOvas" required />
                     </mat-form-field>
                 </div>
-                    <div class="col-2"></div>
+                <div class="col-2"></div>
+
+            </div>
+
+            <div class="row">
+                <div class="col-2"></div>
+
+
+                <div class="col-4">
+
+                    <mat-form-field appearance="fill">
+                        <mat-label>Número de Ovas Reposición</mat-label>
+                        <input matInput type="number" [(ngModel)]="despachoupdate.ovas_reposicion"
+                            formControlName="reposicion" required />
+                    </mat-form-field>
+
+                </div>
+                <div class="col-4">
+
+                    <mat-form-field appearance="fill">
+                        <mat-label>Número de Ovas Regalo</mat-label>
+                        <input matInput type="number" [(ngModel)]="despachoupdate.ovas_regalo"
+                            formControlName="NumeroDeOvasRegalo" required />
+                    </mat-form-field>
+
+                </div>
+                <div class="col-2"></div>
+
+            </div>
+
+            <div class="row">
+                <div class="col-2"></div>
+
+
+                <div class="col-4">
+
+                    <mat-form-field appearance="fill">
+                        <mat-label>% Adicional</mat-label>
+                        <input matInput type="number" [(ngModel)]="despachoupdate.porcentaje"
+                            formControlName="Porcentaje" required min="0" max="100" />
+                    </mat-form-field>
+
+                </div>
+                <div class="col-4">
+
+                    <mat-form-field appearance="fill">
+                        <mat-label>Número de Ovas Adicionales</mat-label>
+                        <input matInput type="number" [(ngModel)]="despachoupdate.ovas_adicionales"
+                            formControlName="NumeroDeOvasAdicionales" required />
+                    </mat-form-field>
 
                 </div>
 
-                <div class="row">
-                    <div class="col-2"></div>
+                <div class="col-3"></div>
 
 
-                    <div class="col-4">
-
-                        <mat-form-field appearance="fill">
-                            <mat-label>Número de Ovas Reposición</mat-label>
-                            <input matInput type="number" [(ngModel)]="despacho.ovas_reposicion"
-                                formControlName="reposicion" required />
-                        </mat-form-field>
-
-                    </div>
-                    <div class="col-4">
-
-                        <mat-form-field appearance="fill">
-                            <mat-label>Número de Ovas Regalo</mat-label>
-                            <input matInput type="number" [(ngModel)]="despacho.ovas_regalo"
-                                formControlName="NumeroDeOvasRegalo" required />
-                        </mat-form-field>
-
-                    </div>
-                    <div class="col-2"></div>
-
-                </div>
-
-                <div class="row">
-                    <div class="col-2"></div>
+            </div>
 
 
-                    <div class="col-4">
-
-                        <mat-form-field appearance="fill">
-                            <mat-label>% Adicional</mat-label>
-                            <input matInput type="number" [(ngModel)]="despacho.porcentaje"
-                                formControlName="Porcentaje" required min="0" max="100" />
-                        </mat-form-field>
-
-                    </div>
-                    <div class="col-4">
-
-                        <mat-form-field appearance="fill">
-                            <mat-label>Número de Ovas Adicionales</mat-label>
-                            <input matInput type="number" [(ngModel)]="despacho.ovas_adicionales"
-                                formControlName="NumeroDeOvasAdicionales" required />
-                        </mat-form-field>
-
-                    </div>
-
-                    <div class="col-3"></div>
+            <div class="row">
+                <div class="col-3"></div>
 
 
+                <div class=col-3>
+                    <button mat-raised-button ngbAutofocus (click)="cerrar()">
+                        <mat-icon>cancel_presentation</mat-icon></button>
                 </div>
 
 
-                <div class="row">
-                    <div class="col-3"></div>
-
-
-                    <div class=col-6>
-
-                        <button mat-raised-button type="submit" class="btn btn-primary btn-block"
-                            [disabled]="!firstFormGroup.valid">
-                            Actuaizar Despacho
-                        </button>
-
-                    </div>
-
-                    <div class="col-3"></div>
-
+                <div class=col-3> <button mat-raised-button type="submit"  color="primary" 
+                        [disabled]="!firstFormGroup.valid">
+                        <mat-icon>refresh</mat-icon>
+                    </button>
 
                 </div>
+
+                <div class="col-3"></div>
+
+
+            </div>
 
 
         </form>
     </mat-card-content>
+
+    <mat-card-actions>
+
+    </mat-card-actions>
 </mat-card>
+</div>

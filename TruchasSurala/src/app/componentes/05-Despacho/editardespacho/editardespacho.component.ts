@@ -20,17 +20,20 @@ export class EditardespachoComponent implements OnInit {
   minDate: Date;
   maxDate: Date;
   @Input() despacho: Despacho;
+  despachoupdate: Despacho;
+
   myDateValue: Date;
   previousDate: Date;
   agregar: boolean;
   status: string;
   title: string;
   constructor(
-              private despachoService: DespachoService,
-              public datepipe: DatePipe,
-              private activeModal: NgbActiveModal,
-              private modalService: NgbModal,
-              private _formBuilder: FormBuilder) {
+    private despachoService: DespachoService,
+    public datepipe: DatePipe,
+    private activeModal: NgbActiveModal,
+
+    private modalService: NgbModal,
+    private _formBuilder: FormBuilder) {
     this.title = 'Actualización Despacho';
     this.minDate = new Date();
     this.maxDate = new Date();
@@ -41,8 +44,19 @@ export class EditardespachoComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.despachoupdate = new Despacho()
+    this.despachoupdate.id = this.despacho.id;
+    this.despachoupdate.porcentaje = this.despacho.porcentaje;
+    this.despachoupdate.numero_factura = this.despacho.numero_factura;
 
-    this.firstFormGroup =this._formBuilder.group({
+    this.despachoupdate.numero_ovas = this.despacho.numero_ovas;
+    this.despachoupdate.ovas_regalo = this.despacho.ovas_regalo;
+    this.despachoupdate.ovas_adicionales = this.despacho.ovas_adicionales;
+    this.despachoupdate.ovas_reposicion = this.despacho.ovas_reposicion;
+    this.despachoupdate.fecha = this.despacho.fecha;
+    this.despachoupdate.fecha_salida = this.despacho.fecha_salida
+
+    this.firstFormGroup = this._formBuilder.group({
       FechaEntrada: ['', Validators.required],
       FechaSalida: ['', Validators.required],
       NumeroFactura: ['', Validators.required],
@@ -55,18 +69,21 @@ export class EditardespachoComponent implements OnInit {
 
       Porcentaje: ['', Validators.required],
     });
-  
+
     this.agregar = false;
   }
 
+
+
   onRegister(formulario): void {
 
-    //  this.despacho.fecha = this.datepipe.transform(this.despacho.fechaEntrada, 'yyyy-MM-dd');
     //  this.despacho.fechaSalida = this.datepipe.transform(this.despacho.fechaEntrega, 'yyyy-MM-dd');
+    this.despachoupdate.fechaEntrada = this.datepipe.transform(this.despachoupdate.fecha, 'yyyy-MM-dd');
+    this.despachoupdate.fechaEntrega = this.datepipe.transform(this.despachoupdate.fecha_salida, 'yyyy-MM-dd');
 
-  
-    console.log(this.despacho)
-    this.despachoService.updateDespacho(this.despacho).subscribe(
+
+    console.log(this.despachoupdate)
+    this.despachoService.updateDespacho(this.despachoupdate).subscribe(
       response => {
         console.log(response);
         // tslint:disable-next-line: triple-equals
@@ -91,30 +108,30 @@ export class EditardespachoComponent implements OnInit {
   }
 
   onDateChange(newDate: Date): void {
-      this.previousDate = new Date(newDate);
+    this.previousDate = new Date(newDate);
 
 
   }
 
-  onClickMostrar(){
+  onClickMostrar() {
     this.agregar = !this.agregar;
   }
 
-  cerrar(){
+  cerrar() {
     this.modalService.dismissAll();
   }
- openExitoso(){
-  const modalRef = this.modalService.open(RegistroExitosoComponent,
-     {size: 'md'});
+  openExitoso() {
+    const modalRef = this.modalService.open(RegistroExitosoComponent,
+      { size: 'md' });
 
-  modalRef.result.then((result) => {
-  
-  
-  }, (reason) => {
-  
-  
-  });
-}
+    modalRef.result.then((result) => {
+
+
+    }, (reason) => {
+
+
+    });
+  }
 
 
 }

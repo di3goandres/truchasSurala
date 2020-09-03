@@ -3,8 +3,10 @@ import { Component, OnInit, Input } from '@angular/core';
 import { UserService } from 'src/app/service/user/user.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
-import { AgregarpedidoComponent } from '../../despacho/agregarpedido/agregarpedido.component';
+
 import { Despacho } from '../../../models/despacho.response';
+import { CrearpedidosComponent } from '../../06-Pedidos/crearpedidos/crearpedidos.component';
+
 
 @Component({
   selector: 'app-despachoactual',
@@ -19,7 +21,8 @@ export class DespachoactualComponent implements OnInit {
     private userService: UserService,
     private route: ActivatedRoute,
     private router: Router,
-    private modalService: NgbModal
+    private modalService: NgbModal,
+
   ) { }
 
   ngOnInit(): void {
@@ -42,7 +45,7 @@ export class DespachoactualComponent implements OnInit {
   }
 
   open(): void {
-    const modalRef = this.modalService.open(AgregarpedidoComponent);
+    const modalRef = this.modalService.open(CrearpedidosComponent);
     modalRef.componentInstance.idDespacho = this.actual.id;
     modalRef.componentInstance.porcentaje = this.actual.porcentaje
     
@@ -57,9 +60,10 @@ export class DespachoactualComponent implements OnInit {
       this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
       console.log('reason', reason);
       if (reason === 'OK') {
-        console.log('entrre perras!!');
+      
         // this.consultaInicial(this.id);
         console.log(this.router.url);
+      
         this.url = this.router.url;
         // this.router.navigate([this.url]);
 

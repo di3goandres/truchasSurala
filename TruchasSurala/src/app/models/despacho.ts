@@ -6,6 +6,9 @@ export class Despacho {
   fecha: Date;
   fecha_salida: Date;
   numero_factura: string;
+  fechaEntrada: string;
+  fechaEntrega: string;
+
   Activo: number;
   porcentaje: number;
   numero_ovas: number;
