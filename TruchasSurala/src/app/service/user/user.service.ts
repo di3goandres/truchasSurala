@@ -71,6 +71,16 @@ export class UserService {
 
   }
 
+  public ejecutarQueryPostArchivo(query: string, parametros: FormData) {
+    this.header = new HttpHeaders().set('Authorization', this.token)
+    .set('Content-Type', 'multipart/form-data')
+    
+
+
+    return this.http.post(this.url + query,parametros,  { headers: this.header});
+
+  }
+
   public ejecutarQueryDelete(query: string, params: string) {
     this.header = new HttpHeaders().set('Authorization', this.token)
       .set('Content-Type', 'application/x-www-form-urlencoded');
@@ -78,7 +88,6 @@ export class UserService {
       headers: this.header,
     }
 
-    console.log(options);
     return this.http.delete(this.url + query, options );
 
   }

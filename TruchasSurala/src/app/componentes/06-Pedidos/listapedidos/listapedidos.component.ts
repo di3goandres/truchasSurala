@@ -11,6 +11,7 @@ import { EditarpedidoComponent } from '../editarpedido/editarpedido.component';
 import { MatPaginator } from '@angular/material/paginator';
 import { BorrarpedidoComponent } from '../borrarpedido/borrarpedido.component';
 import { PedidosService } from '../../../service/pedidos/pedidos.service';
+import { AsociarfacturaComponent } from '../asociarfactura/asociarfactura.component';
 
 @Component({
   selector: 'app-listapedidos',
@@ -24,7 +25,7 @@ export class ListapedidosComponent implements OnInit {
   displayedColumns: string[] = ['position', 'usuario', 'NombreFinca',
     'Pedido', 'Porcentaje',
     'adicionales', 'reposicion', 'totalPedido',
-    'FechaCreacion', 'Actualizar', 'VerGenerar', 'Borrar', 'reiniciar'];
+    'FechaCreacion', 'Actualizar', 'Factura' ,'VerGenerar', 'Borrar', 'reiniciar'];
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
   actual: Despacho;
 
@@ -95,6 +96,19 @@ export class ListapedidosComponent implements OnInit {
         this.borrar(element);
       
       }
+
+    }, (reason) => {
+
+    });
+
+  }
+  OpenAsociarFactura(element) {
+    const modalRef = this.modalService.open(AsociarfacturaComponent);
+    modalRef.componentInstance.pedido = element
+   
+
+    modalRef.result.then((result) => {
+    
 
     }, (reason) => {
 

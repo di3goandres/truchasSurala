@@ -3,6 +3,8 @@ import { UserService } from '../user/user.service';
 import { Observable } from 'rxjs';
 import { Pedido } from '../../models/pedidos';
 import { EliminarPedido } from '../../models/pedidos/delete.pedidos.request';
+import { Respuesta } from '../../models/pedidos/guardar.factura.response';
+import { HttpClient } from '@angular/common/http';
 
 
 @Injectable({
@@ -12,6 +14,7 @@ import { EliminarPedido } from '../../models/pedidos/delete.pedidos.request';
 export class PedidosService {
 
   constructor(
+    public http: HttpClient,
     private userService: UserService
   ) { }
 
@@ -43,5 +46,18 @@ export class PedidosService {
     console.log(params)
     return this.userService.ejecutarQueryDelete('/api/pedidos/eliminarpedido/'+id+'/true', '');
    }
+
+   postFile(fileToUpload: File, id: string) : Observable<any>  {
+     let formData: FormData = new FormData();
+   
+     formData.append('file', fileToUpload, fileToUpload.name)
+   
+     formData.append('idPedido', id.toString());
+     console.log(formData);
+    
+     return this.userService.ejecutarQueryPostArchivo('/api/pedido/uploadpdf/',
+      formData);
+     
+ }
 
 }

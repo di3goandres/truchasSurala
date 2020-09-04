@@ -1,0 +1,14 @@
+   <div class="form-group">
+                    <label for="file">Adjuntar Presupuesto</label>
+                    <input type="file" id="file" [accept]="contentInclude"
+                        (change)="handleFileInput($event.target.files)">
+                </div>
+
+                <div>
+
+              
+
+                    <button mat-raised-button color="warn" (click)="guardarArchivo(2)"
+                        >Continuar</button>
+
+                </div>
