@@ -9,8 +9,11 @@ use App\Fincas;
 use App\Lotes;
 use App\Trazabilidad;
 use App\TrazabilidadBandeja;
+use App\BandejasLotes;
 
-class PedidosController extends Controller {
+
+class PedidosController extends Controller
+{
 
     // public function __construct()
     // {
@@ -22,9 +25,9 @@ class PedidosController extends Controller {
         $pedidos = Pedidos::all();
 
         return response()->json([
-                    'code' => 200,
-                    'status' => 'success',
-                    'pedidos' => $pedidos
+            'code' => 200,
+            'status' => 'success',
+            'pedidos' => $pedidos
         ]);
     }
 
@@ -32,15 +35,13 @@ class PedidosController extends Controller {
     {
         $pedidos = Pedidos::where('id_despacho', '=', $id)->get();
 
-        if (is_object($pedidos))
-        {
+        if (is_object($pedidos)) {
             $retorno = [];
             $id = 0;
-            foreach ($pedidos as $pedido)
-            {
+            foreach ($pedidos as $pedido) {
                 $retorno[$id] = ($pedido);
-                $retorno[$id]['nombre'] = $pedido->finca->nombre;
-                $retorno[$id]['usuario'] = $pedido->finca->user->name.' '. $pedido->finca->user->surname ;
+                $retorno[$id]['nombre'] = $pedido->finca->departamento . '/' . $pedido->finca->nombre;
+                $retorno[$id]['usuario'] = $pedido->finca->user->name . ' ' . $pedido->finca->user->surname;
 
                 $retorno[$id]['despacho'] = $pedido->despacho;
 
@@ -50,14 +51,14 @@ class PedidosController extends Controller {
 
 
 
-            $data = ['code' => 200,
+            $data = [
+                'code' => 200,
                 'status' => 'success',
                 'pedido' => $retorno,
             ];
-        }
-        else
-        {
-            $data = ['code' => 200,
+        } else {
+            $data = [
+                'code' => 200,
                 'message' => 'Pedido No encontrado',
                 'status' => 'error',
             ];
@@ -68,28 +69,26 @@ class PedidosController extends Controller {
 
     public function store(Request $request)
     {
-//recoger los datos por post 
+
         $json = $request->input('json', null);
 
         $params_array = json_decode($json, true); // array
-// validar los datos
 
 
-        if (!empty($params_array))
-        {
+
+        if (!empty($params_array)) {
             $validate = \Validator::make($params_array, [
-                        'id_despacho' => 'required|numeric',
-                        'id_finca' => 'required|numeric',
-                        'pedido' => 'required|numeric',
-                        'porcentaje' => 'required|numeric',
-                        'reposicion' => 'required|numeric',
-                        'adicional' => 'required|numeric',
-                        'total' => 'required|numeric',
+                'id_despacho' => 'required|numeric',
+                'id_finca' => 'required|numeric',
+                'pedido' => 'required|numeric',
+                'porcentaje' => 'required|numeric',
+                'reposicion' => 'required|numeric',
+                'adicional' => 'required|numeric',
+                'total' => 'required|numeric',
             ]);
 
 
-            if ($validate->fails())
-            {
+            if ($validate->fails()) {
                 $data = array(
                     'status' => 'error',
                     'code' => 200,
@@ -97,11 +96,9 @@ class PedidosController extends Controller {
                     'errors' => $validate->errors(),
                     'data' => $params_array
                 );
-            }
-            else
-            {
+            } else {
 
-//quitar los campos que n quiero actualizar por si los llegan a envir
+                //quitar los campos que n quiero actualizar por si los llegan a envir
                 unset($params_array["id"]);
                 unset($params_array["created_at"]);
                 unset($params_array["updated_at"]);
@@ -117,18 +114,16 @@ class PedidosController extends Controller {
                 $pedido->adicional = $params_array['adicional'];
                 $pedido->total = $params_array['total'];
 
-//Guardar el Usuario
+                //Guardar el Usuario
                 $pedido->save();
-//devolver array con resultado
+                //devolver array con resultado
                 $data = array(
                     'code' => 200,
                     'status' => 'success',
                     'finca' => $pedido
                 );
             }
-        }
-        else
-        {
+        } else {
             $data = array(
                 'status' => 'error',
                 'code' => 200,
@@ -136,8 +131,8 @@ class PedidosController extends Controller {
                 'message' => 'Sin datos que procesar',
             );
         }
-// guardar los datos
-// devolver el resutlado
+        // guardar los datos
+        // devolver el resutlado
         return response()->json($data, $data['code']);
     }
 
@@ -149,70 +144,64 @@ class PedidosController extends Controller {
 
     public function getTraza($id)
     {
-//traigo el pedido
+        //traigo el pedido
         $pedido = Pedidos::find($id);
         $lotes = $pedido->lotes;
         $retorno = [];
-// Variable con la que continua con el siguiente
+        // Variable con la que continua con el siguiente
         $continuar = True;
         $primeraVez = True;
 
         $lugar = 0;
-        foreach ($lotes as $lote)
-        {
+        foreach ($lotes as $lote) {
             $retorno[$lugar]['caja'] = $lote;
             $retorno[$lugar]['bandeja'] = $lote->bandejas;
             $lugar = $lugar + 1;
         }
 
-// Variable que contiene el pedido total del cliente 
+        // Variable que contiene el pedido total del cliente 
         $total = $pedido->total;
         $totalPendiente = $pedido->total;
         $traza = new Trazabilidad();
 
-//        return response()->json([
-//                    'code' => 200,
-//                    'status' => 'success',
-//                    'trazabilidad' => $retorno
-//        ]);
-//        die();
-        foreach ($lotes as $lote)
-        {
+        //        return response()->json([
+        //                    'code' => 200,
+        //                    'status' => 'success',
+        //                    'trazabilidad' => $retorno
+        //        ]);
+        //        die();
+        foreach ($lotes as $lote) {
 
             $primeraVez = True;
 
             $bandejasLote = $lote->bandejas;
             $posicion = 0;
             $sum = 0;
-//            foreach ($bandejasLote as $bandeja)
-//            {
-//                $sum = $sum + $bandeja->tamanio_final;
-//            }
-//            $sum = array_sum($bandejasLote->tamanio_final);
-//            var_dump($sum);
-//            die();
+            //            foreach ($bandejasLote as $bandeja)
+            //            {
+            //                $sum = $sum + $bandeja->tamanio_final;
+            //            }
+            //            $sum = array_sum($bandejasLote->tamanio_final);
+            //            var_dump($sum);
+            //            die();
 
-            foreach ($bandejasLote as $bandeja)
-            {
-//                if($totalPendiente > $lote->tamanio_usado){
-//                    continue 2;
-//                }
+            foreach ($bandejasLote as $bandeja) {
+                //                if($totalPendiente > $lote->tamanio_usado){
+                //                    continue 2;
+                //                }
                 $retorno[$posicion]['bandejas'] = $bandeja;
 
-                if (!$continuar)
-                {
+                if (!$continuar) {
                     break;
                 }
-                if (($bandeja->tamanio_inicial != $bandeja->tamanio_final))
-                {
+                if (($bandeja->tamanio_inicial != $bandeja->tamanio_final)) {
                     break; // continua con el siguiente lote
                 }
 
                 $totalPendiente = $totalPendiente - $bandeja->tamanio_final; {
 
 
-                    if ($totalPendiente < 0)
-                    {
+                    if ($totalPendiente < 0) {
                         $totalPendiente = $totalPendiente + $bandeja->tamanio_final;
                         $trazabilidad[$posicion]['idLote'] = $lote->id;
                         $trazabilidad[$posicion]['idBandeja'] = $bandeja->id;
@@ -229,12 +218,10 @@ class PedidosController extends Controller {
 
                         $continuar = False;
                         break;
-                    }
-                    else if ($totalPendiente >= 0)
-                    {
+                    } else if ($totalPendiente >= 0) {
                         $traza = $this->generarTrazasLote($pedido, $lote, $primeraVez, $traza, $bandeja, $bandeja->tamanio_final);
                         $primeraVez = false;
-// crear una trazabilidad 
+                        // crear una trazabilidad 
                         $trazabilidad[$posicion]['idLote'] = $lote->id;
                         $trazabilidad[$posicion]['idBandeja'] = $bandeja->id;
                         $trazabilidad[$posicion]['TotalOvas'] = $bandeja->tamanio_inicial;
@@ -250,17 +237,16 @@ class PedidosController extends Controller {
         $totalPedido['traza'] = $trazabilidad;
 
         return response()->json([
-                    'code' => 200,
-                    'status' => 'success',
-                    'trazabilidad' => $totalPedido
+            'code' => 200,
+            'status' => 'success',
+            'trazabilidad' => $totalPedido
         ]);
     }
 
-///
+    ///
     private function generarTrazasLote($pedido, $lote, $primeraVez, $traza, $bandeja, $tamanio)
     {
-        if ($primeraVez)
-        {
+        if ($primeraVez) {
 
             $traza = new Trazabilidad();
             $traza->id_finca = $pedido->id_finca;
@@ -273,11 +259,11 @@ class PedidosController extends Controller {
             $traza->ovas_facturadas = $pedido->pedido;
             $traza->ovas_reposicion = $pedido->reposicion;
             $traza->remision = 'Remision';
-// se debe crear un consecutivo por medio de algun sp que consulte cual es siguiente
+            // se debe crear un consecutivo por medio de algun sp que consulte cual es siguiente
 
             $traza->total_ovas_enviadas = 0;
 
-//Guardar el Usuario
+            //Guardar el Usuario
             $traza->save();
         }
 
@@ -301,21 +287,20 @@ class PedidosController extends Controller {
         return $traza;
     }
 
-    
-      public function getPedido($id)
+
+    public function getPedido($id)
     {
         $pedidos = Pedidos::find($id);
 
-        if (is_object($pedidos))
-        {
-            $data = ['code' => 200,
+        if (is_object($pedidos)) {
+            $data = [
+                'code' => 200,
                 'status' => 'success',
                 'pedido' => $pedidos,
             ];
-        }
-        else
-        {
-            $data = ['code' => 200,
+        } else {
+            $data = [
+                'code' => 200,
                 'message' => 'Pedido No encontrado',
                 'status' => 'error',
             ];
@@ -327,27 +312,25 @@ class PedidosController extends Controller {
 
     public function ActualizarPedido(Request $request)
     {
-//recoger los datos por post 
+        //recoger los datos por post 
         $json = $request->input('json', null);
 
         $params_array = json_decode($json, true); // array
-// validar los datos
+        // validar los datos
 
 
-        if (!empty($params_array))
-        {
+        if (!empty($params_array)) {
             $validate = \Validator::make($params_array, [
-                        'id' => 'required|numeric',
-                        'pedido' => 'required|numeric',
-                        'porcentaje' => 'required|numeric',
-                        'reposicion' => 'required|numeric',
-                        'adicional' => 'required|numeric',
-                        'total' => 'required|numeric',
+                'id' => 'required|numeric',
+                'pedido' => 'required|numeric',
+                'porcentaje' => 'required|numeric',
+                'reposicion' => 'required|numeric',
+                'adicional' => 'required|numeric',
+                'total' => 'required|numeric',
             ]);
 
 
-            if ($validate->fails())
-            {
+            if ($validate->fails()) {
                 $data = array(
                     'status' => 'error',
                     'code' => 200,
@@ -355,10 +338,8 @@ class PedidosController extends Controller {
                     'errors' => $validate->errors(),
                     'data' => $params_array
                 );
-            }
-            else
-            {
-              
+            } else {
+
                 unset($params_array["created_at"]);
                 unset($params_array["updated_at"]);
 
@@ -375,9 +356,7 @@ class PedidosController extends Controller {
                     'finca' => $pedido
                 );
             }
-        }
-        else
-        {
+        } else {
             $data = array(
                 'status' => 'error',
                 'code' => 200,
@@ -385,11 +364,131 @@ class PedidosController extends Controller {
                 'message' => 'Sin datos que procesar',
             );
         }
-// guardar los datos
-// devolver el resutlado
+        // guardar los datos
+        // devolver el resutlado
         return response()->json($data, $data['code']);
     }
 
+    public function EliminarPedido( $id, $borrar)
+    {
+        //recoger los datos por post 
+        // $json = $request->input('json', null);
 
-    
+        // $params_array = json_decode($json, true); // array
+        // validar los datos
+
+
+
+        // if (!empty($params_array)) {
+        //     $validate = \Validator::make($params_array, [
+        //         'id' => 'required|numeric',
+        //         'borrarPedido' => 'required',
+
+        //     ]);
+
+
+        // if ($validate->fails()) {
+        //     $data = array(
+        //         'status' => 'error',
+        //         'code' => 200,
+        //         'message' => 'Pedido, no se ha eliminado',
+        //         'errors' => $validate->errors(),
+        //         'data' => $params_array
+        //     );
+        // } else {
+
+
+        //Buscar el pedido
+        $pedido = Pedidos::find($id);
+
+        if (is_object($pedido)) {
+
+
+            //Buscar si el despacho se encuentra activo de lo contrario no borrar nada
+            //Buscar las trazabilidades que tenga el pedido
+
+            $trazabilidades = Trazabilidad::where('id_pedido', '=', $pedido->id)->get();
+
+            if (is_object($trazabilidades)) {
+
+
+                foreach ($trazabilidades as $trazabilidad) {
+                    //Buscar trazabilidades bandeja
+
+                    $bandejaTrazas = TrazabilidadBandeja::where('id_trazabilidad', '=', $trazabilidad->id)->get();
+                    if (is_object($bandejaTrazas)) {
+                        foreach ($bandejaTrazas as $bandeja) {
+                            //por cada trazabiliadad devolver lo que tenia a las bandejas
+
+                            $bandejaLote = BandejasLotes::where('id', '=', $bandeja->id_bandeja_lote)->get();
+
+                            if (is_object($bandejaLote)) {
+                                foreach ($bandejaLote as $unicaBandeja) {
+                                    $unicaBandeja->tamanio_final = $unicaBandeja->tamanio_final  + $bandeja->cantidad;
+                                    $unicaBandeja->save();
+                                    $lote = Lotes::find($unicaBandeja->id_lote);
+                                    $lote->tamanio_usado = $lote->tamanio_usado - $bandeja->cantidad;
+                                    $lote->save();
+                                }
+
+                                // borrar trazabilidad bandeja
+                            }
+                            $bandeja->delete();
+                        }
+                    }
+                    // borrar trazabilidad
+
+                    $trazabilidad->delete();
+                }
+            }
+            $pedido->genero_trazabilidad = 0;
+            $pedido->save();
+            //borrar el pedido ya que no tiene trazabilidades
+
+            if ($borrar== "true") {
+
+                $pedido->delete();
+                $data = array(
+                    'code' => 200,
+                    'status' => 'OK',
+                    'message' => 'BORRADO  PEDIDO EXITOSO',
+
+                );
+            }else{
+                $data = array(
+                    'status' => 'OK',
+                    'code' => 200,
+                    'message' => 'BORRADO DE TRAZABILIDAD EXITOSO',
+                    
+                );
+            }
+
+
+
+
+            
+
+
+            // borrar pedido
+
+        } else {
+            $data = array(
+                'status' => 'error',
+                'code' => 200,
+                'message' => 'Sin datos que procesar',
+            );
+        }
+        //     }
+        // } else {
+        //     $data = array(
+        //         'status' => 'error',
+        //         'code' => 200,
+        //         'dato' => $params_array,
+        //         'message' => 'Sin datos que procesar',
+        //     );
+        // }
+        // guardar los datos
+        // devolver el resutlado
+        return response()->json($data, $data['code']);
+    }
 }

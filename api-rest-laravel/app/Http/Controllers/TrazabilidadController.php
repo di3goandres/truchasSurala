@@ -336,10 +336,7 @@ class TrazabilidadController extends Controller
                             $bagrupada[$tnum]['edad'] = $lote->edad_tcu;
                             $bagrupada[$tnum]['tamanio'] = $lote->tamanio;
                             $bagrupada[$tnum]['ovas_ml'] = $lote->ovas_ml;
-                            //                            $bagrupada[$tnum]['Facturado'] = $distribucion->Facturadas;
-                            //                            $bagrupada[$tnum]['Adicionales'] = $distribucion->Adicionales;
-                            //                            $bagrupada[$tnum]['Reposicion'] = $distribucion->Repo;
-                            //                            $bagrupada[$tnum]['Total'] = $distribucion->TotalPedido;
+                         
                         }
                     }
                     $tnum += 1;
@@ -455,18 +452,73 @@ class TrazabilidadController extends Controller
 
                     $propia = Fincas::find($pedido->id_finca);
 
+
+                    /* 
+                        Organizar las bandejas por # de lote y cantidad, dejando
+                        las de menor cantidad al final */
+
                     /*
                      una trazabilidad tienen maximo 5 bandejas al maximo si
                      es un cliente normal y si es un cliente como pesca se envia como
                      llega la caja con el maximo del lote.
 
                     */
+
+                    $uniqueIDs = array();
+                    foreach ($bandejas as $bandeja) {
+                        if (!in_array($bandeja['id_lote'], $uniqueIDs)) {
+                            $uniqueIDs[] = $bandeja['id_lote'];
+                        }
+                    }
+
+                    $conteoPorbandeja = [];
+                    $posicionBandeja = 0;
+                    $cantidaBandeja = 0;
+                    foreach ($uniqueIDs as $id) {
+                        foreach ($bandejas as $bandeja) {
+                            if ($id === $bandeja['id_lote']) {
+                                $cantidaBandeja += 1;
+                            }
+                        }
+                        $conteoPorbandeja[$posicionBandeja]['id'] = $id;
+                        $conteoPorbandeja[$posicionBandeja]['conteo'] = $cantidaBandeja;
+                        $cantidaBandeja = 0;
+                        $posicionBandeja += 1;
+                    }
+                    $posicionBandeja = 0;
+
+                    $bandejasOrganizadas = [];
+                    $conteoPorbandeja = collect($conteoPorbandeja)->sortBy('conteo')->reverse()->toArray();
+
+                    foreach ($conteoPorbandeja as $conteo) {
+                        foreach ($bandejas as $bandeja) {
+                            if ($conteo['id'] === $bandeja['id_lote']) {
+                                $bandejasOrganizadas[] =  $bandeja;
+                                $posicionBandeja += 1;
+                            }
+                        }
+                    }
+
+                    // foreach($bandejasOrganizadas as $bandeja){
+                    //     var_dump($bandeja['cantidad'], $bandeja['id_bandeja_lote']);
+                    // }
+                    // foreach($bandejas as $bandeja){
+                    //     var_dump( $bandeja['cantidad'], $bandeja['id_bandeja_lote']);
+                    // }
+                    // die();
+
+
                     // $cantidadBandejas = count($bandejas);
                     // $noContar = false;
-                    foreach ($bandejas as $bandeja) {
+                    // foreach ($bandejas as $bandeja) {
+                    $conteo = 0;    
+                    foreach ($bandejasOrganizadas as $bandeja) {
+
                         $cantidad = 0;
                         $cantidad = $bandeja['cantidad'];
+                       
                         $id = $bandeja['id_bandeja_lote'];
+                       
                         $cantidadGuardada = $cantidadGuardada + $cantidad;
                         ////Guardar trazabilidad
                         if ($conteo == 0) {
@@ -495,7 +547,8 @@ class TrazabilidadController extends Controller
                                 $idTraza = $this->GuardarTraza($pedido);
                             }
                         }
-                        $conteo += 1;
+                        $conteo = $conteo  + 1;
+                      
                         $tbandeja = new TrazabilidadBandeja();
                         $tbandeja->id_bandeja_lote = $id;
                         $tbandeja->id_trazabilidad = $idTraza;
@@ -504,7 +557,7 @@ class TrazabilidadController extends Controller
                     }
                     $pedido->genero_trazabilidad = true;
                     $pedido->save();
-           
+
                     $data = array(
                         'code' => 200,
                         'status' => 'success',

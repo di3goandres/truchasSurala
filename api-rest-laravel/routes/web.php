@@ -74,6 +74,8 @@ Route::resource('/api/CajasLotes', 'LoteController');
 Route::resource('/api/Despacho', 'DespachoController');
 Route::resource('/api/Pedidos', 'PedidosController');
 Route::post('/api/pedidos/actualizarpedido', 'PedidosController@ActualizarPedido');
+Route::delete('/api/pedidos/eliminarpedido/{id}/{borrar}', 'PedidosController@EliminarPedido');
+
 
 
 
