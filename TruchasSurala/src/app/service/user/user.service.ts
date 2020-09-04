@@ -55,7 +55,7 @@ export class UserService {
 
   // tslint:disable-next-line: typedef
   public ejecutarQuery<T>(query: string) {
-    if(this.token === null){
+    if (this.token === null) {
       this.getToken();
     }
     this.header = new HttpHeaders().set('Authorization', this.token);
@@ -71,7 +71,20 @@ export class UserService {
 
   }
 
-  
+  public ejecutarQueryDelete(query: string, params: string) {
+    this.header = new HttpHeaders().set('Authorization', this.token)
+      .set('Content-Type', 'application/x-www-form-urlencoded');
+    const options = {
+      headers: this.header,
+    }
+
+    console.log(options);
+    return this.http.delete(this.url + query, options );
+
+  }
+
+
+
 
   // tslint:disable-next-line: typedef
   storeDespacho(despacho: any): Observable<any> {
@@ -260,8 +273,8 @@ export class UserService {
     return this.ejecutarQuery<UsuariosFincasResponse>('/api/users/get');
   }
 
- 
- getFincasUsuarios(id): Observable<FincasResponse> {
+
+  getFincasUsuarios(id): Observable<FincasResponse> {
     return this.ejecutarQuery<FincasResponse>('/api/users/fincasget/' + id);
   }
   updatePassUser(user): Observable<any> {
@@ -272,7 +285,7 @@ export class UserService {
     return this.ejecutarQueryPost('/api/user/resetadmin', this.params);
   }
 
-  updateFinca(finca){
+  updateFinca(finca) {
     this.json = JSON.stringify(finca);
     console.log(this.json);
     this.params = 'json=' + this.json;

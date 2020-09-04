@@ -1,8 +1,8 @@
-<div class="container">
+<div class="container alternate-theme">
 
     <mat-card class="example-card">
         <mat-card-header>
-            <mat-card-title>Actualización del Pedidos</mat-card-title>
+            <mat-card-title>Actualización del Pedido</mat-card-title>
         </mat-card-header>
         <mat-card-content>
 
@@ -12,7 +12,8 @@
                     <div class="col-xs-12 col-12  form-group">
                         <label>Cliente/Finca</label>
 
-                        <input disabled="true" class="form-control" [(value)]="pedidoupdate.usuario + '-'+ pedidoupdate.nombre" />
+                        <input disabled="true" class="form-control"
+                            [(value)]="pedidoupdate.usuario + '-'+ pedidoupdate.nombre" />
                     </div>
 
                 </div>
@@ -56,17 +57,25 @@
                 </div>
 
 
-                <div class="col-xs-12 col-12  form-group">
+                <div class="row">
 
-                    
+                    <div class=col-3></div>
                     <div class=col-3>
-                        <button mat-raised-button ngbAutofocus (click)="cerrar()">
-                            <mat-icon>cancel_presentation</mat-icon></button>
+                        <button mat-raised-button ngbAutofocus (click)="cerrar()"
+                        color="secondary"
+                        >
+                            <mat-icon>cancel_presentation</mat-icon>
+                        </button>
                     </div>
-                    <button mat-raised-button type="submit" class="btn btn-primary btn-block"
-                        [disabled]="!crearPedidoform.valid">
-                        Actualizar Pedido
-                    </button>
+                    <div class=col-3>
+                        <button mat-raised-button type="submit" class="btn btn-primary btn-block"
+                        color="primary"
+                            [disabled]="!crearPedidoform.valid">
+                            <mat-icon>refresh</mat-icon>
+                        </button>
+                    </div>
+                    <div class=col-3></div>
+
                 </div>
             </form>
         </mat-card-content>

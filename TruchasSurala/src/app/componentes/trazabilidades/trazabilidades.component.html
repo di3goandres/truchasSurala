@@ -12,11 +12,14 @@
     </mat-grid-tile>
 </mat-grid-list> -->
 
+<mat-card>
+    <mat-card-content>
+        <mat-tab-group class="center">
+            <mat-tab *ngFor="let item of distribucion; let i = index " [label]="item.contacto.Remision">
+                <app-trazabilidad [traza]="item">
+                </app-trazabilidad>
+            </mat-tab>
 
-<mat-tab-group class="center">
-    <mat-tab *ngFor="let item of distribucion; let i = index " [label]="item.contacto.Remision">
-        <app-trazabilidad [traza]="item"> 
-        </app-trazabilidad>
-    </mat-tab>
- 
-  </mat-tab-group>
+        </mat-tab-group>
+    </mat-card-content>
+</mat-card>

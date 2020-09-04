@@ -103,12 +103,40 @@
                 <button *ngIf="element.genero_trazabilidad" mat-raised-button id="logout-button"
                   class="btn btn-primary btn-block toolbar-button"color="primary"
                   [routerLink]="['/surala/distribucion/', element.id]">
-                  <span>Distribución</span><mat-icon>assignment</mat-icon></button>
+                  <span></span><mat-icon>assignment</mat-icon></button>
                 <button *ngIf="!element.genero_trazabilidad" mat-raised-button id="logout-button"
                   class="btn btn-primary btn-block toolbar-button"  color="primary"
                   [routerLink]="['/surala/distribucion/Generar', element.id]">
-                  <span>Generar</span><mat-icon>assignment_returned</mat-icon></button>
+                  <span></span><mat-icon>assignment_returned</mat-icon></button>
               </td>
+
+            </ng-container>
+            <ng-container matColumnDef="Borrar">
+              <th mat-header-cell *matHeaderCellDef>Borrar</th>
+              <td mat-cell *matCellDef="let element">
+  
+  
+                <!-- <a [routerLink]="['/surala/cajas/bandejas', element.id]">Ver bandejas</a> -->
+                <button  mat-raised-button id="logout-button"
+                  class="btn btn-primary btn-block toolbar-button"color="primary"
+                [disabled]="element.genero_trazabilidad==1" (click)="OpenBorrar(element)"
+                  > 
+                 <mat-icon>delete</mat-icon></button>
+              
+              </td>
+            </ng-container>
+
+              <ng-container matColumnDef="reiniciar">
+                <th mat-header-cell *matHeaderCellDef>Reiniciar</th>
+                <td mat-cell *matCellDef="let element">
+              
+                  <button  mat-raised-button id="logout-button"
+                    class="btn btn-primary btn-block toolbar-button"color="primary"
+                  [disabled]="element.genero_trazabilidad==0" (click)="OpenBorrarTrazabilidad(element)"
+                    > 
+                   <mat-icon>refresh</mat-icon></button>
+                
+                </td>
             </ng-container>
   
             <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>

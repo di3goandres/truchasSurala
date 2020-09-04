@@ -79,6 +79,7 @@ import { ListapedidosComponent } from './componentes/06-Pedidos/listapedidos/lis
 import { CrearpedidosComponent } from './componentes/06-Pedidos/crearpedidos/crearpedidos.component';
 import { ListausuariosComponent } from './componentes/06-Pedidos/listausuarios/listausuarios.component';
 import { EditarpedidoComponent } from './componentes/06-Pedidos/editarpedido/editarpedido.component';
+import { BorrarpedidoComponent } from './componentes/06-Pedidos/borrarpedido/borrarpedido.component';
 
 
 registerLocaleData(localCo);
@@ -113,7 +114,7 @@ registerLocaleData(localCo);
     FincaupdateComponent,
     DistribuciongloballistComponent, CantidaddespachadoComponent, CreardespachoComponent,
     RegistroExitosoComponent, VerlistardespachosComponent, EditardespachoComponent, ListapedidosComponent,
-    CrearpedidosComponent, ListausuariosComponent, EditarpedidoComponent,
+    CrearpedidosComponent, ListausuariosComponent, EditarpedidoComponent, BorrarpedidoComponent
 
 
   ],

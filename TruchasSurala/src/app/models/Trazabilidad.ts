@@ -41,3 +41,16 @@ export class Trazabilidad {
     ovas_ml:       number;
 
 }
+
+
+export class InfoDespachoMostrar {
+    constructor(cantidad, cajanumero, bandeja){
+        this.Cantidad = cantidad;
+        this.caja_numero = cajanumero;
+        this.bandeja_numero = bandeja;
+
+    }
+    Cantidad:       string;
+    caja_numero:    string;
+    bandeja_numero: string;
+}

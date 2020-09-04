@@ -1,4 +1,4 @@
-<mat-card class="example-card">
+<mat-card class="example-card center">
     <mat-card-header>
         <div mat-card-avatar class="example-header-image"></div>
         <mat-card-title>1. Plan de Control</mat-card-title>
@@ -139,12 +139,12 @@
                     <label># DE OVAS</label>
                 </div>
             </div>
-            <div class="row" *ngFor="let item of bandejas; let i = index">
+            <div class="row" *ngFor="let item of bandejasMostrar; let i = index">
                 <div class="col-6 text-center">
                     <label>#{{i +1}}</label>
                 </div>
                 <div class="col-6 text-center">
-                    <label>{{item.Cantidad | number}}</label>
+                    <label >{{item.Cantidad}}</label>
                 </div>
             </div>
             <div class="row">

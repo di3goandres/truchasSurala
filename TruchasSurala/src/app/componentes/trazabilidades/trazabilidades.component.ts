@@ -28,7 +28,6 @@ export class TrazabilidadesComponent implements OnInit {
   ngOnInit(): void {
     this.id = this.route.snapshot.paramMap.get('id');
 
-    console.log('de donde vengo yo', this.id);
     this.mostrar=false;
     this.distribucion = [];
     this.userService.getTrazabilidad(this.id ).subscribe(
@@ -38,7 +37,7 @@ export class TrazabilidadesComponent implements OnInit {
           if(response.status=="success"){
             this.traza= response;
             this.distribucion = this.traza.distribucion;
-            console.log(this.distribucion);
+        
 
           }
       
