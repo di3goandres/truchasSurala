@@ -33,7 +33,7 @@ class UserController extends Controller
             // validar datos
             $validate = \Validator::make($params_array, [
                 'name' => 'required',
-               // 'surname' => 'required',
+                // 'surname' => 'required',
                 'numero_identificacion' => 'required|numeric|unique:users', //comprueba que el numero de identificacion sea unico
                 'email' => 'required|email|unique:users', //comprueba si el usuario esta duplicaod
                 'telefono' => 'numeric',
@@ -258,10 +258,32 @@ class UserController extends Controller
 
 
 
+    public function getpdf($filename)
+    {
+
+
+
+
+        $isset = \Storage::disk('users')->exists('3\\Facturas\\'.$filename);
+        if ($isset) {
+            $file = \Storage::disk('users')->get( '3\\Facturas\\'.$filename);
+            return new Response($file, 200);
+        } else {
+            $data = array(
+                'code' => 200,
+                'status' => 'error',
+                'user' =>  $filename
+            );
+        }
+
+
+
+        return response()->json($data, $data['code']);
+    }
 
     public function subirarchivo(Request $request)
     {
-      
+
         $token = $request->header('Authorization');
         $jwtAuth = new \JwtAuth();
         $checktoken = $jwtAuth->checkToken($token);
@@ -278,12 +300,12 @@ class UserController extends Controller
             $file = str_replace('data:application/pdf;base64,', '', $file);
             $file = str_replace(' ', '+', $file);
             $pedido = Pedidos::find($idPedido);
-          
-            if(is_object($pedido)){
+
+            if (is_object($pedido)) {
                 $image_name = time() . $params_array['nombre'];
                 $finca =      Fincas::find($pedido->id_finca);
                 \Storage::disk('users')->put($finca->user_id . '\\Facturas\\' . $name, base64_decode($file));
-   
+
                 $pedido->nombre_factura = $finca->user_id . '\\Facturas\\' . $name;
                 $pedido->save();
                 $data = array(
@@ -291,16 +313,15 @@ class UserController extends Controller
                     'status' => 'OK',
                     'image' => $name
                 );
-            }else{
+            } else {
                 $data = array(
                     'code' => 200,
                     'status' => 'error',
-                     'message' => 'sin datos que procesar'
-    
-    
+                    'message' => 'sin datos que procesar'
+
+
                 );
             }
-            
         } else {
             $data = array(
                 'code' => 200,
@@ -392,6 +413,8 @@ class UserController extends Controller
 
         return response()->json($data, $data['code']);
     }
+
+   
 
     public function detail($id)
     {
