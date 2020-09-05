@@ -81,7 +81,7 @@ import { ListausuariosComponent } from './componentes/06-Pedidos/listausuarios/l
 import { EditarpedidoComponent } from './componentes/06-Pedidos/editarpedido/editarpedido.component';
 import { BorrarpedidoComponent } from './componentes/06-Pedidos/borrarpedido/borrarpedido.component';
 import { AsociarfacturaComponent } from './componentes/06-Pedidos/asociarfactura/asociarfactura.component';
-
+import { PdfViewerModule } from 'ng2-pdf-viewer';
 
 registerLocaleData(localCo);
 @NgModule({
@@ -144,7 +144,8 @@ registerLocaleData(localCo);
     MatSortModule,
     MatTableExporterModule,
     MatRadioModule,
-    NgxChartsModule
+    NgxChartsModule,
+    PdfViewerModule
 
 
   ],
