@@ -5,6 +5,7 @@ import { Pedido } from '../../models/pedidos';
 import { EliminarPedido } from '../../models/pedidos/delete.pedidos.request';
 import { Respuesta } from '../../models/pedidos/guardar.factura.response';
 import { HttpClient } from '@angular/common/http';
+import { SaveFile } from '../../models/pedidos/guardar.pdf.response';
 
 
 @Injectable({
@@ -12,7 +13,7 @@ import { HttpClient } from '@angular/common/http';
 })
 
 export class PedidosService {
-
+  savefile: SaveFile
   constructor(
     public http: HttpClient,
     private userService: UserService
@@ -47,21 +48,13 @@ export class PedidosService {
     return this.userService.ejecutarQueryDelete('/api/pedidos/eliminarpedido/' + id + '/true', '');
   }
 
-  postFile(fileToUpload: File, id: string): Observable<any> {
-    const formData: FormData = new FormData();
-
-    formData.append('file', fileToUpload, fileToUpload.name)
-
-    formData.append('idPedido', id.toString());
-
-
-
+  postFile(fileToUpload: SaveFile, id: string): Observable<any> {
   
-    const request = new XMLHttpRequest();
-    request.open('POST', 'http://localhost:4200/api/pedido/uploadpdf/');
-    request.send(formData);
-    // return this.userService.ejecutarQueryPostArchivo('/api/pedido/uploadpdf/',
-    //   formData);
+ 
+    let json = JSON.stringify(fileToUpload);
+    let params = 'json=' + json;
+    console.log(params);
+    return this.userService.ejecutarQueryPost('/api/pedido/subirarchivo', params);
 
   }
 
