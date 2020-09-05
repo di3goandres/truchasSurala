@@ -73,11 +73,11 @@ export class UserService {
 
   public ejecutarQueryPostArchivo(query: string, parametros: FormData) {
     this.header = new HttpHeaders().set('Authorization', this.token)
-    .set('Content-Type', 'multipart/form-data')
+   
     
 
 
-    return this.http.post(this.url + query,parametros,  { headers: this.header});
+    return this.http.post(this.url + query,parametros);
 
   }
 

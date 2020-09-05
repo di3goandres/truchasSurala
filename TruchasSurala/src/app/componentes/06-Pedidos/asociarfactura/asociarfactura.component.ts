@@ -24,17 +24,26 @@ export class AsociarfacturaComponent implements OnInit {
   }
 
   guardarArchivo(id){
-    this.pedidosService.postFile(this.fileToUpload, "0")
-    .subscribe(
-      response => {
-       console.log(response);
-      
-      },
-      error => {
-        console.log(error)
-      
-      },
 
-    )
+   
+      const file = this.fileToUpload;
+      const reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.onload = () => {
+          console.log(reader.result);
+      };
+  
+  //   this.pedidosService.postFile(this.fileToUpload, "0")
+  //   .subscribe(
+  //     response => {
+  //      console.log(response);
+      
+  //     },
+  //     error => {
+  //       console.log(error)
+      
+  //     },
+
+  //   )
   }
 }

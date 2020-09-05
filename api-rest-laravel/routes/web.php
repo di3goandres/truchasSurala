@@ -56,6 +56,9 @@ Route::get('/api/user/avatar/{user}/{filename}', 'UserController@getImage') ;
 Route::get('/api/user/detail/{id}', 'UserController@detail');
 Route::get('/api/users/get', 'UserController@GetAllUserFincas');
 
+
+Route::post('/api/pedido/uploadpdf', 'UserController@uploadPdf');
+
 /// ADMINISRADOR
 Route::post('/api/user/resetadmin', 'UserController@resetPasswordByAdmin');
 

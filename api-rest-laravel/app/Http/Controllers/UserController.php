@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use App\User;
 use App\Fincas;
+use App\Pedidos;
 
 class UserController extends Controller
 {
@@ -245,6 +246,65 @@ class UserController extends Controller
             $data = array(
                 'code' => 200,
                 'status' => 'error',
+            );
+        }
+
+
+        // devolver el resultado
+
+
+        return response()->json($data, $data['code']);
+    }
+
+
+
+
+    public function uploadPdf(Request $request)
+    {
+      
+        $token = $request->header('Authorization');
+        $jwtAuth = new \JwtAuth();
+        $checktoken = $jwtAuth->checkToken($token);
+        $json = $request->input('json', null);
+        $params = json_decode($json); //objeto
+        $params_array = json_decode($json, true); // array
+        if ($checktoken && !empty($params) && !empty($params_array)) {
+            $user = $jwtAuth->checkToken($token, true);
+
+            // recoger datos de la peticion
+            $file = $params_array['file'];
+            $idPedido = $params_array['pedido'];
+            $name = time() . $params_array['nombre'];
+            $pedido = Pedidos::find($idPedido);
+          
+            if(is_object($pedido)){
+                $image_name = time() . $params_array['nombre'];
+                $usuarios =      $pedido->fincas->user_id;
+                \Storage::disk('users')->put($usuarios . '\\Facturas\\' . $name, base64_decode($file));
+   
+                $pedido->nombre_factura = $usuarios . '\\Facturas\\' . $name;
+                $pedido->save();
+                $data = array(
+                    'code' => 200,
+                    'status' => 'OK',
+                    'image' => $name
+                );
+            }else{
+                $data = array(
+                    'code' => 200,
+                    'status' => 'error',
+                     'message' => 'sin datos que procesar'
+    
+    
+                );
+            }
+            
+        } else {
+            $data = array(
+                'code' => 200,
+                'status' => 'error',
+
+
             );
         }
 

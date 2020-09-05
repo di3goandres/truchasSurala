@@ -22,10 +22,10 @@ export class PedidosService {
     let json = JSON.stringify(data);
     let params = 'json=' + json;
     return this.userService.ejecutarQueryPost('/api/pedidos/actualizarpedido', params);
-   }
+  }
 
-   borrarTrazabilidad(id): Observable<any> {
-  let   eliminar = new EliminarPedido();
+  borrarTrazabilidad(id): Observable<any> {
+    let eliminar = new EliminarPedido();
     eliminar.id = id;
     eliminar.borrarPedido = false;
 
@@ -33,31 +33,36 @@ export class PedidosService {
     let params = 'json=' + json;
     console.log(params)
 
-    return this.userService.ejecutarQueryDelete('/api/pedidos/eliminarpedido/'+id+'/false', '');
-   }
+    return this.userService.ejecutarQueryDelete('/api/pedidos/eliminarpedido/' + id + '/false', '');
+  }
 
-   borrarTrazabilidadyPedido(id): Observable<any> {
-    let   eliminar = new EliminarPedido();
+  borrarTrazabilidadyPedido(id): Observable<any> {
+    let eliminar = new EliminarPedido();
     eliminar.id = id;
     eliminar.borrarPedido = true;
 
     let json = JSON.stringify("eliminar");
     let params = 'json=' + json;
     console.log(params)
-    return this.userService.ejecutarQueryDelete('/api/pedidos/eliminarpedido/'+id+'/true', '');
-   }
+    return this.userService.ejecutarQueryDelete('/api/pedidos/eliminarpedido/' + id + '/true', '');
+  }
 
-   postFile(fileToUpload: File, id: string) : Observable<any>  {
-     let formData: FormData = new FormData();
-   
-     formData.append('file', fileToUpload, fileToUpload.name)
-   
-     formData.append('idPedido', id.toString());
-     console.log(formData);
-    
-     return this.userService.ejecutarQueryPostArchivo('/api/pedido/uploadpdf/',
-      formData);
-     
- }
+  postFile(fileToUpload: File, id: string): Observable<any> {
+    const formData: FormData = new FormData();
+
+    formData.append('file', fileToUpload, fileToUpload.name)
+
+    formData.append('idPedido', id.toString());
+
+
+
+  
+    const request = new XMLHttpRequest();
+    request.open('POST', 'http://localhost:4200/api/pedido/uploadpdf/');
+    request.send(formData);
+    // return this.userService.ejecutarQueryPostArchivo('/api/pedido/uploadpdf/',
+    //   formData);
+
+  }
 
 }
