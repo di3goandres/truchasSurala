@@ -259,7 +259,7 @@ class UserController extends Controller
 
 
 
-    public function uploadPdf(Request $request)
+    public function subirarchivo(Request $request)
     {
       
         $token = $request->header('Authorization');
@@ -273,16 +273,18 @@ class UserController extends Controller
 
             // recoger datos de la peticion
             $file = $params_array['file'];
-            $idPedido = $params_array['pedido'];
+            $idPedido = $params_array['id'];
             $name = time() . $params_array['nombre'];
+            $file = str_replace('data:application/pdf;base64,', '', $file);
+            $file = str_replace(' ', '+', $file);
             $pedido = Pedidos::find($idPedido);
           
             if(is_object($pedido)){
                 $image_name = time() . $params_array['nombre'];
-                $usuarios =      $pedido->fincas->user_id;
-                \Storage::disk('users')->put($usuarios . '\\Facturas\\' . $name, base64_decode($file));
+                $finca =      Fincas::find($pedido->id_finca);
+                \Storage::disk('users')->put($finca->user_id . '\\Facturas\\' . $name, base64_decode($file));
    
-                $pedido->nombre_factura = $usuarios . '\\Facturas\\' . $name;
+                $pedido->nombre_factura = $finca->user_id . '\\Facturas\\' . $name;
                 $pedido->save();
                 $data = array(
                     'code' => 200,

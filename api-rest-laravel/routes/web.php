@@ -57,7 +57,7 @@ Route::get('/api/user/detail/{id}', 'UserController@detail');
 Route::get('/api/users/get', 'UserController@GetAllUserFincas');
 
 
-Route::post('/api/pedido/uploadpdf', 'UserController@uploadPdf');
+Route::post('/api/pedido/subirarchivo', 'UserController@subirarchivo')->middleware(ApiAuthMiddleware::class) ;
 
 /// ADMINISRADOR
 Route::post('/api/user/resetadmin', 'UserController@resetPasswordByAdmin');
