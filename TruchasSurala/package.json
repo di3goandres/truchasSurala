@@ -31,6 +31,7 @@
     "jquery": "^3.5.1",
     "mat-table-exporter": "^9.0.2",
     "moment": "^2.18.1",
+    "ng2-pdf-viewer": "^6.3.2",
     "ngx-bootstrap": "^5.6.1",
     "popper.js": "^1.16.1",
     "rxjs": "~6.6.0",

@@ -11,6 +11,7 @@ export class AsociarfacturaComponent implements OnInit {
   savefile : SaveFile = new SaveFile();
   contentInclude = "application/pdf";
   fileToUpload: File = null;
+  pdfSrc = "/api/pedido/factura/1599326274cedulaPDF.pdf";
   constructor(private pedidosService: PedidosService) { }
 
   
