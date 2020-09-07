@@ -85,6 +85,7 @@ Route::delete('/api/pedidos/eliminarpedido/{id}/{borrar}', 'PedidosController@El
 
 Route::get('/api/Pedidos/ObtenerPedido/{id}', 'PedidosController@getPedido');
 
+
 Route::resource('/api/Distribucion', 'TrazabilidadController');
 Route::get('/api/Distribucion/Despacho/{idDespacho}', 'TrazabilidadController@showAll');
 Route::post('/api/despacho/actualizar/', 'DespachoController@actualizar');
@@ -108,6 +109,7 @@ Route::get('/api/usuarios/fincas', 'FincasController@getUserFincas');
 Route::get('/api/usuarios/fincas/{id}', 'FincasController@getFincasUser');
 Route::get('/api/datos/departamentos/', 'DatosGeneralesController@index');
 Route::get('/api/datos/fincabytoken', 'FincasController@getFincasUserToken');
+Route::get('/api/datos/pedidosusuario/', 'PedidosController@pedidosByToken');
 
 
 

@@ -15,25 +15,35 @@ const routes: Routes = [
   {
     path: 'fincas',
     loadChildren: () => import('./pages/02-fincas/fincas/fincas.module').then( m => m.FincasPageModule),
-    canLoad: [UsuarioGuard]
+    canLoad: [UsuarioGuard],
+    canActivate:  [UsuarioGuard]
   },
   {
     path: 'pedidos',
     loadChildren: () => import('./pages/03-Pedidos/pedidos/pedidos.module').then( m => m.PedidosPageModule),
-    canLoad: [UsuarioGuard]
+    canLoad: [UsuarioGuard],
+    canActivate:  [UsuarioGuard]
 
   },
   {
     path: 'home',
     loadChildren: () => import('./pages/00-Home/home/home.module').then( m => m.HomePageModule),
-    canLoad: [UsuarioGuard]
+    canLoad: [UsuarioGuard],
+    canActivate:  [UsuarioGuard]
 
   },
   {
     path: 'logout/:sure', 
-    loadChildren: () => import('./pages/01-Login/login/login.module').then( m => m.LoginPageModule)
-
+    loadChildren: () => import('./pages/01-Login/login/login.module').then( m => m.LoginPageModule),
+    canLoad: [UsuarioGuard],
+    canActivate:  [UsuarioGuard]
   },
+  {
+    path: 'pedidofactura/:nombrefactura',
+    loadChildren: () => import('./pages/03-Pedidos/pedidofactura/pedidofactura.module').then( m => m.PedidofacturaPageModule),
+    canLoad: [UsuarioGuard],
+    canActivate:  [UsuarioGuard]
+  }
 ];
 
 @NgModule({

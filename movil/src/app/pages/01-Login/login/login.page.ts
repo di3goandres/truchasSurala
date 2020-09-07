@@ -122,6 +122,7 @@ export class LoginPage implements OnInit {
         localStorage.setItem('identity', JSON.stringify(this.identity));
         this.dataService.enableAuthenticatedMenu();
         this.router.onSameUrlNavigation = 'reload';
+        this.userService.getToken();
         // 
         this.router.navigate(['home']);
         // this.home.iniciar();

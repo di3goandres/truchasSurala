@@ -90,7 +90,7 @@ export class UserService {
 
 
   // tslint:disable-next-line: typedef
-  private ejecutarQuery<T>(query: string) {
+  public ejecutarQuery<T>(query: string) {
 
     this.header = new HttpHeaders().set('Authorization', this.token)
     // .set('Cache-Control',  'no-cache, no-store, must-revalidate, post-check=0, pre-check=0')
@@ -101,7 +101,7 @@ export class UserService {
   }
 
   // tslint:disable-next-line: typedef
-  private ejecutarQueryPost<T>(query: string, params: FormData) {
+  public  ejecutarQueryPost<T>(query: string, params: FormData) {
     this.header = new HttpHeaders().set('Authorization', this.token)
       .set('Content-Type', 'application/x-www-form-urlencoded')
       // .set('Cache-Control',  'no-cache, no-store, must-revalidate, post-check=0, pre-check=0')

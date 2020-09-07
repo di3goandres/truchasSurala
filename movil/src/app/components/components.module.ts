@@ -7,6 +7,8 @@ import { IonicModule } from '@ionic/angular';
 import { RouterModule } from '@angular/router';
 import { ListafincasComponent } from './01-Fincas/listafincas/listafincas.component';
 import { ListapedidosComponent } from './02-Pedidos/listapedidos/listapedidos.component';
+import { VerfacturaComponent } from './02-Pedidos/verfactura/verfactura.component';
+import { PdfViewerModule } from 'ng2-pdf-viewer';
 
 
 
@@ -16,13 +18,16 @@ import { ListapedidosComponent } from './02-Pedidos/listapedidos/listapedidos.co
     InvitadosComponent,
     MenuusuarioComponent,
     ListafincasComponent,
-    ListapedidosComponent
+    ListapedidosComponent,
+    VerfacturaComponent
+
 
   ],
   imports: [
     CommonModule,
     IonicModule,
-    RouterModule
+    RouterModule,
+    PdfViewerModule
   ],
   exports: [
     HeaderComponent,
@@ -30,7 +35,8 @@ import { ListapedidosComponent } from './02-Pedidos/listapedidos/listapedidos.co
     MenuusuarioComponent,
     ListafincasComponent,
     ListafincasComponent,
-    ListapedidosComponent
+    ListapedidosComponent,
+    VerfacturaComponent
 
   ]
 })

@@ -22,6 +22,8 @@ import { ComponentsModule } from './components/components.module';
 import { Camera, CameraOptions } from '@ionic-native/camera/ngx';
 import { HomePage } from './pages/00-Home/home/home.page';
 
+import { DocumentViewer } from '@ionic-native/document-viewer/ngx';
+import { PdfViewerModule } from 'ng2-pdf-viewer';
 
 @NgModule({
   declarations: [AppComponent],
@@ -31,7 +33,9 @@ import { HomePage } from './pages/00-Home/home/home.page';
           IonicModule.forRoot(),
           AppRoutingModule,
           HttpClientModule,
-          ComponentsModule
+          ComponentsModule,
+          PdfViewerModule,
+        
         ],
   providers: [
     StatusBar,
@@ -40,7 +44,7 @@ import { HomePage } from './pages/00-Home/home/home.page';
     File,
     WebView,
     Camera,
-    HomePage,
+    HomePage,DocumentViewer,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
   ],
   bootstrap: [AppComponent]
