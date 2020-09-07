@@ -25,17 +25,20 @@ import { HomePage } from './pages/00-Home/home/home.page';
 import { DocumentViewer } from '@ionic-native/document-viewer/ngx';
 import { PdfViewerModule } from 'ng2-pdf-viewer';
 
+import { NgxChartsModule } from '@swimlane/ngx-charts'
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 @NgModule({
   declarations: [AppComponent],
   entryComponents: [],
   imports: [
           BrowserModule,
+          BrowserAnimationsModule,
           IonicModule.forRoot(),
           AppRoutingModule,
           HttpClientModule,
           ComponentsModule,
           PdfViewerModule,
-        
+          NgxChartsModule
         ],
   providers: [
     StatusBar,

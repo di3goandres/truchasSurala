@@ -9,6 +9,8 @@ import { ListafincasComponent } from './01-Fincas/listafincas/listafincas.compon
 import { ListapedidosComponent } from './02-Pedidos/listapedidos/listapedidos.component';
 import { VerfacturaComponent } from './02-Pedidos/verfactura/verfactura.component';
 import { PdfViewerModule } from 'ng2-pdf-viewer';
+import { EstadisticaComponent } from './03-Estadistica/estadistica/estadistica.component';
+import { NgxChartsModule } from '@swimlane/ngx-charts'
 
 
 
@@ -19,7 +21,8 @@ import { PdfViewerModule } from 'ng2-pdf-viewer';
     MenuusuarioComponent,
     ListafincasComponent,
     ListapedidosComponent,
-    VerfacturaComponent
+    VerfacturaComponent,
+    EstadisticaComponent
 
 
   ],
@@ -27,7 +30,8 @@ import { PdfViewerModule } from 'ng2-pdf-viewer';
     CommonModule,
     IonicModule,
     RouterModule,
-    PdfViewerModule
+    PdfViewerModule,
+    NgxChartsModule
   ],
   exports: [
     HeaderComponent,
@@ -36,7 +40,9 @@ import { PdfViewerModule } from 'ng2-pdf-viewer';
     ListafincasComponent,
     ListafincasComponent,
     ListapedidosComponent,
-    VerfacturaComponent
+    VerfacturaComponent,
+    EstadisticaComponent
+
 
   ]
 })

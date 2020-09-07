@@ -546,4 +546,39 @@ class PedidosController extends Controller
         }
         return response()->json($data, $data['code']);
     }
+
+    public function EstadisticaByToken(Request $request)
+    {
+        $token = $request->header('Authorization');
+        //aca
+        $jwtAuth = new \JwtAuth();
+        $checktoken = $jwtAuth->checkToken($token);
+        $json = $request->input('json', null);
+        $params = json_decode($json); //objeto
+        $params_array = json_decode($json, true); // array
+        if ($checktoken)
+        {
+            // recoger los datos por post / get
+            $user = $jwtAuth->checkToken($token, true);
+
+            $estadistica = \DB::select('call EstadisticaByUser(?)', array($user->sub));
+
+           
+         
+            $data = array(
+                'code' => 200,
+                'status' => 'success',
+                'datos' => $estadistica
+            );
+        }
+        else
+        {
+            $data = array(
+                'code' => 200,
+                'status' => 'error',
+                'message' => 'Usuario no identificado'
+            );
+        }
+        return response()->json($data, $data['code']);
+    }
 }

@@ -33,6 +33,11 @@ const routes: Routes = [
 
   },
   {
+    path: 'homelogin',
+    redirectTo: 'home',
+    pathMatch: 'full'
+  },
+  {
     path: 'logout/:sure', 
     loadChildren: () => import('./pages/01-Login/login/login.module').then( m => m.LoginPageModule),
     canLoad: [UsuarioGuard],
@@ -48,7 +53,7 @@ const routes: Routes = [
 
 @NgModule({
   imports: [
-    RouterModule.forRoot(routes, { onSameUrlNavigation: 'reload' })
+    RouterModule.forRoot(routes)
   ],
   exports: [RouterModule]
 })

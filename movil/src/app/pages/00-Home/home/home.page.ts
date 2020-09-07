@@ -17,7 +17,7 @@ import { Router, ActivatedRoute, NavigationEnd } from '@angular/router';
 })
 
 
-export class HomePage implements OnInit, AfterContentInit, OnDestroy, AfterViewInit , DoCheck{
+export class HomePage implements OnInit, OnDestroy, DoCheck,AfterContentInit {
   fileToUpload: File = null;
   url: any;
 
@@ -41,39 +41,38 @@ export class HomePage implements OnInit, AfterContentInit, OnDestroy, AfterViewI
   ) {
 
 
-    setInterval(() => {
-      this.changeDetectorRefs.detectChanges();
-     }, 5000);
- 
 
-    this.router.routeReuseStrategy.shouldReuseRoute = () => false;
-    this.mySubscription = this.router.events.subscribe((event) => {
-      if (event instanceof NavigationEnd) {
-         // Trick the Router into believing it's last link wasn't previously loaded
-         this.router.navigated = false;
-      }
-    }); 
   }
-  ngDoCheck(): void {
-     this.userService.getToken();
-  }
-  ngAfterViewInit(): void {
+
+  ionViewDidEnter(){
+    console.log('entre ionViewDidEnter');
     // this.traerFincas();
 
-    this.changeDetectorRefs.detectChanges();
-
 
   }
+  ngDoCheck(): void {
+
+  
+
+    this.userService.getToken();
+  }
+
+
+  destruir() {
+    this.fincas = []
+  }
+
   @HostListener('unloaded')
   ngOnDestroy(): void {
-  
+
     console.log('Items destroyed');
     if (this.mySubscription) {
       this.mySubscription.unsubscribe();
     }
   }
   ngAfterContentInit(): void {
-    // this.traerFincas();
+    console.log('Items ngAfterContentInit');
+
 
     this.changeDetectorRefs.detectChanges();
 
@@ -82,14 +81,16 @@ export class HomePage implements OnInit, AfterContentInit, OnDestroy, AfterViewI
 
 
   ngOnInit() {
+    console.log('Items ngOnInit');
 
-    this.traerFincas();
-   
+    this.fincas = []
+    // this.traerFincas();
+
     this.changeDetectorRefs.detectChanges();
 
   }
- 
-  
+
+
   toggleMenu() {
     console.log(this.menuCtrl.getMenus())
     this.menuCtrl.toggle();
@@ -99,13 +100,14 @@ export class HomePage implements OnInit, AfterContentInit, OnDestroy, AfterViewI
 
     this.menuCtrl.enable(this.activar, 'authenticated');
     this.menuCtrl.enable(!this.activar, 'unauthenticated');
-   
+
     this.activar = !this.activar;
 
 
   }
 
   traerFincas() {
+    this.fincas = [];
     this.userService.getFincasUsuario().subscribe(
       response => {
         console.log(response)

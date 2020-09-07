@@ -116,6 +116,8 @@ Route::get('/api/datos/pedidosusuario/', 'PedidosController@pedidosByToken');
 
 /**datos estadistica */
 Route::get('/api/estadistica/mensual/', 'DatosGeneralesController@EstadisticaMes');
+Route::get('/api/estadistica/usuario/', 'PedidosController@EstadisticaByToken');
+
 
 
 

@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, OnDestroy } from '@angular/core';
 
 import { Router, ActivatedRoute } from '@angular/router';
 
@@ -98,7 +98,9 @@ export class LoginPage implements OnInit {
           // this.router.onSameUrlNavigation = 'reload';
 
           // this.router.navigate(['home']);
-
+          // this.router.navigateByUrl('/DummyComponent', { skipLocationChange: true });
+        
+          // this.router.navigate(["home"]);
 
         } else {
           this.status = 'error';
@@ -127,16 +129,27 @@ export class LoginPage implements OnInit {
         // localStorage.setItem('token', this.token);
         localStorage.setItem('identity', JSON.stringify(this.identity));
         this.dataService.enableAuthenticatedMenu();
-        this.router.onSameUrlNavigation = 'reload';
+        // this.router.onSameUrlNavigation = 'reload';
         this.userService.getToken();
         this.userService.getIdentity();
 
-        this.router.navigateByUrl('/login', { skipLocationChange: true }).then(() =>
-          this.router.navigate(["home"]));
+        // this.router.navigateByUrl('/login', { skipLocationChange: true }).then(() =>
+        // this.router.navigateByUrl('/DummyComponent', { skipLocationChange: true });
+        
+        // this.router.navigate(["home"]);
         // 
         // this.router.navigateByUrl('/home');
         // this.router.navigate(['home'])
-        // this.home.iniciar();
+
+        // this.router.navigateByUrl('login', {skipLocationChange: true}).then(()=>
+        // this.router.navigateByUrl('home', {skipLocationChange: true});
+        // this.router.navigateByUrl('/DummyComponent', { skipLocationChange: true });
+        this.router.navigate(['homelogin']);
+        
+        // this.router.navigate(["home"]);
+        // this.home.destruir();
+
+
 
       },
       error => {
@@ -159,10 +172,8 @@ export class LoginPage implements OnInit {
           this.identity = null;
           this.token = null;
           this.userService.logout();
-          // redireccion a la pagina principal.
-          // this.router.navigate(['login']);
-          
-            return this._http.get('login');
+         
+
           
 
         }
