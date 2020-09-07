@@ -82,6 +82,8 @@ import { EditarpedidoComponent } from './componentes/06-Pedidos/editarpedido/edi
 import { BorrarpedidoComponent } from './componentes/06-Pedidos/borrarpedido/borrarpedido.component';
 import { AsociarfacturaComponent } from './componentes/06-Pedidos/asociarfactura/asociarfactura.component';
 import { PdfViewerModule } from 'ng2-pdf-viewer';
+import { ListapedidosfacturaComponent } from './componentes/06-Pedidos/listapedidosfactura/listapedidosfactura.component';
+import { ListadespachosfacturaComponent } from './componentes/06-Pedidos/listadespachosfactura/listadespachosfactura.component';
 
 registerLocaleData(localCo);
 @NgModule({
@@ -115,7 +117,7 @@ registerLocaleData(localCo);
     FincaupdateComponent,
     DistribuciongloballistComponent, CantidaddespachadoComponent, CreardespachoComponent,
     RegistroExitosoComponent, VerlistardespachosComponent, EditardespachoComponent, ListapedidosComponent,
-    CrearpedidosComponent, ListausuariosComponent, EditarpedidoComponent, BorrarpedidoComponent, AsociarfacturaComponent
+    CrearpedidosComponent, ListausuariosComponent, EditarpedidoComponent, BorrarpedidoComponent, AsociarfacturaComponent, ListapedidosfacturaComponent, ListadespachosfacturaComponent
 
 
   ],

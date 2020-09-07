@@ -48,12 +48,12 @@ export class PedidosService {
     return this.userService.ejecutarQueryDelete('/api/pedidos/eliminarpedido/' + id + '/true', '');
   }
 
-  postFile(fileToUpload: SaveFile, id: string): Observable<any> {
+  postFile(fileToUpload: SaveFile): Observable<any> {
   
  
     let json = JSON.stringify(fileToUpload);
     let params = 'json=' + json;
-    console.log(params);
+ 
     return this.userService.ejecutarQueryPost('/api/pedido/subirarchivo', params);
 
   }

@@ -26,6 +26,7 @@ export class Pedido {
   updated_at: string;
   nombre: string;
   usuario: string;
+  nombre_factura: string;
 
   despacho: Despacho;
   genero_trazabilidad: boolean;
