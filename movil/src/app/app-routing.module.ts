@@ -39,7 +39,7 @@ const routes: Routes = [
     canActivate:  [UsuarioGuard]
   },
   {
-    path: 'pedidofactura/:nombrefactura',
+    path: 'pedidofactura/:idPedido/:nombrefactura',
     loadChildren: () => import('./pages/03-Pedidos/pedidofactura/pedidofactura.module').then( m => m.PedidofacturaPageModule),
     canLoad: [UsuarioGuard],
     canActivate:  [UsuarioGuard]

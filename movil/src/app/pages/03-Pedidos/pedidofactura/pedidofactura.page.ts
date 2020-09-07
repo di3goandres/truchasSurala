@@ -9,6 +9,8 @@ import { ActivatedRoute } from '@angular/router';
 export class PedidofacturaPage implements OnInit {
 
   nombre = "";
+  idPedido = "";
+
   constructor(
     private route: ActivatedRoute,
 
@@ -21,8 +23,11 @@ export class PedidofacturaPage implements OnInit {
   cargar(): void {
     this.route.params.subscribe(
       params => {
-        console.log(params)
         this.nombre = params.nombrefactura;
+        this.idPedido = params.idPedido;
+
+        console.log(this.nombre)
+
        
 
       }

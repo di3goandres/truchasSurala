@@ -41,6 +41,9 @@ export class UserService {
   logout(){
     this.identity = null;
     this.token = null;
+    this.getIdentity()
+    this.getToken()
+
   }
 
   // tslint:disable-next-line: typedef
@@ -92,6 +95,7 @@ export class UserService {
   // tslint:disable-next-line: typedef
   public ejecutarQuery<T>(query: string) {
 
+    this.getToken();
     this.header = new HttpHeaders().set('Authorization', this.token)
     // .set('Cache-Control',  'no-cache, no-store, must-revalidate, post-check=0, pre-check=0')
     // .set('Pragma','no-cache')
@@ -113,7 +117,7 @@ export class UserService {
 
 
   getFincasUsuario() {
-     console.log('entre')
+     
     return this.ejecutarQuery<FincasUser>('/api/datos/fincabytoken');
 
   }

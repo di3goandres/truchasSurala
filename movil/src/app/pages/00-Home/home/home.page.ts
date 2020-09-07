@@ -1,4 +1,4 @@
-import { Component, OnInit, ChangeDetectorRef, AfterContentInit, OnDestroy, HostListener, AfterViewInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef, AfterContentInit, OnDestroy, HostListener, AfterViewInit, DoCheck } from '@angular/core';
 import { MenuController, NavController } from '@ionic/angular';
 import { DatamenuService } from '../../../services/datamenu.service';
 import { UserService } from '../../../services/user.service';
@@ -17,7 +17,7 @@ import { Router, ActivatedRoute, NavigationEnd } from '@angular/router';
 })
 
 
-export class HomePage implements OnInit, AfterContentInit, OnDestroy, AfterViewInit {
+export class HomePage implements OnInit, AfterContentInit, OnDestroy, AfterViewInit , DoCheck{
   fileToUpload: File = null;
   url: any;
 
@@ -28,6 +28,8 @@ export class HomePage implements OnInit, AfterContentInit, OnDestroy, AfterViewI
     initialSlide: 1,
     speed: 400
   };
+  fincas: Finca[] = []
+
   constructor(private dataService: DatamenuService,
     private userService: UserService,
     private menuCtrl: MenuController,
@@ -37,6 +39,7 @@ export class HomePage implements OnInit, AfterContentInit, OnDestroy, AfterViewI
     private router: Router, private activatedRoute: ActivatedRoute
 
   ) {
+
 
     setInterval(() => {
       this.changeDetectorRefs.detectChanges();
@@ -51,7 +54,12 @@ export class HomePage implements OnInit, AfterContentInit, OnDestroy, AfterViewI
       }
     }); 
   }
+  ngDoCheck(): void {
+     this.userService.getToken();
+  }
   ngAfterViewInit(): void {
+    // this.traerFincas();
+
     this.changeDetectorRefs.detectChanges();
 
 
@@ -65,6 +73,8 @@ export class HomePage implements OnInit, AfterContentInit, OnDestroy, AfterViewI
     }
   }
   ngAfterContentInit(): void {
+    // this.traerFincas();
+
     this.changeDetectorRefs.detectChanges();
 
   }
@@ -72,6 +82,8 @@ export class HomePage implements OnInit, AfterContentInit, OnDestroy, AfterViewI
 
 
   ngOnInit() {
+
+    this.traerFincas();
    
     this.changeDetectorRefs.detectChanges();
 
@@ -87,9 +99,26 @@ export class HomePage implements OnInit, AfterContentInit, OnDestroy, AfterViewI
 
     this.menuCtrl.enable(this.activar, 'authenticated');
     this.menuCtrl.enable(!this.activar, 'unauthenticated');
-    console.log('quedo activ', this.menuCtrl.isEnabled('unauthenticated'))
+   
     this.activar = !this.activar;
 
+
+  }
+
+  traerFincas() {
+    this.userService.getFincasUsuario().subscribe(
+      response => {
+        console.log(response)
+        this.fincas = [];
+        this.fincas.push(...response.fincas);
+        this.changeDetectorRefs.detectChanges()
+      },
+      error => {
+        console.log(error)
+
+      }
+    )
+    this.changeDetectorRefs.detectChanges();
 
   }
 }

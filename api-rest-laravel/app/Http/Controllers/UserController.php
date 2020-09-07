@@ -258,16 +258,30 @@ class UserController extends Controller
 
 
 
-    public function getpdf($filename)
+    public function getpdf($id, $filename)
     {
 
 
 
+        $pedido = Pedidos::find($id);
 
-        $isset = \Storage::disk('users')->exists('3\\Facturas\\'.$filename);
-        if ($isset) {
-            $file = \Storage::disk('users')->get( '3\\Facturas\\'.$filename);
-            return new Response($file, 200);
+        if (is_object($pedido)) {
+            $usuario = \DB::table('users')
+                ->join('fincas', 'fincas.user_id', '=', 'users.id')
+                ->where('fincas.id', '=',  $pedido->id_finca)
+                ->select('users.numero_identificacion')
+                ->get();
+            $isset = \Storage::disk('users')->exists($usuario[0]->numero_identificacion . '\\Facturas\\' . $pedido->id . '\\' . $filename);
+            if ($isset) {
+                $file = \Storage::disk('users')->get($usuario[0]->numero_identificacion . '\\Facturas\\' . $pedido->id . '\\' . $filename);
+                return new Response($file, 200);
+            } else {
+                $data = array(
+                    'code' => 200,
+                    'status' => 'error',
+                    'user' =>  $filename
+                );
+            }
         } else {
             $data = array(
                 'code' => 200,
@@ -303,10 +317,18 @@ class UserController extends Controller
 
             if (is_object($pedido)) {
                 $image_name = time() . $params_array['nombre'];
-                $finca =      Fincas::find($pedido->id_finca);
-                \Storage::disk('users')->put($finca->user_id . '\\Facturas\\' . $name, base64_decode($file));
 
-                $pedido->nombre_factura = $finca->user_id . '\\Facturas\\' . $name;
+                $usuario = \DB::table('users')
+                    ->join('fincas', 'fincas.user_id', '=', 'users.id')
+
+
+                    ->where('fincas.id', '=',  $pedido->id_finca)
+                    ->select('users.numero_identificacion')
+                    ->get();
+
+                \Storage::disk('users')->put($usuario[0]->numero_identificacion . '\\Facturas\\' . $pedido->id . '\\' . $name, base64_decode($file));
+
+                $pedido->nombre_factura = $name;
                 $pedido->save();
                 $data = array(
                     'code' => 200,
@@ -414,7 +436,7 @@ class UserController extends Controller
         return response()->json($data, $data['code']);
     }
 
-   
+
 
     public function detail($id)
     {

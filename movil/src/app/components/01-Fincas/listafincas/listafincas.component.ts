@@ -1,4 +1,4 @@
-import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef, Input } from '@angular/core';
 import { Finca } from '../../../models/fincas.user';
 import { DomSanitizer } from '@angular/platform-browser';
 import { UserService } from '../../../services/user.service';
@@ -9,7 +9,7 @@ import { UserService } from '../../../services/user.service';
   styleUrls: ['./listafincas.component.scss'],
 })
 export class ListafincasComponent implements OnInit {
-  fincas: Finca[] = []
+  @Input() fincas: Finca[] = []
   constructor(
     private userService: UserService,
   

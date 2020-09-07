@@ -8,14 +8,20 @@ import { NavParams, ModalController } from '@ionic/angular';
 })
 export class VerfacturaComponent implements OnInit {
   @Input() nombreFactura: string;
-  pdfSrc = "/api/pedido/factura/1599326274cedulaPDF.pdf";
+  @Input() idPedido: string;
+
+  pdfSrc = "/api/pedido/factura/";
   options: DocumentViewerOptions = {
     title: 'Mi Factura'
   }
   constructor( public modalCtrl: ModalController) { }
 
   ngOnInit() {
+    console.log(this.nombreFactura)
+    console.log(this.idPedido)
+
  
+    this.pdfSrc = this.pdfSrc + this.idPedido +  "/" + this.nombreFactura;
 
   }
 

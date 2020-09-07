@@ -9,6 +9,7 @@ import { DatamenuService } from '../../../services/datamenu.service';
 import { Camera, CameraOptions } from '@ionic-native/camera/ngx';
 import { UserService } from '../../../services/user.service';
 import { HomePage } from '../../00-Home/home/home.page';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-login',
@@ -36,20 +37,21 @@ export class LoginPage implements OnInit {
     private menuCtrl: MenuController,
     private dataService: DatamenuService,
     private camera: Camera,
-    private home: HomePage
+    private home: HomePage,
+    private _http: HttpClient
 
   ) { }
 
 
 
-  openCamera(){
+  openCamera() {
     this.camera.getPicture(this.options).then((imageData) => {
       // imageData is either a base64 encoded string or a file URI
       // If it's base64 (DATA_URL):
       let base64Image = 'data:image/jpeg;base64,' + imageData;
-     }, (err) => {
+    }, (err) => {
       // Handle error
-     });
+    });
   }
   ngOnInit() {
     this.logOut();
@@ -63,18 +65,22 @@ export class LoginPage implements OnInit {
 
   }
 
-  verificarLogueo(){
-    if(this.userService.getIdentity()!=null && this.userService.getToken() != null){
+  verificarLogueo() {
+    if (this.userService.getIdentity() != null && this.userService.getToken() != null) {
       this.router.onSameUrlNavigation = 'reload';
       this.router.navigate(['home']);
+      
       this.dataService.enableAuthenticatedMenu();
+    }else{
+      return this._http.get('login');
+
     }
   }
 
-  onLogin(formulario){
-   
+  onLogin(formulario) {
 
-   
+
+
     this.userService.loginUser(this.user).subscribe(
       response => {
         this.userService.logout();
@@ -87,13 +93,13 @@ export class LoginPage implements OnInit {
           this.token = ''
           this.token = response;
           localStorage.setItem('token', this.token);
-           this.ObtenerdatosUser();
+          this.ObtenerdatosUser();
           // // formulario.reset();
           // this.router.onSameUrlNavigation = 'reload';
-          
+
           // this.router.navigate(['home']);
 
-        
+
         } else {
           this.status = 'error';
 
@@ -101,17 +107,17 @@ export class LoginPage implements OnInit {
       },
       error => {
         console.log(error)
-        
+
         this.status = 'error';
       }
 
     );
   }
-  toggleMenu(){
+  toggleMenu() {
     this.menuCtrl.toggle();
   }
   ObtenerdatosUser(): void {
-    
+
     this.userService.loginUser(this.user, true).subscribe(
       response => {
         // tslint:disable-next-line: triple-equals
@@ -123,8 +129,13 @@ export class LoginPage implements OnInit {
         this.dataService.enableAuthenticatedMenu();
         this.router.onSameUrlNavigation = 'reload';
         this.userService.getToken();
+        this.userService.getIdentity();
+
+        this.router.navigateByUrl('/login', { skipLocationChange: true }).then(() =>
+          this.router.navigate(["home"]));
         // 
-        this.router.navigate(['home']);
+        // this.router.navigateByUrl('/home');
+        // this.router.navigate(['home'])
         // this.home.iniciar();
 
       },
@@ -142,7 +153,7 @@ export class LoginPage implements OnInit {
       params => {
         let logout = +params.sure;
         if (logout === 1) {
-          this.token='';
+          this.token = '';
           localStorage.removeItem('identity');
           localStorage.removeItem('token');
           this.identity = null;
@@ -150,6 +161,9 @@ export class LoginPage implements OnInit {
           this.userService.logout();
           // redireccion a la pagina principal.
           // this.router.navigate(['login']);
+          
+            return this._http.get('login');
+          
 
         }
 

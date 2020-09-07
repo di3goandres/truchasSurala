@@ -52,7 +52,7 @@
       <div class="col-4">
         <ion-label>
           Factura:  Ver {{pedido.nombre_factura}}
-           <ion-button [routerLink]="'/pedidofactura/'+pedido.nombre_factura" expand="block" fill="clear" shape="round">
+           <ion-button [routerLink]="'/pedidofactura/'+pedido.id+'/'+pedido.nombre_factura" expand="block" fill="clear" shape="round">
            ver
           </ion-button>
         </ion-label>

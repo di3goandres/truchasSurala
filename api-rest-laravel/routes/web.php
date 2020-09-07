@@ -58,7 +58,7 @@ Route::get('/api/users/get', 'UserController@GetAllUserFincas');
 
 //Metodo para subir y descargar el pdf
 Route::post('/api/pedido/subirarchivo', 'UserController@subirarchivo')->middleware(ApiAuthMiddleware::class) ;
-Route::get('/api/pedido/factura/{filename}', 'UserController@getpdf') ;
+Route::get('/api/pedido/factura/{id}/{filename}', 'UserController@getpdf') ;
 
 /// ADMINISRADOR
 Route::post('/api/user/resetadmin', 'UserController@resetPasswordByAdmin');
