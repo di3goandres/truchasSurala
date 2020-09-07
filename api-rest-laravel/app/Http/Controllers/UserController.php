@@ -261,7 +261,9 @@ class UserController extends Controller
     public function getpdf($id, $filename)
     {
 
-
+        $headers = array(
+            'Content-Type: application/pdf',
+        );
 
         $pedido = Pedidos::find($id);
 
@@ -274,7 +276,8 @@ class UserController extends Controller
             $isset = \Storage::disk('users')->exists($usuario[0]->numero_identificacion . '\\Facturas\\' . $pedido->id . '\\' . $filename);
             if ($isset) {
                 $file = \Storage::disk('users')->get($usuario[0]->numero_identificacion . '\\Facturas\\' . $pedido->id . '\\' . $filename);
-                return new Response($file, 200);
+                return new Response($file, 200, $headers);
+             
             } else {
                 $data = array(
                     'code' => 200,

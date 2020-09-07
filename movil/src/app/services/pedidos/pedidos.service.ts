@@ -12,11 +12,11 @@ export class PedidosService {
 
   obtenerMisPedidos(){
     return this.userService
-        .ejecutarQuery<PedidosResponse>('/api/datos/pedidosusuario/')
+        .ejecutarQuery<PedidosResponse>('/api/datos/pedidosusuario')
   }
 
   obtenerEstadistica(){
     return this.userService
-        .ejecutarQuery<EstadisticaResponse>('/api/estadistica/usuario/')
+        .ejecutarQuery<EstadisticaResponse>('/api/estadistica/usuario')
   }
 }
