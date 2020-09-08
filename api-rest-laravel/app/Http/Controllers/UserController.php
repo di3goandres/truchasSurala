@@ -313,14 +313,13 @@ class UserController extends Controller
             // recoger datos de la peticion
             $file = $params_array['file'];
             $idPedido = $params_array['id'];
-            $name = time() . $params_array['nombre'];
+            $name = time() . "_Factura.pdf";
             $file = str_replace('data:application/pdf;base64,', '', $file);
             $file = str_replace(' ', '+', $file);
             $pedido = Pedidos::find($idPedido);
 
             if (is_object($pedido)) {
-                $image_name = time() . $params_array['nombre'];
-
+               
                 $usuario = \DB::table('users')
                     ->join('fincas', 'fincas.user_id', '=', 'users.id')
 

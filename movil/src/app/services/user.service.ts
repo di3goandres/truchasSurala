@@ -116,6 +116,9 @@ export class UserService {
   }
 
 
+  getURl(){
+    return this.url;
+  }
   getFincasUsuario() {
      
     return this.ejecutarQuery<FincasUser>('/api/datos/fincabytoken');

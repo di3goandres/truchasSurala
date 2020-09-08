@@ -35,6 +35,7 @@ export class ListapedidosComponent implements OnInit {
   traerPedidos(){
     this.servicio.obtenerMisPedidos().subscribe(
       OK => {
+        this.pedidos = []
         this.pedidos.push(...OK.pedidos)
       },
       ERROR => console.log(ERROR),

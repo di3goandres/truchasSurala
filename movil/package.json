@@ -1,5 +1,5 @@
 {
-  "name": "movil",
+  "name": "trucha.surala.app",
   "version": "0.0.1",
   "author": "Ionic Framework",
   "homepage": "https://ionicframework.com/",
@@ -22,11 +22,11 @@
     "@angular/platform-browser": "~10.0.5",
     "@angular/platform-browser-dynamic": "~10.0.5",
     "@angular/router": "~10.0.5",
-    "@capacitor/core": "2.3.0",
     "@ionic-native/camera": "^5.27.0",
     "@ionic-native/core": "^5.27.0",
     "@ionic-native/document-viewer": "^5.28.0",
     "@ionic-native/file": "^5.28.0",
+    "@ionic-native/file-opener": "^5.28.0",
     "@ionic-native/file-transfer": "^5.28.0",
     "@ionic-native/ionic-webview": "^5.28.0",
     "@ionic-native/splash-screen": "^5.27.0",
@@ -37,6 +37,7 @@
     "compare-func": "^2.0.0",
     "cordova-android": "9.0.0",
     "cordova-plugin-document-viewer": "^1.0.0",
+    "cordova-plugin-file-opener2": "^3.0.4",
     "cordova-plugin-ios-camera-permissions": "1.2.0",
     "ng2-pdf-viewer": "^6.3.2",
     "rxjs": "~6.6.0",
@@ -50,17 +51,17 @@
     "@angular/compiler": "~10.0.5",
     "@angular/compiler-cli": "~10.0.5",
     "@angular/language-service": "~10.0.5",
-    "@capacitor/cli": "2.3.0",
     "@ionic/angular-toolkit": "^2.3.0",
     "@types/jasmine": "~3.5.11",
     "@types/jasminewd2": "~2.0.8",
     "@types/node": "^14.0.24",
     "codelyzer": "^6.0.0",
-    "cordova-ios": "^6.1.0",
+    "cordova-browser": "^6.0.0",
+    "cordova-ios": "^6.1.1",
+    "cordova-plugin-androidx-adapter": "^1.1.1",
     "cordova-plugin-camera": "^4.1.0",
     "cordova-plugin-device": "^2.0.3",
     "cordova-plugin-file": "^6.0.2",
-    "cordova-plugin-file-transfer": "^1.7.1",
     "cordova-plugin-ionic-keyboard": "^2.2.0",
     "cordova-plugin-ionic-webview": "^5.0.0",
     "cordova-plugin-splashscreen": "^6.0.0",
@@ -89,11 +90,20 @@
         "ANDROID_SUPPORT_ANNOTATIONS_VERSION": "27.+"
       },
       "cordova-plugin-ionic-keyboard": {},
-      "cordova-plugin-camera": {}
+      "cordova-plugin-camera": {},
+      "cordova-plugin-file": {},
+      "cordova-plugin-file-opener2": {
+        "ANDROID_SUPPORT_V4_VERSION": "27.+"
+      },
+      "cordova-plugin-document-viewer": {},
+      "cordova-plugin-file-transfer": {},
+      "cordova-plugin-androidx": {},
+      "cordova-plugin-androidx-adapter": {}
     },
     "platforms": [
       "android",
-      "ios"
+      "ios",
+      "browser"
     ]
   }
 }

@@ -22,3 +22,13 @@ export class Estadistica{
     name: string;
     value: number;
 }
+
+
+export class EstadisticaMulti{
+    constructor(value, name){
+        this.series = value;
+        this.name = name
+    }
+    name: string;
+    series: Estadistica[] ;
+}
