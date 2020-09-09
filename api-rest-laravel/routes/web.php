@@ -120,6 +120,9 @@ Route::get('/api/estadistica/usuario/', 'PedidosController@EstadisticaByToken');
 
 
 
+//servicios para elmovil
+Route::get('/api/datos/fincabytoken', 'FincasController@getFincasUserToken');
+
 
 
 

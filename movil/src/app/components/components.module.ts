@@ -12,6 +12,7 @@ import { PdfViewerModule } from 'ng2-pdf-viewer';
 import { EstadisticaComponent } from './03-Estadistica/estadistica/estadistica.component';
 import { NgxChartsModule } from '@swimlane/ngx-charts'
 import { VerdespachosComponent } from './02-Pedidos/verdespachos/verdespachos.component';
+import { TrazabilidadComponent } from './03-Trazabilidad/trazabilidad/trazabilidad.component';
 
 
 
@@ -24,7 +25,8 @@ import { VerdespachosComponent } from './02-Pedidos/verdespachos/verdespachos.co
     ListapedidosComponent,
     VerfacturaComponent,
     EstadisticaComponent,
-    VerdespachosComponent
+    VerdespachosComponent,
+    TrazabilidadComponent
 
 
   ],
@@ -44,7 +46,8 @@ import { VerdespachosComponent } from './02-Pedidos/verdespachos/verdespachos.co
     ListapedidosComponent,
     VerfacturaComponent,
     EstadisticaComponent,
-    VerdespachosComponent
+    VerdespachosComponent,
+    TrazabilidadComponent
 
 
   ]

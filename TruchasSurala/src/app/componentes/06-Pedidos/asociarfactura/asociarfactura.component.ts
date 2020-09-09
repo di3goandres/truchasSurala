@@ -37,6 +37,7 @@ export class AsociarfacturaComponent implements OnInit {
   ) { }
 
 
+
   ngOnInit(): void {
 
     this.pdfSrc = this.pedido.nombre_factura === "pendiente"?

@@ -53,6 +53,10 @@ const routes: Routes = [
   {
     path: 'despachos',
     loadChildren: () => import('./pages/03-Pedidos/despachos/despachos.module').then( m => m.DespachosPageModule)
+  },
+  {
+    path: 'trazabilidad/:id',
+    loadChildren: () => import('./pages/04-Trazabilidd/trazabilidades/trazabilidades.module').then( m => m.TrazabilidadesPageModule)
   }
 ];
 

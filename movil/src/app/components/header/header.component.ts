@@ -9,9 +9,16 @@ import { MenuController } from '@ionic/angular';
 export class HeaderComponent implements OnInit {
   
   @Input() titulo: string;
+  @Input() icon: string;
   constructor(private menuCtrl: MenuController) { }
 
-  ngOnInit() {}
+  ngOnInit() {
+
+    if(this.icon == null){
+      this.icon ="bulb-outline"
+    }
+
+  }
   toggleMenu(){
     this.menuCtrl.toggle();
   }

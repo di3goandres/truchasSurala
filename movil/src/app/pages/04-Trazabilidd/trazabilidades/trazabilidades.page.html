@@ -1,0 +1,17 @@
+<app-header titulo="Trazabilidad" icon="analytics-outline">
+  
+</app-header>
+
+<ion-content>
+
+  <!-- <mat-tab *ngFor="let item of distribucion; let i = index " [label]="item.contacto.Remision">
+    <app-trazabilidad [traza]="item">
+    </app-trazabilidad>
+</mat-tab> -->
+  <ion-slides pager="true" [options]="slideOpts">
+    <ion-slide *ngFor="let item of distribucion">
+     <app-trazabilidad [traza]="item"></app-trazabilidad>
+    </ion-slide>
+  
+  </ion-slides>
+</ion-content>

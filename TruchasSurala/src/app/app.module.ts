@@ -85,6 +85,7 @@ import { PdfViewerModule } from 'ng2-pdf-viewer';
 import { ListapedidosfacturaComponent } from './componentes/06-Pedidos/listapedidosfactura/listapedidosfactura.component';
 import { ListadespachosfacturaComponent } from './componentes/06-Pedidos/listadespachosfactura/listadespachosfactura.component';
 
+
 registerLocaleData(localCo);
 @NgModule({
   declarations: [
@@ -147,7 +148,7 @@ registerLocaleData(localCo);
     MatTableExporterModule,
     MatRadioModule,
     NgxChartsModule,
-    PdfViewerModule
+    PdfViewerModule,
 
 
   ],

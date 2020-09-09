@@ -1,14 +1,15 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { DistribucionTrazabilidad, Contacto, InfoDespacho, InfoDespachoMostrar } from '../../../models/Trazabilidad';
+import { Distribucion, InfoDespacho, Contacto, InfoDespachoMostrar } from '../../../models/trazabilidad/trazabilidad.response';
 
 @Component({
   selector: 'app-trazabilidad',
   templateUrl: './trazabilidad.component.html',
-  styleUrls: ['./trazabilidad.component.css']
+  styleUrls: ['./trazabilidad.component.scss'],
 })
 export class TrazabilidadComponent implements OnInit {
 
-  @Input() traza: DistribucionTrazabilidad;
+  @Input() traza: Distribucion;
+
   bandejas: InfoDespacho[];
   bandejasMostrar: InfoDespachoMostrar[] = [];
 
@@ -31,7 +32,7 @@ export class TrazabilidadComponent implements OnInit {
     this.bandejas = this.traza.InfoDespacho;
     this.traza.trazabilidad.forEach(info => {
       this.Lote = info.NumLote;
-      this.Fecha = info.Fechadesove;
+      this.Fecha = info.Fechadesove.replace(' 00:00:00', '');
       this.lineaGenetica = info.LineaGenetica;
       this.edad = info.edad;
       this.Tamanio = info.tamanio;
@@ -42,7 +43,7 @@ export class TrazabilidadComponent implements OnInit {
   }
 
   ponerCajas() {
-    this.bandejasMostrar.push(new InfoDespachoMostrar("HIELO", "1", "1"))
+    this.bandejasMostrar.push(new InfoDespachoMostrar("HIELO", this.bandejasMostrar.length + 1, "1"))
     let conteo = 1;
 
     this.bandejas.sort((a, b) => b.Cantidad - a.Cantidad)
@@ -58,7 +59,7 @@ export class TrazabilidadComponent implements OnInit {
 
 
       if (this.contacto.Maximo == this.MAXIMO) {
-        this.bandejasMostrar.push(new InfoDespachoMostrar(this.MAXIMO.toString(), "1", "1"))
+        this.bandejasMostrar.push(new InfoDespachoMostrar(this.MAXIMO.toString(), this.bandejasMostrar.length + 1, "1"))
         this.MAXIMO = 0;
         agrego = true;
 
@@ -68,15 +69,15 @@ export class TrazabilidadComponent implements OnInit {
 
       }else{
         this.MAXIMO = this.MAXIMO - element.Cantidad;
-        this.bandejasMostrar.push(new InfoDespachoMostrar(this.MAXIMO.toString(), "1", "1"))
+        this.bandejasMostrar.push(new InfoDespachoMostrar(this.MAXIMO.toString(), this.bandejasMostrar.length + 1, "1"))
         if (this.bandejasMostrar.length % 4 == 0) {
 
-          this.bandejasMostrar.push(new InfoDespachoMostrar("HIELO", "1", "1"))
+          this.bandejasMostrar.push(new InfoDespachoMostrar("HIELO", this.bandejasMostrar.length + 1, "1"))
           ultimohielo = true;
         } else {
           ultimohielo = false;
         }
-        this.bandejasMostrar.push(new InfoDespachoMostrar(element.Cantidad.toString(), "1", "1"))
+        this.bandejasMostrar.push(new InfoDespachoMostrar(element.Cantidad.toString(),this.bandejasMostrar.length + 1, "1"))
         this.MAXIMO = 0;
         agrego = true;
 
@@ -86,14 +87,14 @@ export class TrazabilidadComponent implements OnInit {
 
       if (conteo == 0 && agrego == false) {
         if (this.MAXIMO > 0)
-          this.bandejasMostrar.push(new InfoDespachoMostrar(this.MAXIMO.toString(), "1", "1"))
+          this.bandejasMostrar.push(new InfoDespachoMostrar(this.MAXIMO.toString(), this.bandejasMostrar.length + 1, "1"))
         this.MAXIMO = 0;
         agrego = true;
       }
 
       if (this.bandejasMostrar.length % 4 == 0) {
 
-        this.bandejasMostrar.push(new InfoDespachoMostrar("HIELO", "1", "1"))
+        this.bandejasMostrar.push(new InfoDespachoMostrar("HIELO", this.bandejasMostrar.length + 1, "1"))
         ultimohielo = true;
       } else {
         ultimohielo = false;
@@ -101,9 +102,10 @@ export class TrazabilidadComponent implements OnInit {
 
     });
     if (!ultimohielo)
-      this.bandejasMostrar.push(new InfoDespachoMostrar("HIELO", "1", "1"))
+      this.bandejasMostrar.push(new InfoDespachoMostrar("HIELO", this.bandejasMostrar.length + 1, "1"))
 
-    this.bandejasMostrar.push(new InfoDespachoMostrar("BANDEJA VACIA", "1", "1"))
+    this.bandejasMostrar.push(new InfoDespachoMostrar("BANDEJA VACIA", this.bandejasMostrar.length + 1, "1"))
   }
+
 
 }

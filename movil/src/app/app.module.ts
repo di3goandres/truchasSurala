@@ -1,4 +1,6 @@
-import { NgModule } from '@angular/core';
+import { LOCALE_ID,NgModule } from '@angular/core';
+import localCo from '@angular/common/locales/es-CO';
+
 import { BrowserModule } from '@angular/platform-browser';
 import { RouteReuseStrategy } from '@angular/router';
 
@@ -32,7 +34,9 @@ import { PdfViewerModule } from 'ng2-pdf-viewer';
 
 import { NgxChartsModule } from '@swimlane/ngx-charts'
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { registerLocaleData } from '@angular/common';
 
+registerLocaleData(localCo);
 
 @NgModule({
   declarations: [AppComponent],
@@ -49,6 +53,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
        
         ],
   providers: [
+
     StatusBar,
     SplashScreen, 
     // OneSignal,
@@ -59,7 +64,9 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     WebView,
     Camera,
     HomePage,
-    { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
+    { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
+    { provide: LOCALE_ID, useValue: 'es-Co' },
+
   ],
   bootstrap: [AppComponent]
 })

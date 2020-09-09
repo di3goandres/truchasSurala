@@ -38,6 +38,7 @@ export class ListapedidosComponent implements OnInit {
       OK => {
         this.pedidos = []
         this.pedidos.push(...OK.pedidos)
+        console.log(OK.pedidos)
       },
       ERROR => console.log(ERROR),
     )

@@ -14,7 +14,7 @@ export class EstadisticaComponent implements OnInit {
   datoMulti: EstadisticaMulti[] = []
 
   mostrar = false;
-  view: any[] = [450, 450];
+  view: any[] = [380, 350];
 
   // options
   showXAxis = true;

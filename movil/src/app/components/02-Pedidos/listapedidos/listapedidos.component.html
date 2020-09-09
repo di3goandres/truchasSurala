@@ -11,7 +11,7 @@
 <ion-card *ngFor="let pedido of pedidos">
   <ion-card-header>
     <ion-card-title>
-      <ion-icon name="cart-outline"></ion-icon>{{pedido.fecha_salida| date: "MMM/dd/yyyy" | uppercase}}
+      <ion-icon name="cart-outline"></ion-icon>{{pedido.fecha_salida.replace(' 00:00:00', 'T00:00:00') | date: "MMM/dd/yyyy" | uppercase}}
     </ion-card-title>
     <ion-card-subtitle></ion-card-subtitle>
 
@@ -51,15 +51,29 @@
       </div>
       <div class="col-4" *ngIf="pedido.nombre_factura!='pendiente'">
         <ion-label>
-          Factura:  Ver {{pedido.nombre_factura}}
-           <ion-button [routerLink]="'/pedidofactura/'+pedido.id+'/'+pedido.nombre_factura" expand="block" fill="clear" shape="round">
-            <ion-icon name="cash-outline"></ion-icon>
-          </ion-button>
+          Factura:  {{pedido.nombre_factura}}
         </ion-label>
       
       </div>
     </div>
 
+    <ion-toolbar>
+      <ion-buttons slot="secondary">
+        <ion-button [routerLink]="'/pedidofactura/'+pedido.id+'/'+pedido.nombre_factura">
+          <ion-icon slot="icon-only" name="cash-outline"></ion-icon>
+        </ion-button>
+        <ion-button [routerLink]="'/trazabilidad/'+pedido.id">
+          <ion-icon  slot="icon-only"name="analytics-outline"></ion-icon>
+         
+        </ion-button>
+      </ion-buttons>
+     
+      <ion-buttons slot="primary">
+        <ion-button color="secondary">
+          <ion-icon slot="icon-only" ios="ellipsis-horizontal" md="ellipsis-vertical"></ion-icon>
+        </ion-button>
+      </ion-buttons>
+    </ion-toolbar>
 
 
   </ion-card-content>

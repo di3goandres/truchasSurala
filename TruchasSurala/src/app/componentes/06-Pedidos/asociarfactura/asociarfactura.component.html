@@ -15,12 +15,15 @@
         (after-load-complete)="callBackFn($event)" (page-rendered)="pageRendered($event)"
         (text-layer-rendered)="textLayerRendered($event)" (error)="onError($event)" (on-progress)="onProgress($event)"
         style="display: block;max-height: 50%;"></pdf-viewer>
+
+      
         <div>
 
 
             <mat-card-actions>
                 <button mat-raised-button color="warn" [disabled]="deshabilitado"
                 (click)="guardarArchivo()">Continuar</button>
+                
             </mat-card-actions>
         </div>
     </mat-card-content>

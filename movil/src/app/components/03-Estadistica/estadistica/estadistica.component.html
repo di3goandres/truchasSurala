@@ -11,16 +11,18 @@
   padding-bottom: 63px;"></ion-row>
 
   <ion-row>
-
-    <ion-col style="padding-left: 25px;">
-   
+    <ion-col></ion-col>
+    <ion-col style="text-align: center;">
+      <ion-label>TAMAÑO Y EDAD TCU</ion-label>
         <ngx-charts-line-chart [view]="view" [scheme]="colorScheme" [legend]="legend" [showXAxisLabel]="showXAxisLabel"
           [showYAxisLabel]="showYAxisLabel" [xAxis]="xAxis" [yAxis]="yAxis" [xAxisLabel]="xAxisLabel"
           [yAxisLabel]="yAxisLabel" [timeline]="timeline" [results]="multi" (select)="onSelect($event)"
-          (activate)="onActivate($event)" (deactivate)="onDeactivate($event)">
+          (activate)="onActivate($event)" (deactivate)="onDeactivate($event)"
+          [legendPosition]="'below'">
         </ngx-charts-line-chart>
       </ion-col>
     
+      <ion-col></ion-col>
  
 
   

@@ -4,6 +4,7 @@ import { PedidosResponse } from '../../models/pedidos/pedidos.response';
 import { EstadisticaResponse } from '../../models/pedidos/estadistica.response';
 import { DespachoResponse } from '../../models/despacho/despacho.response';
 import { PedidosRequest } from '../../models/pedidos/pedidos.request';
+import { TrazabilidadResponse } from '../../models/trazabilidad/trazabilidad.response';
 
 @Injectable({
   providedIn: 'root'
@@ -13,22 +14,29 @@ export class PedidosService {
   pedido: PedidosRequest
   constructor(private userService: UserService) { }
 
-  obtenerMisPedidos(id){
+  obtenerMisPedidos(id) {
     this.pedido = new PedidosRequest(id);
-    let json = JSON.stringify( this.pedido )
-    let params = 'json=' + json ;
+    let json = JSON.stringify(this.pedido)
+    let params = 'json=' + json;
     console.log(params)
     return this.userService
-        .ejecutarQueryPost<PedidosResponse>('/api/movil/pedidosusuario',  params)
+      .ejecutarQueryPost<PedidosResponse>('/api/movil/pedidosusuario', params)
   }
 
-  obtenerMisDespachos(){
+  obtenerMisDespachos() {
     return this.userService
-        .ejecutarQuery<DespachoResponse>('/api/movil/despachos')
+      .ejecutarQuery<DespachoResponse>('/api/movil/despachos')
   }
 
-  obtenerEstadistica(){
+  obtenerEstadistica() {
     return this.userService
-        .ejecutarQuery<EstadisticaResponse>('/api/estadistica/usuario')
+      .ejecutarQuery<EstadisticaResponse>('/api/estadistica/usuario')
+  }
+
+  obtenerTrazabilidad(id) {
+    return this.userService
+      .ejecutarQuery<TrazabilidadResponse>('/api/Distribucion/' + id)
+
+
   }
 }
