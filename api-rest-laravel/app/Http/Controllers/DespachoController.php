@@ -227,4 +227,51 @@ class DespachoController extends Controller
 
         return response()->json($data, $data['code']);
     }
+
+    public function despachosByToken(Request $request)
+    {
+        $token = $request->header('Authorization');
+        //aca
+        $jwtAuth = new \JwtAuth();
+        $checktoken = $jwtAuth->checkToken($token);
+        $json = $request->input('json', null);
+        $params = json_decode($json); //objeto
+        $params_array = json_decode($json, true); // array
+        if ($checktoken)
+        {
+            // recoger los datos por post / get
+            $user = $jwtAuth->checkToken($token, true);
+
+
+         
+            $despachos = \DB::table('despachos')
+            ->join('pedidos', 'despachos.id', '=', 'pedidos.id_despacho')
+
+            ->join('fincas', 'pedidos.id_finca', '=', 'fincas.id')
+            ->join('users', 'users.id', '=', 'fincas.user_id')
+            ->where('users.id', '=',  $user->sub)
+            ->select(
+                'despachos.id', 
+                'despachos.fecha_salida'
+                )
+            ->distinct('id')
+            ->orderBy('fecha_salida', 'desc')
+            ->get();
+         
+            $data = array(
+                'code' => 200,
+                'status' => 'success',
+                'despachos' => $despachos
+            );
+        }
+        else
+        {
+            $data = array(
+                'code' => 200,
+                'status' => 'error',
+                'message' => 'Usuario no identificado'
+            );
+        }
+        return response()->json($data, $data['code']);
+    }
 }

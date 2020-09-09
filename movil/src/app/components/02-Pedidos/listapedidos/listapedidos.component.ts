@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { PedidosService } from '../../../services/pedidos/pedidos.service';
 import { Pedido } from '../../../models/pedidos/pedidos.response';
 import { ModalController } from '@ionic/angular';
@@ -11,6 +11,7 @@ import { VerfacturaComponent } from '../verfactura/verfactura.component';
 })
 export class ListapedidosComponent implements OnInit {
 
+  @Input() idDespacho : any;
   pedidos: Pedido[]= []
   constructor(
     private servicio : PedidosService,
@@ -33,7 +34,7 @@ export class ListapedidosComponent implements OnInit {
  
  
   traerPedidos(){
-    this.servicio.obtenerMisPedidos().subscribe(
+    this.servicio.obtenerMisPedidos(this.idDespacho).subscribe(
       OK => {
         this.pedidos = []
         this.pedidos.push(...OK.pedidos)

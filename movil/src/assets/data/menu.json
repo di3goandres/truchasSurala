@@ -11,8 +11,8 @@
     },
     {
       "icon": "archive-outline",
-      "name": "Pedidos",
-      "redirectTo": "/pedidos"
+      "name": "Despachos",
+      "redirectTo": "/despachos"
     },
     {
       "icon": "book-outline",

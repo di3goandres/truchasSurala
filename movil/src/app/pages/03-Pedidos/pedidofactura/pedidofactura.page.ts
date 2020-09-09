@@ -25,11 +25,6 @@ export class PedidofacturaPage implements OnInit {
       params => {
         this.nombre = params.nombrefactura;
         this.idPedido = params.idPedido;
-
-        console.log(this.nombre)
-
-       
-
       }
     );
   }

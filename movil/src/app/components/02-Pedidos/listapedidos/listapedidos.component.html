@@ -46,14 +46,14 @@
       </div>
       <div class="col-4">
         <ion-label>
-          Reposición: {{pedido.adicional| number}}
+          Reposición: {{pedido.reposicion| number}}
         </ion-label>
       </div>
-      <div class="col-4">
+      <div class="col-4" *ngIf="pedido.nombre_factura!='pendiente'">
         <ion-label>
           Factura:  Ver {{pedido.nombre_factura}}
            <ion-button [routerLink]="'/pedidofactura/'+pedido.id+'/'+pedido.nombre_factura" expand="block" fill="clear" shape="round">
-           ver
+            <ion-icon name="cash-outline"></ion-icon>
           </ion-button>
         </ion-label>
       

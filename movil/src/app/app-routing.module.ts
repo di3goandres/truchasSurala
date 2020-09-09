@@ -18,13 +18,7 @@ const routes: Routes = [
     canLoad: [UsuarioGuard],
     canActivate:  [UsuarioGuard]
   },
-  {
-    path: 'pedidos',
-    loadChildren: () => import('./pages/03-Pedidos/pedidos/pedidos.module').then( m => m.PedidosPageModule),
-    canLoad: [UsuarioGuard],
-    canActivate:  [UsuarioGuard]
 
-  },
   {
     path: 'home',
     loadChildren: () => import('./pages/00-Home/home/home.module').then( m => m.HomePageModule),
@@ -48,6 +42,17 @@ const routes: Routes = [
     loadChildren: () => import('./pages/03-Pedidos/pedidofactura/pedidofactura.module').then( m => m.PedidofacturaPageModule),
     canLoad: [UsuarioGuard],
     canActivate:  [UsuarioGuard]
+  },
+  {
+    path: 'pedidos/:id',
+    loadChildren: () => import('./pages/03-Pedidos/pedidos/pedidos.module').then( m => m.PedidosPageModule),
+    canLoad: [UsuarioGuard],
+    canActivate:  [UsuarioGuard]
+
+  },
+  {
+    path: 'despachos',
+    loadChildren: () => import('./pages/03-Pedidos/despachos/despachos.module').then( m => m.DespachosPageModule)
   }
 ];
 

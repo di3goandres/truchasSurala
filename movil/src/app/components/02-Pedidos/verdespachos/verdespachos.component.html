@@ -1,0 +1,33 @@
+<ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+  <ion-refresher-content pullingIcon="chevron-down-circle-outline" pullingText="Pull to refresh"
+    refreshingSpinner="circles" refreshingText="Refreshing...">
+  </ion-refresher-content>
+</ion-refresher>
+<ion-buttons>
+  <ion-buttons slot="start">
+
+  </ion-buttons>
+</ion-buttons>
+<ion-card *ngFor="let despacho of despachos">
+  <ion-card-header>
+    <ion-card-title>
+      <ion-icon name="cart-outline"></ion-icon>{{despacho.fecha_salida| date: "MMM/dd/yyyy" | uppercase}}
+    </ion-card-title>
+    <ion-card-subtitle></ion-card-subtitle>
+
+    <!-- <ion-img src="https://cdn.needish.tools/is-prod-deals/ZTT2WXf38Do4jIh3HLdzGg/scale/900x600.jpg"></ion-img> -->
+  </ion-card-header>
+  <ion-card-content>
+
+    <p>Estado de llegada: LLegaron a tiempo</p>
+    <p>Dias Retraso de llegada: 0 días, a tiempo</p>
+    <p>Temperatura de llegada: 3°C</p>
+
+    <ion-button [routerLink]="'/pedidos/'+despacho.id" expand="block" fill="clear"
+      shape="round">
+
+      Ver Pedidos
+    </ion-button>
+
+  </ion-card-content>
+</ion-card>

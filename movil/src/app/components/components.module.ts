@@ -11,6 +11,7 @@ import { VerfacturaComponent } from './02-Pedidos/verfactura/verfactura.componen
 import { PdfViewerModule } from 'ng2-pdf-viewer';
 import { EstadisticaComponent } from './03-Estadistica/estadistica/estadistica.component';
 import { NgxChartsModule } from '@swimlane/ngx-charts'
+import { VerdespachosComponent } from './02-Pedidos/verdespachos/verdespachos.component';
 
 
 
@@ -22,7 +23,8 @@ import { NgxChartsModule } from '@swimlane/ngx-charts'
     ListafincasComponent,
     ListapedidosComponent,
     VerfacturaComponent,
-    EstadisticaComponent
+    EstadisticaComponent,
+    VerdespachosComponent
 
 
   ],
@@ -41,7 +43,8 @@ import { NgxChartsModule } from '@swimlane/ngx-charts'
     ListafincasComponent,
     ListapedidosComponent,
     VerfacturaComponent,
-    EstadisticaComponent
+    EstadisticaComponent,
+    VerdespachosComponent
 
 
   ]

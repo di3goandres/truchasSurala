@@ -369,7 +369,7 @@ class PedidosController extends Controller
         return response()->json($data, $data['code']);
     }
 
-    public function EliminarPedido( $id, $borrar)
+    public function EliminarPedido($id, $borrar)
     {
         //recoger los datos por post 
         // $json = $request->input('json', null);
@@ -445,7 +445,7 @@ class PedidosController extends Controller
             $pedido->save();
             //borrar el pedido ya que no tiene trazabilidades
 
-            if ($borrar== "true") {
+            if ($borrar == "true") {
 
                 $pedido->delete();
                 $data = array(
@@ -454,19 +454,19 @@ class PedidosController extends Controller
                     'message' => 'BORRADO  PEDIDO EXITOSO',
 
                 );
-            }else{
+            } else {
                 $data = array(
                     'status' => 'OK',
                     'code' => 200,
                     'message' => 'BORRADO DE TRAZABILIDAD EXITOSO',
-                    
+
                 );
             }
 
 
 
 
-            
+
 
 
             // borrar pedido
@@ -503,41 +503,45 @@ class PedidosController extends Controller
         $json = $request->input('json', null);
         $params = json_decode($json); //objeto
         $params_array = json_decode($json, true); // array
-        if ($checktoken)
-        {
+        if ($checktoken) {
             // recoger los datos por post / get
             $user = $jwtAuth->checkToken($token, true);
 
+            // var_dump($params->id);
+            // die();
 
-         
+
             $pedidos = \DB::table('pedidos')
-            ->join('despachos', 'despachos.id', '=', 'pedidos.id_despacho')
+                ->join('despachos', 'despachos.id', '=', 'pedidos.id_despacho')
 
-            ->join('fincas', 'pedidos.id_finca', '=', 'fincas.id')
-            ->join('users', 'users.id', '=', 'fincas.user_id')
-            ->where('users.id', '=',  $user->sub)
-            ->select(
-                'pedidos.id', 
+                ->join('fincas', 'pedidos.id_finca', '=', 'fincas.id')
+                ->join('users', 'users.id', '=', 'fincas.user_id')
+                ->where([
+                    ['users.id', '=',  $user->sub],
+                    ['despachos.id', '=', $params_array['id']]
+                ])
+                ->select(
+                    'pedidos.id',
+                    'pedidos.pedido',
+                    'pedidos.porcentaje',
+                    'pedidos.adicional',
+                    'pedidos.reposicion',
+                    'pedidos.total',
+                    'pedidos.nombre_factura',
+                    'despachos.fecha_salida',
+                    'fincas.nombre',
+                    'fincas.municipio',
+                    'fincas.departamento'
+                )
 
-                'pedidos.pedido', 
-                'pedidos.porcentaje', 
-                'pedidos.adicional', 
-                'pedidos.reposicion', 
-                'pedidos.total', 
-                'pedidos.nombre_factura', 
+                ->get();
 
-
-                'despachos.fecha_salida', 'fincas.nombre', 'fincas.municipio', 'fincas.departamento')
-            ->get();
-         
             $data = array(
                 'code' => 200,
                 'status' => 'success',
                 'pedidos' => $pedidos
             );
-        }
-        else
-        {
+        } else {
             $data = array(
                 'code' => 200,
                 'status' => 'error',
@@ -556,23 +560,20 @@ class PedidosController extends Controller
         $json = $request->input('json', null);
         $params = json_decode($json); //objeto
         $params_array = json_decode($json, true); // array
-        if ($checktoken)
-        {
+        if ($checktoken) {
             // recoger los datos por post / get
             $user = $jwtAuth->checkToken($token, true);
 
             $estadistica = \DB::select('call EstadisticaByUser(?)', array($user->sub));
 
-           
-         
+
+
             $data = array(
                 'code' => 200,
                 'status' => 'success',
                 'datos' => $estadistica
             );
-        }
-        else
-        {
+        } else {
             $data = array(
                 'code' => 200,
                 'status' => 'error',
