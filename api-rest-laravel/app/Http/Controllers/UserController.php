@@ -11,11 +11,10 @@ use App\Pedidos;
 class UserController extends Controller
 {
 
-    public function pruebas(Request $request)
+    public function __construct()
     {
-        return "Accion de pruebas de user controller";
+        $this->middleware('api.auth', ['except' => ['getpdf', 'login']]);
     }
-
 
     public function register(Request $request)
     {
@@ -277,7 +276,6 @@ class UserController extends Controller
             if ($isset) {
                 $file = \Storage::disk('users')->get($usuario[0]->numero_identificacion . '\\Facturas\\' . $pedido->id . '\\' . $filename);
                 return new Response($file, 200, $headers);
-             
             } else {
                 $data = array(
                     'code' => 200,
@@ -319,7 +317,7 @@ class UserController extends Controller
             $pedido = Pedidos::find($idPedido);
 
             if (is_object($pedido)) {
-               
+
                 $usuario = \DB::table('users')
                     ->join('fincas', 'fincas.user_id', '=', 'users.id')
 
@@ -528,6 +526,77 @@ class UserController extends Controller
                 'message' => 'Usuario no identificado'
             );
         }
+        return response()->json($data, $data['code']);
+    }
+
+
+    public function asociarFinca(Request $request)
+    {
+        // Se envia un Json recibimos un json 
+        // recoger los datos del usuario por post
+        $json = $request->input('json', null);
+
+
+        $params = json_decode($json); //objeto
+        $params_array = json_decode($json, true); // array
+
+        if (!empty($params) && !empty($params_array)) {
+            //limpiar datos
+            // $params_array = array_map('trim', $params_array);
+            // validar datos
+            $validate = \Validator::make($params_array, [
+                'id' => 'required',
+                'Fincas' => 'required|array|min:1'
+
+            ]);
+            if ($validate->fails()) {
+                $data = array(
+                    'status' => 'error',
+                    'code' => 200,
+                    'message' => 'No se ha agregado',
+                    'errors' => $validate->errors()
+                );
+            } else {
+
+
+                $user = User::find($params->id);
+                if (is_object($user)) {
+                    foreach ($params->Fincas as $finca) {
+                        $fincasave = new Fincas();
+                        $fincasave->user_id = $user->id;
+                        $fincasave->nombre = $finca->nombre;
+                        $fincasave->id_municipio = $finca->municipio;
+                        $fincasave->direccion = $finca->direccion;
+                        $fincasave->municipio = $finca->NombreMunicipio;
+                        $fincasave->departamento = $finca->NombreDepartamento;
+                        $fincasave->save();
+                    }
+
+                    $data = array(
+                        'status' => 'success',
+                        'code' => 200,
+                        'message' => 'Se agregaron correctamente',
+
+
+                    );
+                } else {
+                    $data = array(
+                        'status' => 'error',
+                        'code' => 200,
+                        'message' => 'No se ha agregado',
+                        'errors' => $validate->errors(),
+                    );
+                }
+            }
+        } else {
+            $data = array(
+                'status' => 'error',
+                'code' => 200,
+                'message' => 'Los datos enviados no son correctos',
+
+            );
+        }
+
         return response()->json($data, $data['code']);
     }
 }

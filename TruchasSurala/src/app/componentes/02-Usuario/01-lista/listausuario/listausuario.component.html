@@ -1,4 +1,4 @@
-<div class="container alternate-theme">
+<div class="container alternate-theme" style="max-width: 1450px;">
   <mat-horizontal-stepper [linear]="false">
     <mat-step>
       <ng-template matStepLabel>Usuarios</ng-template>
@@ -59,6 +59,17 @@
                 <button mat-raised-button id="logout-button" class="btn btn-primary btn-block" style="width:50%"
                   color="primary" (click)="openBandejas(element.id)">
                   <mat-icon>local_florist</mat-icon>
+                </button>
+              </td>
+
+            </ng-container>
+
+            <ng-container matColumnDef="asociar">
+              <th mat-header-cell *matHeaderCellDef > Asociar fincas</th>
+              <td mat-cell mat-cell *matCellDef="let element">
+                <button mat-raised-button id="logout-button" class="btn btn-primary btn-block" style="width:50%"
+                  color="primary" (click)="openAsociarFincas(element.id)">
+                  <mat-icon>playlist_add</mat-icon>
                 </button>
               </td>
 

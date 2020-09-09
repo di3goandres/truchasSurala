@@ -15,10 +15,10 @@ use App\BandejasLotes;
 class PedidosController extends Controller
 {
 
-    // public function __construct()
-    // {
-    //     $this->middleware('api.auth', ['except' => ['index', 'show']]);
-    // }
+    public function __construct()
+    {
+        $this->middleware('api.auth', ['except' => ['index', 'show']]);
+    }
 
     public function index()
     {

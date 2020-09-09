@@ -65,6 +65,7 @@ Route::post('/api/user/resetadmin', 'UserController@resetPasswordByAdmin');
 
 // Routes of Controller     Fincas
 Route::get('/api/users/fincasget/{id}', 'FincasController@getFincasByUser');
+Route::post('/api/user/addfincas', 'UserController@asociarFinca');
 
 
 Route::post('/api/fincas/update/', 'FincasController@ActualizarFinca');

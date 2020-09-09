@@ -7,6 +7,7 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ListafincasComponent } from '../../03-Fincas/listafincas/listafincas.component';
 import { PasswordComponent } from '../../04-update/password/password.component';
 import { MatSort } from '@angular/material/sort';
+import { AsociarfincaComponent } from '../../03-Fincas/asociarfinca/asociarfinca.component';
 
 
 @Component({
@@ -22,7 +23,7 @@ export class ListausuarioComponent implements OnInit {
     private changeDetectorRefs: ChangeDetectorRef
     ) { }
   displayedColumns: string[] = ['position','numero_identificacion', 'name', 'surname',
-  'email', 'Actualizar', 'ver'];
+  'email', 'Actualizar', 'ver', 'asociar'];
 
   public dataSource: MatTableDataSource<Usuario>;
 
@@ -67,6 +68,22 @@ export class ListausuarioComponent implements OnInit {
   openBandejas(id){
 
     const modalRef = this.modalService.open(ListafincasComponent, {size: 'lg'});
+    modalRef.componentInstance.UserId = id
+    modalRef.result.then((result) => {
+  
+      console.log('result', result);
+    }, (reason) => {
+      // this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+      if (reason === 'OK') {
+     
+       
+      }
+    });
+  }
+
+  openAsociarFincas(id){
+
+    const modalRef = this.modalService.open(AsociarfincaComponent, {size: 'lg'});
     modalRef.componentInstance.UserId = id
     modalRef.result.then((result) => {
   

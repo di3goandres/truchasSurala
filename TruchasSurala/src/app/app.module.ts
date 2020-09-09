@@ -84,6 +84,7 @@ import { AsociarfacturaComponent } from './componentes/06-Pedidos/asociarfactura
 import { PdfViewerModule } from 'ng2-pdf-viewer';
 import { ListapedidosfacturaComponent } from './componentes/06-Pedidos/listapedidosfactura/listapedidosfactura.component';
 import { ListadespachosfacturaComponent } from './componentes/06-Pedidos/listadespachosfactura/listadespachosfactura.component';
+import { AsociarfincaComponent } from './componentes/02-Usuario/03-Fincas/asociarfinca/asociarfinca.component';
 
 
 registerLocaleData(localCo);
@@ -118,7 +119,10 @@ registerLocaleData(localCo);
     FincaupdateComponent,
     DistribuciongloballistComponent, CantidaddespachadoComponent, CreardespachoComponent,
     RegistroExitosoComponent, VerlistardespachosComponent, EditardespachoComponent, ListapedidosComponent,
-    CrearpedidosComponent, ListausuariosComponent, EditarpedidoComponent, BorrarpedidoComponent, AsociarfacturaComponent, ListapedidosfacturaComponent, ListadespachosfacturaComponent
+    CrearpedidosComponent, ListausuariosComponent,
+     EditarpedidoComponent, BorrarpedidoComponent,
+      AsociarfacturaComponent, ListapedidosfacturaComponent, 
+    ListadespachosfacturaComponent, AsociarfincaComponent
 
 
   ],
