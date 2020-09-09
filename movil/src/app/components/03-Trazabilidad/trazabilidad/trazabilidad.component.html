@@ -17,9 +17,12 @@
           </ion-button>
         </ion-col>
         <ion-col>
-      
+
           <ion-label>Entrega {{contacto.FechaEntrega.replace(' 00:00:00', '') }}</ion-label>
         </ion-col>
+      
+      </ion-row>
+      <ion-row>
         <ion-col>
           <ion-button>
             <ion-icon name="egg"></ion-icon>
@@ -29,6 +32,10 @@
         <ion-col>
           <ion-label>Para Tí, {{contacto.Cliente | uppercase}}</ion-label>
         </ion-col>
+       
+
+      </ion-row>
+      <ion-row>
         <ion-col>
           <ion-button>
             <ion-icon name="egg"></ion-icon>
@@ -39,66 +46,94 @@
         <ion-col>
           <ion-label> {{contacto.Destino | uppercase}}</ion-label>
         </ion-col>
+     
+
       </ion-row>
-    </ion-grid>
 
-
-
-    <ion-grid>
       <ion-row>
         <ion-col>
           <ion-button>
             <ion-icon name="egg"></ion-icon>
+
             <ion-icon name="analytics-outline"></ion-icon>
           </ion-button>
-        
+        </ion-col>
+        <ion-col>
           <ion-label>TRAZABILIDAD DEL LOTE</ion-label>
         </ion-col>
+      
       </ion-row>
-    </ion-grid>
 
-
-    <ion-grid>
       <ion-row>
         <ion-col>
-          <ion-label># LOTE: {{Lote}}</ion-label>
+          <ion-button>
+            <ion-icon name="egg"></ion-icon>
+            <ion-icon name="albums"></ion-icon>
+          </ion-button>
         </ion-col>
         <ion-col>
-          <ion-label>FECHA DESOVE {{Fecha}}</ion-label>
+          <ion-label>{{Lote}}</ion-label>
+        </ion-col>
+        <ion-col>
+          <ion-button>
+            <ion-icon name="egg"></ion-icon>
+            <ion-icon name="calendar-outline"></ion-icon>
+          </ion-button>
+        </ion-col>
+        <ion-col>
+          <ion-label> DESOVE {{Fecha}}</ion-label>
         </ion-col>
       </ion-row>
       <ion-row>
-
         <ion-col>
-          <ion-label>LINEA GENETICA {{lineaGenetica}}</ion-label>
+          <ion-button>
+            <ion-icon name="egg"></ion-icon>
+            <ion-icon name="git-merge"></ion-icon>
+          </ion-button>
         </ion-col>
         <ion-col>
-          <ion-label>EDAD (TCU) {{edad}}</ion-label>
+          <ion-label>{{lineaGenetica}}</ion-label>
+        </ion-col>
+        <ion-col>
+          <ion-button>
+            <ion-icon name="egg"></ion-icon>
+            <ion-icon name="hourglass"></ion-icon>
+
+          </ion-button>
+        </ion-col>
+        <ion-col>
+          <ion-label> (TCU) {{edad}}</ion-label>
         </ion-col>
       </ion-row>
       <ion-row>
-
         <ion-col>
-          <ion-label>TAMAÑO OVA (mm) {{Tamanio}}</ion-label>
+          <ion-button>
+            <ion-icon name="egg"></ion-icon>
+            <ion-icon name="resize"></ion-icon>
+
+          </ion-button>
+        </ion-col>
+        <ion-col>
+          <ion-label>(mm) {{Tamanio}}</ion-label>
+        </ion-col>
+        <ion-col>
+          <ion-button>
+            <ion-icon name="egg"></ion-icon>
+            <ion-icon name="beaker"></ion-icon>
+
+          </ion-button>
         </ion-col>
         <ion-col>
           <ion-label>OVAS/ml {{ovas_ml}}</ion-label>
         </ion-col>
       </ion-row>
-    </ion-grid>
 
-
-
-
-    <ion-grid>
       <ion-row>
         <ion-col>
           <ion-label>INFORMACIÓN DEL DESPACHO</ion-label>
         </ion-col>
       </ion-row>
-    </ion-grid>
 
-    <ion-grid>
       <ion-row>
         <ion-col>
           <ion-button>
@@ -109,6 +144,9 @@
         <ion-col>
           <ion-label>FACTURADAS {{contacto.Facturado | number}}</ion-label>
         </ion-col>
+      </ion-row>
+
+      <ion-row>
         <ion-col>
           <ion-button>
             <ion-icon name="egg"></ion-icon>
@@ -130,6 +168,9 @@
         <ion-col>
           <ion-label>REPOSICION {{contacto.Reposicion | number}}</ion-label>
         </ion-col>
+      </ion-row>
+
+      <ion-row>
         <ion-col>
           <ion-button>
             <ion-icon name="egg"></ion-icon>
@@ -141,17 +182,14 @@
         </ion-col>
       </ion-row>
 
-    </ion-grid>
 
-
-    <ion-grid>
-      <ion-row *ngFor="let actual of [0,1,2,3]">
-        <ion-col *ngFor="let item of bandejasMostrar.slice(3*actual, 3 + (3*actual)) ">
+      <ion-row *ngFor="let actual of [0,1,2,3,4,5]">
+        <ion-col *ngFor="let item of bandejasMostrar.slice(2*actual, 2 + (2*actual)) ">
           <ion-card class="ion-card-bandeja">
             <ion-card-header>
               <ion-card-title>
-                <ion-icon name="file-tray-stacked-outline"></ion-icon> # {{item.caja_numero}}
-               
+                <ion-icon name="file-tray-stacked-outline" color="primary"></ion-icon> # {{item.caja_numero}}
+
               </ion-card-title>
             </ion-card-header>
             <ion-card-content>
@@ -166,35 +204,6 @@
       </ion-row>
     </ion-grid>
 
-
-
-    <!-- 
-        <ion-label>BANDEJA #</ion-label>
-
-        <ion-label># DE OVAS</ion-label>
-
-
-        <div class="row" *ngFor="let item of bandejasMostrar; let i = index">
-          <div class="col-6 text-center"></div>
-          <ion-label>#{{i +1}}</ion-label>
-
-          <ion-label *ngIf="item.Cantidad=='HIELO'">{{item.Cantidad}}</ion-label>
-          <ion-label *ngIf="item.Cantidad=='BANDEJA VACIA'">{{item.Cantidad}}</ion-label>
-          <ion-label *ngIf="item.Cantidad!='BANDEJA VACIA' && item.Cantidad!='HIELO' ">{{item.Cantidad | number}}
-          </ion-label>
-
-
-
-
-
-          <ion-label>TOTAL OVAS EN ESTA CAJA</ion-label>
-
-          <ion-label>{{contacto.Total_enviado | number}}</ion-label>
-
-        </div>
-      </div>
-
-    </div> -->
 
   </ion-card-content>
 
