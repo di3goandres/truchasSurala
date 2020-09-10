@@ -336,7 +336,6 @@ class TrazabilidadController extends Controller
                             $bagrupada[$tnum]['edad'] = $lote->edad_tcu;
                             $bagrupada[$tnum]['tamanio'] = $lote->tamanio;
                             $bagrupada[$tnum]['ovas_ml'] = $lote->ovas_ml;
-                         
                         }
                     }
                     $tnum += 1;
@@ -432,8 +431,9 @@ class TrazabilidadController extends Controller
                 );
             } else {
 
-                $pedido = Pedidos::find($params_array['id_pedido']);
+                 $pedido = Pedidos::find($params_array['id_pedido']);
                 if (!is_object($pedido)) {
+                // if (false) {
                     $data = array(
                         'code' => 200,
                         'status' => 'error'
@@ -447,11 +447,11 @@ class TrazabilidadController extends Controller
                     $porMaximo =  $params_array['por_maximo'];
                     $porNumero =  $params_array['numero_bandejas_por_trazabilidad'];
 
-
+                    //esto se tiene que desmarcar nuevamentea
                     $maximoLote = Lotes::where('id_despacho', '=', $pedido->id_despacho)->max('total_lote');
 
                     $propia = Fincas::find($pedido->id_finca);
-
+                    //hasta aca
 
                     /* 
                         Organizar las bandejas por # de lote y cantidad, dejando
@@ -467,6 +467,7 @@ class TrazabilidadController extends Controller
                     $bandejas = collect($bandejas)->sortBy('cantidad')->reverse()->toArray();
 
                     $maximoporBandeja = max(array_column($bandejas, 'cantidad'));
+                 
                     $uniqueIDs = array();
                     foreach ($bandejas as $bandeja) {
                         if (!in_array($bandeja['id_lote'], $uniqueIDs)) {
@@ -497,20 +498,23 @@ class TrazabilidadController extends Controller
 
                     foreach ($conteoPorbandeja as $conteo) {
                         foreach ($bandejas as $bandeja) {
-                            if ($conteo['id'] === $bandeja['id_lote'] &&  $maximoporBandeja === $bandeja['cantidad'])  {
+                            if ($conteo['id'] === $bandeja['id_lote'] &&  $maximoporBandeja === $bandeja['cantidad']) {
+                              
+                             
                                 $bandejasOrganizadas[] =  $bandeja;
                                 $posicionBandeja += 1;
-                            }else{
+                            } else   if ($conteo['id'] === $bandeja['id_lote'] &&  $maximoporBandeja !== $bandeja['cantidad']) {
+                               
                                 $bandejasCola[] = $bandeja;
                             }
-
-                            
                         }
                     }
 
+
+
                     $bandejasCola = collect($bandejasCola)->sortBy('cantidad')->reverse()->toArray();
 
-                    foreach($bandejasCola  as $cola){
+                    foreach ($bandejasCola  as $cola) {
                         $bandejasOrganizadas[] =  $cola;
                     }
 
@@ -526,13 +530,13 @@ class TrazabilidadController extends Controller
                     // $cantidadBandejas = count($bandejas);
                     // $noContar = false;
                     // foreach ($bandejas as $bandeja) {
-                    $conteo = 0;    
+                    $conteo = 0;
                     foreach ($bandejasOrganizadas as $bandeja) {
 
                         $cantidad = 0;
                         $cantidad = $bandeja['cantidad'];
                         $id = $bandeja['id_bandeja_lote'];
-                       
+
                         $cantidadGuardada = $cantidadGuardada + $cantidad;
                         ////Guardar trazabilidad
                         if ($conteo == 0) {
@@ -562,7 +566,7 @@ class TrazabilidadController extends Controller
                             }
                         }
                         $conteo = $conteo  + 1;
-                      
+
                         $tbandeja = new TrazabilidadBandeja();
                         $tbandeja->id_bandeja_lote = $id;
                         $tbandeja->id_trazabilidad = $idTraza;
