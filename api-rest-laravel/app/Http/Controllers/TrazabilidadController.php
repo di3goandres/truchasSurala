@@ -514,7 +514,7 @@ class TrazabilidadController extends Controller
                     // $noContar = false;
                     // foreach ($bandejas as $bandeja) {
                     $conteo = 0;    
-                    foreach ($conteoPorbandeja as $bandeja) {
+                    foreach ($bandejasOrganizadas as $bandeja) {
 
                         $cantidad = 0;
                         $cantidad = $bandeja['cantidad'];
