@@ -45,7 +45,10 @@ export class TrazabilidadComponent implements OnInit {
     this.bandejasMostrar.push(new InfoDespachoMostrar("HIELO", "1", "1"))
     let conteo = 1;
 
-    this.bandejas.sort((a, b) => b.Cantidad - a.Cantidad)
+ 
+    this.bandejas = this.bandejas.sort((a,b) => (a.Cantidad > b.Cantidad) ? 1 : ((b.Cantidad > a.Cantidad) ? -1 : 0)); 
+
+
     let agrego = false;
     let ultimohielo = false;
 

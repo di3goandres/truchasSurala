@@ -1,5 +1,8 @@
 export interface PedidoUnico {
   id: number;
+  usuario: string;
+  finca: string;
+
   id_despacho: number;
   id_finca: number;
   pedido: number;

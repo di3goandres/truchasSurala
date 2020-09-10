@@ -26,6 +26,8 @@ export class Pedido {
   updated_at: string;
   nombre: string;
   usuario: string;
+ 
+  finca: string;
   nombre_factura: string;
 
   despacho: Despacho;

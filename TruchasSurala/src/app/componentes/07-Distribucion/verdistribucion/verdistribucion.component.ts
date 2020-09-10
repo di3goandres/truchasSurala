@@ -5,9 +5,9 @@ import { BandejaDistribucion, Grupocaja } from '../../../models/datosDistribucio
 import { PedidoUnico } from '../../../models/pedido';
 import { UserService } from '../../../service/user/user.service';
 import { ActivatedRoute, Router } from '@angular/router';
-import { CreardistribucionComponent } from '../../distribucion/creardistribucion/creardistribucion.component';
 import { NestedTreeControl } from '@angular/cdk/tree';
 import { RegistroExitosoComponent } from '../../01-Comunes/registro-exitoso/registro-exitoso.component';
+import { DistribucioncrearComponent } from '../distribucioncrear/distribucioncrear.component';
 
 @Component({
   selector: 'app-verdistribucion',
@@ -57,9 +57,9 @@ export class VerdistribucionComponent implements OnInit {
     this.mostrar = false;
     //este es el id del pedido
     this.id = this.route.snapshot.paramMap.get('id');
+    this.obtenerPedido();
 
     this.obtenerListaDistribucion();
-    this.obtenerPedido();
   }
 
   // tslint:disable-next-line: typedef
@@ -72,7 +72,8 @@ export class VerdistribucionComponent implements OnInit {
 
         if (response.status !== 'error') {
           this.pedido = response.pedido;
-          if (!this.pedido.genero_trazabilidad) {
+         
+          if (this.pedido.genero_trazabilidad == 0) {
             this.obtenerDatos();
 
           }
@@ -117,14 +118,11 @@ export class VerdistribucionComponent implements OnInit {
     this.userService.getDistribucion(this.id).subscribe(
       response => {
 
-
-        console.log('En lista', response);
-
         if (response.status !== 'error') {
           this.distribuciones = response
 
           if (this.distribuciones.distribucion.length > 0) { this.calcularCajas() }
-          console.log('Distribuciones', this.distribuciones)
+
         }
 
 
@@ -145,7 +143,6 @@ export class VerdistribucionComponent implements OnInit {
 
 
 
-          console.log('cajas', this.cajas)
 
 
 
@@ -168,7 +165,7 @@ export class VerdistribucionComponent implements OnInit {
   }
   open(): void {
     const modalRef = this.modalService
-      .open(CreardistribucionComponent, { size: 'lg', backdrop: 'static' });
+      .open(DistribucioncrearComponent, { size: 'lg', backdrop: 'static' });
     modalRef.componentInstance.pedido = this.pedido;
     modalRef.componentInstance.bandeja = this.bandeja;
     modalRef.componentInstance.cajas = this.cajas;
@@ -178,12 +175,13 @@ export class VerdistribucionComponent implements OnInit {
 
       if (response.status == 'success') {
         this.openExitoso()
+        this.pedido.genero_trazabilidad = 1;
         this.obtenerListaDistribucion();
 
         modalRef.close();
       }
     });
-   
+
   }
 
   private getDismissReason(reason: any): string {

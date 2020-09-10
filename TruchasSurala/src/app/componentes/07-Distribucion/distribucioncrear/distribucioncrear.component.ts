@@ -1,19 +1,21 @@
-import { DistribucionGuardar } from './../../../models/distribucion.guardar';
-import { DistribucionClass } from './../../../models/distribucion';
-import { Pedido } from './../../../models/pedidos';
-import { CajaDistribucion, BandejaDistribucion, } from './../../../models/datosDistribucion';
-import { Component, OnInit, Input, ChangeDetectorRef, Output, EventEmitter } from '@angular/core';
-import { Grupocaja } from '../../../models/datosDistribucion';
-import { BandejaGuardar } from '../../../models/distribucion.guardar';
+import { Component, OnInit, Input, Output, EventEmitter, ChangeDetectorRef } from '@angular/core';
+import { DistribucionClass } from '../../../models/distribucion';
+import { Grupocaja, BandejaDistribucion, CajaDistribucion } from '../../../models/datosDistribucion';
+import { DistribucionGuardar, BandejaGuardar } from '../../../models/distribucion.guardar';
+import { Pedido } from '../../../models/pedidos';
 import { UserService } from '../../../service/user/user.service';
+import { PedidoUnico } from '../../../models/pedido';
+import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 
 
 @Component({
-  selector: 'app-creardistribucion',
-  templateUrl: './creardistribucion.component.html',
-  styleUrls: ['./creardistribucion.component.css']
+  selector: 'app-distribucioncrear',
+  templateUrl: './distribucioncrear.component.html',
+  styleUrls: ['./distribucioncrear.component.css']
 })
-export class CreardistribucionComponent implements OnInit {
+export class DistribucioncrearComponent implements OnInit {
+
+
 
   @Input() cajas: Grupocaja[] = [];
   @Input() bandeja: BandejaDistribucion[] = [];
@@ -44,7 +46,9 @@ export class CreardistribucionComponent implements OnInit {
   title: string;
   constructor(
     private userService: UserService,
-    private cdRef: ChangeDetectorRef
+  
+    public activeModal: NgbActiveModal
+
 
   ) { }
   // ngAfterViewChecked()
@@ -55,7 +59,11 @@ export class CreardistribucionComponent implements OnInit {
   // }
   ngOnInit() {
 
+    console.log(this.pedido)
 
+  }
+  salir(){
+this.activeModal.close('ok')
   }
   mostrar(value) {
     this.porMaximo = value;
@@ -291,5 +299,6 @@ export class CreardistribucionComponent implements OnInit {
     }
     return returnedClass;
   }
+
 
 }

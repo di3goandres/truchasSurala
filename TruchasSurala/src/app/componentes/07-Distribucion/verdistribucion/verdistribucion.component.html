@@ -8,6 +8,18 @@
         <mat-card-content>
           <div class="container">
             <div class="row">
+                <div class="col-4">
+                    <label>Usuario => {{pedido.usuario |uppercase}}</label>
+                  </div>
+                <div class="col-4">
+                  <label>Finca => {{pedido.finca |uppercase }}</label>
+                </div>
+                
+                <div class="col-4">
+                  <label></label>
+                </div>
+              </div>
+            <div class="row">
               <div class="col">
                 <label>Pedido => {{pedido.pedido | number}}</label>
               </div>
@@ -33,36 +45,39 @@
           </div>
   
           <br>
+          <mat-card-actions>
+            <div class="row" style="align-content: center;margin: auto;">
+                <div class="col-4"></div>
+          
+                <div class="col-6">
+                  <div *ngIf="!pedido.genero_trazabilidad && cajas.length>0">
+          
+                    <button mat-raised-button id="logout-button" class="btn btn-primary btn-block" style="width:50%"
+                      (click)="open()"><span class="material-icons">
+                        assignment_returned
+                        </span></button>
+                  </div>
+          
+          
+                </div>
+                <div class="col-3"></div>
+                <div *ngIf="pedido.genero_trazabilidad">
+                    <button  [routerLink]="['/surala/distribucion/ver/', pedido.id]" mat-raised-button id="logout-button" class="btn btn-primary btn-block" style="width:50%"
+                    ><span class="material-icons">
+                        assignment_turned_in
+                        </span></button>
+                  </div>
+             
+                <label *ngIf="pedido.genero_trazabilidad" color="red">Ya generaste distribución</label>
+              </div>
+          </mat-card-actions>
         </mat-card-content>
   
       </mat-card>
   
-      <div class="row" style="align-content: center;margin: auto;">
-        <div class="col-4"></div>
-  
-        <div class="col-6">
-          <div *ngIf="!pedido.genero_trazabilidad && cajas.length>0">
-  
-            <button mat-raised-button id="logout-button" class="btn btn-primary btn-block" style="width:50%"
-              (click)="open()">Agregar Distribucion</button>
-          </div>
-  
-  
-        </div>
-        <div class="col-3"></div>
-         <span><a *ngIf="pedido.genero_trazabilidad" [routerLink]="['/surala/distribucion/ver/', pedido.id]">
-          Ver Trazabilidad </a>
-         </span>
-        <label *ngIf="pedido.genero_trazabilidad" color="red">Ya generaste distribución</label>
-      </div>
+
     </div>
-    <ng-template let-modal>
-      <div #mymodal>
-        <app-creardistribucion *ngIf="
-      pedido"></app-creardistribucion>
-  
-      </div>
-    </ng-template>
+
   
     <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
 

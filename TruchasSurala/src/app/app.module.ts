@@ -53,9 +53,7 @@ import { NgxChartsModule } from '@swimlane/ngx-charts';
 import { PedidosComponent } from './componentes/despacho/pedidos/pedidos.component';
 import { DespachoactualComponent } from './componentes/cabecera/despachoactual/despachoactual.component';
 import { AgregarpedidoComponent } from './componentes/despacho/agregarpedido/agregarpedido.component';
-import { ListaComponent } from './componentes/distribucion/lista/lista.component';
-import { ViewComponent } from './componentes/distribucion/view/view.component';
-import { CreardistribucionComponent } from './componentes/distribucion/creardistribucion/creardistribucion.component';
+
 import { SortByPipePipe } from './pipes/sort-by-pipe.pipe';
 import { TrazabilidadesComponent } from './componentes/trazabilidades/trazabilidades.component';
 import { TrazabilidadComponent } from './componentes/trazabilidades/trazabilidad/trazabilidad.component';
@@ -86,6 +84,7 @@ import { ListapedidosfacturaComponent } from './componentes/06-Pedidos/listapedi
 import { ListadespachosfacturaComponent } from './componentes/06-Pedidos/listadespachosfactura/listadespachosfactura.component';
 import { AsociarfincaComponent } from './componentes/02-Usuario/03-Fincas/asociarfinca/asociarfinca.component';
 import { VerdistribucionComponent } from './componentes/07-Distribucion/verdistribucion/verdistribucion.component';
+import { DistribucioncrearComponent } from './componentes/07-Distribucion/distribucioncrear/distribucioncrear.component';
 
 
 registerLocaleData(localCo);
@@ -106,9 +105,6 @@ registerLocaleData(localCo);
     PedidosComponent,
     DespachoactualComponent,
     AgregarpedidoComponent,
-    ListaComponent,
-    ViewComponent,
-    CreardistribucionComponent,
     SortByPipePipe,
     TrazabilidadesComponent,
     TrazabilidadComponent,
@@ -123,7 +119,7 @@ registerLocaleData(localCo);
     CrearpedidosComponent, ListausuariosComponent,
      EditarpedidoComponent, BorrarpedidoComponent,
       AsociarfacturaComponent, ListapedidosfacturaComponent, 
-    ListadespachosfacturaComponent, AsociarfincaComponent, VerdistribucionComponent
+    ListadespachosfacturaComponent, AsociarfincaComponent, VerdistribucionComponent, DistribucioncrearComponent
 
 
   ],

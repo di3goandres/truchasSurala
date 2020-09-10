@@ -293,6 +293,17 @@ class PedidosController extends Controller
         $pedidos = Pedidos::find($id);
 
         if (is_object($pedidos)) {
+            $finca = $pedidos->finca;
+            $usuario = $finca->user;
+            $nombre = $usuario->name.' '.$usuario->surname;
+            $fincaNombre = $finca->departamento.'/'.$finca->municipio.', '.$finca->nombre;
+            unset($pedidos['usuarios']);
+            unset($pedidos['finca']);
+
+          
+            $pedidos['finca'] =$fincaNombre;
+            $pedidos['usuario'] =$nombre;
+
             $data = [
                 'code' => 200,
                 'status' => 'success',
