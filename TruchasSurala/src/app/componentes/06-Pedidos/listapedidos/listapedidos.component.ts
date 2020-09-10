@@ -25,7 +25,7 @@ export class ListapedidosComponent implements OnInit {
   displayedColumns: string[] = ['position', 'usuario', 'NombreFinca',
     'Pedido', 'Porcentaje',
     'adicionales', 'reposicion', 'totalPedido',
-    'FechaCreacion', 'Actualizar', 'Factura' ,'VerGenerar', 'Borrar', 'reiniciar'];
+    'FechaCreacion', 'Actualizar','VerGenerar', 'Borrar', 'reiniciar'];
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
   actual: Despacho;
 

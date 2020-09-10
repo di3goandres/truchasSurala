@@ -1,0 +1,17 @@
+
+body {
+    text-align: center;
+}
+form {
+    display: inline-block;
+}
+
+table {
+    width: 100%;
+  }
+
+
+  .mat-form-field{
+      width:  100%;
+  }
+

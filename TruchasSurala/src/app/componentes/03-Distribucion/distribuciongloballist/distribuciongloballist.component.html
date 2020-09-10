@@ -8,6 +8,7 @@
 
                 </mat-card-header>
                 <mat-card-content>
+                    <div class="table-responsive">
                     <table id="customers" matTableExporter #exporter="matTableExporter" mat-table [dataSource]="dataSource"
                         class="mat-elevation-z8">
 
@@ -50,8 +51,10 @@
 
                     </table>
                     <mat-paginator [pageSizeOptions]="[15, 30, 50]" showFirstLastButtons></mat-paginator>
+                </div>
                     <button mat-raised-button
                         (click)="exporter.exportTable('xlsx', {fileName:'Distribucion', sheet: 'distribucion', Props: {Author: 'TruchasSurala'}})">Excel</button>
+
                 </mat-card-content>
             </mat-card>
         </mat-step>
