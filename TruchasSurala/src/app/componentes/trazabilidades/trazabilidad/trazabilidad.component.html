@@ -1,166 +1,189 @@
 <mat-card class="example-card center">
     <mat-card-header>
-        <div mat-card-avatar class="example-header-image"></div>
+
+        <img mat-card-image src="/assets/logo/Logo_Surala.png" alt="Photo of a Shiba Inu">
+
         <mat-card-title>1. Plan de Control</mat-card-title>
         <mat-card-subtitle>1.3 Programa de Trazabilidad</mat-card-subtitle>
-        <!-- <img mat-card-image src="/assets/logo/Logo_Surala.png" alt="Photo of a Shiba Inu"> -->
 
     </mat-card-header>
     <mat-card-content>
-        <div class="container">
-         
-            <div class="row">
-                <div class="col-6 text-center">
-                    <label>Fecha Entrega</label>
-                </div>
-                <div class="col-6 text-center">
-                    <label>{{contacto.FechaEntrega }}</label>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-6 text-center">
-                    <label>Cliente</label>
-                </div>
-                <div class="col-6 text-center">
-                    <label>{{contacto.Cliente | uppercase}}</label>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-6 text-center">
-                    <label>Destino</label>
-                </div>
-                <div class="col-6 text-center">
-                    <label>{{contacto.Destino }}</label>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-6 text-center">
-                    <label>Remision</label>
-                </div>
-                <div class="col-6 text-center">
-                    <label>{{contacto.Remision | uppercase}}</label>
-                </div>
-            </div>
-            <div class="row">
-                <div class="text-center center">
-                    <label>TRAZABILIDAD DEL LOTE</label>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-6 text-center">
-                    <label>Lote #</label>
-                </div>
-                <div class="col-6 text-center">
-                    <label>{{Lote}}</label>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-6 text-center">
-                    <label>FECHA DESOVE</label>
-                </div>
-                <div class="col-6 text-center">
-                    <label>{{Fecha}}</label>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-6 text-center">
-                    <label>LINEA GENETICA</label>
-                </div>
-                <div class="col-6 text-center">
-                    <label>{{lineaGenetica}}</label>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-6 text-center">
-                    <label>EDAD (TCU)</label>
-                </div>
-                <div class="col-6 text-center">
-                    <label>{{edad}}</label>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-6 text-center">
-                    <label>TAMAÑO OVA (mm)</label>
-                </div>
-                <div class="col-6 text-center">
-                    <label>{{Tamanio}}</label>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-6 text-center">
-                    <label>OVAS/ml</label>
-                </div>
-                <div class="col-6 text-center">
-                    <label>{{ovas_ml}}</label>
-                </div>
-            </div>
-            <div class="row">
-                <div class="center text-center">
-                    <label>INFORMACIÓN DEL DESPACHO</label>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-6 text-center">
-                    <label>#OVAS FACTURADAS</label>
-                </div>
-                <div class="col-6 text-center">
-                    <label>{{contacto.Facturado | number}}</label>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-6 text-center">
-                    <label>#OVAS ADICIONALES</label>
-                </div>
-                <div class="col-6 text-center">
-                    <label>{{contacto.Adicionales | number}}</label>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-6 text-center">
-                    <label>#OVAS REPOSICION</label>
-                </div>
-                <div class="col-6 text-center">
-                    <label>{{contacto.Reposicion | number}}</label>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-6 text-center">
-                    <label>#OVAS DESPACHADAS</label>
-                </div>
-                <div class="col-6 text-center">
-                    <label>{{contacto.Total | number}}</label>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-6 text-center">
-                    <label>BANDEJA #</label>
-                </div>
-                <div class="col-6 text-center">
-                    <label># DE OVAS</label>
-                </div>
-            </div>
-            <div class="row" *ngFor="let item of bandejasMostrar; let i = index">
-                <div class="col-6 text-center">
-                    <label>#{{i +1}}</label>
-                </div>
-                <div class="col-6 text-center">
-                    <label *ngIf="item.Cantidad=='HIELO'">{{item.Cantidad}}</label>
-                    <label *ngIf="item.Cantidad=='BANDEJA VACIA'">{{item.Cantidad}}</label>
-                    <label *ngIf="item.Cantidad!='BANDEJA VACIA' && item.Cantidad!='HIELO' ">{{item.Cantidad | number}}</label>
+        <mat-grid-list cols="2"  rowHeight="1:1">
+            <mat-grid-tile>
+                <div class="container">
+
+                    <div class="row">
+                        <div class="col-6 text-center">
+                            <label>Fecha Entrega</label>
+                        </div>
+                        <div class="col-6 text-center">
 
 
+                            <label>
+                                {{ contacto.FechaEntrega.replace(' 00:00:00', 'T00:00:00') |date :"MMM/dd/yyyy" | uppercase }}
+                            </label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-6 text-center">
+                            <label>Cliente</label>
+                        </div>
+                        <div class="col-6 text-center">
+                            <label>{{contacto.Cliente | uppercase}}</label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-6 text-center">
+                            <label>Destino</label>
+                        </div>
+                        <div class="col-6 text-center">
+                            <label>{{contacto.Destino }}</label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-6 text-center">
+                            <label>Remision</label>
+                        </div>
+                        <div class="col-6 text-center">
+                            <label>{{contacto.Remision | uppercase}}</label>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="text-center center">
+                            <label>TRAZABILIDAD DEL LOTE</label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-6 text-center">
+                            <label>Lote #</label>
+                        </div>
+                        <div class="col-6 text-center">
+                            <label>{{Lote}}</label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-6 text-center">
+                            <label>FECHA DESOVE</label>
+                        </div>
+                        <div class="col-6 text-center">
+
+                            <label>{{ Fecha.replace(' 00:00:00', 'T00:00:00') |date :"MMM/dd/yyyy" | uppercase }}
+                            </label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-6 text-center">
+                            <label>LINEA GENETICA</label>
+                        </div>
+                        <div class="col-6 text-center">
+                            <label>{{lineaGenetica}}</label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-6 text-center">
+                            <label>EDAD (TCU)</label>
+                        </div>
+                        <div class="col-6 text-center">
+                            <label>{{edad}}</label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-6 text-center">
+                            <label>TAMAÑO OVA (mm)</label>
+                        </div>
+                        <div class="col-6 text-center">
+                            <label>{{Tamanio}}</label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-6 text-center">
+                            <label>OVAS/ml</label>
+                        </div>
+                        <div class="col-6 text-center">
+                            <label>{{ovas_ml}}</label>
+                        </div>
+                    </div>
                 </div>
-            </div>
-            <div class="row">
-                <div class="col-6 text-center">
-                    <label>TOTAL OVAS EN ESTA CAJA</label>
+            </mat-grid-tile>
+            <mat-grid-tile>
+                <div class="container">
+
+
+
+                    <div class="row">
+                        <div class="center text-center">
+                            <label>INFORMACIÓN DEL DESPACHO</label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-6 text-center">
+                            <label>#OVAS FACTURADAS</label>
+                        </div>
+                        <div class="col-6 text-center">
+                            <label>{{contacto.Facturado | number}}</label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-6 text-center">
+                            <label>#OVAS ADICIONALES</label>
+                        </div>
+                        <div class="col-6 text-center">
+                            <label>{{contacto.Adicionales | number}}</label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-6 text-center">
+                            <label>#OVAS REPOSICION</label>
+                        </div>
+                        <div class="col-6 text-center">
+                            <label>{{contacto.Reposicion | number}}</label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-6 text-center">
+                            <label>#OVAS DESPACHADAS</label>
+                        </div>
+                        <div class="col-6 text-center">
+                            <label>{{contacto.Total | number}}</label>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-6 text-center">
+                            <label>BANDEJA #</label>
+                        </div>
+                        <div class="col-6 text-center">
+                            <label># DE OVAS</label>
+                        </div>
+                    </div>
+                    <div class="row" *ngFor="let item of bandejasMostrar; let i = index">
+                        <div class="col-6 text-center">
+                            <label>#{{i +1}}</label>
+                        </div>
+                        <div class="col-6 text-center">
+                            <label *ngIf="item.Cantidad=='HIELO'">{{item.Cantidad}}</label>
+                            <label *ngIf="item.Cantidad=='BANDEJA VACIA'">{{item.Cantidad}}</label>
+                            <label
+                                *ngIf="item.Cantidad!='BANDEJA VACIA' && item.Cantidad!='HIELO' ">{{item.Cantidad | number}}</label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-6 text-center">
+                            <label>TOTAL OVAS EN ESTA CAJA</label>
+                        </div>
+                        <div class="col-6 text-center">
+                            <label>{{contacto.Total_enviado | number}}</label>
+                        </div>
+                    </div>
                 </div>
-                <div class="col-6 text-center">
-                    <label>{{contacto.Total_enviado | number}}</label>
-                </div>
-            </div>
-        </div>
-     
+            </mat-grid-tile>
+      
+           
+        </mat-grid-list>
+
+
+
     </mat-card-content>
 
 </mat-card>

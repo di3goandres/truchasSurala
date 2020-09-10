@@ -4,11 +4,11 @@
 } */
 
 .example-card {
-    max-width: 50%;
+    max-width: 100%;
   }
 
-.example-header-image {
-    background-image: url('/assets/logo/Logo_Surala.png');
+  img {
+    /* background-image: url('/assets/logo/Logo_Surala.png'); */
     background-size: cover;
     width: 77px;
     height: 50px;
@@ -17,7 +17,11 @@
 
   .center {
     margin: auto !important;
-    width: 50% !important;
- 
+    width: 80% !important;
+
     padding: 10px;
+  }
+
+  .mat-grid-tile .mat-figure {
+    max-height: 35%;
   }
