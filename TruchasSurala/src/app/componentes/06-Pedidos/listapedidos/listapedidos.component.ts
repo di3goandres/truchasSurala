@@ -144,6 +144,10 @@ export class ListapedidosComponent implements OnInit {
 
     });
   }
+  applyFilter(event: Event) {
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.dataSource.filter = filterValue.trim().toLowerCase();
+  }
   refresh() {
     this.id = this.route.snapshot.paramMap.get('id');
 

@@ -63,33 +63,7 @@ export class ListaComponent implements OnInit {
 
     console.log(Todos);
     this.dataSource = Todos;
-    //   var groups =  this.distribuciontotal.reduce(function(obj,item){
-    //     obj[item.numeroCaja] = obj[item.numeroCaja]  || [];
-    //     obj[item.numeroCaja].push(item);
-    //     return obj;
-    // }, {});
-
-
-    // var myArray = Object.keys(groups).map(function(key){
-    //     return {team: key, name: groups[key]};
-    // });
-    //   let numerosBandejas:number[]=[];
-    //   let cajaNumero: number;
-    //   let total: number;
-    // myArray.forEach(element => {
-
-    //   element.name.forEach(item => {
-    //     numerosBandejas.push(item.bandeja_numero);
-    //     total = item.cantidad ;
-    //     cajaNumero = item.numeroCaja;
-    //   });
-
-    //   this.mostrar.push(new InfoR(1, total, cajaNumero, numerosBandejas))
-    //   numerosBandejas = [];
-
-    // });
-
-
+    
 
   }
 

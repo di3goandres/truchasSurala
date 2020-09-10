@@ -22,6 +22,7 @@ import { VerlistardespachosComponent } from './componentes/05-Despacho/verlistar
 import { ListapedidosComponent } from './componentes/06-Pedidos/listapedidos/listapedidos.component';
 import { ListapedidosfacturaComponent } from './componentes/06-Pedidos/listapedidosfactura/listapedidosfactura.component';
 import { ListadespachosfacturaComponent } from './componentes/06-Pedidos/listadespachosfactura/listadespachosfactura.component';
+import { VerdistribucionComponent } from './componentes/07-Distribucion/verdistribucion/verdistribucion.component';
 
 
 
@@ -71,7 +72,7 @@ const routes: Routes = [
     path: 'surala/pedidos/factura/:id', component: ListapedidosfacturaComponent, canLoad: [UsuarioGuard], canActivate:  [UsuarioGuard]
   },
   { // rutas de despacho
-    path: 'surala/distribucion/:id', component: ViewComponent, canLoad: [UsuarioGuard], canActivate:  [UsuarioGuard]
+    path: 'surala/distribucion/:id', component: VerdistribucionComponent, canLoad: [UsuarioGuard], canActivate:  [UsuarioGuard]
   },
   { // rutas de despacho
     path: 'surala/distribucion/Generar/:id', component: ViewComponent, canLoad: [UsuarioGuard], canActivate:  [UsuarioGuard]
