@@ -466,6 +466,7 @@ class TrazabilidadController extends Controller
                     */
                     $bandejas = collect($bandejas)->sortBy('cantidad')->reverse()->toArray();
 
+                    $maximoporBandeja = max(array_column($bandejas, 'cantidad'));
                     $uniqueIDs = array();
                     foreach ($bandejas as $bandeja) {
                         if (!in_array($bandeja['id_lote'], $uniqueIDs)) {
@@ -490,15 +491,27 @@ class TrazabilidadController extends Controller
                     $posicionBandeja = 0;
 
                     $bandejasOrganizadas = [];
+                    $bandejasCola = [];
+
                     $conteoPorbandeja = collect($conteoPorbandeja)->sortBy('conteo')->reverse()->toArray();
 
                     foreach ($conteoPorbandeja as $conteo) {
                         foreach ($bandejas as $bandeja) {
-                            if ($conteo['id'] === $bandeja['id_lote']) {
+                            if ($conteo['id'] === $bandeja['id_lote'] &&  $maximoporBandeja === $bandeja['cantidad'])  {
                                 $bandejasOrganizadas[] =  $bandeja;
                                 $posicionBandeja += 1;
+                            }else{
+                                $bandejasCola[] = $bandeja;
                             }
+
+                            
                         }
+                    }
+
+                    $bandejasCola = collect($bandejasCola)->sortBy('cantidad')->reverse()->toArray();
+
+                    foreach($bandejasCola  as $cola){
+                        $bandejasOrganizadas[] =  $cola;
                     }
 
                     // foreach($bandejasOrganizadas as $bandeja){
@@ -518,7 +531,6 @@ class TrazabilidadController extends Controller
 
                         $cantidad = 0;
                         $cantidad = $bandeja['cantidad'];
-                       
                         $id = $bandeja['id_bandeja_lote'];
                        
                         $cantidadGuardada = $cantidadGuardada + $cantidad;
