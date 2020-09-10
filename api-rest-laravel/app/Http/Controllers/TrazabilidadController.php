@@ -431,9 +431,9 @@ class TrazabilidadController extends Controller
                 );
             } else {
 
-                 $pedido = Pedidos::find($params_array['id_pedido']);
+                $pedido = Pedidos::find($params_array['id_pedido']);
                 if (!is_object($pedido)) {
-                // if (false) {
+                    // if (false) {
                     $data = array(
                         'code' => 200,
                         'status' => 'error'
@@ -467,7 +467,7 @@ class TrazabilidadController extends Controller
                     $bandejas = collect($bandejas)->sortBy('cantidad')->reverse()->toArray();
 
                     $maximoporBandeja = max(array_column($bandejas, 'cantidad'));
-                 
+
                     $uniqueIDs = array();
                     foreach ($bandejas as $bandeja) {
                         if (!in_array($bandeja['id_lote'], $uniqueIDs)) {
@@ -498,13 +498,16 @@ class TrazabilidadController extends Controller
 
                     foreach ($conteoPorbandeja as $conteo) {
                         foreach ($bandejas as $bandeja) {
-                            if ($conteo['id'] === $bandeja['id_lote'] &&  $maximoporBandeja === $bandeja['cantidad']) {
-                              
-                             
+
+                            if (!$porMaximo && $conteo['id'] === $bandeja['id_lote'] && $conteo['conteo'] === $porNumero) {
+                                $bandejasOrganizadas[] =  $bandeja;
+                            } else if ($conteo['id'] === $bandeja['id_lote'] &&  $maximoporBandeja === $bandeja['cantidad']) {
+
+
                                 $bandejasOrganizadas[] =  $bandeja;
                                 $posicionBandeja += 1;
                             } else   if ($conteo['id'] === $bandeja['id_lote'] &&  $maximoporBandeja !== $bandeja['cantidad']) {
-                               
+
                                 $bandejasCola[] = $bandeja;
                             }
                         }
@@ -518,6 +521,9 @@ class TrazabilidadController extends Controller
                         $bandejasOrganizadas[] =  $cola;
                     }
 
+
+                    // return response()->json($bandejasOrganizadas, 200);
+                    // die();
                     // foreach($bandejasOrganizadas as $bandeja){
                     //     var_dump($bandeja['cantidad'], $bandeja['id_bandeja_lote']);
                     // }
