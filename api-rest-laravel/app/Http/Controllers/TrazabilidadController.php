@@ -461,7 +461,8 @@ class TrazabilidadController extends Controller
                      una trazabilidad tienen maximo 5 bandejas al maximo si
                      es un cliente normal y si es un cliente como pesca se envia como
                      llega la caja con el maximo del lote.
-
+                    las organiza por cantidad
+ 
                     */
                     $bandejas = collect($bandejas)->sortBy('catidad')->reverse()->toArray();
 
@@ -513,7 +514,7 @@ class TrazabilidadController extends Controller
                     // $noContar = false;
                     // foreach ($bandejas as $bandeja) {
                     $conteo = 0;    
-                    foreach ($bandejasOrganizadas as $bandeja) {
+                    foreach ($conteoPorbandeja as $bandeja) {
 
                         $cantidad = 0;
                         $cantidad = $bandeja['cantidad'];
