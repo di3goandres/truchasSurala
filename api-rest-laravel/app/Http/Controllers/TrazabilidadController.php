@@ -463,6 +463,7 @@ class TrazabilidadController extends Controller
                      llega la caja con el maximo del lote.
 
                     */
+                    $bandejas = collect($bandejas)->sortBy('catidad')->reverse()->toArray();
 
                     $uniqueIDs = array();
                     foreach ($bandejas as $bandeja) {
