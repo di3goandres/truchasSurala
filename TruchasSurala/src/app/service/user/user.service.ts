@@ -74,9 +74,6 @@ export class UserService {
   public ejecutarQueryPostArchivo(query: string, parametros: FormData) {
     this.header = new HttpHeaders().set('Authorization', this.token)
    
-    
-
-
     return this.http.post(this.url + query,parametros);
 
   }
@@ -194,11 +191,8 @@ export class UserService {
     console.log(this.json);
 
     this.params = 'json=' + this.json;
-    this.header = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded');
-
-
-
-    return this.http.post('/api/register', this.params, { headers: this.header });
+    return this.ejecutarQueryPost('/api/register', this.params)
+   
   }
   loginUser(user, getToken = null): Observable<any> {
     if (getToken != null) {

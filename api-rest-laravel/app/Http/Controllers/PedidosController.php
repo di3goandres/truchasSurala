@@ -33,7 +33,7 @@ class PedidosController extends Controller
 
     public function show($id)
     {
-        $pedidos = Pedidos::where('id_despacho', '=', $id)->get();
+        $pedidos = Pedidos::where('id_despacho', '=', $id)->orderBy('total', 'DESC')->get();
 
         if (is_object($pedidos)) {
             $retorno = [];

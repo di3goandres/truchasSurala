@@ -1,167 +1,163 @@
+<mat-horizontal-stepper [linear]="true" #stepper>
+  <article class="card-body mx-auto" style="max-width: 80%;" *ngIf="mail">
+    El Correo ingresado ya existe, si no recuerda su contraseña dirijase a...
+    o intente con otro correo.
+  </article>
 
+  <article class="card-body mx-auto" style="max-width: 80%;" *ngIf="identificacion">
+    El numero de identificacion ya se encuentra registrado, si no recuerda su contraseña dirijase a...
+  </article>
 
-    <mat-horizontal-stepper [linear]="true"  #stepper>
-        <article class="card-body mx-auto" style="max-width: 80%;" *ngIf="mail">
-          El Correo ingresado ya existe, si no recuerda su contraseña dirijase a...
-          o intente con otro correo.
-        </article>
-      
-        <article class="card-body mx-auto" style="max-width: 80%;" *ngIf="identificacion">
-          El numero de identificacion ya se encuentra registrado, si no recuerda su contraseña dirijase a...
-        </article>
-      
-        <!--formulario de confirmacion-->
-        <div class="alert bg-light alert-success" *ngIf="status==='success'">
-          <article class="card-body mx-auto" style="max-width: 80%;">
-            El registro fue exitoso
-          </article>
+  <!--formulario de confirmacion-->
+  <div class="alert bg-light alert-success" *ngIf="status==='success'">
+    <article class="card-body mx-auto" style="max-width: 80%;">
+      El registro fue exitoso
+    </article>
+  </div>
+
+  <mat-step [stepControl]="secondFormGroup">
+    <ng-template matStepLabel>FINCA</ng-template>
+    <mat-card>
+      <form [formGroup]="secondFormGroup" style="width: 100%;">
+        <div class="row">
+          <div class=col-12>
+
+            <label>Datos de la Finca</label>
+
+          </div>
         </div>
 
-        <mat-step [stepControl]="secondFormGroup">
-          <ng-template matStepLabel>FINCA</ng-template>
-          <mat-card>
-            <form [formGroup]="secondFormGroup" style="width: 100%;">
-              <div class="row">
-                <div class=col-12>
-      
-                  <label>Datos de la Finca</label>
-      
-                </div>
-              </div>
-      
-              <app-departamentos (datoSalida)='onNotificar($event)'> </app-departamentos>
-      
-              <div class="row">
-                <div class=col-6>
-      
-                  <mat-form-field appearance="fill">
-                    <mat-icon matSuffix>person</mat-icon>
-                    <mat-label>Dirección</mat-label>
-                    <input matInput formControlName="direccion" [(ngModel)]="finca.direccion" placeholder="Dirección"
-                      required />
-                  </mat-form-field>
-      
-                </div>
-                <div class=col-6>
-      
-                  <mat-form-field appearance="fill">
-                    <mat-icon matSuffix>person</mat-icon>
-                    <mat-label>Nombre Finca</mat-label>
-                    <input matInput [(ngModel)]="Nombre" formControlName="Nombre" placeholder="Nombre Finca" required />
-                  </mat-form-field>
-      
-                </div>
-              </div>
-      
-              <div clas="row" style="text-align: center;">
-                <div class="col-12">
-                  <button type="button" mat-raised-button color="primary" (click)="addFinca()"
-                    [disabled]="!(datosDepartamento.Valido&& (secondFormGroup.invalid===false))">Agregar</button>
-      
-                </div>
-              </div>
-              <br>
-              <div class="row" style="padding-top: 10px;">
-                <div class="col-12">
-                  <table #tablefincas mat-table [dataSource]="fincas" class="mat-elevation-z8">
-                    <ng-container matColumnDef="position">
-                      <th mat-header-cell *matHeaderCellDef> No. </th>
-                      <td mat-cell *matCellDef="let element; let i = index"> {{i + 1}} </td>
-                    </ng-container>
-      
-                    <ng-container matColumnDef="Departamento">
-                      <th mat-header-cell *matHeaderCellDef> Departamento</th>
-                      <td mat-cell *matCellDef="let element"> {{element.NombreDepartamento}} </td>
-                    </ng-container>
-      
-                    <ng-container matColumnDef="Municipio">
-                      <th mat-header-cell *matHeaderCellDef> Municipio </th>
-                      <td mat-cell *matCellDef="let element"> {{element.NombreMunicipio}} </td>
-                    </ng-container>
-      
-                    <ng-container matColumnDef="Direccion">
-                      <th mat-header-cell *matHeaderCellDef> Direcion </th>
-                      <td mat-cell *matCellDef="let element"> {{element.direccion}} </td>
-                    </ng-container>
-      
-                    <ng-container matColumnDef="NombreDeLaFinca">
-                      <th mat-header-cell *matHeaderCellDef> Nombre Finca </th>
-                      <td mat-cell *matCellDef="let element"> {{element.nombre| uppercase}} </td>
-                    </ng-container>
-      
-                    <ng-container matColumnDef="Quitar">
-                      <th mat-header-cell *matHeaderCellDef> Quitar </th>
-                      <td mat-cell *matCellDef="let element">
-                        <button mat-mini-fab (click)="eliminar(element)">
-                          <mat-icon>delete_outline</mat-icon>
-                        </button>
-      
-                      </td>
-                    </ng-container>
-                    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-                    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-                  </table>
-                </div>
-              </div>
-              <div clas="row" style="text-align: center;padding-top: 23px;">
-                <div class="col-12">
-                  <button  mat-raised-button color="secondary" (click)="cerrarModal()">Cerrar</button>
-          
-                  <button matStepperNext mat-raised-button color="secondary" [disabled]="!continuarGuardar">Continuar</button>
-      
-                </div>
-      
-      
-              </div>
-            </form>
-      
-      
-      
-          </mat-card>
-        </mat-step>
-        <mat-step>
-          <div clas="row" style="text-align: center;" *ngIf="status!=='success'" s>
-            <div class="col-12">
-              <button matStepperNext mat-raised-button color="secondary" (click)="Guardar()">Guardar</button>
-            </div>
-      
-           
-      
+        <app-departamentos (datoSalida)='onNotificar($event)'> </app-departamentos>
+
+        <div class="row">
+          <div class=col-6>
+
+            <mat-form-field appearance="fill">
+              <mat-icon matSuffix>person</mat-icon>
+              <mat-label>Dirección</mat-label>
+              <input matInput formControlName="direccion" [(ngModel)]="finca.direccion" placeholder="Dirección"
+                required />
+            </mat-form-field>
+
           </div>
-          <div class="row">
-            <div class="col-4"></div>
-            <div class="col-6">
-          
-              <mat-card *ngIf="status==='success'" style="width: 50%;">
-                <mat-card-title>Registro Exitoso</mat-card-title>
-                <mat-card-content>
-          
-                  <button mat-raised-button color="secondary" (click)="goInicio(stepper)" type="button">Inicio</button>
-                </mat-card-content>
-              </mat-card>
-          
-              <mat-card *ngIf="status==='error'" style="width: 50%;">
-                <mat-card-title>Registro No Exitoso</mat-card-title>
-                <mat-card-content>
-          
-                  <article class="card-body mx-auto" style="max-width: 80%;">
-                    Verifique por favor los datos ingresados
-                  </article>
-                  <article class="card-body mx-auto" style="max-width: 80%;" *ngIf="mail">
-                    El Correo ingresado ya existe, intente con otro correo.
-                  </article>
-          
-                  <article class="card-body mx-auto" style="max-width: 80%;" *ngIf="identificacion">
-                    El numero de identificacion ya se encuentra registrado
-                  </article>
-          
-                </mat-card-content>
-              </mat-card>
-            </div>
-            <div class="col-2"></div>
-          
+          <div class=col-6>
+
+            <mat-form-field appearance="fill">
+              <mat-icon matSuffix>person</mat-icon>
+              <mat-label>Nombre Finca</mat-label>
+              <input matInput [(ngModel)]="Nombre" formControlName="Nombre" placeholder="Nombre Finca" required />
+            </mat-form-field>
+
           </div>
-        </mat-step>
-      </mat-horizontal-stepper>
-      
-      
+        </div>
+
+        <div clas="row" style="text-align: center;">
+          <div class="col-12">
+            <button type="button" mat-raised-button color="primary" (click)="addFinca()"
+              [disabled]="!(datosDepartamento.Valido&& (secondFormGroup.invalid===false))">Agregar</button>
+
+          </div>
+        </div>
+        <br>
+        <div class="row" style="padding-top: 10px;">
+          <div class="col-12">
+            <table #tablefincas mat-table [dataSource]="fincas" class="mat-elevation-z8">
+              <ng-container matColumnDef="position">
+                <th mat-header-cell *matHeaderCellDef> No. </th>
+                <td mat-cell *matCellDef="let element; let i = index"> {{i + 1}} </td>
+              </ng-container>
+
+              <ng-container matColumnDef="Departamento">
+                <th mat-header-cell *matHeaderCellDef> Departamento</th>
+                <td mat-cell *matCellDef="let element"> {{element.NombreDepartamento}} </td>
+              </ng-container>
+
+              <ng-container matColumnDef="Municipio">
+                <th mat-header-cell *matHeaderCellDef> Municipio </th>
+                <td mat-cell *matCellDef="let element"> {{element.NombreMunicipio}} </td>
+              </ng-container>
+
+              <ng-container matColumnDef="Direccion">
+                <th mat-header-cell *matHeaderCellDef> Direcion </th>
+                <td mat-cell *matCellDef="let element"> {{element.direccion}} </td>
+              </ng-container>
+
+              <ng-container matColumnDef="NombreDeLaFinca">
+                <th mat-header-cell *matHeaderCellDef> Nombre Finca </th>
+                <td mat-cell *matCellDef="let element"> {{element.nombre| uppercase}} </td>
+              </ng-container>
+
+              <ng-container matColumnDef="Quitar">
+                <th mat-header-cell *matHeaderCellDef> Quitar </th>
+                <td mat-cell *matCellDef="let element">
+                  <button mat-mini-fab (click)="eliminar(element)">
+                    <mat-icon>delete_outline</mat-icon>
+                  </button>
+
+                </td>
+              </ng-container>
+              <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+              <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+            </table>
+          </div>
+        </div>
+        <div clas="row" style="text-align: center;padding-top: 23px;">
+          <div class="col-12">
+            <button mat-raised-button color="secondary" (click)="cerrarModal()">Cerrar</button>
+
+            <button matStepperNext mat-raised-button color="secondary" [disabled]="!continuarGuardar">Continuar</button>
+
+          </div>
+
+
+        </div>
+      </form>
+
+
+
+    </mat-card>
+  </mat-step>
+  <mat-step>
+    <div clas="row" style="text-align: center;" *ngIf="status!=='success'" s>
+      <div class="col-12">
+        <button matStepperNext mat-raised-button color="secondary" (click)="Guardar()">Guardar</button>
+      </div>
+
+
+
+    </div>
+    <div class="row">
+      <div class="col-4"></div>
+      <div class="col-6">
+
+        <mat-card *ngIf="status==='success'" style="width: 50%;">
+          <mat-card-title>Registro Exitoso</mat-card-title>
+          <mat-card-content>
+
+            <button mat-raised-button color="secondary" (click)="goInicio(stepper)" type="button">Inicio</button>
+          </mat-card-content>
+        </mat-card>
+
+        <mat-card *ngIf="status==='error'" style="width: 50%;">
+          <mat-card-title>Registro No Exitoso</mat-card-title>
+          <mat-card-content>
+
+            <article class="card-body mx-auto" style="max-width: 80%;">
+              Verifique por favor los datos ingresados
+            </article>
+            <article class="card-body mx-auto" style="max-width: 80%;" *ngIf="mail">
+              El Correo ingresado ya existe, intente con otro correo.
+            </article>
+
+            <article class="card-body mx-auto" style="max-width: 80%;" *ngIf="identificacion">
+              El numero de identificacion ya se encuentra registrado
+            </article>
+
+          </mat-card-content>
+        </mat-card>
+      </div>
+      <div class="col-2"></div>
+
+    </div>
+  </mat-step>
+</mat-horizontal-stepper>
