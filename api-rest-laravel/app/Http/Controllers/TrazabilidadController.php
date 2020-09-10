@@ -464,7 +464,7 @@ class TrazabilidadController extends Controller
                     las organiza por cantidad
  
                     */
-                    $bandejas = collect($bandejas)->sortBy('id_lote')->sortBy('cantidad')->reverse()->toArray();
+                    $bandejas = collect($bandejas)->sortBy('cantidad')->reverse()->toArray();
 
                     $uniqueIDs = array();
                     foreach ($bandejas as $bandeja) {
@@ -514,7 +514,7 @@ class TrazabilidadController extends Controller
                     // $noContar = false;
                     // foreach ($bandejas as $bandeja) {
                     $conteo = 0;    
-                    foreach ($bandejas as $bandeja) {
+                    foreach ($bandejasOrganizadas as $bandeja) {
 
                         $cantidad = 0;
                         $cantidad = $bandeja['cantidad'];
