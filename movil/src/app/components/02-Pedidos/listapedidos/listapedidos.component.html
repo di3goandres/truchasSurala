@@ -59,7 +59,7 @@
 
     <ion-toolbar>
       <ion-buttons slot="secondary">
-        <ion-button [routerLink]="'/pedidofactura/'+pedido.id+'/'+pedido.nombre_factura">
+        <ion-button *ngIf="pedido.nombre_factura!='pendiente'" [routerLink]="'/pedidofactura/'+pedido.id+'/'+pedido.nombre_factura">
           <ion-icon slot="icon-only" name="cash-outline"></ion-icon>
         </ion-button>
         <ion-button [routerLink]="'/trazabilidad/'+pedido.id">

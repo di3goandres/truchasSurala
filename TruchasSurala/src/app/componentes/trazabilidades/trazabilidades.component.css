@@ -2,5 +2,6 @@
   .center {
     margin: auto !important;
     width: 100% !important;
+    height: 100%;
     padding: 5px;
   }

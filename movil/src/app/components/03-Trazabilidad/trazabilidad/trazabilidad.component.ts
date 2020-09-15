@@ -7,6 +7,7 @@ import { Distribucion, InfoDespacho, Contacto, InfoDespachoMostrar } from '../..
   styleUrls: ['./trazabilidad.component.scss'],
 })
 export class TrazabilidadComponent implements OnInit {
+  numeroBandejas: number;
 
   @Input() traza: Distribucion;
 
@@ -42,70 +43,130 @@ export class TrazabilidadComponent implements OnInit {
     this.ponerCajas();
   }
 
-  ponerCajas() {
-    this.bandejasMostrar.push(new InfoDespachoMostrar("HIELO", this.bandejasMostrar.length + 1, "1"))
-    let conteo = 1;
+  validarNumeroCajas() {
 
-    this.bandejas.sort((a, b) => b.Cantidad - a.Cantidad)
+    let conteo = 1;
+    this.bandejas = this.bandejas.sort((a, b) => (a.Cantidad > b.Cantidad) ? 1 : ((b.Cantidad > a.Cantidad) ? -1 : 0));
     let agrego = false;
-    let ultimohielo = false;
 
     conteo = this.bandejas.length;
-    console.log(this.bandejas)
+
     this.bandejas.forEach(element => {
       conteo--;
-
       this.MAXIMO = this.MAXIMO + element.Cantidad;
+      if (this.contacto.Maximo == this.MAXIMO) {
+        this.bandejasMostrar.push(new InfoDespachoMostrar(this.MAXIMO.toString(), "1", "1"))
+        this.MAXIMO = 0;
+        agrego = true;
+      }
+      if (this.contacto.Maximo > this.MAXIMO) {
+        agrego = false
+      } else {
+        this.MAXIMO = this.MAXIMO - element.Cantidad;
+        this.bandejasMostrar.push(new InfoDespachoMostrar(this.MAXIMO.toString(), "1", "1"))
+        this.bandejasMostrar.push(new InfoDespachoMostrar(element.Cantidad.toString(), "1", "1"))
+        this.MAXIMO = 0;
+        agrego = true;
+      }
 
 
+
+      if (conteo == 0 && agrego == false) {
+        if (this.MAXIMO > 0)
+          this.bandejasMostrar.push(new InfoDespachoMostrar(this.MAXIMO.toString(), "1", "1"))
+        this.MAXIMO = 0;
+        agrego = true;
+      }
+
+
+
+    });
+
+    this.numeroBandejas = this.bandejasMostrar.length
+    this.bandejasMostrar = []
+
+  }
+  ponerCajas() {
+    this.validarNumeroCajas();
+    this.ponerHielo();
+    let conteo = 0;
+    this.bandejas = this.bandejas.sort((a, b) => (a.Cantidad > b.Cantidad) ? 1 : ((b.Cantidad > a.Cantidad) ? -1 : 0));
+    let agrego = false;
+    let ultimohielo = false;
+    conteo = this.bandejas.length;
+
+    this.bandejas.forEach(element => {
+      conteo--;
+      this.MAXIMO = this.MAXIMO + element.Cantidad;
       if (this.contacto.Maximo == this.MAXIMO) {
         this.bandejasMostrar.push(new InfoDespachoMostrar(this.MAXIMO.toString(), this.bandejasMostrar.length + 1, "1"))
         this.MAXIMO = 0;
         agrego = true;
-
       }
       if (this.contacto.Maximo > this.MAXIMO) {
         agrego = false
-
-      }else{
+      } else {
         this.MAXIMO = this.MAXIMO - element.Cantidad;
-        this.bandejasMostrar.push(new InfoDespachoMostrar(this.MAXIMO.toString(), this.bandejasMostrar.length + 1, "1"))
-        if (this.bandejasMostrar.length % 4 == 0) {
-
-          this.bandejasMostrar.push(new InfoDespachoMostrar("HIELO", this.bandejasMostrar.length + 1, "1"))
-          ultimohielo = true;
-        } else {
-          ultimohielo = false;
+        this.ponerValor(this.MAXIMO.toString())
+        if (this.numeroBandejas == 4) {
+          ultimohielo = this.ponerHieloAtiempo(3);
+  
+        }else if(this.numeroBandejas == 7){
+          ultimohielo = this.ponerHieloAtiempo(5);
+  
         }
-        this.bandejasMostrar.push(new InfoDespachoMostrar(element.Cantidad.toString(),this.bandejasMostrar.length + 1, "1"))
+        else {
+          ultimohielo = this.ponerHieloAtiempo(4);
+        }
+        this.ponerValor(element.Cantidad.toString())
         this.MAXIMO = 0;
         agrego = true;
-
       }
 
-     
+
 
       if (conteo == 0 && agrego == false) {
         if (this.MAXIMO > 0)
-          this.bandejasMostrar.push(new InfoDespachoMostrar(this.MAXIMO.toString(), this.bandejasMostrar.length + 1, "1"))
+          this.ponerValor(this.MAXIMO.toString())
+
         this.MAXIMO = 0;
         agrego = true;
       }
+      if (this.numeroBandejas == 4) {
+        ultimohielo = this.ponerHieloAtiempo(3);
 
-      if (this.bandejasMostrar.length % 4 == 0) {
+      }else if(this.numeroBandejas == 7){
+        ultimohielo = this.ponerHieloAtiempo(5);
 
-        this.bandejasMostrar.push(new InfoDespachoMostrar("HIELO", this.bandejasMostrar.length + 1, "1"))
-        ultimohielo = true;
-      } else {
-        ultimohielo = false;
+      }
+      else {
+        ultimohielo = this.ponerHieloAtiempo(4);
       }
 
     });
     if (!ultimohielo)
-      this.bandejasMostrar.push(new InfoDespachoMostrar("HIELO", this.bandejasMostrar.length + 1, "1"))
+      this.ponerHielo()
 
-    this.bandejasMostrar.push(new InfoDespachoMostrar("BANDEJA VACIA", this.bandejasMostrar.length + 1, "1"))
+    this.ponerVacia()
   }
 
 
+  ponerHieloAtiempo(value) {
+    if (this.bandejasMostrar.length % value == 0) {
+      this.ponerHielo()
+      return true;
+    } else {
+      return false;
+    }
+  }
+  ponerVacia() {
+    this.bandejasMostrar.push(new InfoDespachoMostrar("BANDEJA VACIA", this.bandejasMostrar.length + 1, "1"))
+
+  }
+  ponerValor(valor: string) {
+    this.bandejasMostrar.push(new InfoDespachoMostrar(valor, this.bandejasMostrar.length + 1, "1"))
+  }
+  ponerHielo() {
+    this.bandejasMostrar.push(new InfoDespachoMostrar("HIELO", this.bandejasMostrar.length + 1, "1"))
+  }
 }

@@ -7,6 +7,23 @@
     max-width: 100%;
   }
 
+  .vacia{
+    color: rgb(14, 105, 179);
+    font-weight: bold;
+
+  }
+  .hielo{
+  
+    color: #f33d01;
+    font-weight: bold;
+  }
+  .corner {
+    border-radius: 25px;
+    border: 2px solid #f33d01;
+    /* padding: 20px; 
+    width: 200px;
+    height: 150px;   */
+  }
   img {
     /* background-image: url('/assets/logo/Logo_Surala.png'); */
     background-size: cover;
@@ -18,10 +35,11 @@
   .center {
     margin: auto !important;
     width: 80% !important;
+    height: 100%;
 
     padding: 10px;
   }
 
   .mat-grid-tile .mat-figure {
-    max-height: 35%;
+    max-height: 100%;
   }
