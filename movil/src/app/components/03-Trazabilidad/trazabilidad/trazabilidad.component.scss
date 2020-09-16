@@ -1,5 +1,48 @@
-.ion-card-bandeja {
-    // max-width: 30%;
-    // max-height: 30%;
-}
+/* img {
+    width: 100px;
+    height: 50px;
+} */
 
+ion-card-content{
+    font-size: 9px;
+    line-height: 1.2;
+}
+.example-card {
+    max-width: 100%;
+  }
+
+  .vacia{
+    color: rgb(14, 105, 179);
+    font-weight: bold;
+
+  }
+  .hielo{
+  
+    color: #f33d01;
+    font-weight: bold;
+  }
+  .corner {
+    border-radius: 25px;
+    border: 2px solid #f33d01;
+    /* padding: 20px; 
+    width: 200px;
+    height: 150px;   */
+  }
+  ion-img {
+    //  background-image: url('/assets/logo/Logo_Surala.png'); 
+    background-size: cover;
+    width: 100%;
+    height: 100%;
+    padding-top: 20%;
+    // border-radius: 14%;
+  }
+
+  .center {
+    margin: auto !important;
+    width: 98% !important;
+    height: 100%;
+  }
+
+  .ion-row .mat-figure {
+    max-height: 100%;
+  }
