@@ -497,6 +497,13 @@ class TrazabilidadController extends Controller
                     $conteoPorbandeja = collect($conteoPorbandeja)->sortBy('conteo')->reverse()->toArray();
 
                     foreach ($conteoPorbandeja as $conteo) {
+                        $idConteo = $conteo['id'];
+                        // filtramos el array por id y obtenemos el mayor
+                        $arrayFiltrado = array_filter($bandejas,function ($item) use ($idConteo){
+                                return $item['id_lote'] == $idConteo;
+                        });
+                        //obtenemos el maximo por id
+                        $maximoporBandeja = max(array_column($arrayFiltrado, 'cantidad'));
                         foreach ($bandejas as $bandeja) {
 
                             if (!$porMaximo && $conteo['id'] === $bandeja['id_lote'] && $conteo['conteo'] === $porNumero) {
