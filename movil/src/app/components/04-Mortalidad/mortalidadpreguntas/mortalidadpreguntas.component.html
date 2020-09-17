@@ -1,0 +1,32 @@
+<ion-grid cols="2" rowHeight="1:1" style="padding-bottom: 10px;">
+  <ion-row>
+    <ion-col class="text-center">
+      <ion-label class="hielo">
+        {{preguntas.tipo_pregunta}}
+      </ion-label>
+    </ion-col>
+  </ion-row>
+
+  <ion-row *ngFor="let item of lista">
+    <ion-col size="12" class="text-center"
+      *ngFor="let pregunta of preguntas.preguntas.slice(item * col, (col*item)+col)">
+
+      <ion-list>
+        <ion-item >
+          <ion-label class="hielo ion-text-wrap"> {{pregunta.pregunta}}</ion-label>
+          
+          <ion-select  class="selectNuevo" mode="ios">
+            <ion-select-option *ngFor="let item of pregunta.data" [value]="item">{{item}}</ion-select-option>
+
+          </ion-select>
+        </ion-item>
+      </ion-list>
+
+    </ion-col>
+
+
+
+  </ion-row>
+
+
+</ion-grid>

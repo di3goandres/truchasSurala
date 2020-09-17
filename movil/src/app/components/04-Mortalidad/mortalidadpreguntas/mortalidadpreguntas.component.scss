@@ -1,0 +1,47 @@
+
+.hielo{
+    color: rgb(14, 105, 179);
+    font-weight: bold;
+    font-size: 9px;
+
+
+  }
+  .bandeja{
+  
+    color: #f33d01;
+    font-weight: bold;
+    font-size: 9px;
+
+  }
+
+  .selectNuevo {
+    color: #f33d01 !important;
+   
+    font-size: 9px !important;
+  }
+
+  /* Popover Interface: set color for the popover using Item's CSS variables */
+.selectNuevo .select-interface-option {
+    --color: #f33d01;
+    --color-hover: #79193b;
+  }
+
+  .selectNuevo .alert-title .sc-ion-alert-ios{
+    color: #f33d01 !important;
+
+
+
+  }
+
+  .alert-title.sc-ion-alert-ios {
+    margin-top: 8px;
+    color: #f33d01 !important;
+    font-size: 17px;
+    font-weight: 600;
+}
+
+  
+  ion-alert{
+    color: #f33d01 !important;
+
+  }

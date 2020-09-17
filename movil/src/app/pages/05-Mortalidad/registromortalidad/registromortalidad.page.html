@@ -1,0 +1,128 @@
+<app-header titulo="Registro Mortalidad" icon="heart-dislike-circle-outline"></app-header>
+
+<ion-content>
+
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title class="center">Procedimiento de Quejas y Reclamos</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+  
+      <ion-grid cols="1" rowHeight="1:1" style="padding-bottom: 10px;">
+
+      </ion-grid>
+      <ion-grid cols="3" rowHeight="1:1" style="padding-bottom: 10px;">
+        <ion-row>
+          <ion-col class="text-center">
+            <ion-label class="bandeja">
+              TEMPERATURA DE LAS OVAS
+            </ion-label>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col size="4" class="text-center">
+            <ion-item>
+              <ion-label class="bandeja" position="floating">
+                SUPERIOR
+              </ion-label>
+              <ion-input #bsuperior="ngModel" required type="number" min="0" max="40"
+                [(ngModel)]="registro.temp_bandeja_superior"></ion-input>
+              <small color="red" *ngIf="bsuperior.value>40" class="invalid-feedback d-block">
+                Temperatura no valida
+              </small>
+            </ion-item>
+
+          </ion-col>
+
+          <ion-col size="4" class="text-center">
+            <ion-item>
+              <ion-label style="font-weight: bold;" class="bandeja" position="floating">
+                MEDIA
+
+              </ion-label>
+              <ion-input #bmedia="ngModel" required type="number" min="0" max="40"
+                [(ngModel)]="registro.temp_bandeja_intermedia"></ion-input>
+              <small color="red" *ngIf="bmedia.value>40" class="invalid-feedback d-block">
+                Temperatura no valida
+              </small>
+            </ion-item>
+
+          </ion-col>
+          <ion-col size="4" class="text-center">
+            <ion-item>
+              <ion-label style="font-weight: bold;" class="bandeja" position="floating">
+                INFERIOR
+
+              </ion-label>
+              <ion-input #binferior="ngModel" required type="number" min="0" max="40"
+                [(ngModel)]="registro.temp_bandeja_inferior"></ion-input>
+              <small color="red" *ngIf="binferior.value>40" class="invalid-feedback d-block">
+                Temperatura no valida
+              </small>
+            </ion-item>
+
+          </ion-col>
+
+        </ion-row>
+      </ion-grid>
+
+      <ion-grid cols="3" rowHeight="1:1" style="padding-bottom: 10px;">
+        <ion-row>
+          <ion-col class="text-center">
+            <ion-label class="hielo">
+              PORCENTAJE HIELO
+            </ion-label>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col size="4" class="text-center">
+            <ion-item>
+              <ion-label class="hielo" position="floating">
+                SUPERIOR
+              </ion-label>
+              <ion-input #Hsuperior="ngModel" required type="number" min="0" max="100"
+                [(ngModel)]="registro.hielo_bandeja_superior"></ion-input>
+              <small color="red" *ngIf="Hsuperior.value>100" class="invalid-feedback d-block">
+                Porcentaje no valido
+              </small>
+            </ion-item>
+
+          </ion-col>
+
+          <ion-col size="4" class="text-center">
+            <ion-item>
+              <ion-label style="font-weight: bold;" class="hielo" position="floating">
+                MEDIA
+
+              </ion-label>
+              <ion-input #Hmedia="ngModel" required type="number" min="0" max="100"
+                [(ngModel)]="registro.hielo_bandeja_intermedia"></ion-input>
+              <small color="red" *ngIf="Hmedia.value>100" class="invalid-feedback d-block">
+                Porcentaje no valido
+              </small>
+            </ion-item>
+
+          </ion-col>
+          <ion-col size="4" class="text-center">
+            <ion-item>
+              <ion-label style="font-weight: bold;" class="hielo" position="floating">
+                INFERIOR
+
+              </ion-label>
+              <ion-input #hinferior="ngModel" required type="number" min="0" max="100"
+                [(ngModel)]="registro.hielo_bandeja_inferior"></ion-input>
+              <small color="red" *ngIf="hinferior.value>100" class="invalid-feedback d-block">
+                Porcentaje no valido
+              </small>
+            </ion-item>
+
+          </ion-col>
+
+        </ion-row>
+      </ion-grid>
+
+      <app-mortalidadpreguntas [preguntas]="preguntas"></app-mortalidadpreguntas>
+    
+    </ion-card-content>
+  </ion-card>
+</ion-content>

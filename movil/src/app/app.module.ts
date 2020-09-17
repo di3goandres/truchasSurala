@@ -1,4 +1,6 @@
 import { LOCALE_ID,NgModule } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+
 import localCo from '@angular/common/locales/es-CO';
 
 import { BrowserModule } from '@angular/platform-browser';
@@ -36,6 +38,7 @@ import { NgxChartsModule } from '@swimlane/ngx-charts'
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { registerLocaleData } from '@angular/common';
 
+
 registerLocaleData(localCo);
 
 @NgModule({
@@ -50,6 +53,7 @@ registerLocaleData(localCo);
           ComponentsModule,
           PdfViewerModule,
           NgxChartsModule,
+          FormsModule
        
         ],
   providers: [

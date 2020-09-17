@@ -52,11 +52,21 @@ const routes: Routes = [
   },
   {
     path: 'despachos',
-    loadChildren: () => import('./pages/03-Pedidos/despachos/despachos.module').then( m => m.DespachosPageModule)
+    loadChildren: () => import('./pages/03-Pedidos/despachos/despachos.module').then( m => m.DespachosPageModule),
+    canLoad: [UsuarioGuard],
+    canActivate:  [UsuarioGuard]
   },
   {
     path: 'trazabilidad/:id',
-    loadChildren: () => import('./pages/04-Trazabilidd/trazabilidades/trazabilidades.module').then( m => m.TrazabilidadesPageModule)
+    loadChildren: () => import('./pages/04-Trazabilidd/trazabilidades/trazabilidades.module').then( m => m.TrazabilidadesPageModule),
+    canLoad: [UsuarioGuard],
+    canActivate:  [UsuarioGuard]
+  },
+  {
+    path: 'RegistroMortalidad/:id',
+    loadChildren: () => import('./pages/05-Mortalidad/registromortalidad/registromortalidad.module').then( m => m.RegistromortalidadPageModule),
+    canLoad: [UsuarioGuard],
+    canActivate:  [UsuarioGuard]
   }
 ];
 

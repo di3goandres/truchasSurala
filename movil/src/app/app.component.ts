@@ -1,6 +1,6 @@
 import { Component, OnInit, DoCheck } from '@angular/core';
 
-import { Platform } from '@ionic/angular';
+import { NavController, Platform } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
 // import { OneSignal } from '@ionic-native/onesignal/ngx';
@@ -9,6 +9,7 @@ import { Observable } from 'rxjs';
 import { Componente } from './models/menu';
 import { DatamenuService } from './services/datamenu.service';
 import { UserService } from './services/user.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-root',
@@ -26,6 +27,8 @@ export class AppComponent implements OnInit, DoCheck {
     private statusBar: StatusBar,
     //private pushService: PushService,
     public userService: UserService,
+    public navCtrl: NavController,
+    public router: Router,
 
     private dataService: DatamenuService,
 
@@ -45,8 +48,11 @@ export class AppComponent implements OnInit, DoCheck {
   }
 
   loadUser(): void {
-    this.userService.getIdentity();
-    this.userService.getToken();
+   let ident = this.userService.getIdentity();
+   let token = this.userService.getToken();
+
+ 
+   
   }
   initializeApp() {
     this.platform.ready().then(() => {

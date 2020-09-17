@@ -128,6 +128,8 @@ Route::get('/api/datos/fincabytoken', 'FincasController@getFincasUserToken');
 
 
 
+///mortalidad movil y web/
+Route::resource('/api/datos/mortalidad', 'MortalidadController');
 
 
 

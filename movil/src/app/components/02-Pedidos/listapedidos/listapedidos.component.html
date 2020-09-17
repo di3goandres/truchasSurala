@@ -69,8 +69,9 @@
       </ion-buttons>
      
       <ion-buttons slot="primary">
-        <ion-button color="secondary">
-          <ion-icon slot="icon-only" ios="ellipsis-horizontal" md="ellipsis-vertical"></ion-icon>
+        <ion-button color="secondary" [routerLink]="'/RegistroMortalidad/'+pedido.id">
+          <ion-icon name="heart-dislike-circle-outline"  ios="heart-dislike-circle-outline"  md="heart-dislike-circle-outline" ></ion-icon>
+        
         </ion-button>
       </ion-buttons>
     </ion-toolbar>

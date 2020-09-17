@@ -25,7 +25,7 @@ export class UserService {
 
   public header = new HttpHeaders({
     // tslint:disable-next-line: object-literal-key-quotes
-    'Autorization': this.token
+    // 'Autorization': this.token
   });
   user: User;
   constructor(public http: HttpClient,
