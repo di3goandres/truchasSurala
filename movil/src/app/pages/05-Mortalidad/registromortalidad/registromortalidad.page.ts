@@ -1,5 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { IonSlides } from '@ionic/angular';
 import { Mortalidad, Preguntas } from '../../../models/mortalidad/mortalidad.request';
+import { Validators, FormBuilder, FormGroup, FormControl } from '@angular/forms';
 
 @Component({
   selector: 'app-registromortalidad',
@@ -7,12 +9,17 @@ import { Mortalidad, Preguntas } from '../../../models/mortalidad/mortalidad.req
   styleUrls: ['./registromortalidad.page.scss'],
 })
 export class RegistromortalidadPage implements OnInit {
+  @ViewChild('slides') slides: IonSlides;
 
   preguntas: Preguntas = new Preguntas();
   registro: Mortalidad = new Mortalidad();
+  formGroupTemperatura: FormGroup;
+  formGroupTemperatura2: FormGroup;
 
-
-  constructor() { }
+  formValidar = 0;
+  constructor(
+    private _formBuilder: FormBuilder
+  ) { }
 
   cargarPregunta(value, select, type: string,  data?: any[]) {
     let pregunta = new Preguntas();
@@ -52,8 +59,69 @@ export class RegistromortalidadPage implements OnInit {
 
   }
   ngOnInit() {
+    this.formGroupTemperatura = new FormGroup({
+      inferior: new FormControl('', Validators.required),
+      mitad: new FormControl('', Validators.required),
+      superior: new FormControl('', Validators.required),
+      inferior2: new FormControl('', Validators.required),
+      mitad2: new FormControl('', Validators.required),
+      superior2: new FormControl('', Validators.required)
 
+   });
+  
     this.cargarPreguntas();
+     
+  }
+
+  bloquear()
+{
+  // console.log('cargue')
+  this.slides.lockSwipes(true);
+
+}  
+  slideChanged() {
+    let currentIndex = this.slides.getActiveIndex()
+    .then(
+      (index)=>{
+        console.log('Current index is', index);
+        this.formValidar = index;
+        return index;
+     });
+    //  console.log('Current index is', currentIndex);
+   
+ 
+  }
+
+  next() {
+    this.slideChanged()
+    if(this.formValidar==0){
+      if(this.formGroupTemperatura.valid)
+      {
+        console.log('Soy valido');
+       this.slides.lockSwipes(false);
+
+        this.slides.slideNext();
+        this.slideChanged()
+       this.slides.lockSwipes(true);
+
+
+
+      }else{
+        console.log('Soy invalido');
+
+      }
+    }
+  }
+
+  prev() {
+    this.slides.lockSwipes(false);
+
+    this.slides.slidePrev();
+
+    this.slideChanged()
+    this.slides.lockSwipes(true);
+
+
   }
 
 }

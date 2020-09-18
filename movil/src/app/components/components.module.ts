@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, FormBuilder } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { HeaderComponent } from './header/header.component';
 import { InvitadosComponent } from './menu/invitados/invitados.component';
@@ -15,7 +15,6 @@ import { NgxChartsModule } from '@swimlane/ngx-charts'
 import { VerdespachosComponent } from './02-Pedidos/verdespachos/verdespachos.component';
 import { TrazabilidadComponent } from './03-Trazabilidad/trazabilidad/trazabilidad.component';
 import { MortalidadpreguntasComponent } from './04-Mortalidad/mortalidadpreguntas/mortalidadpreguntas.component';
-
 
 
 @NgModule({
@@ -39,7 +38,8 @@ import { MortalidadpreguntasComponent } from './04-Mortalidad/mortalidadpregunta
     RouterModule,
     PdfViewerModule,
     NgxChartsModule,
-    FormsModule
+    FormsModule,
+
   ],
   exports: [
     HeaderComponent,
@@ -55,6 +55,8 @@ import { MortalidadpreguntasComponent } from './04-Mortalidad/mortalidadpregunta
     MortalidadpreguntasComponent
 
 
-  ]
+  ],
+  
+  
 })
 export class ComponentsModule { }

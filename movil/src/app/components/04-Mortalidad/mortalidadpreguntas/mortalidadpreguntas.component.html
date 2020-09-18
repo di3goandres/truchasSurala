@@ -1,3 +1,4 @@
+
 <ion-grid cols="2" rowHeight="1:1" style="padding-bottom: 10px;">
   <ion-row>
     <ion-col class="text-center">
@@ -8,7 +9,7 @@
   </ion-row>
 
   <ion-row *ngFor="let item of lista">
-    <ion-col size="12" class="text-center"
+    <ion-col size="6" class="text-center"
       *ngFor="let pregunta of preguntas.preguntas.slice(item * col, (col*item)+col)">
 
       <ion-list>
@@ -29,4 +30,4 @@
   </ion-row>
 
 
-</ion-grid>
+</ion-grid> 

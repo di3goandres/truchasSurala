@@ -1,5 +1,5 @@
 import { LOCALE_ID,NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import localCo from '@angular/common/locales/es-CO';
 
@@ -53,11 +53,15 @@ registerLocaleData(localCo);
           ComponentsModule,
           PdfViewerModule,
           NgxChartsModule,
-          FormsModule
+          FormsModule,
+          ReactiveFormsModule
+
        
         ],
   providers: [
+    FormsModule,
 
+    ReactiveFormsModule,
     StatusBar,
     SplashScreen, 
     // OneSignal,

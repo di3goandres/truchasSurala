@@ -1,7 +1,7 @@
 [
     {
       "icon": "home-outline",
-      "name": "Home",
+      "name": "Inicio",
       "redirectTo": "/home"
     },
     {
