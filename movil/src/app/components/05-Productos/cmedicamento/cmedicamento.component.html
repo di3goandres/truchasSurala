@@ -3,7 +3,7 @@
     <ion-col>
       <ion-card>
         <ion-card-header>
-          <ion-card-title>
+          <ion-card-title class="ovas">
             {{medicamento.nombre}}
 
           </ion-card-title>
@@ -13,7 +13,7 @@
 
           <div *ngFor="let item of medicamento.descripcion">
             <p>
-              <strong>{{item.titulo}}</strong>
+              <strong class="blue">{{item.titulo}}</strong>
 
             </p>
 
@@ -44,7 +44,7 @@
           <div *ngIf="medicamento.compuesto">
 
             <p>
-              <strong>Composición</strong>
+              <strong class="blue">Composición</strong>
 
             </p>
 
@@ -64,7 +64,7 @@
           <div *ngIf="medicamento.cantidad">
 
             <p>
-              <strong>Cantidades a suministrar</strong>
+              <strong class="blue">Cantidades a suministrar</strong>
 
             </p>
 

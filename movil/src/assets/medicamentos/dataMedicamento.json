@@ -281,7 +281,6 @@
                 "descripcion": "Fungicida, bactericida, alguicida"
             }
         ],
-       
         "fotografia": "assets/medicamentos/timsen.png",
         "compuesto": [
             {
@@ -300,5 +299,19 @@
                 "descripcion": "Aplicación: directa, nebulización, aspersión, inmersión"
             }
         ]
+    },
+    {
+        "tipo": "Desinfectantes",
+        "nombre": "Ovadine (Iodine)",
+        "descripcion": [
+            {
+                "titulo": "Descripción",
+                "descripcion": "Solución desinfectante para Ovas de trucha y salmón y para equipos de uso general en salas de incubación."
+            
+            }
+           
+        ],
+        "fotografia": "assets/medicamentos/Iodine–Ovadine.jpg"
+        
     }
 ]
