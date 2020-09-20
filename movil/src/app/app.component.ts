@@ -48,11 +48,17 @@ export class AppComponent implements OnInit, DoCheck {
   }
 
   loadUser(): void {
-   let ident = this.userService.getIdentity();
-   let token = this.userService.getToken();
+    let ident = this.userService.getIdentity();
+    let token = this.userService.getToken();
 
- 
-   
+
+    // if (ident == null || token == null) {
+
+    //   this.userService.responseError();
+
+    // }
+
+
   }
   initializeApp() {
     this.platform.ready().then(() => {

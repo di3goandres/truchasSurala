@@ -21,8 +21,8 @@
     },
     {
       "icon": "medkit-outline",
-      "name": "Medicamentos",
-      "redirectTo": "/pedidos"
+      "name": "Productos",
+      "redirectTo": "/medicamentos"
     },
     {
       "icon": "exit-outline",

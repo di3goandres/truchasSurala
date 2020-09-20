@@ -37,6 +37,7 @@ import { PdfViewerModule } from 'ng2-pdf-viewer';
 import { NgxChartsModule } from '@swimlane/ngx-charts'
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { registerLocaleData } from '@angular/common';
+import { PipesModule } from './pipes/pipes.module';
 
 
 registerLocaleData(localCo);
@@ -54,7 +55,8 @@ registerLocaleData(localCo);
           PdfViewerModule,
           NgxChartsModule,
           FormsModule,
-          ReactiveFormsModule
+          ReactiveFormsModule,
+          PipesModule
 
        
         ],

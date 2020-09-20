@@ -8,7 +8,7 @@ import { Distribucion, InfoDespacho, Contacto, InfoDespachoMostrar } from '../..
 })
 export class TrazabilidadComponent implements OnInit {
   numeroBandejas: number;
-
+  noMostrar = true;
   @Input() traza: Distribucion;
 
   bandejas: InfoDespacho[];

@@ -1,0 +1,304 @@
+[
+    {
+        "tipo": "Suplementos Alimenticios",
+        "nombre": "MODERGAN-AQUA",
+        "descripcion": [
+            {
+                "titulo": "Promotor de Crecimiento",
+                "descripcion": "En peces como promotor de crecimiento, mejorador de la ganancia de peso y tratamiento de ciertas deficiencias de marginales de ámino ácido esenciales"
+            }
+        ],
+        "cantidad": "350g | 500g / T de alimento",
+        "fotografia": "assets/medicamentos/Modergan-aqua-600x669.png",
+        "compuesto": [
+            {
+                "descripcion": "Vitamina E"
+            },
+            {
+                "descripcion": "Lisina HCL"
+            },
+            {
+                "descripcion": "DL-Metionina"
+            },
+            {
+                "descripcion": "Valina"
+            },
+            {
+                "descripcion": "Arginina"
+            },
+            {
+                "descripcion": "Leucina"
+            },
+            {
+                "descripcion": "Treonina"
+            },
+            {
+                "descripcion": "Triptófano"
+            },
+            {
+                "descripcion": "Carnitina"
+            },
+            {
+                "descripcion": "Sulfato de Zin 7H2O"
+            },
+            {
+                "descripcion": "Sulfato de Cobre 5H2O"
+            },
+            {
+                "descripcion": "Vitamina B12"
+            },
+            {
+                "descripcion": "Excipientes C.S.P"
+            }
+        ]
+    },
+    {
+        "tipo": "Suplementos Alimenticios",
+        "nombre": "TUR-AQUA",
+        "descripcion": [
+            {
+                "titulo": "Mejorador de la Salud Intestinal",
+                "descripcion": "Inmunomodulador, promotor de creciemiento, anti-oxidante, anti-estrés, mejorador de la salud intestinal (anti-bacteriano) y hepato-protector."
+            },
+            {
+                "titulo": "Descripción",
+                "descripcion": "Aditivo alimenticio a base de Curcuma longa, Cinnamomum verum y Cloruro de colina para agregar en las raciones del alimento para ser suministrado en las etapas de alevinaje, crecimiento y engorde. No tiene tiempo de retiro"
+            }
+        ],
+        "cantidad": "350 – 500g /T de Alimento",
+        "fotografia": "assets/medicamentos/Tur-aqua-600x669.png",
+        "compuesto": [
+            {
+                "descripcion": "Curcuma longa"
+            },
+            {
+                "descripcion": "Cinnamomum verum"
+            },
+            {
+                "descripcion": "Cloruro de colina"
+            },
+            {
+                "descripcion": "Excipientes"
+            }
+        ]
+    },
+    {
+        "tipo": "Suplementos Alimenticios",
+        "nombre": "AQUA-IM-VIT",
+        "descripcion": [
+            {
+                "titulo": "Suplemento Multivitaminico",
+                "descripcion": "Inmunomodulador, antiestres, promotor de creciemento en peces."
+            },
+            {
+                "titulo": "Descripción",
+                "descripcion": "Inmunomodulador, antiestres, promotor de creciemento en peces. Para el tratamiento de las deficiencias marginales de las vitaminas presentes en la composición. Registro ICA: 15731 SL"
+            }
+        ],
+        "cantidad": "500g | 1.000g / Por tonelada",
+        "fotografia": "assets/medicamentos/AQUA-IM.VT_-600x670.png",
+        "compuesto": [
+            {
+                "descripcion": "Vitamina A"
+            },
+            {
+                "descripcion": "Vitamina D3"
+            },
+            {
+                "descripcion": "Vitamina C"
+            },
+            {
+                "descripcion": "Vitamina E"
+            },
+            {
+                "descripcion": "Vitamina B6"
+            },
+            {
+                "descripcion": "Vitamina B2"
+            },
+            {
+                "descripcion": "Excipiente C.S.P"
+            }
+        ]
+    },
+    {
+        "tipo": "Suplementos Alimenticios",
+        "nombre": "ALLIUM-OR",
+        "descripcion": [
+            {
+                "titulo": "Suplemento Multivitaminico",
+                "descripcion": "Aditivo fitogénico para usar en peces (tilapia, cachama, trucha) como promotor de crecimiento, inmunomodulador, anti-estrés, barredor de radicales libres y preventivo de enfermedades."
+            }
+        ],
+        "cantidad": "300g – 500g / por tonelada.",
+        "fotografia": "assets/medicamentos/ALLIUM-OR.png",
+        "compuesto": [
+            {
+                "descripcion": "Allium Sativum"
+            },
+            {
+                "descripcion": "Origanum vulgare"
+            },
+            {
+                "descripcion": "Excipientes C.S.P"
+            }
+        ]
+    },
+    {
+        "tipo": "Suplementos Alimenticios",
+        "nombre": "AQUA-LIVERPROT",
+        "descripcion": [
+            {
+                "titulo": "Protéctor Hepático",
+                "descripcion": "Aditivo alimenticio a base de Silimarina, extracto de Cynara y Cloruro de Colina para ser suministrado a peces de agua fría y cálida (trucha, salmon, tilapia, boca chico) en cada una de sus fases productivas. Registro ICA:  14462 AL"
+            }
+        ],
+        "cantidad": "300g – 500g / por tonelada. durante dos a tres semanas en forma continua en el alimento durante la fase de crecimiento y engorde. Otras cantidades a criterio del médico veterinario y/o zootecnista.",
+        "fotografia": "assets/medicamentos/AQUA-LIVERPROT.png",
+        "compuesto": [
+            {
+                "descripcion": "Silimarina"
+            },
+            {
+                "descripcion": "Extracto de Cynara"
+            },
+            {
+                "descripcion": "Cloruro de colina"
+            },
+            {
+                "descripcion": "Excipientes C.S.P"
+            }
+        ]
+    },
+    {
+        "tipo": "Medicamentos",
+        "nombre": "FLORCAP 5%",
+        "descripcion": [
+            {
+                "titulo": "Acción protectora anti-bacterial",
+                "descripcion": "En peces (Especie Salmonidae) para el tratamiento y control de las infecciones causadas por: Aeromona salmonicida, Vibrio salmonicida en la especie salmonidae."
+            },
+            {
+                "titulo": "Tiempo de retiro",
+                "descripcion": "Los animales tratados no deben sacrificarse para consumo humano hasta los 12 días después de finalizado el tratamiento."
+            },
+            {
+                "titulo": "Registro ICA",
+                "descripcion": "6649 MV"
+            }
+        ],
+        "cantidad": "10 mg/kg de peso. En forma práctica 1kg de FLORCAP 5% alcanza para tratar 5.000 kg de biomasa (peces vives) en el día.",
+        "fotografia": "assets/medicamentos/Florcap-600x600.png",
+        "compuesto": [
+            {
+                "descripcion": "Florfenicol"
+            },
+            {
+                "descripcion": "Excipientes C.S.P"
+            }
+        ]
+    },
+    {
+        "tipo": "Medicamentos",
+        "nombre": "NUFLOR 50%",
+        "descripcion": [
+            {
+                "titulo": "Descripción",
+                "descripcion": "No usar en animales destinados a la reproducción. El agua de los estanques medicados no debe reincorporarse directamente a corrientes de agua naturales. El medicamento deberá utilizarse sólo después de un diagnóstico correcto de la enfermedad. No administrar directamente. Venta bajo fórmula del Médico Veterinario. Mantener fuera del alcance de los niños. Uso Veterinario. "
+            },
+            {
+                "titulo": "",
+                "descripcion": "Antibiótico de amplio espectro."
+            },
+            {
+                "titulo": "Tiempo de Retiro",
+                "descripcion": "Las truchas tratadas no deben sacrificarse para el consumo humano hasta 15 días después de finalizado el tratamiento."
+            },
+            {
+                "titulo": "Registro ICA",
+                "descripcion": "7066 MV"
+            }
+        ],
+        "cantidad": "Dosis: 10 mg de FLORFENICOL / kg de peso vivo durante 10 días consecutivos vía oral en el alimento.",
+        "fotografia": "assets/medicamentos/nuflor-aqua.png",
+        "compuesto": [
+            {
+                "descripcion": "Florfenicol"
+            },
+            {
+                "descripcion": "Excipientes C.S.P"
+            }
+        ]
+    },
+    {
+        "tipo": "Desinfectantes",
+        "nombre": "Cloramine-T",
+        "descripcion": [
+            {
+                "titulo": "",
+                "descripcion": "Este producto es considerado un antimicrobiano, que puede ser usado como desinfectante de áreas, aunque su mayor uso es de modo profiláctico en acuicultura.Su acción radica en actuar en lesiones superficiales en piel, branquia, al igual que ayudando a limpiar de parásitos áreas como piel y branquias"
+            },
+            {
+                "titulo": "Descripción",
+                "descripcion": "Toxicidad aguda: DL50 (oral, rata): 1000 mg/kg CLORAMINA T.FDS DL50 (inhalación, rata): >0.275 mg/l-4H. Puede ser nocivo por inhalación, por ingestión o por absorción a través de la piel. Causa irritación en ojos y piel. Posibilidad de sensibilización en contacto con la piel. Irritante de las membranas mucosas y del tracto respiratorio superior."
+            }
+        ],
+        "fotografia": "assets/medicamentos/cloramine-600x600.png"
+    },
+    {
+        "tipo": "Desinfectantes",
+        "nombre": "Timsen",
+        "descripcion": [
+            {
+                "titulo": "Descripción",
+                "descripcion": "Este es un compuesto tipo G.R.A.S. (generalmente reconocido como seguro F.D.A.) Además de un bajo peso molecular de cloruros de amonio Alquil dimetil bencilo.",
+                "items": [
+                    {
+                        "descripcion": "Ambientalmente seguro"
+                    },
+                    {
+                        "descripcion": "Biodegradable"
+                    },
+                    {
+                        "descripcion": "Trabaja en un rango de pH de 3 a 11"
+                    },
+                    {
+                        "descripcion": "Es altamente eficiente en presencia de materia orgánica"
+                    },
+                    {
+                        "descripcion": "Trabaja en aguas duras hasta 550 ppm de CaCO3"
+                    },
+                    {
+                        "descripcion": "Trabaja en temperaturas extremas ( -8 y 121 grados centígrados)"
+                    },
+                    {
+                        "descripcion": "No es corrosivo"
+                    }
+                ]
+            },
+            {
+                "titulo": "Usos",
+                "descripcion": "Fungicida, bactericida, alguicida"
+            }
+        ],
+       
+        "fotografia": "assets/medicamentos/timsen.png",
+        "compuesto": [
+            {
+                "descripcion": "40% n-alquildimetilbencilamonioclorado"
+            },
+            {
+                "descripcion": "60% urea g.r.a.s.s."
+            },
+            {
+                "descripcion": "Sinónimos del i-a: cloruro de aralconio, cloruro de alquil 3,4 diclorobencilamonio"
+            },
+            {
+                "descripcion": "Fórmula: r-n ( ch2-c6h5 ) –2ch3"
+            },
+            {
+                "descripcion": "Aplicación: directa, nebulización, aspersión, inmersión"
+            }
+        ]
+    }
+]

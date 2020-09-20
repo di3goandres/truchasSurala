@@ -83,7 +83,7 @@ export class LoginPage implements OnInit {
 
     this.userService.loginUser(this.user).subscribe(
       response => {
-        this.userService.logout();
+        this.userService.responseError();
 
         console.log(response)
         // tslint:disable-next-line: triple-equals

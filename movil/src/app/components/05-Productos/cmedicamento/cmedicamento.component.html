@@ -1,0 +1,101 @@
+<ion-grid>
+  <ion-row>
+    <ion-col>
+      <ion-card>
+        <ion-card-header>
+          <ion-card-title>
+            {{medicamento.nombre}}
+
+          </ion-card-title>
+        </ion-card-header>
+
+        <ion-card-content>
+
+          <div *ngFor="let item of medicamento.descripcion">
+            <p>
+              <strong>{{item.titulo}}</strong>
+
+            </p>
+
+            <p class="ion-text-justify">
+              <ion-label>
+                {{item.descripcion}}
+
+              </ion-label>
+
+
+            </p>
+            <div *ngIf="item.items">
+              <p class="ion-text-justify">
+                <ion-label>
+                  <ul>
+                    <li *ngFor="let ok of item.items">
+                      {{ok.descripcion}}
+                    </li>
+                  </ul>
+                </ion-label>
+              </p>
+            </div>
+          </div>
+
+
+
+
+          <div *ngIf="medicamento.compuesto">
+
+            <p>
+              <strong>Composición</strong>
+
+            </p>
+
+            <p class="ion-text-justify">
+              <ion-label>
+                <ul>
+                  <li *ngFor="let item of medicamento.compuesto">
+                    {{item.descripcion}}
+                  </li>
+                </ul>
+              </ion-label>
+
+
+            </p>
+          </div>
+
+          <div *ngIf="medicamento.cantidad">
+
+            <p>
+              <strong>Cantidades a suministrar</strong>
+
+            </p>
+
+            <p class="ion-text-justify">
+              <ion-label>
+                {{medicamento.cantidad}}
+              </ion-label>
+
+
+            </p>
+          </div>
+
+
+          <ion-slides pager="false" [options]="slideOpts">
+            <ion-slide *ngFor="let item of [1]">
+              <ion-list>
+                <ion-item>
+                  <ion-thumbnail slot="start" style="width: 100%; height: 100%;">
+                    <!-- <ion-img [src]="item.src"></ion-img> -->
+                    <ion-img [src]="medicamento.fotografia"></ion-img>
+
+                  </ion-thumbnail>
+                </ion-item>
+              </ion-list>
+            </ion-slide>
+
+          </ion-slides>
+        </ion-card-content>
+      </ion-card>
+    </ion-col>
+  </ion-row>
+
+
+</ion-grid>

@@ -15,6 +15,7 @@ import { NgxChartsModule } from '@swimlane/ngx-charts'
 import { VerdespachosComponent } from './02-Pedidos/verdespachos/verdespachos.component';
 import { TrazabilidadComponent } from './03-Trazabilidad/trazabilidad/trazabilidad.component';
 import { MortalidadpreguntasComponent } from './04-Mortalidad/mortalidadpreguntas/mortalidadpreguntas.component';
+import { CmedicamentoComponent } from './05-Productos/cmedicamento/cmedicamento.component';
 
 
 @NgModule({
@@ -28,7 +29,8 @@ import { MortalidadpreguntasComponent } from './04-Mortalidad/mortalidadpregunta
     EstadisticaComponent,
     VerdespachosComponent,
     TrazabilidadComponent,
-    MortalidadpreguntasComponent
+    MortalidadpreguntasComponent,
+    CmedicamentoComponent
 
 
   ],
@@ -52,7 +54,8 @@ import { MortalidadpreguntasComponent } from './04-Mortalidad/mortalidadpregunta
     EstadisticaComponent,
     VerdespachosComponent,
     TrazabilidadComponent,
-    MortalidadpreguntasComponent
+    MortalidadpreguntasComponent,
+    CmedicamentoComponent
 
 
   ],

@@ -8,7 +8,7 @@
     </ion-card-header>
     <ion-card-content>
 
-      <ion-slides #slides (ionSlidesDidLoad)="bloquear()">
+      <ion-slides #slides (ionSlidesDidLoad)="bloquear()" [options]="slideOpts">
         <ion-slide>
 
           <ion-grid cols="3" rowHeight="1:1" style="padding-bottom: 10px;">
@@ -119,6 +119,11 @@
         </ion-slide>
 
      
+
+        <ion-slide>
+          <app-mortalidadpreguntas [preguntas]="preguntas"></app-mortalidadpreguntas>
+
+        </ion-slide>
 
         <ion-slide>
           <app-mortalidadpreguntas [preguntas]="preguntas"></app-mortalidadpreguntas>

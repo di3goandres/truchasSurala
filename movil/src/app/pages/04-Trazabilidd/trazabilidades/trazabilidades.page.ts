@@ -9,6 +9,7 @@ import { TrazabilidadResponse, Distribucion } from '../../../models/trazabilidad
   styleUrls: ['./trazabilidades.page.scss'],
 })
 export class TrazabilidadesPage implements OnInit {
+  noMostrar= true;
   id: string;
   traza: TrazabilidadResponse;
   distribucion: Distribucion[];
@@ -43,7 +44,7 @@ export class TrazabilidadesPage implements OnInit {
           if(response.status=="success"){
             this.traza= response;
             this.distribucion = this.traza.distribucion;
-            console.log(  this.distribucion)
+            this.noMostrar = false
         
 
           }

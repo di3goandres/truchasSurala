@@ -67,6 +67,10 @@ const routes: Routes = [
     loadChildren: () => import('./pages/05-Mortalidad/registromortalidad/registromortalidad.module').then( m => m.RegistromortalidadPageModule),
     canLoad: [UsuarioGuard],
     canActivate:  [UsuarioGuard]
+  },
+  {
+    path: 'medicamentos',
+    loadChildren: () => import('./pages/06-Productos/medicamentos/medicamentos.module').then( m => m.MedicamentosPageModule)
   }
 ];
 

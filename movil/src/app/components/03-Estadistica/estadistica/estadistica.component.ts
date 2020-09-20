@@ -14,7 +14,7 @@ export class EstadisticaComponent implements OnInit {
   datoMulti: EstadisticaMulti[] = []
 
   mostrar = false;
-  view: any[] = [380, 350];
+  view: any[];
 
   // options
   showXAxis = true;
@@ -43,8 +43,14 @@ export class EstadisticaComponent implements OnInit {
 
   mySubscription: any;
 
-  constructor(private pedidosService: PedidosService) { }
+  constructor(private pedidosService: PedidosService) {
 
+    this.view = [innerWidth / 1.3, 500];
+   }
+
+   onResize(event) {
+    this.view = [event.target.innerWidth / 1.35, 500];
+}
   doRefresh(event) {
     
     this.single= [];
@@ -110,7 +116,14 @@ export class EstadisticaComponent implements OnInit {
 
         // Object.assign(this, { dato });
       },
-      ERROR => { console.log(ERROR) },
+      ERROR => { console.log(ERROR) 
+        // if(ERROR.message=="Usuario no identificado"){
+          this.pedidosService.responseError()
+        // }
+      
+      
+      }
+      ,
     )
   }
 

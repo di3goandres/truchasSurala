@@ -7,6 +7,8 @@ import { NavController } from '@ionic/angular';
 import { FincasUser } from '../models/fincas.user';
 import { Respuesta } from '../models/Response';
 import { Photo, SavePhoto } from '../models/photos';
+import { delay} from 'rxjs/operators';
+
 
 
 
@@ -43,6 +45,7 @@ export class UserService {
     this.token = null;
     this.getIdentity()
     this.getToken()
+    this.responseError()
 
   }
 
@@ -90,6 +93,12 @@ export class UserService {
     })
   }
 
+  public responseError(){
+    localStorage.removeItem('identity');
+    localStorage.removeItem('token');
+    this.navCtrl.navigateRoot('login');
+    
+  }
 
 
   // tslint:disable-next-line: typedef
@@ -100,7 +109,10 @@ export class UserService {
     // .set('Cache-Control',  'no-cache, no-store, must-revalidate, post-check=0, pre-check=0')
     // .set('Pragma','no-cache')
     // .set('Expires', '0');
-    return this.http.get<T>(this.url + query, { headers: this.header });
+    return this.http.get<T>(this.url + query, { headers: this.header })
+    .pipe(
+      delay(2000)
+    );
 
   }
 
@@ -163,15 +175,10 @@ export class UserService {
     savePhoto.file = fileToUpload.base64;
     savePhoto.nombre = fileToUpload.fileName.name;
     savePhoto.type = fileToUpload.fileName.type;
-    
 
-
-   
-  
     // reader.readAsArrayBuffer(fileToUpload.fileName);
     this.json = JSON.stringify(savePhoto);
     this.params = 'json=' + this.json ;
-  
   
     this.http.post<Respuesta>(this.url + '/api/user/upload',
     this.params  , { headers: this.header } ).subscribe(

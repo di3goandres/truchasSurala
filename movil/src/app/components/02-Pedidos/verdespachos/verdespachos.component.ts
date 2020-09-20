@@ -9,7 +9,7 @@ import { PedidosService } from 'src/app/services/pedidos/pedidos.service';
 })
 export class VerdespachosComponent implements OnInit {
 
-  
+  noMostrar = true;
   despachos: Despacho[]= []
   constructor(
     private servicio : PedidosService,
@@ -23,22 +23,28 @@ export class VerdespachosComponent implements OnInit {
  
  
   traerDespachos(){
+
     this.servicio.obtenerMisDespachos().subscribe(
       OK => {
         this.despachos = []
         this.despachos.push(...OK.despachos)
+        this.noMostrar = false;
       },
       ERROR => console.log(ERROR),
     )
   }
 
   doRefresh(event) {
+
     this.traerDespachos()
+    this.noMostrar = true;
    
 
     setTimeout(() => {
      
       event.target.complete();
+   
+
     }, 2000);
   }
 

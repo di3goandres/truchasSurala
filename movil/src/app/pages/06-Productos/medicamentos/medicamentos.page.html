@@ -1,0 +1,35 @@
+<app-header titulo="Nuestros Productos" icon="medical-outline">
+
+</app-header>
+
+<ion-toolbar>
+  <ion-segment (ionChange)="segmentChange($event)" color="primary" value="Suplementos Alimenticios">
+    <ion-segment-button value="Suplementos Alimenticios">
+      <ion-label>
+        Suplementos
+      </ion-label>
+    </ion-segment-button>
+    <ion-segment-button value="Medicamentos">
+      <ion-label>
+        Medicamentos
+      </ion-label>
+    </ion-segment-button>
+    <ion-segment-button value="Desinfectantes">
+      <ion-label>
+        Desinfectantes
+      </ion-label>
+    </ion-segment-button>
+  </ion-segment>
+</ion-toolbar>
+<ion-content>
+  <ion-content *ngIf="!mostrar">
+
+
+    <ion-slides pager="true" [options]="slideOpts">
+      <ion-slide *ngFor="let item of (medicamentos| async) | filtro: tipo: 'tipo'" 
+      class="animated fast in">
+        <app-cmedicamento [medicamento]="item" ></app-cmedicamento>
+      </ion-slide>
+
+    </ion-slides>
+  </ion-content>

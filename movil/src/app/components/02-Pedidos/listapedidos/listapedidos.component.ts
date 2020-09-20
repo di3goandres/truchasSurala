@@ -10,7 +10,7 @@ import { VerfacturaComponent } from '../verfactura/verfactura.component';
   styleUrls: ['./listapedidos.component.scss'],
 })
 export class ListapedidosComponent implements OnInit {
-
+  noMostrar = true;
   @Input() idDespacho : any;
   pedidos: Pedido[]= []
   constructor(
@@ -38,7 +38,7 @@ export class ListapedidosComponent implements OnInit {
       OK => {
         this.pedidos = []
         this.pedidos.push(...OK.pedidos)
-        console.log(OK.pedidos)
+        this.noMostrar= false;
       },
       ERROR => console.log(ERROR),
     )

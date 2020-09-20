@@ -39,4 +39,8 @@ export class PedidosService {
 
 
   }
+
+  responseError(){
+    this.userService.responseError();
+  }
 }
