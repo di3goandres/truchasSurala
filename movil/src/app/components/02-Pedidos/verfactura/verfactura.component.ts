@@ -85,7 +85,7 @@ export class VerfacturaComponent implements OnInit {
       const options: DocumentViewerOptions = {
         title: 'Mi Factura'
       }
-      this.document.viewDocument(`${filePath}/` + nombre, 'application/pdf', options)
+      this.document.viewDocument(`${filePath}` + nombre, 'application/pdf', options)
     }
   }
   cerrar() {
