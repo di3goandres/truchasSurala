@@ -25,10 +25,17 @@
       <p>Dias Retraso de llegada: 0 días, a tiempo</p>
       <p>Temperatura de llegada: 3°C</p>
 
+      <ion-buttons>
+        <ion-button *ngIf="despacho.certificado!='pendiente'" [routerLink]="'/certificados/'+despacho.id+'/'+despacho.certificado+'/certificado'">
+          <ion-icon slot="icon-only" name="cash-outline"></ion-icon>
+        </ion-button>
+      
+
       <ion-button [routerLink]="'/pedidos/'+despacho.id" expand="block" fill="clear" shape="round">
 
         Ver Pedidos
       </ion-button>
+    </ion-buttons>
 
     </ion-card-content>
   </ion-card>

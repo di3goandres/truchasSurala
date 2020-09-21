@@ -2,10 +2,10 @@ import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 import { UsuarioGuard } from './guards/usuario.guard';
 
-const routes: Routes = [ 
+const routes: Routes = [
   {
     path: 'login',
-    loadChildren: () => import('./pages/01-Login/login/login.module').then( m => m.LoginPageModule)
+    loadChildren: () => import('./pages/01-Login/login/login.module').then(m => m.LoginPageModule)
   },
   {
     path: '',
@@ -14,16 +14,16 @@ const routes: Routes = [
   },
   {
     path: 'fincas',
-    loadChildren: () => import('./pages/02-fincas/fincas/fincas.module').then( m => m.FincasPageModule),
+    loadChildren: () => import('./pages/02-fincas/fincas/fincas.module').then(m => m.FincasPageModule),
     canLoad: [UsuarioGuard],
-    canActivate:  [UsuarioGuard]
+    canActivate: [UsuarioGuard]
   },
 
   {
     path: 'home',
-    loadChildren: () => import('./pages/00-Home/home/home.module').then( m => m.HomePageModule),
+    loadChildren: () => import('./pages/00-Home/home/home.module').then(m => m.HomePageModule),
     canLoad: [UsuarioGuard],
-    canActivate:  [UsuarioGuard]
+    canActivate: [UsuarioGuard]
 
   },
   {
@@ -32,49 +32,55 @@ const routes: Routes = [
     pathMatch: 'full'
   },
   {
-    path: 'logout/:sure', 
-    loadChildren: () => import('./pages/01-Login/login/login.module').then( m => m.LoginPageModule),
+    path: 'logout/:sure',
+    loadChildren: () => import('./pages/01-Login/login/login.module').then(m => m.LoginPageModule),
     canLoad: [UsuarioGuard],
-    canActivate:  [UsuarioGuard]
+    canActivate: [UsuarioGuard]
   },
   {
     path: 'pedidofactura/:idPedido/:nombrefactura',
-    loadChildren: () => import('./pages/03-Pedidos/pedidofactura/pedidofactura.module').then( m => m.PedidofacturaPageModule),
+    loadChildren: () => import('./pages/03-Pedidos/pedidofactura/pedidofactura.module').then(m => m.PedidofacturaPageModule),
     canLoad: [UsuarioGuard],
-    canActivate:  [UsuarioGuard]
+    canActivate: [UsuarioGuard]
+  },
+  {
+    path: 'certificados/:idPedido/:nombrefactura/:certificado',
+    loadChildren: () => import('./pages/03-Pedidos/pedidofactura/pedidofactura.module').then(m => m.PedidofacturaPageModule),
+    canLoad: [UsuarioGuard],
+    canActivate: [UsuarioGuard]
   },
   {
     path: 'pedidos/:id',
-    loadChildren: () => import('./pages/03-Pedidos/pedidos/pedidos.module').then( m => m.PedidosPageModule),
+    loadChildren: () => import('./pages/03-Pedidos/pedidos/pedidos.module').then(m => m.PedidosPageModule),
     canLoad: [UsuarioGuard],
-    canActivate:  [UsuarioGuard]
+    canActivate: [UsuarioGuard]
 
   },
   {
     path: 'despachos',
-    loadChildren: () => import('./pages/03-Pedidos/despachos/despachos.module').then( m => m.DespachosPageModule),
+    loadChildren: () => import('./pages/03-Pedidos/despachos/despachos.module').then(m => m.DespachosPageModule),
     canLoad: [UsuarioGuard],
-    canActivate:  [UsuarioGuard]
+    canActivate: [UsuarioGuard]
   },
   {
     path: 'trazabilidad/:id',
-    loadChildren: () => import('./pages/04-Trazabilidd/trazabilidades/trazabilidades.module').then( m => m.TrazabilidadesPageModule),
+    loadChildren: () => import('./pages/04-Trazabilidd/trazabilidades/trazabilidades.module').then(m => m.TrazabilidadesPageModule),
     canLoad: [UsuarioGuard],
-    canActivate:  [UsuarioGuard]
+    canActivate: [UsuarioGuard]
   },
   {
     path: 'RegistroMortalidad/:id',
-    loadChildren: () => import('./pages/05-Mortalidad/registromortalidad/registromortalidad.module').then( m => m.RegistromortalidadPageModule),
+    loadChildren: () => import('./pages/05-Mortalidad/registromortalidad/registromortalidad.module').then(m => m.RegistromortalidadPageModule),
     canLoad: [UsuarioGuard],
-    canActivate:  [UsuarioGuard]
+    canActivate: [UsuarioGuard]
   },
   {
     path: 'medicamentos',
-    loadChildren: () => import('./pages/06-Productos/medicamentos/medicamentos.module').then( m => m.MedicamentosPageModule)
+    loadChildren: () => import('./pages/06-Productos/medicamentos/medicamentos.module').then(m => m.MedicamentosPageModule)
   },
   {
     path: 'guiasmanejo',
-    loadChildren: () => import('./pages/07-Guias/guiasmanejo/guiasmanejo.module').then( m => m.GuiasmanejoPageModule)
+    loadChildren: () => import('./pages/07-Guias/guiasmanejo/guiasmanejo.module').then(m => m.GuiasmanejoPageModule)
   }
 ];
 

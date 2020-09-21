@@ -16,6 +16,8 @@ export interface Pedido {
     total:          number;
     nombre_factura: string;
     fecha_salida:   string;
+    certificado:    string;
+
     nombre:         string;
     municipio:      string;
     departamento:   string;

@@ -26,8 +26,11 @@ export class VerdespachosComponent implements OnInit {
 
     this.servicio.obtenerMisDespachos().subscribe(
       OK => {
+
         this.despachos = []
         this.despachos.push(...OK.despachos)
+        console.log('despachos', OK.despachos)
+
         this.noMostrar = false;
       },
       ERROR => console.log(ERROR),

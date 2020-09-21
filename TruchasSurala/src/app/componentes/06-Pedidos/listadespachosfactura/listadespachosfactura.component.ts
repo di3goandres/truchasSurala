@@ -63,6 +63,7 @@ export class ListadespachosfacturaComponent implements OnInit {
     
       if(result=="OK"){
           this.OpenExitoso();
+          this. cargaInicial();
       }
 
     }, (reason) => {

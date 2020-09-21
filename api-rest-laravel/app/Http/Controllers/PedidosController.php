@@ -540,6 +540,7 @@ class PedidosController extends Controller
                     'pedidos.total',
                     'pedidos.nombre_factura',
                     'despachos.fecha_salida',
+                    'despachos.certificado',
                     'fincas.nombre',
                     'fincas.municipio',
                     'fincas.departamento'

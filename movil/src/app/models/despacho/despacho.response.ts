@@ -9,4 +9,6 @@ export interface DespachoResponse {
 export interface Despacho {
     id:           number;
     fecha_salida: string;
+    certificado:  string;
+
 }

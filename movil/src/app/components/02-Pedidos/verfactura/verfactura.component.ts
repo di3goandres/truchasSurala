@@ -13,8 +13,9 @@ import { UserService } from '../../../services/user.service';
 export class VerfacturaComponent implements OnInit {
   @Input() nombreFactura: string;
   @Input() idPedido: string;
+  @Input() pdfSrc = "";
 
-  pdfSrc = "/api/pedido/factura/";
+
   options: DocumentViewerOptions = {
     title: 'Mi Factura'
   }
@@ -35,6 +36,7 @@ export class VerfacturaComponent implements OnInit {
 
 
     this.pdfSrc = this.pdfSrc + this.idPedido + "/" + this.nombreFactura;
+    console.log('ruta', this.pdfSrc)
     this.dowloadAndOpenPdf();
   }
 
@@ -44,26 +46,26 @@ export class VerfacturaComponent implements OnInit {
 
 
     let path = this.file.dataDirectory;
-    if (this.file.checkFile(`${path}`, this.nombreFactura)) {
-      console.log("Existe archivo")
-      this.openlocalPdf(this.nombreFactura)
-    }
-    else {
-      console.log("No Existe archivo")
+    // if (this.file.checkFile(`${path}`, this.nombreFactura)) {
+    //   console.log("Existe archivo")
+    //   this.openlocalPdf(this.nombreFactura)
+    // }
+    // else {
+    //   console.log("No Existe archivo")
 
-      const transfer = this.fileTransfer.create();
-      transfer.download(downloadUrl, `${path}` + this.nombreFactura).then(entry => {
-        let url = entry.toURL();
-        if (this.platform.is('ios')) {
-          this.document.viewDocument(url, 'application/pdf', {})
+    const transfer = this.fileTransfer.create();
+    transfer.download(downloadUrl, `${path}` + this.nombreFactura).then(entry => {
+      let url = entry.toURL();
+      if (this.platform.is('ios')) {
+        this.document.viewDocument(url, 'application/pdf', {})
 
 
-        } else {
-          this.fileOpener.open(url, 'application/pdf');
+      } else {
+        this.fileOpener.open(url, 'application/pdf');
 
-        }
-      });
-    }
+      }
+    });
+    // }
 
 
 

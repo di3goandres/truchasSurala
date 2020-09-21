@@ -252,7 +252,9 @@ class DespachoController extends Controller
             ->where('users.id', '=',  $user->sub)
             ->select(
                 'despachos.id', 
-                'despachos.fecha_salida'
+                'despachos.fecha_salida',
+                'despachos.certificado',
+
                 )
             ->distinct('id')
             ->orderBy('fecha_salida', 'desc')
