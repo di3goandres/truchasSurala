@@ -77,21 +77,16 @@
             </p>
           </div>
 
+          <ion-list>
+            <ion-item>
+              <ion-thumbnail slot="start" style="width: 100%; height: 100%;">
+                <!-- <ion-img [src]="item.src"></ion-img> -->
+                <ion-img [src]="medicamento.fotografia"></ion-img>
 
-          <ion-slides pager="false" [options]="slideOpts">
-            <ion-slide *ngFor="let item of [1]">
-              <ion-list>
-                <ion-item>
-                  <ion-thumbnail slot="start" style="width: 100%; height: 100%;">
-                    <!-- <ion-img [src]="item.src"></ion-img> -->
-                    <ion-img [src]="medicamento.fotografia"></ion-img>
-
-                  </ion-thumbnail>
-                </ion-item>
-              </ion-list>
-            </ion-slide>
-
-          </ion-slides>
+              </ion-thumbnail>
+            </ion-item>
+          </ion-list>
+        
         </ion-card-content>
       </ion-card>
     </ion-col>

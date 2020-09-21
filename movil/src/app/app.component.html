@@ -10,23 +10,13 @@
         </ion-toolbar>
       </ion-header>
       <ion-content>
-        <!-- <ion-grid  class="content-with-full-height"  autoHide="true">
-          <ion-row justify-content-around *ngFor="let c of componentes | async"  class="equal-sized-item">
-            <ion-col>
-              <ion-button expand="block" fill="clear" [routerLink]="c.redirectTo">
-        
-              <ion-icon slot="start" [name]="c.icon"></ion-icon>
-
-              </ion-button>
-            </ion-col>
-          </ion-row>
-        </ion-grid> -->
+      
         <ion-list>
 
           <ion-menu-toggle autoHide="false" *ngFor="let c of componentes | async">
             <ion-item [routerLink]="c.redirectTo" class="equal-sized-item">
-              <ion-icon slot="start" size="large" [name]="c.icon"></ion-icon>
-              <ion-label>{{ c.name }}</ion-label>
+              <ion-icon slot="start" size="large" [name]="c.icon"  class="ovas"></ion-icon>
+              <ion-label class="blue">{{ c.name }}</ion-label>
             </ion-item>
           </ion-menu-toggle>
 
@@ -47,8 +37,8 @@
 
           <ion-menu-toggle autoHide="false" *ngFor="let c of componentesInvitado | async">
             <ion-item [routerLink]="c.redirectTo">
-              <ion-icon slot="start" [name]="c.icon"></ion-icon>
-              <ion-label>{{ c.name }}</ion-label>
+              <ion-icon slot="start" [name]="c.icon" class="blue"></ion-icon>
+              <ion-label class="ovas">{{ c.name }}</ion-label>
             </ion-item>
           </ion-menu-toggle>
 

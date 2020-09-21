@@ -85,6 +85,7 @@ import { ListadespachosfacturaComponent } from './componentes/06-Pedidos/listade
 import { AsociarfincaComponent } from './componentes/02-Usuario/03-Fincas/asociarfinca/asociarfinca.component';
 import { VerdistribucionComponent } from './componentes/07-Distribucion/verdistribucion/verdistribucion.component';
 import { DistribucioncrearComponent } from './componentes/07-Distribucion/distribucioncrear/distribucioncrear.component';
+import { AsociarcertificadoComponent } from './componentes/05-Despacho/asociarcertificado/asociarcertificado.component';
 
 
 registerLocaleData(localCo);
@@ -119,7 +120,7 @@ registerLocaleData(localCo);
     CrearpedidosComponent, ListausuariosComponent,
      EditarpedidoComponent, BorrarpedidoComponent,
       AsociarfacturaComponent, ListapedidosfacturaComponent, 
-    ListadespachosfacturaComponent, AsociarfincaComponent, VerdistribucionComponent, DistribucioncrearComponent
+    ListadespachosfacturaComponent, AsociarfincaComponent, VerdistribucionComponent, DistribucioncrearComponent, AsociarcertificadoComponent
 
 
   ],

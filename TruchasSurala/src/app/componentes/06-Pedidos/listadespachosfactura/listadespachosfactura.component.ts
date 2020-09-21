@@ -6,6 +6,8 @@ import { UserService } from 'src/app/service/user/user.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { DistribuciongloballistComponent } from '../../03-Distribucion/distribuciongloballist/distribuciongloballist.component';
 import { EditardespachoComponent } from '../../05-Despacho/editardespacho/editardespacho.component';
+import { AsociarcertificadoComponent } from '../../05-Despacho/asociarcertificado/asociarcertificado.component';
+import { RegistroExitosoComponent } from '../../01-Comunes/registro-exitoso/registro-exitoso.component';
 
 @Component({
   selector: 'app-listadespachosfactura',
@@ -18,7 +20,7 @@ export class ListadespachosfacturaComponent implements OnInit {
 
   displayedColumns: string[] = ['position', 'Activo', 'FechaFactura', 'FechaSalida',
     'NumeroFactura', 'NumeroOvas',
-    'Porcentaje', 'VerPedidos'];
+    'Porcentaje', 'VerPedidos', 'Certificado'];
 
   public respuesta: DespachoRootObject;
   public dataSource = new MatTableDataSource<Despacho>();
@@ -37,6 +39,37 @@ export class ListadespachosfacturaComponent implements OnInit {
   }
 
 
+  OpenExitoso(){
+    const modalRef = this.modalService.open(RegistroExitosoComponent);
+   
+   
+
+    modalRef.result.then((result) => {
+    
+      if(result=="OK"){
+
+      }
+
+    }, (reason) => {
+
+    });
+  }
+  OpenAsociarFactura(element) {
+    const modalRef = this.modalService.open(AsociarcertificadoComponent);
+    modalRef.componentInstance.despacho = element
+   
+
+    modalRef.result.then((result) => {
+    
+      if(result=="OK"){
+          this.OpenExitoso();
+      }
+
+    }, (reason) => {
+
+    });
+
+  }
   cargaInicial(){
     this.userService.getDespachos().subscribe(
       resp => {

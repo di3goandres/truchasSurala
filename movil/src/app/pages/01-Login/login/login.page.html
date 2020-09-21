@@ -1,103 +1,113 @@
-<ion-content padding  style="padding-bottom: 10px;">
+<ion-content padding  style="padding-bottom: 10px;padding-top: 25%; text-align: center;">
 
-  <ion-header>
-
-  </ion-header>
+<!-- 
 
   <ion-slides class="mainSlide" #slidePrincipal>
     
-    <ion-slide>
+    <ion-slide> -->
+   <ion-grid>
+     <ion-row>
+
+     </ion-row>
+      <ion-row>
+       
+     </ion-row>
+   </ion-grid>
+      <ion-card>
+        <ion-card-content>
+          <form (ngSubmit)="onLogin( fLogin )"
+          #fLogin="ngForm" style="padding-bottom: 7%;padding-top: 5%;">
+           <ion-grid fixed >
    
-      <form (ngSubmit)="onLogin( fLogin )"
-       #fLogin="ngForm" style="padding-bottom: 7%;padding-top: 5%;">
-        <ion-grid fixed >
-
-          <ion-row>
-            <ion-col>
-              <img src="/assets/avatars/av-1.png">
-            </ion-col>
-            <ion-col style="margin: auto;">
-              <img src="/assets/logo/Logo_Surala.png">
-            </ion-col>
-          </ion-row>
-        
-          <ion-row>
-            <ion-col>
-              
-                <ion-list>
-                  
-                  <ion-item>
-                    <ion-label position="floating" color="primary">Email</ion-label>
-                    <ion-input  name="email"
-                                type="email"
-                                pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$"
-                                [(ngModel)]="user.email"
-                              
-                                #email="ngModel"
-                                required></ion-input>
-                  </ion-item>
-                  <small style="color:red" *ngIf="!email.valid && email.touched" class="invalid-feedback d-block">
-                    Correo no valido
-                  </small>
-
-                  <ion-item>
-                    <ion-label position="floating"  color="primary">Contraseña</ion-label>
-                    <ion-input name="password"
-                                type="password"
-                               
-                                [(ngModel)]="user.password"
-                                required></ion-input>
-                  </ion-item>
+             <ion-row>
+               <ion-col>
+                 <img src="/assets/avatars/av-1.png">
+               </ion-col>
+               <ion-col style="margin: auto;">
+                 <img src="/assets/logo/Logo_Surala.png">
+               </ion-col>
+             </ion-row>
+           
+             <ion-row>
+               <ion-col>
+                 
+                   <ion-list>
+                     
+                     <ion-item>
+                       <ion-label position="floating" color="primary">Email</ion-label>
+                       <ion-input  name="email"
+                                   type="email"
+                                   pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$"
+                                   [(ngModel)]="user.email"
+                                 
+                                   #email="ngModel"
+                                   required></ion-input>
+                     </ion-item>
+                     <small style="color:red" *ngIf="!email.valid && email.touched" class="invalid-feedback d-block">
+                       Correo no valido
+                     </small>
+   
+                     <ion-item>
+                       <ion-label position="floating"  color="primary">Contraseña</ion-label>
+                       <ion-input name="password"
+                                   type="password"
+                                  
+                                   [(ngModel)]="user.password"
+                                   required></ion-input>
+                     </ion-item>
+                   
+   
+                   </ion-list>
+               </ion-col>
+             </ion-row>
+   
+             <ion-row>
+               <ion-col>
+                 <ion-button type="submit"
+                             color="primary"
+                             shape="round">
+                   Login
+                 </ion-button>
+               </ion-col>
+             </ion-row>
+            
+             <ion-row *ngIf="status==='error'">
+               <ion-col>
+                 <ion-label style="color:red">Usuario o Contraseña incorrecta</ion-label>
+               </ion-col>
+             </ion-row>
+             <ion-row>
+               <ion-col>
+               <ion-label class="titlecenter" color="primary">Si no eres Cliente</ion-label>
+             </ion-col>
+             </ion-row>
+             <ion-row>
+               <ion-col>
                 
-
-                </ion-list>
-            </ion-col>
-          </ion-row>
-
-          <ion-row>
-            <ion-col>
-              <ion-button type="submit"
-                          color="primary"
-                          shape="round">
-                Login
-              </ion-button>
-            </ion-col>
-          </ion-row>
+                   <ion-button shape="round"
+                               expand="full"
+                               size="small"
+                               fill="outline"
+                               color="primary"
+                               (click)="toggleMenu()">
+                     Da una vuelta
+                   </ion-button>
+               </ion-col>
          
-          <ion-row *ngIf="status==='error'">
-            <ion-col>
-              <ion-label style="color:red">Usuario o Contraseña incorrecta</ion-label>
-            </ion-col>
-          </ion-row>
-          <ion-row>
-            <ion-col>
-            <ion-label class="titlecenter" color="primary">Si no eres Cliente</ion-label>
-          </ion-col>
-          </ion-row>
-          <ion-row>
-            <ion-col>
-             
-                <ion-button shape="round"
-                            expand="full"
-                            size="small"
-                            fill="outline"
-                            color="primary"
-                            (click)="toggleMenu()">
-                  Da una vuelta
-                </ion-button>
-            </ion-col>
-      
-          </ion-row>
-        </ion-grid>
-      </form>
+             </ion-row>
+           </ion-grid>
+         </form>
+        </ion-card-content>
+      </ion-card>
+   
     
 
 
-    </ion-slide>
+     <!-- </ion-slide>
 
 
 
-  </ion-slides>
+  </ion-slides>  -->
 
 
 

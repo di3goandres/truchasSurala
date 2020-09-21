@@ -1,8 +1,8 @@
-<ion-header no-border translucent>
+<ion-header no-border translucent class="ion-no-border">
   <ion-toolbar>
 
     <ion-buttons slot="start">
-      <ion-back-button text="" defaultHref="/home" color="primary"></ion-back-button>
+      <ion-back-button text="" [defaultHref]="ruta" color="primary" (click)="onClick()"></ion-back-button>
       <ion-button (click)="toggleMenu()">
         <ion-icon slot="icon-only" name="ellipse" color="primary"></ion-icon>
       </ion-button>
@@ -12,7 +12,7 @@
       </ion-button>
     </ion-buttons>
 
-    <ion-title text-capitalize> 
+    <ion-title text-capitalize class="ovas"> 
      {{ titulo }} </ion-title>
   </ion-toolbar>
 </ion-header>

@@ -102,6 +102,8 @@ export class ListapedidosComponent implements OnInit {
     });
 
   }
+  
+ 
   OpenAsociarFactura(element) {
     const modalRef = this.modalService.open(AsociarfacturaComponent);
     modalRef.componentInstance.pedido = element
@@ -109,7 +111,9 @@ export class ListapedidosComponent implements OnInit {
 
     modalRef.result.then((result) => {
     
-
+      if(result=="OK"){
+        this.openExitoso();
+    }
     }, (reason) => {
 
     });

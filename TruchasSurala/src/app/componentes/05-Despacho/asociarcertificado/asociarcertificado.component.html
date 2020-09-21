@@ -1,0 +1,32 @@
+<!-- <pdf-viewer [src]="pdfSrc" [render-text]="true" style="display: block;"></pdf-viewer> -->
+<mat-card>
+    <mat-card-header>
+        <mat-card-title>Asociar Certificado al despacho de la fecha: 
+            {{despacho.fecha |date :"MMM/dd/yyyy" | uppercase }}
+            </mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+        <div class="form-group">
+            <label for="file">Adjuntar Factura</label>
+            <input type="file" id="file" [accept]="contentInclude" (change)="handleFileInput($event.target.files)">
+        </div>
+        <pdf-viewer [src]="pdfSrc" [render-text]="true" 
+        [render-text]="renderText" [render-text-mode]="renderTextMode" [rotation]="rotation"
+        [zoom]="zoom" [zoom-scale]="zoomScale" [original-size]="originalSize" [fit-to-page]="fitToPage"
+        [show-all]="showAll" [autoresize]="autoresize" [show-borders]="showBorders"
+        (after-load-complete)="callBackFn($event)" (page-rendered)="pageRendered($event)"
+        (text-layer-rendered)="textLayerRendered($event)" (error)="onError($event)" (on-progress)="onProgress($event)"
+        style="display: block;max-height: 50%;"></pdf-viewer>
+
+      
+        <div>
+
+
+            <mat-card-actions>
+                <button mat-raised-button color="warn" [disabled]="deshabilitado"
+                (click)="guardarArchivo()">Continuar</button>
+                
+            </mat-card-actions>
+        </div>
+    </mat-card-content>
+</mat-card>

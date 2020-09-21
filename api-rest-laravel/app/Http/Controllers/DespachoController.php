@@ -13,7 +13,7 @@ class DespachoController extends Controller
     
      public function __construct()
     {
-        $this->middleware('api.auth', ['except' => ['index', 'show']]);
+        $this->middleware('api.auth', ['except' => ['index', 'show', 'getpdf']]);
     }
 
     public function index()
@@ -272,6 +272,98 @@ class DespachoController extends Controller
                 'message' => 'Usuario no identificado'
             );
         }
+        return response()->json($data, $data['code']);
+    }
+
+    public function getpdf($id, $filename)
+    {
+
+        $headers = array(
+            'Content-Type: application/pdf',
+        );
+
+        $despacho = Despacho::find($id);
+
+        if (is_object($despacho)) {
+           
+            $isset = \Storage::disk('certificados')->exists('Certificados\\'  . $despacho->id.'-'.$despacho->fecha . '\\' . $filename);
+            if ($isset) {
+                $file = \Storage::disk('certificados')->get('Certificados\\'  . $despacho->id.'-'.$despacho->fecha . '\\' . $filename);
+                return new Response($file, 200, $headers);
+            } else {
+                $data = array(
+                    'code' => 200,
+                    'status' => 'error',
+                    'user' =>  $filename
+                );
+            }
+        } else {
+            $data = array(
+                'code' => 200,
+                'status' => 'error',
+                'user' =>  $filename
+            );
+        }
+
+
+
+        return response()->json($data, $data['code']);
+    }
+
+    public function subirarchivo(Request $request)
+    {
+
+        $token = $request->header('Authorization');
+        $jwtAuth = new \JwtAuth();
+        $checktoken = $jwtAuth->checkToken($token);
+        $json = $request->input('json', null);
+        $params = json_decode($json); //objeto
+        $params_array = json_decode($json, true); // array
+        if ($checktoken && !empty($params) && !empty($params_array)) {
+          
+
+            // recoger datos de la peticion
+            $file = $params_array['file'];
+            $id = $params_array['id'];
+            $name = time() . "_CertificadoOrigen.pdf";
+            $file = str_replace('data:application/pdf;base64,', '', $file);
+            $file = str_replace(' ', '+', $file);
+            $despacho = Despacho::find($id);
+
+            if (is_object($despacho)) {
+
+             
+                \Storage::disk('certificados')->put('Certificados\\' . $despacho->id.'-'.$despacho->fecha . '\\' . $name, base64_decode($file));
+
+                $despacho->certificado = $name;
+                $despacho->save();
+                $data = array(
+                    'code' => 200,
+                    'status' => 'OK',
+                    'image' => $name
+                );
+            } else {
+                $data = array(
+                    'code' => 200,
+                    'status' => 'error',
+                    'message' => 'sin datos que procesar'
+
+
+                );
+            }
+        } else {
+            $data = array(
+                'code' => 200,
+                'status' => 'error',
+
+
+            );
+        }
+
+
+        // devolver el resultado
+
+
         return response()->json($data, $data['code']);
     }
 }

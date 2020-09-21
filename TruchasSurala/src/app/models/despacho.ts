@@ -11,6 +11,8 @@ export class Despacho {
 
   Activo: number;
   porcentaje: number;
+  certificado: string;
+
   numero_ovas: number;
   ovas_regalo: number;
   ovas_adicionales: number;

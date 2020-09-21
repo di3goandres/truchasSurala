@@ -56,9 +56,17 @@ Route::get('/api/user/avatar/{user}/{filename}', 'UserController@getImage') ;
 Route::get('/api/user/detail/{id}', 'UserController@detail');
 Route::get('/api/users/get', 'UserController@GetAllUserFincas');
 
-//Metodo para subir y descargar el pdf
+//Metodo para subir y descargar el pdf de facturas 
 Route::post('/api/pedido/subirarchivo', 'UserController@subirarchivo')->middleware(ApiAuthMiddleware::class) ;
 Route::get('/api/pedido/factura/{id}/{filename}', 'UserController@getpdf') ;
+
+//Metodo para subir y descargar el pdf de despachos certificado de origien 
+Route::post('/api/despacho/subirarchivo', 'DespachoController@subirarchivo')->middleware(ApiAuthMiddleware::class) ;
+Route::get('/api/despacho/certificado/{id}/{filename}', 'DespachoController@getpdf') ;
+
+
+
+
 
 /// ADMINISRADOR
 Route::post('/api/user/resetadmin', 'UserController@resetPasswordByAdmin');

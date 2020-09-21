@@ -53,6 +53,12 @@ return [
             'url' => env('APP_URL') . '/storage',
             'visibility' => 'public',
         ],
+        'certificados' => [
+            'driver' => 'local',
+            'root' => storage_path('app/public/certificados'),
+            'url' => env('APP_URL') . '/storage',
+            'visibility' => 'public',
+        ],
         'images' => [
             'driver' => 'local',
             'root' => storage_path('app/images'),

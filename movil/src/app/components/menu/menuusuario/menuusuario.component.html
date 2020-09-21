@@ -10,9 +10,9 @@
     <ion-list>
      
       <ion-menu-toggle *ngFor="let c of componentes | async">
-        <ion-item [routerLink]="c.redirectTo" color="primary">
+        <ion-item [routerLink]="c.redirectTo" color="primary" class="blue">
           <ion-icon slot="start" [name]="c.icon" color="primary"></ion-icon>
-          <ion-label>{{ c.name }}</ion-label>
+          <ion-label class="blue">{{ c.name }}</ion-label>
         </ion-item>
       </ion-menu-toggle>
      
