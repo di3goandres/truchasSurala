@@ -11,25 +11,31 @@
         </div>
         <div class="col-6">
           <mat-label>
-            Numero ovas en la factura: {{ actual.numero_ovas | number }}
+            Número ovas en la factura: {{ actual.numero_ovas | number }}
           </mat-label>
         </div>
 
         <div class="col-6">
           <mat-label>
-            Numero ovas en las cajas: {{ totaldespacho| number }}
+            Número ovas en las cajas: {{ totaldespacho| number }}
           </mat-label>
         </div>
 
         <div class="col-6">
           <mat-label>
-            Numero ovas en los Pedidos: {{ totalenPedidos| number }}
+            Número ovas en los Pedidos: {{ totalenPedidos| number }}
           </mat-label>
         </div>
 
         <div class="col-6">
           <mat-label>
-            Numero ovas Usadas en distribucion: {{ totalUsado| number }}
+            Número ovas Usadas en distribucion: {{ totalUsado| number }}
+          </mat-label>
+        </div>
+
+        <div class="col-6">
+          <mat-label>
+            Número pendientes: {{ totaldespacho - totalUsado| number }}
           </mat-label>
         </div>
 
