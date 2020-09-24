@@ -7,11 +7,12 @@ use Illuminate\Http\Response;
 use App\Fincas;
 use App\User;
 
-class FincasController extends Controller {
+class FincasController extends Controller
+{
 
     public function __construct()
     {
-        $this->middleware('api.auth', ['except' => ['index', 'show', 'getUserFincas']]);
+        $this->middleware('api.auth', ['except' => ['index', 'show', 'getUserFincas', 'getImage']]);
     }
 
     public function index()
@@ -19,9 +20,9 @@ class FincasController extends Controller {
         $fincas = Fincas::all();
 
         return response()->json([
-                    'code' => 200,
-                    'status' => 'success',
-                    'fincas' => $fincas
+            'code' => 200,
+            'status' => 'success',
+            'fincas' => $fincas
         ]);
     }
 
@@ -29,15 +30,15 @@ class FincasController extends Controller {
     {
         $finca = Fincas::find($id);
 
-        if (is_object($finca))
-        {
-            $data = ['code' => 200,
+        if (is_object($finca)) {
+            $data = [
+                'code' => 200,
                 'status' => 'success',
-                'finca' => $finca];
-        }
-        else
-        {
-            $data = ['code' => 200,
+                'finca' => $finca
+            ];
+        } else {
+            $data = [
+                'code' => 200,
                 'message' => 'Finca No encontrada',
                 'status' => 'error',
             ];
@@ -55,24 +56,22 @@ class FincasController extends Controller {
         // validar los datos
 
 
-        if (!empty($params_array))
-        {
+        if (!empty($params_array)) {
             $validate = \Validator::make($params_array, [
-                        'nombre' => 'required',
-                        'direccion' => 'required',
-                        'temperatura' => 'integer',
-                        'userid' => 'integer',
-                        'altura' => 'integer',
-                        'municipio' => 'required|numeric',
-                        'NombreMunicipio' => 'required',
-                        'nombreDepartamento' => 'required',
+                'nombre' => 'required',
+                'direccion' => 'required',
+                'temperatura' => 'integer',
+                'userid' => 'integer',
+                'altura' => 'integer',
+                'municipio' => 'required|numeric',
+                'NombreMunicipio' => 'required',
+                'nombreDepartamento' => 'required',
 
 
             ]);
 
 
-            if ($validate->fails())
-            {
+            if ($validate->fails()) {
                 $data = array(
                     'status' => 'error',
                     'code' => 200,
@@ -80,9 +79,7 @@ class FincasController extends Controller {
                     'errors' => $validate->errors(),
                     'data' => $params_array
                 );
-            }
-            else
-            {
+            } else {
 
                 //quitar los campos que n quiero actualizar por si los llegan a envir
                 unset($params_array["id"]);
@@ -110,12 +107,10 @@ class FincasController extends Controller {
                     'code' => 200,
                     'status' => 'success',
                     'finca' => $finca,
-                    'datos'=>$params_array
+                    'datos' => $params_array
                 );
             }
-        }
-        else
-        {
+        } else {
             $data = array(
                 'status' => 'error',
                 'code' => 200,
@@ -130,25 +125,23 @@ class FincasController extends Controller {
 
     public function getUserFincas()
     {
-        $duenios = User:: where('role', '=', 'USUARIO')->get();
+        $duenios = User::where('role', '=', 'USUARIO')->get();
         $pos = 0;
         $retorno = [];
         $retorno[$pos]['numeroIdentificacion'] = '';
 
         $retorno[$pos]['nombre'] = strtoupper('Seleccione una Opcion');
         $retorno[$pos]['id'] = 0;
-        foreach ($duenios as $value)
-        {
+        foreach ($duenios as $value) {
 
-            foreach($value->fincas as $finca){
+            foreach ($value->fincas as $finca) {
                 $retorno[$pos]['numeroIdentificacion'] = $value->numero_identificacion;
                 $retorno[$pos]['nombre'] = strtoupper($value->name . ' ' . $value->surname);
-    
+
                 $retorno[$pos]['id'] = $finca->id;
                 $retorno[$pos]['nombreFinca'] = $finca->nombre;
                 $retorno[$pos]['Ubicacion'] = strtoupper($finca->departamento . ' - ' . $finca->municipio);
                 $pos += 1;
-
             }
 
             // $retorno[$pos]['numeroIdentificacion'] = $value->numero_identificacion;
@@ -159,36 +152,35 @@ class FincasController extends Controller {
 
 
         return response()->json([
-                    'code' => 200,
-                    'status' => 'success',
-                    'userFincas' => $retorno
+            'code' => 200,
+            'status' => 'success',
+            'userFincas' => $retorno
         ]);
     }
 
 
     public function getFincasByUser($id)
     {
-        $fincas = Fincas:: where('user_id', '=', $id)->get();
-       
+        $fincas = Fincas::where('user_id', '=', $id)->get();
+
 
 
 
         return response()->json([
-                    'code' => 200,
-                    'status' => 'success',
-                    'fincas' => $fincas
+            'code' => 200,
+            'status' => 'success',
+            'fincas' => $fincas
         ]);
     }
 
     public function getFincasUser($id)
     {
-        $duenios = Fincas:: where('user_id', '=', $id)->get();
+        $duenios = Fincas::where('user_id', '=', $id)->get();
         $pos = 0;
         $retorno = [];
         $retorno[$pos]['nombre'] = strtoupper('Seleccione una Opcion');
         $retorno[$pos]['id'] = 0;
-        foreach ($duenios as $value)
-        {
+        foreach ($duenios as $value) {
             $pos += 1;
 
             $retorno[$pos]['nombre'] = strtoupper($value->nombre);
@@ -198,9 +190,9 @@ class FincasController extends Controller {
 
 
         return response()->json([
-                    'code' => 200,
-                    'status' => 'success',
-                    'userFincas' => $retorno
+            'code' => 200,
+            'status' => 'success',
+            'userFincas' => $retorno
         ]);
     }
 
@@ -214,24 +206,21 @@ class FincasController extends Controller {
         $json = $request->input('json', null);
         $params = json_decode($json); //objeto
         $params_array = json_decode($json, true); // array
-        if ($checktoken)
-        {
+        if ($checktoken) {
             // recoger los datos por post / get
             $user = $jwtAuth->checkToken($token, true);
 
 
-         
-           $fincas  = Fincas::where('user_id', $user->sub)->get();
+
+            $fincas  = Fincas::where('user_id', $user->sub)->get();
             // actualizar usuario
-          
+
             $data = array(
                 'code' => 200,
                 'status' => 'success',
                 'fincas' => $fincas
             );
-        }
-        else
-        {
+        } else {
             $data = array(
                 'code' => 200,
                 'status' => 'error',
@@ -243,7 +232,8 @@ class FincasController extends Controller {
 
 
     ///Solo actualiza el nombre y la direccion de la finca.
-    public function ActualizarFinca(Request $request){
+    public function ActualizarFinca(Request $request)
+    {
         $token = $request->header('Authorization');
         $jwtAuth = new \JwtAuth();
         $checktoken = $jwtAuth->checkToken($token);
@@ -263,7 +253,7 @@ class FincasController extends Controller {
                 unset($params_array["id_municipio"]);
                 unset($params_array["municipio"]);
                 unset($params_array["departamento"]);
-          
+
                 unset($params_array["altura_nivel_mar"]);
                 unset($params_array["temperatura_centrigrador"]);
                 unset($params_array["image"]);
@@ -276,7 +266,7 @@ class FincasController extends Controller {
                 $data = array(
                     'code' => 200,
                     'status' => 'success',
-                   
+
                 );
             } else {
                 $data = array(
@@ -292,6 +282,89 @@ class FincasController extends Controller {
                 'message' => 'Usuario no identificado'
             );
         }
+        return response()->json($data, $data['code']);
+    }
+
+
+    public function upload(Request $request)
+    {
+
+        $token = $request->header('Authorization');
+        $jwtAuth = new \JwtAuth();
+        $checktoken = $jwtAuth->checkToken($token);
+        $json = $request->input('json', null);
+        $params = json_decode($json); //objeto
+        $params_array = json_decode($json, true); // array
+        if ($checktoken && !empty($params) && !empty($params_array)) {
+            $user = $jwtAuth->checkToken($token, true);
+            // recoger datos de la peticion
+            $imagen = $params_array['file'];
+            $id = $params_array['finca'];
+
+            $imagen = str_replace('data:image/jpeg;base64,', '', $imagen);
+            $imagen = str_replace(' ', '+', $imagen);
+            $image_name = time() . $params_array['nombre'];
+
+            $finca = Fincas::find($id);
+            if (is_object($finca)) {
+                \Storage::disk('users')->put($user->numero_identificacion . '\\Fincas\\' . $finca->id . '\\' . $image_name, base64_decode($imagen));
+                $data = array(
+                    'code' => 200,
+                    'status' => 'OK',
+                    'image' => $image_name
+                );
+            }else{
+                $data = array(
+                    'code' => 200,
+                    'status' => 'error',
+                  
+                );
+            }
+        } else {
+            $data = array(
+                'code' => 200,
+                'status' => 'error',
+
+
+            );
+        }
+        return response()->json($data, $data['code']);
+    }
+
+
+    public function getImage($id, $filename)
+    {
+
+
+        $finca = Fincas::find($id);
+
+        if (is_object($finca)) {
+            $usuario = \DB::table('users')
+                ->join('fincas', 'fincas.user_id', '=', 'users.id')
+                ->where('fincas.id', '=',  $finca->id)
+                ->select('users.numero_identificacion')
+                ->get();
+            $isset = \Storage::disk('users')->exists($usuario[0]->numero_identificacion . '\\Fincas\\' . $finca->id . '\\' . $filename);
+            if ($isset) {
+                $file = \Storage::disk('users')->get($usuario[0]->numero_identificacion . '\\Fincas\\' . $finca->id . '\\' . $filename);
+                return new Response($file, 200,);
+            } else {
+                $data = array(
+                    'code' => 200,
+                    'status' => 'error',
+                    'user' =>  $filename
+                );
+            }
+        } else {
+            $data = array(
+                'code' => 200,
+                'status' => 'error',
+                'user' =>  $filename
+            );
+        }
+
+
+
         return response()->json($data, $data['code']);
     }
 

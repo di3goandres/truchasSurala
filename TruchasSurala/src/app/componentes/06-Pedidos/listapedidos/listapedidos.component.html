@@ -52,7 +52,7 @@
             <!-- Weight Column -->
             <ng-container matColumnDef="Pedido">
               <th mat-header-cell *matHeaderCellDef> Pedido </th>
-              <td mat-cell *matCellDef="let element"> {{element.pedido}} </td>
+              <td mat-cell *matCellDef="let element"> {{element.pedido | number}} </td>
             </ng-container>
 
             <ng-container matColumnDef="Porcentaje">

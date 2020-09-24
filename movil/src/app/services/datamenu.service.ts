@@ -17,10 +17,10 @@ export class DatamenuService {
 
   getMenuOpts(logeado) {
     if (logeado) {
-      return this.http.get<Componente[]>('/assets/data/menu.json');
+      return this.http.get<Componente[]>('./assets/data/menu.json');
 
     } else {
-      return this.http.get<Componente[]>('/assets/data/menuInvitado.json');
+      return this.http.get<Componente[]>('./assets/data/menuInvitado.json');
 
     }
   }

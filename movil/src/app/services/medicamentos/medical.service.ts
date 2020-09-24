@@ -12,6 +12,6 @@ export class MedicalService {
   ) { }
 
   getMedicamentos() {
-    return this.http.get<Medicamentos[]>('/assets/medicamentos/dataMedicamento.json');
+    return this.http.get<Medicamentos[]>('./assets/medicamentos/dataMedicamento.json');
   }
 }

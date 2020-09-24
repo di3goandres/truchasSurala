@@ -1,0 +1,31 @@
+<ion-card>
+  <ion-card-header>
+    <ion-card-title>Foto Finca</ion-card-title>
+  </ion-card-header>
+
+  <ion-card-content>
+
+
+    <ion-item>
+      
+    </ion-item>
+    <ion-buttons>
+      <button mat-raised-button (click)="photoService.takePicture()">
+        <ion-icon slot="icon-only" name="menu"></ion-icon>
+        Tomar Una foto
+      </button>
+
+      <button mat-raised-button (click)="photoService.selectPicture()">
+        <ion-icon slot="icon-only" name="menu"></ion-icon>
+        Seleccionar una Foto
+      </button>
+
+      <button mat-raised-button (click)="photoService.postFile()">
+        <ion-icon slot="icon-only" name="menu"></ion-icon>
+        enviar
+      </button>
+
+    </ion-buttons>
+  </ion-card-content>
+
+</ion-card>

@@ -38,6 +38,8 @@ import { NgxChartsModule } from '@swimlane/ngx-charts'
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { registerLocaleData } from '@angular/common';
 import { PipesModule } from './pipes/pipes.module';
+import { ServiceWorkerModule } from '@angular/service-worker';
+import { environment } from '../environments/environment';
 
 
 registerLocaleData(localCo);
@@ -56,7 +58,8 @@ registerLocaleData(localCo);
           NgxChartsModule,
           FormsModule,
           ReactiveFormsModule,
-          PipesModule
+          PipesModule,
+          ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production })
 
        
         ],

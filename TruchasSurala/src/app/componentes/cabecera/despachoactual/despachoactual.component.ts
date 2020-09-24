@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output } from '@angular/core';
 
 import { UserService } from 'src/app/service/user/user.service';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -14,9 +14,15 @@ import { CrearpedidosComponent } from '../../06-Pedidos/crearpedidos/crearpedido
   styleUrls: ['./despachoactual.component.css']
 })
 export class DespachoactualComponent implements OnInit {
+  @Output() 
   public closeResult: string;
   public url: string;
   actual : Despacho;
+  totaldespacho= 0;
+  totalenPedidos= 0;
+  totalUsado= 0;
+
+
   constructor(
     private userService: UserService,
     private route: ActivatedRoute,
@@ -37,6 +43,10 @@ export class DespachoactualComponent implements OnInit {
         if(response.status==="OK"){
           if(response.despacho.length>0){
             this.actual = response.despacho[0];
+            this.totaldespacho = response.total;
+            this.totalenPedidos = response.totalPedidos;
+            this.totalUsado = response.totalUsado;
+
           }
         }
       }

@@ -1,0 +1,61 @@
+<app-header titulo="Mi Perfil" icon="person"></app-header>
+
+
+<ion-content>
+
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title class="blue">Mi Perfil</ion-card-title>
+    </ion-card-header>
+
+    <ion-card-content>
+      <ion-grid>
+        <ion-row>
+       
+          <ion-col>
+            <ion-label>
+              <ion-button slot="end">
+                <!-- <ion-icon name="ellipse"></ion-icon> -->
+                <ion-icon name="mail-outline"></ion-icon>
+              </ion-button>
+              {{user.email |uppercase}}
+            </ion-label>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col>
+            <ion-label>
+              <ion-button slot="end">
+                <!-- <ion-icon name="ellipse"></ion-icon> -->
+                <ion-icon name="person"></ion-icon>
+              </ion-button>
+              {{user.name + ' ' + user.surname}}
+            </ion-label>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col>
+            <ion-label>
+              <ion-button slot="start">
+                <!-- <ion-icon name="ellipse"></ion-icon> -->
+                <ion-icon name="card"></ion-icon>
+              </ion-button>
+              {{user.numero_identificacion}}
+            </ion-label>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col>
+            <ion-label>
+              <ion-button slot="start">
+                <!-- <ion-icon name="ellipse"></ion-icon> -->
+                <ion-icon name="call-outline"></ion-icon>
+              </ion-button>
+              {{user.telefono}}
+            </ion-label>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-card-content>
+  </ion-card>
+</ion-content>

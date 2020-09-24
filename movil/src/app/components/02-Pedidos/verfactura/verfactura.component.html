@@ -1,6 +1,16 @@
-<!-- <pdf-viewer [src]="pdfSrc" [render-text]="true" style="display: block;"></pdf-viewer> -->
+ <div *ngIf="mostrar==true">
+ <pdf-viewer [src]="pdfSrc"
+ [fit-to-page]="true"
+ [render-text]="true" style="display: block;"></pdf-viewer> 
 
+</div>
 
+<ion-card>
+    <ion-card-content>
+        <ion-label>{{tipo}}</ion-label>
+
+    </ion-card-content>
+</ion-card>
 <!-- <ion-buttons>
     <ion-buttons slot="start">
         <ion-button expand="full" (click)="openlocalPdf()">open local pdf</ion-button>

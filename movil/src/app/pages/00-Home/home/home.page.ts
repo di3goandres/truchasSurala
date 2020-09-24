@@ -17,7 +17,7 @@ import { Router, ActivatedRoute, NavigationEnd } from '@angular/router';
 })
 
 
-export class HomePage implements OnInit, OnDestroy, DoCheck,AfterContentInit {
+export class HomePage implements OnInit, DoCheck,AfterContentInit {
   fileToUpload: File = null;
   url: any;
 
@@ -44,12 +44,7 @@ export class HomePage implements OnInit, OnDestroy, DoCheck,AfterContentInit {
 
   }
 
-  ionViewDidEnter(){
-    console.log('entre ionViewDidEnter');
-    // this.traerFincas();
 
-
-  }
   ngDoCheck(): void {
 
   
@@ -62,14 +57,14 @@ export class HomePage implements OnInit, OnDestroy, DoCheck,AfterContentInit {
     this.fincas = []
   }
 
-  @HostListener('unloaded')
-  ngOnDestroy(): void {
+  // @HostListener('unloaded')
+  // ngOnDestroy(): void {
 
-    console.log('Items destroyed');
-    if (this.mySubscription) {
-      this.mySubscription.unsubscribe();
-    }
-  }
+  //   console.log('Items destroyed');
+  //   if (this.mySubscription) {
+  //     this.mySubscription.unsubscribe();
+  //   }
+  // }
   ngAfterContentInit(): void {
     console.log('Items ngAfterContentInit');
 

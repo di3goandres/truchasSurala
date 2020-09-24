@@ -16,6 +16,7 @@ import { VerdespachosComponent } from './02-Pedidos/verdespachos/verdespachos.co
 import { TrazabilidadComponent } from './03-Trazabilidad/trazabilidad/trazabilidad.component';
 import { MortalidadpreguntasComponent } from './04-Mortalidad/mortalidadpreguntas/mortalidadpreguntas.component';
 import { CmedicamentoComponent } from './05-Productos/cmedicamento/cmedicamento.component';
+import { ActualizarfotofincaComponent } from './01-Fincas/actualizarfotofinca/actualizarfotofinca.component';
 
 
 @NgModule({
@@ -30,7 +31,8 @@ import { CmedicamentoComponent } from './05-Productos/cmedicamento/cmedicamento.
     VerdespachosComponent,
     TrazabilidadComponent,
     MortalidadpreguntasComponent,
-    CmedicamentoComponent
+    CmedicamentoComponent,
+    ActualizarfotofincaComponent
 
 
   ],
@@ -55,7 +57,8 @@ import { CmedicamentoComponent } from './05-Productos/cmedicamento/cmedicamento.
     VerdespachosComponent,
     TrazabilidadComponent,
     MortalidadpreguntasComponent,
-    CmedicamentoComponent
+    CmedicamentoComponent,
+    ActualizarfotofincaComponent
 
 
   ],

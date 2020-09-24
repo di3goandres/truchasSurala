@@ -14,7 +14,9 @@ export class VerfacturaComponent implements OnInit {
   @Input() nombreFactura: string;
   @Input() idPedido: string;
   @Input() pdfSrc = "";
+  mostrar = false;
 
+  tipo ='';
 
   options: DocumentViewerOptions = {
     title: 'Mi Factura'
@@ -31,13 +33,39 @@ export class VerfacturaComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+
+    var filter =  ['pwa','desktop', 'mobileweb'];
+    var platformfilter =[]
+
+    this.platform.platforms().forEach(element => {
+      
+      this.tipo = this.tipo + '-' + element
+    });
+    let platforms= this.platform.platforms().filter(function(item) {
+      for (var key in filter) {
+
+       
+
+        if (item == filter[key])
+           platformfilter.push(item); 
+      }
+    
+    });
+    console.log('plataforma1', platformfilter)
+    console.log('plataforma', this.platform.platforms())
+
     console.log(this.nombreFactura)
     console.log(this.idPedido)
 
 
     this.pdfSrc = this.pdfSrc + this.idPedido + "/" + this.nombreFactura;
     console.log('ruta', this.pdfSrc)
-    this.dowloadAndOpenPdf();
+    if (platformfilter.length==0) {
+      this.dowloadAndOpenPdf();
+
+    } else {
+      this.mostrar = true;
+    }
   }
 
   dowloadAndOpenPdf() {

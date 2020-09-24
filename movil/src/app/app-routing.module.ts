@@ -81,6 +81,18 @@ const routes: Routes = [
   {
     path: 'guiasmanejo',
     loadChildren: () => import('./pages/07-Guias/guiasmanejo/guiasmanejo.module').then(m => m.GuiasmanejoPageModule)
+  },
+  {
+    path: 'perfil',
+    loadChildren: () => import('./pages/00-usuario/perfilusuario/perfilusuario.module').then( m => m.PerfilusuarioPageModule),
+    canLoad: [UsuarioGuard],
+    canActivate: [UsuarioGuard]
+  },
+  {
+    path: 'updatephoto/:id',
+    loadChildren: () => import('./pages/02-fincas/updatephoto/updatephoto.module').then( m => m.UpdatephotoPageModule),
+    canLoad: [UsuarioGuard],
+    canActivate: [UsuarioGuard]
   }
 ];
 
