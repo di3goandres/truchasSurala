@@ -103,7 +103,7 @@ export class EstadisticaComponent implements OnInit {
 
         });
         this.datoMulti = []
-        this.datoMulti.push(new EstadisticaMulti(this.datoTamanio,"Tamaño(ml)"))
+        this.datoMulti.push(new EstadisticaMulti(this.datoTamanio,"Tamaño(mm)"))
         this.datoMulti.push(new EstadisticaMulti(this.datoEdad,"Edad (TCU)"))
 
 

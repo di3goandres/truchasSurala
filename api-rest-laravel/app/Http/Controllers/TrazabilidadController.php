@@ -464,7 +464,7 @@ class TrazabilidadController extends Controller
                     las organiza por cantidad
  
                     */
-                    $bandejas = collect($bandejas)->sortBy('cantidad')->reverse()->toArray();
+                    // $bandejas = collect($bandejas)->sortBy('cantidad')->reverse()->toArray();
 
                     $maximoporBandeja = max(array_column($bandejas, 'cantidad'));
 
