@@ -696,4 +696,33 @@ class TrazabilidadController extends Controller
 
         return response()->json($data, $data['code']);
     }
+
+    public function showAllNew($idDespacho)
+    {
+
+        
+        $distribuciones = \DB::select('call distribucionGlobal(?)', array($idDespacho));
+    
+        //        var_dump($distribuciones);
+        // con este valor se arman las bandejas
+        if (is_array($distribuciones) && count($distribuciones) > 0) {
+
+
+        
+
+            $data = [
+                'code' => 200,
+                'status' => 'success',
+                'distribucion' => $distribuciones,
+            ];
+        } else {
+            $data = [
+                'code' => 200,
+                'message' => 'Sin',
+                'status' => 'error',
+            ];
+        }
+
+        return response()->json($data, $data['code']);
+    }
 }

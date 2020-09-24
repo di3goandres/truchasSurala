@@ -97,6 +97,8 @@ Route::get('/api/Pedidos/ObtenerPedido/{id}', 'PedidosController@getPedido');
 
 Route::resource('/api/Distribucion', 'TrazabilidadController');
 Route::get('/api/Distribucion/Despacho/{idDespacho}', 'TrazabilidadController@showAll');
+Route::get('/api/Distribucion/DespachoNuevo/{idDespacho}', 'TrazabilidadController@showAllNew');
+
 Route::post('/api/despacho/actualizar/', 'DespachoController@actualizar');
 
 Route::get('/api/movil/despachos', 'DespachoController@despachosByToken'); 
