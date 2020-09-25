@@ -4,6 +4,8 @@ export class Photo {
     data: any;
     base64:any;
     fileName: IFile
+    id:           any;
+
   }
 
 

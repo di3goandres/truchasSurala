@@ -17,6 +17,7 @@ import { TrazabilidadComponent } from './03-Trazabilidad/trazabilidad/trazabilid
 import { MortalidadpreguntasComponent } from './04-Mortalidad/mortalidadpreguntas/mortalidadpreguntas.component';
 import { CmedicamentoComponent } from './05-Productos/cmedicamento/cmedicamento.component';
 import { ActualizarfotofincaComponent } from './01-Fincas/actualizarfotofinca/actualizarfotofinca.component';
+import { UnicafincaComponent } from './01-Fincas/unicafinca/unicafinca.component';
 
 
 @NgModule({
@@ -32,7 +33,8 @@ import { ActualizarfotofincaComponent } from './01-Fincas/actualizarfotofinca/ac
     TrazabilidadComponent,
     MortalidadpreguntasComponent,
     CmedicamentoComponent,
-    ActualizarfotofincaComponent
+    ActualizarfotofincaComponent,
+    UnicafincaComponent
 
 
   ],
@@ -58,7 +60,8 @@ import { ActualizarfotofincaComponent } from './01-Fincas/actualizarfotofinca/ac
     TrazabilidadComponent,
     MortalidadpreguntasComponent,
     CmedicamentoComponent,
-    ActualizarfotofincaComponent
+    ActualizarfotofincaComponent,
+    UnicafincaComponent
 
 
   ],

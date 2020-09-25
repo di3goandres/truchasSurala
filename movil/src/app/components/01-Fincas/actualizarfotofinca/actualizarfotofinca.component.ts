@@ -20,19 +20,20 @@ export class ActualizarfotofincaComponent implements OnInit {
   }
 
   enviarFoto() {
-    this.photoService.postFileFinca(this.idFinca).subscribe(
-      OK => {
-        // console.log(OK)
-        this.resultado = "Actualizacion exitosa"
-        // this.photoService.photos = []
+    this.photoService.postFileFinca(this.idFinca)
+    // .subscribe(
+    //   OK => {
+    //     // console.log(OK)
+    //     this.resultado = "Actualizacion exitosa"
+    //     // this.photoService.photos = []
 
-      },
-      ERROR => {
-        // console.log(ERROR)
-        this.resultado = "Actualizacion No exitosa"
+    //   },
+    //   ERROR => {
+    //     // console.log(ERROR)
+    //     this.resultado = "Actualizacion No exitosa"
 
-      },
-    )
+    //   },
+    // )
   }
 
 }

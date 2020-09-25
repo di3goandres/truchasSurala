@@ -2,6 +2,7 @@ import { Component, OnInit, ChangeDetectorRef, Input, OnDestroy, HostListener } 
 import { Finca } from '../../../models/fincas.user';
 import { DomSanitizer } from '@angular/platform-browser';
 import { UserService } from '../../../services/user.service';
+import { PhotoProvider } from '../../../services/photo-provider.service';
 
 @Component({
   selector: 'app-listafincas',
@@ -16,6 +17,7 @@ export class ListafincasComponent implements OnInit {
     private userService: UserService,
   
     public _DomSanitizationService: DomSanitizer,
+  
   
     private changeDetectorRefs: ChangeDetectorRef,
 

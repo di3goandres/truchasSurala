@@ -40,7 +40,7 @@ import { registerLocaleData } from '@angular/common';
 import { PipesModule } from './pipes/pipes.module';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
-
+import { IonicStorageModule } from '@ionic/storage';
 
 registerLocaleData(localCo);
 
@@ -59,7 +59,8 @@ registerLocaleData(localCo);
           FormsModule,
           ReactiveFormsModule,
           PipesModule,
-          ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production })
+          ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),
+          IonicStorageModule.forRoot()
 
        
         ],

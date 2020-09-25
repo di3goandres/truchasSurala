@@ -6,6 +6,7 @@ import { File, FileEntry, IFile, IWriteOptions } from '@ionic-native/file/ngx';
 
 import { WebView } from '@ionic-native/ionic-webview/ngx';
 import { UserService } from './user.service';
+import { Storage } from '@ionic/storage';
 
 
 
@@ -33,14 +34,17 @@ export class PhotoProvider {
   }
 
   public photos: Photo[] = [];
+  public photo: Photo;
+
 
   constructor(public http: UserService,
     private camera: Camera,
     private file: File,
-    private webview: WebView
+    private webview: WebView,
+    private storage: Storage
   ) {
     this.base64File = ''
-   
+
   }
 
 
@@ -57,7 +61,7 @@ export class PhotoProvider {
       });
       // Add new photo to gallery
 
-     
+
       // Extract just the filename. Result example: cdv_photo_003.jpg
       const tempFilename = tempImage.substr(tempImage.lastIndexOf('/') + 1);
 
@@ -79,18 +83,19 @@ export class PhotoProvider {
       // Result example: file:///var/mobile/Containers/Data/Application
       // /E4A79B4A-E5CB-4E0C-A7D9-0603ECD48690/Library/NoCloud/cdv_photo_003.jpg
       const storedPhoto = newBaseFilesystemPath + tempFilename;
-     
+
 
       const displayImage = this.webview.convertFileSrc(storedPhoto);
       await this.file.readAsDataURL(tempBaseFilesystemPath, tempFilename).then(result => {
-      
+
         this.photos.unshift({
           data: displayImage,
-          base64: result, 
-          fileName: fileName
+          base64: result,
+          fileName: fileName,
+          id: 0
         });
         this.base64File = result;
-      }, error => {});
+      }, error => { });
 
 
     }, (err) => {
@@ -112,7 +117,7 @@ export class PhotoProvider {
       });
       // Add new photo to gallery
 
-     
+
       // Extract just the filename. Result example: cdv_photo_003.jpg
       const tempFilename = tempImage.substr(tempImage.lastIndexOf('/') + 1);
 
@@ -134,18 +139,19 @@ export class PhotoProvider {
       // Result example: file:///var/mobile/Containers/Data/Application
       // /E4A79B4A-E5CB-4E0C-A7D9-0603ECD48690/Library/NoCloud/cdv_photo_003.jpg
       const storedPhoto = newBaseFilesystemPath + tempFilename;
-     
+
 
       const displayImage = this.webview.convertFileSrc(storedPhoto);
       await this.file.readAsDataURL(tempBaseFilesystemPath, tempFilename).then(result => {
-      
+
         this.photos.unshift({
           data: displayImage,
-          base64: result, 
-          fileName: fileName
+          base64: result,
+          fileName: fileName,
+          id: 0
         });
         this.base64File = result;
-      }, error => {});
+      }, error => { });
 
 
     }, (err) => {
@@ -161,6 +167,19 @@ export class PhotoProvider {
   }
 
   postFileFinca(id: any) {
-   return this.http.postFileFinca(this.photos[0], id);
+
+
+    this.storage.set('finca' + id, this.photos[0]);
+
+    // return this.http.postFileFinca(this.photos[0], id);
+  }
+
+  
+  loadSaved(id){
+   this.storage.get('finca' + id).then((photos) => {
+      this.photo =  photos || null;
+    });
+
+ 
   }
 }
