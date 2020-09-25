@@ -324,11 +324,16 @@ class FincasController extends Controller
 
                 $imagen = str_replace('data:image/jpeg;base64,', '', $imagen);
                 $imagen = str_replace(' ', '+', $imagen);
-                $image_name = time() . '_Fincas.jpg';
+                $image_name = time() . $params_array['nombre'];
 
                 $finca = Fincas::find($id);
                 if (is_object($finca)) {
-                    \Storage::disk('users')->put('Fincas\\' . $image_name, base64_decode($imagen));
+                    $usuario = \DB::table('users')
+                    ->join('fincas', 'fincas.user_id', '=', 'users.id')
+                    ->where('fincas.id', '=',  $finca->id)
+                    ->select('users.numero_identificacion')
+                    ->get();
+                    \Storage::disk('users')->put($usuario[0]->numero_identificacion . '\\Fincas\\' . $image_name, base64_decode($imagen));
 
                     $finca->imagen = $image_name;
                     $finca->save();
@@ -369,9 +374,9 @@ class FincasController extends Controller
                 ->where('fincas.id', '=',  $finca->id)
                 ->select('users.numero_identificacion')
                 ->get();
-            $isset = \Storage::disk('users')->exists('Fincas\\' . $filename);
+            $isset = \Storage::disk('users')->exists($usuario[0]->numero_identificacion . '\\Fincas\\' . $filename);
             if ($isset) {
-                $file = \Storage::disk('users')->get('Fincas\\' . $filename);
+                $file = \Storage::disk('users')->get($usuario[0]->numero_identificacion . '\\Fincas\\' . $filename);
                 return new Response($file, 200,);
             } else {
                 $data = array(
