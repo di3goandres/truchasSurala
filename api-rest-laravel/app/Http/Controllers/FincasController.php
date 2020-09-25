@@ -324,7 +324,7 @@ class FincasController extends Controller
 
                 $imagen = str_replace('data:image/jpeg;base64,', '', $imagen);
                 $imagen = str_replace(' ', '+', $imagen);
-                $image_name = time() . $params_array['nombre'];
+                $image_name = time() . '_Fincas.jpg';
 
                 $finca = Fincas::find($id);
                 if (is_object($finca)) {
@@ -369,9 +369,9 @@ class FincasController extends Controller
                 ->where('fincas.id', '=',  $finca->id)
                 ->select('users.numero_identificacion')
                 ->get();
-            $isset = \Storage::disk('users')->exists($usuario[0]->numero_identificacion . '\\Fincas\\' . $finca->id . '\\' . $filename);
+            $isset = \Storage::disk('users')->exists('Fincas\\' . $filename);
             if ($isset) {
-                $file = \Storage::disk('users')->get($usuario[0]->numero_identificacion . '\\Fincas\\' . $finca->id . '\\' . $filename);
+                $file = \Storage::disk('users')->get('Fincas\\' . $filename);
                 return new Response($file, 200,);
             } else {
                 $data = array(
