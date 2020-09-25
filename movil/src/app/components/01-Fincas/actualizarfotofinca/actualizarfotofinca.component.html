@@ -6,26 +6,27 @@
   <ion-card-content>
 
 
-    <ion-item>
-      
+    <ion-item *ngIf="photoService.photos.length>0">
+      <ion-img [src]="photoService.photos[0].base64"></ion-img>
+
     </ion-item>
     <ion-buttons>
       <button mat-raised-button (click)="photoService.takePicture()">
-        <ion-icon slot="icon-only" name="menu"></ion-icon>
-        Tomar Una foto
+        <ion-icon slot="icon-only" name="camera-outline"></ion-icon>
       </button>
 
       <button mat-raised-button (click)="photoService.selectPicture()">
-        <ion-icon slot="icon-only" name="menu"></ion-icon>
-        Seleccionar una Foto
+        <ion-icon slot="icon-only" name="images-outline"></ion-icon>
+    
       </button>
 
-      <button mat-raised-button (click)="photoService.postFile()">
-        <ion-icon slot="icon-only" name="menu"></ion-icon>
-        enviar
+      <button mat-raised-button  *ngIf="photoService.photos.length>0" (click)="photoService.postFileFinca(idFinca)">
+        <ion-icon slot="icon-only" name="send-outline"></ion-icon>
+
       </button>
 
     </ion-buttons>
+    <ion-label>{{resultado}}</ion-label>
   </ion-card-content>
 
 </ion-card>

@@ -159,4 +159,8 @@ export class PhotoProvider {
   postFile() {
     this.http.postFile(this.photos[0]);
   }
+
+  postFileFinca(id: number) {
+   return this.http.postFileFinca(this.photos[0], id);
+  }
 }

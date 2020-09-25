@@ -15,7 +15,10 @@
   <ion-card-header>
     <ion-card-title>{{finca.nombre}}</ion-card-title>
     <ion-card-subtitle>{{finca.direccion}}</ion-card-subtitle>
-    <ion-img src="https://cdn.needish.tools/is-prod-deals/ZTT2WXf38Do4jIh3HLdzGg/scale/900x600.jpg"></ion-img>
+
+    <ion-img *ngIf="finca.imagen==null"src="https://cdn.needish.tools/is-prod-deals/ZTT2WXf38Do4jIh3HLdzGg/scale/900x600.jpg"></ion-img>
+    <ion-img *ngIf="finca.imagen!=null"[src]="['/api/fincas/avatar/' +finca.id + '/' + finca.imagen]"></ion-img>
+
   </ion-card-header>
   <ion-card-content>
     <ion-label>

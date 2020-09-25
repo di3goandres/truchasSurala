@@ -7,7 +7,7 @@ import { NavController } from '@ionic/angular';
 import { FincasUser } from '../models/fincas.user';
 import { Respuesta } from '../models/Response';
 import { Photo, SavePhoto } from '../models/photos';
-import { delay} from 'rxjs/operators';
+import { delay } from 'rxjs/operators';
 
 
 
@@ -40,7 +40,7 @@ export class UserService {
 
   }
 
-  logout(){
+  logout() {
     this.identity = null;
     this.token = null;
     this.getIdentity()
@@ -93,11 +93,11 @@ export class UserService {
     })
   }
 
-  public responseError(){
+  public responseError() {
     localStorage.removeItem('identity');
     localStorage.removeItem('token');
     this.navCtrl.navigateRoot('login');
-    
+
   }
 
 
@@ -110,14 +110,14 @@ export class UserService {
     // .set('Pragma','no-cache')
     // .set('Expires', '0');
     return this.http.get<T>(this.url + query, { headers: this.header })
-    .pipe(
-      delay(2000)
-    );
+      .pipe(
+        delay(500)
+      );
 
   }
 
   // tslint:disable-next-line: typedef
-  public  ejecutarQueryPost<T>(query: string, params: string) {
+  public ejecutarQueryPost<T>(query: string, params: string) {
     this.header = new HttpHeaders().set('Authorization', this.token)
       .set('Content-Type', 'application/x-www-form-urlencoded')
 
@@ -126,11 +126,11 @@ export class UserService {
   }
 
 
-  getURl(){
+  getURl() {
     return this.url;
   }
   getFincasUsuario() {
-     
+
     return this.ejecutarQuery<FincasUser>('/api/datos/fincabytoken');
 
   }
@@ -166,11 +166,11 @@ export class UserService {
   }
   postFile(fileToUpload: Photo) {
 
-    let savePhoto: SavePhoto =new SavePhoto();
-      
+    let savePhoto: SavePhoto = new SavePhoto();
+
     const formData: FormData = new FormData();
     this.header = new HttpHeaders().set('Authorization', this.token)
-                                   .set('Content-Type', 'application/x-www-form-urlencoded');
+      .set('Content-Type', 'application/x-www-form-urlencoded');
 
     savePhoto.file = fileToUpload.base64;
     savePhoto.nombre = fileToUpload.fileName.name;
@@ -178,13 +178,38 @@ export class UserService {
 
     // reader.readAsArrayBuffer(fileToUpload.fileName);
     this.json = JSON.stringify(savePhoto);
-    this.params = 'json=' + this.json ;
-  
+    this.params = 'json=' + this.json;
+
     this.http.post<Respuesta>(this.url + '/api/user/upload',
-    this.params  , { headers: this.header } ).subscribe(
-      result => { console.log('ok', JSON.stringify(result)) },
-      error => { console.log('error', JSON.stringify(error)) }
-    );
+      this.params, { headers: this.header }).subscribe(
+        result => { console.log('ok', JSON.stringify(result)) },
+        error => { console.log('error', JSON.stringify(error)) }
+      );
+
+
+
+  }
+
+  postFileFinca(fileToUpload: Photo, idFinca: number) {
+
+    let savePhoto: SavePhoto = new SavePhoto();
+
+  
+    this.header = new HttpHeaders().set('Authorization', this.token)
+      .set('Content-Type', 'application/x-www-form-urlencoded');
+
+    savePhoto.file = fileToUpload.base64;
+    savePhoto.nombre = fileToUpload.fileName.name;
+    savePhoto.type = fileToUpload.fileName.type;
+    savePhoto.id = idFinca;
+
+
+   
+    this.json = JSON.stringify(savePhoto);
+    this.params = 'json=' + this.json;
+
+    return this.http.post<Respuesta>(this.url + '/api/fincas/upload',
+      this.params, { headers: this.header });
 
 
 

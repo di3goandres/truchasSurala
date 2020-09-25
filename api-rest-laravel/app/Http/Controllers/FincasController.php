@@ -299,7 +299,7 @@ class FincasController extends Controller
             $user = $jwtAuth->checkToken($token, true);
             // recoger datos de la peticion
             $imagen = $params_array['file'];
-            $id = $params_array['finca'];
+            $id = $params_array['id'];
 
             $imagen = str_replace('data:image/jpeg;base64,', '', $imagen);
             $imagen = str_replace(' ', '+', $imagen);
@@ -308,6 +308,9 @@ class FincasController extends Controller
             $finca = Fincas::find($id);
             if (is_object($finca)) {
                 \Storage::disk('users')->put($user->numero_identificacion . '\\Fincas\\' . $finca->id . '\\' . $image_name, base64_decode($imagen));
+
+                $finca->imagen = $image_name;
+                $finca->save();
                 $data = array(
                     'code' => 200,
                     'status' => 'OK',

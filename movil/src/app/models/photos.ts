@@ -9,9 +9,11 @@ export class Photo {
 
   export class SavePhoto {
    
-    file:any;
-    nombre: string
-    type: string
+    file:         any;
+    nombre:       string;
+    type:         string;
+    id:           number;
+
   }
 
 

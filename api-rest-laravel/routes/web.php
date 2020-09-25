@@ -51,7 +51,7 @@ Route::get('/test-orm', 'PruebasController@testOrm');
 Route::post('/api/register', 'UserController@register');
 Route::post('/api/login', 'UserController@login');
 Route::put('/api/user/update', 'UserController@update');
-Route::post('/api/user/upload', 'UserController@upload')->middleware(ApiAuthMiddleware::class) ;
+Route::post('/api/user/upload', 'UserController@upload')->middleware(ApiAuthMiddleware::class);
 Route::get('/api/user/avatar/{user}/{filename}', 'UserController@getImage') ;
 Route::get('/api/user/detail/{id}', 'UserController@detail');
 Route::get('/api/users/get', 'UserController@GetAllUserFincas');
@@ -133,6 +133,9 @@ Route::get('/api/estadistica/usuario/', 'PedidosController@EstadisticaByToken');
 
 //servicios para elmovil
 Route::get('/api/datos/fincabytoken', 'FincasController@getFincasUserToken');
+Route::post('/api/fincas/upload', 'FincasController@upload');
+Route::get('/api/fincas/avatar/{id}/{filename}', 'FincasController@getImage') ;
+
 
 
 

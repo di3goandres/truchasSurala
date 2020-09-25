@@ -16,6 +16,8 @@ export class Finca {
     nombre:                  string;
     id_municipio:            number;
     direccion:               string;
+    imagen:                  string;
+
     altura_nivel_mar:        number;
     temperatura_centigrados: number;
     created_at:              string;
