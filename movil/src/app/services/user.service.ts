@@ -190,7 +190,7 @@ export class UserService {
 
   }
 
-  postFileFinca(fileToUpload: Photo, idFinca: number) {
+  postFileFinca(fileToUpload: Photo, idFinca: any) {
 
     let savePhoto: SavePhoto = new SavePhoto();
 
@@ -208,6 +208,7 @@ export class UserService {
     this.json = JSON.stringify(savePhoto);
     this.params = 'json=' + this.json;
 
+      console.log( this.params)
     return this.http.post<Respuesta>(this.url + '/api/fincas/upload',
       this.params, { headers: this.header });
 

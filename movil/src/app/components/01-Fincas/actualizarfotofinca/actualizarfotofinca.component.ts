@@ -24,7 +24,7 @@ export class ActualizarfotofincaComponent implements OnInit {
       OK => {
         console.log(OK)
         this.resultado = "Actualizacion exitosa"
-        this.photoService.photos = []
+        // this.photoService.photos = []
 
       },
       ERROR => {

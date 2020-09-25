@@ -12,7 +12,7 @@ export class Photo {
     file:         any;
     nombre:       string;
     type:         string;
-    id:           number;
+    id:           any;
 
   }
 

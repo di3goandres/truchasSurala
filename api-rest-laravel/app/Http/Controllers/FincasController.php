@@ -303,7 +303,7 @@ class FincasController extends Controller
             $validate = \Validator::make($params_array, [
                 'file' => 'required',
                 'id' => 'required',
-                'nombre' => 'integer',
+                'nombre' => 'required',
 
 
 
@@ -311,7 +311,7 @@ class FincasController extends Controller
             if ($validate->fails()) {
                 $data = array(
                     'status' => 'error',
-                    'code' => 200,
+                    'code' => 400,
                     'message' => 'Finca, no se ha creado',
                     'errors' => $validate->errors(),
                     'data' => $params_array
