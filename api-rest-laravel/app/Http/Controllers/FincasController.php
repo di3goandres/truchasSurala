@@ -296,32 +296,54 @@ class FincasController extends Controller
         $params = json_decode($json); //objeto
         $params_array = json_decode($json, true); // array
         if ($checktoken && !empty($params) && !empty($params_array)) {
-            $user = $jwtAuth->checkToken($token, true);
-            // recoger datos de la peticion
-            $imagen = $params_array['file'];
-            $id = $params_array['id'];
 
-            $imagen = str_replace('data:image/jpeg;base64,', '', $imagen);
-            $imagen = str_replace(' ', '+', $imagen);
-            $image_name = time() . $params_array['nombre'];
 
-            $finca = Fincas::find($id);
-            if (is_object($finca)) {
-                \Storage::disk('users')->put($user->numero_identificacion . '\\Fincas\\' . $image_name, base64_decode($imagen));
 
-                $finca->imagen = $image_name;
-                $finca->save();
+
+            $validate = \Validator::make($params_array, [
+                'file' => 'required',
+                'id' => 'required',
+                'nombre' => 'integer',
+
+
+
+            ]);
+            if ($validate->fails()) {
                 $data = array(
-                    'code' => 200,
-                    'status' => 'OK',
-                    'image' => $image_name
-                );
-            }else{
-                $data = array(
-                    'code' => 200,
                     'status' => 'error',
-                  
+                    'code' => 200,
+                    'message' => 'Finca, no se ha creado',
+                    'errors' => $validate->errors(),
+                    'data' => $params_array
                 );
+            } else {
+                $user = $jwtAuth->checkToken($token, true);
+                // recoger datos de la peticion
+                $imagen = $params_array['file'];
+                $id = $params_array['id'];
+
+                $imagen = str_replace('data:image/jpeg;base64,', '', $imagen);
+                $imagen = str_replace(' ', '+', $imagen);
+                $image_name = time() . $params_array['nombre'];
+
+                $finca = Fincas::find($id);
+                if (is_object($finca)) {
+                    \Storage::disk('users')->put($user->numero_identificacion . '\\Fincas\\' . $image_name, base64_decode($imagen));
+
+                    $finca->imagen = $image_name;
+                    $finca->save();
+                    $data = array(
+                        'code' => 200,
+                        'status' => 'OK',
+                        'image' => $image_name
+                    );
+                } else {
+                    $data = array(
+                        'code' => 200,
+                        'status' => 'error',
+
+                    );
+                }
             }
         } else {
             $data = array(
@@ -370,5 +392,4 @@ class FincasController extends Controller
 
         return response()->json($data, $data['code']);
     }
-
 }
