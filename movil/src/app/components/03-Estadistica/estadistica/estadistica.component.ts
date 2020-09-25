@@ -89,7 +89,7 @@ export class EstadisticaComponent implements OnInit {
   traerEstadistica() {
     this.pedidosService.obtenerEstadistica().subscribe(
       OK => {
-        console.log(OK)
+       
         this.datos = [];
         this.datos.push(...OK.datos);
         this.datos.forEach(item => {
@@ -111,10 +111,7 @@ export class EstadisticaComponent implements OnInit {
         this.single = this.datoEdad;
         this.multi = this.datoMulti;
 
-        console.log(this.multi)
-
-
-        // Object.assign(this, { dato });
+   
       },
       ERROR => { console.log(ERROR) 
         // if(ERROR.message=="Usuario no identificado"){

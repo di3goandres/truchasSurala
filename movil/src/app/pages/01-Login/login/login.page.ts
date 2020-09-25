@@ -85,7 +85,7 @@ export class LoginPage implements OnInit {
       response => {
         this.userService.responseError();
 
-        console.log(response)
+    
         // tslint:disable-next-line: triple-equals
         if (response.status == null) {
 
@@ -94,13 +94,7 @@ export class LoginPage implements OnInit {
           this.token = response;
           localStorage.setItem('token', this.token);
           this.ObtenerdatosUser();
-          // // formulario.reset();
-          // this.router.onSameUrlNavigation = 'reload';
-
-          // this.router.navigate(['home']);
-          // this.router.navigateByUrl('/DummyComponent', { skipLocationChange: true });
         
-          // this.router.navigate(["home"]);
 
         } else {
           this.status = 'error';
@@ -108,7 +102,7 @@ export class LoginPage implements OnInit {
         }
       },
       error => {
-        console.log(error)
+    
 
         this.status = 'error';
       }
@@ -133,22 +127,10 @@ export class LoginPage implements OnInit {
         this.userService.getToken();
         this.userService.getIdentity();
 
-        // this.router.navigateByUrl('/login', { skipLocationChange: true }).then(() =>
-        // this.router.navigateByUrl('/DummyComponent', { skipLocationChange: true });
-        
-        // this.router.navigate(["home"]);
-        // 
-        // this.router.navigateByUrl('/home');
-        // this.router.navigate(['home'])
-
-        // this.router.navigateByUrl('login', {skipLocationChange: true}).then(()=>
-        // this.router.navigateByUrl('home', {skipLocationChange: true});
-        // this.router.navigateByUrl('/DummyComponent', { skipLocationChange: true });
+       
         this.router.navigate(['homelogin']);
         
-        // this.router.navigate(["home"]);
-        // this.home.destruir();
-
+    
 
 
       },

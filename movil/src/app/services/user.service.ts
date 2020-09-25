@@ -202,13 +202,8 @@ export class UserService {
     savePhoto.nombre = fileToUpload.fileName.name;
     savePhoto.type = fileToUpload.fileName.type;
     savePhoto.id = idFinca;
-
-
-   
     this.json = JSON.stringify(savePhoto);
     this.params = 'json=' + this.json;
-
-      console.log( this.params)
     return this.http.post<Respuesta>(this.url + '/api/fincas/upload',
       this.params, { headers: this.header });
 

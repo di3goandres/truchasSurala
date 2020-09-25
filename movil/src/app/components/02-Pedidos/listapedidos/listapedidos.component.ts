@@ -51,7 +51,7 @@ export class ListapedidosComponent implements OnInit {
     setTimeout(() => {
      
       event.target.complete();
-    }, 2000);
+    }, 500);
   }
 
 }

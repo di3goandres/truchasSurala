@@ -16,19 +16,19 @@ export class ActualizarfotofincaComponent implements OnInit {
 
   ngOnInit() {
 
-    console.log('entre')
+   
   }
 
   enviarFoto() {
     this.photoService.postFileFinca(this.idFinca).subscribe(
       OK => {
-        console.log(OK)
+        // console.log(OK)
         this.resultado = "Actualizacion exitosa"
         // this.photoService.photos = []
 
       },
       ERROR => {
-        console.log(ERROR)
+        // console.log(ERROR)
         this.resultado = "Actualizacion No exitosa"
 
       },

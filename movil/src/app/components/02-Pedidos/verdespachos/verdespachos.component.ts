@@ -48,7 +48,7 @@ export class VerdespachosComponent implements OnInit {
       event.target.complete();
    
 
-    }, 2000);
+    }, 500);
   }
 
 }

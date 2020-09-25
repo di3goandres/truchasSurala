@@ -23,14 +23,6 @@ export class ListafincasComponent implements OnInit {
   
 
 
-  ionViewDidEnter(){
-    console.log('entre ionViewDidEnter');
-    // this.traerFincas();
-    this.traerFincas();
-
-
-
-  }
 
   ngOnInit() {
     this.traerFincas();
@@ -45,15 +37,19 @@ export class ListafincasComponent implements OnInit {
     setTimeout(() => {
   
       event.target.complete();
-    }, 1000);
+    }, 500);
   }
 
   traerFincas() {
     this.userService.getFincasUsuario().subscribe(
       response => {
-        console.log(response)
+       
         this.fincas = [];
         this.fincas.push(...response.fincas);
+
+        this.fincas.forEach(item => {
+          item.imagen = this.userService.getURl() + "/api/fincas/avatar/" +item.id + '/' + item.imagen;
+        })
         this.changeDetectorRefs.detectChanges()
       },
       error => {

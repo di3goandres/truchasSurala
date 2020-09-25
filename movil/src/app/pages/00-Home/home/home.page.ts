@@ -66,7 +66,7 @@ export class HomePage implements OnInit, DoCheck,AfterContentInit {
   //   }
   // }
   ngAfterContentInit(): void {
-    console.log('Items ngAfterContentInit');
+ 
 
 
     this.changeDetectorRefs.detectChanges();
@@ -76,7 +76,7 @@ export class HomePage implements OnInit, DoCheck,AfterContentInit {
 
 
   ngOnInit() {
-    console.log('Items ngOnInit');
+
 
     this.fincas = []
     // this.traerFincas();
@@ -87,7 +87,7 @@ export class HomePage implements OnInit, DoCheck,AfterContentInit {
 
 
   toggleMenu() {
-    console.log(this.menuCtrl.getMenus())
+
     this.menuCtrl.toggle();
   }
 
@@ -105,13 +105,13 @@ export class HomePage implements OnInit, DoCheck,AfterContentInit {
     this.fincas = [];
     this.userService.getFincasUsuario().subscribe(
       response => {
-        console.log(response)
+      
         this.fincas = [];
         this.fincas.push(...response.fincas);
         this.changeDetectorRefs.detectChanges()
       },
       error => {
-        console.log(error)
+       
 
       }
     )

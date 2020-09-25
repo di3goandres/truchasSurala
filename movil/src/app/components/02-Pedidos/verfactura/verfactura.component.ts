@@ -51,15 +51,11 @@ export class VerfacturaComponent implements OnInit {
       }
     
     });
-    console.log('plataforma1', platformfilter)
-    console.log('plataforma', this.platform.platforms())
-
-    console.log(this.nombreFactura)
-    console.log(this.idPedido)
+  
 
 
     this.pdfSrc = this.pdfSrc + this.idPedido + "/" + this.nombreFactura;
-    console.log('ruta', this.pdfSrc)
+
     if (platformfilter.length==0) {
       this.dowloadAndOpenPdf();
 
