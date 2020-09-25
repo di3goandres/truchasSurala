@@ -328,7 +328,7 @@ class FincasController extends Controller
 
                 $finca = Fincas::find($id);
                 if (is_object($finca)) {
-                    \Storage::disk('users')->put($user->numero_identificacion . '\\Fincas\\' . $image_name, base64_decode($imagen));
+                    \Storage::disk('users')->put('Fincas\\' . $image_name, base64_decode($imagen));
 
                     $finca->imagen = $image_name;
                     $finca->save();
