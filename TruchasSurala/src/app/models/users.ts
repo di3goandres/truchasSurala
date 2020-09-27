@@ -16,6 +16,8 @@ export class User {
   public numero_identificacion: string;
   // tslint:disable-next-line: variable-name
   public tipo_identificacion: string;
+  public tipo_usuario: string;
+
 
   public email: string;
   public password: string;

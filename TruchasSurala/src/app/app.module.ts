@@ -86,6 +86,10 @@ import { AsociarfincaComponent } from './componentes/02-Usuario/03-Fincas/asocia
 import { VerdistribucionComponent } from './componentes/07-Distribucion/verdistribucion/verdistribucion.component';
 import { DistribucioncrearComponent } from './componentes/07-Distribucion/distribucioncrear/distribucioncrear.component';
 import { AsociarcertificadoComponent } from './componentes/05-Despacho/asociarcertificado/asociarcertificado.component';
+import { InformesTecnicosComponent } from './componentes/08-Fincas/informes-tecnicos/informes-tecnicos.component';
+import { CrearinformesTecnicosComponent } from './componentes/08-Fincas/crearinformes-tecnicos/crearinformes-tecnicos.component';
+import { FiltroPipe } from './pipes/01-Filter/filtro.pipe';
+import { VerusuarioComponent } from './componentes/02-Usuario/verusuario/verusuario.component';
 
 
 registerLocaleData(localCo);
@@ -118,9 +122,14 @@ registerLocaleData(localCo);
     DistribuciongloballistComponent, CantidaddespachadoComponent, CreardespachoComponent,
     RegistroExitosoComponent, VerlistardespachosComponent, EditardespachoComponent, ListapedidosComponent,
     CrearpedidosComponent, ListausuariosComponent,
-     EditarpedidoComponent, BorrarpedidoComponent,
-      AsociarfacturaComponent, ListapedidosfacturaComponent, 
-    ListadespachosfacturaComponent, AsociarfincaComponent, VerdistribucionComponent, DistribucioncrearComponent, AsociarcertificadoComponent
+    EditarpedidoComponent, BorrarpedidoComponent,
+    AsociarfacturaComponent, ListapedidosfacturaComponent,
+    ListadespachosfacturaComponent, AsociarfincaComponent, VerdistribucionComponent,
+    DistribucioncrearComponent, AsociarcertificadoComponent,
+    InformesTecnicosComponent,
+    CrearinformesTecnicosComponent,
+    FiltroPipe,
+    VerusuarioComponent
 
 
   ],
@@ -151,6 +160,7 @@ registerLocaleData(localCo);
     MatRadioModule,
     NgxChartsModule,
     PdfViewerModule,
+   
 
 
   ],
@@ -159,7 +169,7 @@ registerLocaleData(localCo);
     { provide: LOCALE_ID, useValue: 'es-Co' },
     { provide: MAT_FORM_FIELD_DEFAULT_OPTIONS, useValue: { appearence: 'fill' } },
     DatePipe,
-    MatDatepickerModule, ListapedidosComponent,DespachoactualComponent,
+    MatDatepickerModule, ListapedidosComponent, DespachoactualComponent,
     DespachosComponent],
 
   bootstrap: [AppComponent]

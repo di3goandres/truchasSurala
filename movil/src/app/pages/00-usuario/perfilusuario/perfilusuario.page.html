@@ -9,7 +9,7 @@
     </ion-card-header>
 
     <ion-card-content>
-      <ion-grid>
+      <ion-grid style="font-size: 13px;">
         <ion-row>
        
           <ion-col>
@@ -40,7 +40,7 @@
                 <!-- <ion-icon name="ellipse"></ion-icon> -->
                 <ion-icon name="card"></ion-icon>
               </ion-button>
-              {{user.numero_identificacion}}
+              {{user.numero_identificacion| number}}
             </ion-label>
           </ion-col>
         </ion-row>
@@ -51,7 +51,7 @@
                 <!-- <ion-icon name="ellipse"></ion-icon> -->
                 <ion-icon name="call-outline"></ion-icon>
               </ion-button>
-              {{user.telefono}}
+              {{user.telefono | number}}
             </ion-label>
           </ion-col>
         </ion-row>

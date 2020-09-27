@@ -10,12 +10,12 @@
         </ion-toolbar>
       </ion-header>
       <ion-content>
-      
+
         <ion-list>
 
           <ion-menu-toggle autoHide="false" *ngFor="let c of componentes | async">
             <ion-item [routerLink]="c.redirectTo" class="equal-sized-item">
-              <ion-icon slot="start" size="large" [name]="c.icon"  class="ovas"></ion-icon>
+              <ion-icon slot="start" size="large" [name]="c.icon" class="ovas"></ion-icon>
               <ion-label class="blue">{{ c.name }}</ion-label>
             </ion-item>
           </ion-menu-toggle>

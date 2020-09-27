@@ -33,6 +33,8 @@ class UserController extends Controller
             $validate = \Validator::make($params_array, [
                 'name' => 'required',
                 // 'surname' => 'required',
+                'tipo_usuario' => 'required',
+
                 'numero_identificacion' => 'required|numeric|unique:users', //comprueba que el numero de identificacion sea unico
                 'email' => 'required|email|unique:users', //comprueba si el usuario esta duplicaod
                 'telefono' => 'numeric',
@@ -66,6 +68,8 @@ class UserController extends Controller
                 $user->id_identificacion = $params_array['tipo_identificacion'];
                 $user->numero_identificacion = $params_array['numero_identificacion'];
                 $user->telefono = $params_array['telefono'];
+                $user->tipo_usuario = $params_array['tipo_usuario'];
+
 
                 $user->password = $pwd;
                 $user->role = 'USUARIO';

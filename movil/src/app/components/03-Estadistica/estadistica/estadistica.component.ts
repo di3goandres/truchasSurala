@@ -14,7 +14,7 @@ export class EstadisticaComponent implements OnInit {
   datoMulti: EstadisticaMulti[] = []
 
   mostrar = false;
-  view: any[];
+  view: any[] = [400, 400];
 
   // options
   showXAxis = true;
@@ -45,17 +45,18 @@ export class EstadisticaComponent implements OnInit {
 
   constructor(private pedidosService: PedidosService) {
 
-    this.view = [innerWidth / 1.3, 500];
-   }
+    this.view = [innerWidth / 1.2, 400];
+  }
 
-   onResize(event) {
-    this.view = [event.target.innerWidth / 1.35, 500];
-}
+  onResize(event) {
+    this.view = [event.target.innerWidth / 1.25, 400];
+    console.log(event.target.innerWidth )
+  }
   doRefresh(event) {
-    
-    this.single= [];
-    this.tamanio=[];
-    this.multi=[];
+
+    this.single = [];
+    this.tamanio = [];
+    this.multi = [];
     this.traerEstadistica();
 
     setTimeout(() => {
@@ -75,12 +76,12 @@ export class EstadisticaComponent implements OnInit {
   // }
 
   ngOnInit() {
-    console.log('entre')
+
     this.traerEstadistica();
   }
 
   ionViewDidEnter() {
-    console.log('entre ionViewDidEnter Estadistica');
+
     // this.traerFincas();
     this.traerEstadistica();
 
@@ -89,7 +90,7 @@ export class EstadisticaComponent implements OnInit {
   traerEstadistica() {
     this.pedidosService.obtenerEstadistica().subscribe(
       OK => {
-       
+
         this.datos = [];
         this.datos.push(...OK.datos);
         this.datos.forEach(item => {
@@ -103,22 +104,23 @@ export class EstadisticaComponent implements OnInit {
 
         });
         this.datoMulti = []
-        this.datoMulti.push(new EstadisticaMulti(this.datoTamanio,"Tamaño(mm)"))
-        this.datoMulti.push(new EstadisticaMulti(this.datoEdad,"Edad (TCU)"))
+        this.datoMulti.push(new EstadisticaMulti(this.datoTamanio, "Tamaño(mm)"))
+        this.datoMulti.push(new EstadisticaMulti(this.datoEdad, "Edad (TCU)"))
 
 
         this.tamanio = this.datoTamanio
         this.single = this.datoEdad;
         this.multi = this.datoMulti;
 
-   
+
       },
-      ERROR => { console.log(ERROR) 
+      ERROR => {
+        console.log(ERROR)
         // if(ERROR.message=="Usuario no identificado"){
-          this.pedidosService.responseError()
+        this.pedidosService.responseError()
         // }
-      
-      
+
+
       }
       ,
     )

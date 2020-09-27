@@ -16,6 +16,12 @@ import { MatStepper } from '@angular/material/stepper';
 })
 export class RegisterComponent implements OnInit {
 
+  tipo: string = 'OVAS';
+  tipos: Select [] =[
+    { value: 'OVAS',  viewValue: 'OVAS'},
+    { value: 'ALEVINOS',  viewValue: 'ALEVINOS'},
+    { value: 'AMBOS',  viewValue: 'AMBOS'},
+  ]
   Departamentos: Departamento[] = [];
   Municipios: Municipio[] = [];
   MunicipioSeleccionado: Municipio[] = [];
@@ -248,6 +254,8 @@ export class RegisterComponent implements OnInit {
       NumeroIden: ['', Validators.required],
       Email: ['', Validators.required],
       Telefono: ['', Validators.required],
+      Tipo: ['', Validators.required]
+
 
     });
 

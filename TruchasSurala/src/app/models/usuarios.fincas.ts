@@ -14,6 +14,8 @@ export interface Usuario {
     surname:               string;
     role:                  string;
     email:                 string;
+    tipo_usuario:          string;
+
     telefono:              null | string;
     description:           null;
     image:                 null;
