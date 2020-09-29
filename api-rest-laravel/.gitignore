@@ -3,6 +3,7 @@
 /public/storage
 /storage/*.key
 /vendor
+/config/onesignal.php
 .env
 .env.backup
 .phpunit.result.cache
