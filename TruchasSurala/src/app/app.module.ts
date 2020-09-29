@@ -160,7 +160,7 @@ registerLocaleData(localCo);
     MatRadioModule,
     NgxChartsModule,
     PdfViewerModule,
-   
+
 
 
   ],

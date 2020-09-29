@@ -93,6 +93,12 @@ const routes: Routes = [
     loadChildren: () => import('./pages/02-fincas/updatephoto/updatephoto.module').then( m => m.UpdatephotoPageModule),
     canLoad: [UsuarioGuard],
     canActivate: [UsuarioGuard]
+  },
+  {
+    path: 'mensajes',
+    loadChildren: () => import('./pages/00-usuario/mensajes/mensajes.module').then( m => m.MensajesPageModule),
+    canLoad: [UsuarioGuard],
+    canActivate: [UsuarioGuard]
   }
 ];
 

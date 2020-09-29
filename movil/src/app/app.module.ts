@@ -14,7 +14,7 @@ import { IonicModule, IonicRouteStrategy } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
 
-// import { OneSignal } from '@ionic-native/onesignal/ngx';
+import { OneSignal } from '@ionic-native/onesignal/ngx';
 
 import { File } from '@ionic-native/file/ngx';
 import { FileOpener } from '@ionic-native/file-opener/ngx';
@@ -70,7 +70,7 @@ registerLocaleData(localCo);
     ReactiveFormsModule,
     StatusBar,
     SplashScreen, 
-    // OneSignal,
+    OneSignal,
     File,
     FileOpener, 
     FileTransfer,

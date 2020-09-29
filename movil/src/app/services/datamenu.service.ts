@@ -28,16 +28,14 @@ export class DatamenuService {
 
   enableAuthenticatedMenu() {
     this.activar = false;
-
     if (this.userService.getToken() != null) {
-      console.log('activo')
       this.activar = true;
     } else {
-      console.log('Noactivo')
-
       this.activar = false;
     }
     this.menuCtrl.enable(this.activar, 'authenticated');
     this.menuCtrl.enable(!this.activar, 'unauthenticated');
+
+    return this.activar;
   }
 }

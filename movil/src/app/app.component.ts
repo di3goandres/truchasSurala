@@ -3,8 +3,8 @@ import { Component, OnInit, DoCheck } from '@angular/core';
 import { NavController, Platform } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
-// import { OneSignal } from '@ionic-native/onesignal/ngx';
-// import { PushService } from './services/push.service';
+import { OneSignal } from '@ionic-native/onesignal/ngx';
+import { PushService } from './services/push.service';
 import { Observable } from 'rxjs';
 import { Componente } from './models/menu';
 import { DatamenuService } from './services/datamenu.service';
@@ -25,7 +25,7 @@ export class AppComponent implements OnInit, DoCheck {
     private platform: Platform,
     private splashScreen: SplashScreen,
     private statusBar: StatusBar,
-    //private pushService: PushService,
+    private pushService: PushService,
     public userService: UserService,
     public navCtrl: NavController,
     public router: Router,
@@ -64,10 +64,14 @@ export class AppComponent implements OnInit, DoCheck {
     this.platform.ready().then(() => {
       this.statusBar.styleDefault();
       this.splashScreen.hide();
-      // this.pushService.configuracionInicial();
+      // Manejo de Notificaciones Push
+      this.pushService.configuracionInicial();
       this.componentes = this.dataService.getMenuOpts(true);
       this.componentesInvitado = this.dataService.getMenuOpts(false);
-      this.dataService.enableAuthenticatedMenu();
+     let activo = this.dataService.enableAuthenticatedMenu();
+     if(activo){
+      this.pushService.tagUsuarioLogeado();
+     }
     });
   }
 

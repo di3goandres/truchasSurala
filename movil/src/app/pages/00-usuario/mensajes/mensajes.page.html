@@ -1,0 +1,29 @@
+<app-header titulo="Mis Mensajes" icon="mail"></app-header>
+
+
+<ion-content>
+
+  <ion-card>
+    <ion-card-content>
+      <ion-list>
+        <ion-list-header>
+          <ion-label>Mis Mensajes </ion-label>
+          <ion-button>See All</ion-button>
+        </ion-list-header>
+        <ion-item *ngFor="let push of mensajes">
+          <ion-label>
+
+            <h3>
+              {{push.title}}
+            </h3>
+            <p>
+              {{push.body}}
+            </p>
+          </ion-label>
+        </ion-item>
+      </ion-list>
+    </ion-card-content>
+
+  </ion-card>
+
+</ion-content>
