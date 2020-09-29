@@ -9,12 +9,13 @@
     "license": "MIT",
     "require": {
         "php": "^7.2.5",
+        "berkayk/onesignal-laravel": "^1.0",
         "fideloper/proxy": "^4.2",
+        "firebase/php-jwt": "5.2.0",
         "fruitcake/laravel-cors": "^1.0",
         "guzzlehttp/guzzle": "^6.3",
         "laravel/framework": "^7.0",
-        "laravel/tinker": "^2.0",
-        "firebase/php-jwt": "5.2.0"
+        "laravel/tinker": "^2.0"
     },
     "require-dev": {
         "facade/ignition": "^2.0",

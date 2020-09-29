@@ -176,6 +176,7 @@ return [
         App\Providers\RouteServiceProvider::class,
         App\Providers\ JwtAuthServiceProvider ::class,
 
+        Berkayk\OneSignal\OneSignalServiceProvider::class
 
     ],
 
@@ -229,6 +230,7 @@ return [
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
         'JwtAuth' => App\Helpers\ JwtAuth ::class,
+        'OneSignal' => Berkayk\OneSignal\OneSignalFacade::class
 
     ],
 
