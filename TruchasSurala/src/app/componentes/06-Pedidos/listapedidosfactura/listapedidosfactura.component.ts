@@ -39,7 +39,10 @@ export class ListapedidosfacturaComponent implements OnInit {
 
   ) { }
 
-
+  applyFilter(event: Event) {
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.dataSource.filter = filterValue.trim().toLowerCase();
+  }
   open(): void {
     const modalRef = this.modalService.open(CrearpedidosComponent);
     modalRef.componentInstance.idDespacho = this.actual.id;

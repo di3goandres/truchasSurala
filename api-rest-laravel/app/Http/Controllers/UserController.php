@@ -324,16 +324,33 @@ class UserController extends Controller
 
                 $usuario = \DB::table('users')
                     ->join('fincas', 'fincas.user_id', '=', 'users.id')
-
-
                     ->where('fincas.id', '=',  $pedido->id_finca)
-                    ->select('users.numero_identificacion')
+                    ->select('users.numero_identificacion', 'users.id')
                     ->get();
 
                 \Storage::disk('users')->put($usuario[0]->numero_identificacion . '\\Facturas\\' . $pedido->id . '\\' . $name, base64_decode($file));
 
                 $pedido->nombre_factura = $name;
                 $pedido->save();
+
+
+                $pedidosUsuario = \DB::table('pedidos')
+                    ->join('fincas', 'fincas.id', '=', 'pedidos.id_finca')
+                    ->join('users', 'fincas.user_id', '=', 'users.id')
+                    ->where([
+                        ['pedidos.id_despacho', '=',  $pedido->id_despacho],
+                        ['users.id', '=',  $usuario[0]->id],
+
+                    ])
+                    ->select('pedidos.id')
+                    ->get();
+
+                foreach ($pedidosUsuario as $update) {
+                    $updatePedido = Pedidos::find($update->id);
+                    $updatePedido->nombre_factura = $name;
+                    $updatePedido->save();
+                }
+
                 $data = array(
                     'code' => 200,
                     'status' => 'OK',

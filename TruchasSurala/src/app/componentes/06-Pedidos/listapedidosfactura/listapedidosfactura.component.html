@@ -24,6 +24,13 @@
                     </button>
 
                 </mat-label>
+
+                <mat-form-field style="padding-left: 10px;" appearance="fill">
+
+                    <mat-label>Filtro</mat-label>
+                    <input matInput (keyup)="applyFilter($event)" placeholder="Ej. Finca" #input>
+                  </mat-form-field>
+        
                 <div class="table-responsive">
                     <table id="customers" mat-table [dataSource]="dataSource" class="mat-elevation-z8">
 
