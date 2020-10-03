@@ -11,10 +11,10 @@ use OneSignal;
 
 class NotificacionesController extends Controller
 {
-    // public function __construct()
-    // {
-    //     $this->middleware('api.auth', ['except' => []]);
-    // }
+    public function __construct()
+    {
+        $this->middleware('api.auth', ['except' => []]);
+    }
 
     public function store(Request $request)
     {

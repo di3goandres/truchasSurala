@@ -4,7 +4,7 @@ import { ShortNumberPipe } from './pipes/short-number.pipe';
 import { BrowserModule } from '@angular/platform-browser';
 import { LOCALE_ID, NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { FroalaEditorModule, FroalaViewModule } from 'angular-froala-wysiwyg';
 import { AppComponent } from './app.component';
 import { LoginComponent } from './componentes/login/login.component';
@@ -91,6 +91,9 @@ import { CrearinformesTecnicosComponent } from './componentes/08-Fincas/crearinf
 import { FiltroPipe } from './pipes/01-Filter/filtro.pipe';
 import { VerusuarioComponent } from './componentes/02-Usuario/verusuario/verusuario.component';
 
+import { AuthInterceptor } from './service/interceptor/auth.interceptor';
+import { UserService } from './service/user/user.service';
+
 
 registerLocaleData(localCo);
 @NgModule({
@@ -129,6 +132,7 @@ registerLocaleData(localCo);
     InformesTecnicosComponent,
     CrearinformesTecnicosComponent,
     FiltroPipe,
+    
     VerusuarioComponent
 
 
@@ -166,11 +170,16 @@ registerLocaleData(localCo);
   ],
 
   providers: [
+    
+    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
     { provide: LOCALE_ID, useValue: 'es-Co' },
     { provide: MAT_FORM_FIELD_DEFAULT_OPTIONS, useValue: { appearence: 'fill' } },
+    
     DatePipe,
     MatDatepickerModule, ListapedidosComponent, DespachoactualComponent,
-    DespachosComponent],
+    DespachosComponent,
+   
+  ],
 
   bootstrap: [AppComponent]
 })

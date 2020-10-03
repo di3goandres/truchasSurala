@@ -10,10 +10,10 @@ use App\Despacho;
 
 class DatosGeneralesController extends Controller
 {
-  //    public function __construct()
-  //    {
-  //        $this->middleware('api.auth');
-  //    }
+     public function __construct()
+     {
+         $this->middleware('api.auth');
+     }
 
   public function index()
   {

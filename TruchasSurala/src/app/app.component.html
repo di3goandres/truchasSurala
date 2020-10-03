@@ -1,4 +1,4 @@
-<div class="container alternate-theme" style="max-width: 1260px;">
+<div class="container alternate-theme" style="max-width: 1400px;">
   <!--Contendor principal-->
   <br />
 
@@ -9,10 +9,44 @@
     </button>
     <button mat-menu-item [matMenuTriggerFor]="usuarios"> <mat-icon>contacts</mat-icon> <span>Usuarios</span></button>
     <button mat-menu-item [matMenuTriggerFor]="ovas"> <mat-icon>fiber_manual_record</mat-icon> <span>Ovas</span></button>
+    <button mat-menu-item [matMenuTriggerFor]="informesTecnicos"> <mat-icon>insert_chart</mat-icon> <span>Informes Técnicos</span></button>
+   
+    <button mat-menu-item [matMenuTriggerFor]="appmovil"> <mat-icon>smartphone</mat-icon> <span>Aplicación Movil</span></button>
 
   
   </mat-menu>
 
+
+  <mat-menu  #informesTecnicos="matMenu">
+    <button mat-menu-item routerLink='/surala/despacho/facturas/view'>
+      <mat-icon>addchart</mat-icon>
+      <span>Registrar Informe</span>
+    </button>
+    <button mat-menu-item routerLink='/surala/despacho/facturas/view'>
+      <mat-icon>article</mat-icon>
+      <span>Ver Informes</span>
+    </button>
+  </mat-menu>
+  <mat-menu  #appmovilNotificaciones="matMenu">
+    <button mat-menu-item routerLink='/surala/register' >
+      <mat-icon>verified_user</mat-icon>
+      <span>Despacho Actual</span>
+    </button>
+    <button mat-menu-item routerLink='/surala/register' >
+      <mat-icon>verified_user</mat-icon>
+      <span>Notificaciones Generales</span>
+    </button>
+  </mat-menu>
+  <mat-menu  #appmovil="matMenu">
+    <button mat-menu-item [matMenuTriggerFor]="appmovilNotificaciones">
+      <mat-icon>campaign</mat-icon>
+      <span>Enviar Notificaciones</span>
+    </button>
+    <button mat-menu-item [matMenuTriggerFor]="appmovilNotificaciones">
+      <mat-icon>campaign</mat-icon>
+      <span>Noticias</span>
+    </button>
+  </mat-menu>
   <mat-menu  #usuarios="matMenu">
     <button mat-menu-item routerLink='/surala/register' >
       <mat-icon>verified_user</mat-icon>
@@ -25,6 +59,26 @@
     </button>
   </mat-menu>
   
+  <mat-menu  #despachos="matMenu">
+    <button mat-menu-item routerLink='/surala/despacho/view'>
+      <mat-icon>local_shipping</mat-icon>
+      <span>Ver Despachos</span>
+    </button>
+    <button mat-menu-item routerLink='/surala/despacho/view'>
+      <mat-icon>airplanemode_active</mat-icon>
+      <span>Ver Aeropuerto</span>
+    </button>
+
+    <button mat-menu-item routerLink='/surala/despacho/view'>
+      <mat-icon>airplanemode_active</mat-icon>
+      <span>Trayectorias</span>
+    </button>
+
+    <button mat-menu-item routerLink='/surala/despacho/view'>
+      <mat-icon>airplanemode_active</mat-icon>
+      <span>Conductores</span>
+    </button>
+  </mat-menu>
   <mat-menu #ovas="matMenu">
    
    
@@ -32,9 +86,9 @@
       <mat-icon>next_week</mat-icon>
       <span>Crear Proximo Despacho</span>
     </button>
-    <button mat-menu-item routerLink='/surala/despacho/view'>
+    <button mat-menu-item [matMenuTriggerFor]="despachos">
       <mat-icon>local_shipping</mat-icon>
-      <span>Ver Despachos</span>
+      <span>Despachos</span>
     </button>
    <button mat-menu-item routerLink='/surala/despacho/facturas/view'>
       <mat-icon>assignment_returned</mat-icon>

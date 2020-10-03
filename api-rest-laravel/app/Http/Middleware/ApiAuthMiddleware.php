@@ -23,7 +23,7 @@ class ApiAuthMiddleware {
             return $next($request);
         }else{
                $data = array(
-                'code' => 400,
+                'code' => 401,
                 'status' => 'error',
                 'message' => 'Usuario no identificado'
             );

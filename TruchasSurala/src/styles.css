@@ -23,7 +23,9 @@ mat-dialog-container#modal-component {
 
  }
 
-
+.container{ 
+  max-width: 100% !important;
+}
  .surala-azul{
   background-color: rgb(14, 105, 179);
   opacity: 100%;

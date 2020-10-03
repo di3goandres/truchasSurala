@@ -35,7 +35,7 @@ export class UserService {
 
   public header = new HttpHeaders({
     // tslint:disable-next-line: object-literal-key-quotes
-    'Autorization': this.token
+    // 'Autorization': this.token
   });
 
   user: User;
@@ -59,7 +59,7 @@ export class UserService {
       this.getToken();
     }
     this.header = new HttpHeaders().set('Authorization', this.token);
-    return this.http.get<T>(this.url + query, { headers: this.header });
+    return this.http.get<T>(this.url + query);
 
   }
 
@@ -67,7 +67,7 @@ export class UserService {
   public ejecutarQueryPost(query: string, params: string) {
     this.header = new HttpHeaders().set('Authorization', this.token)
       .set('Content-Type', 'application/x-www-form-urlencoded');
-    return this.http.post(this.url + query, params, { headers: this.header });
+    return this.http.post(this.url + query, params);
 
   }
 
