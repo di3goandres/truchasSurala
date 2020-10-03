@@ -100,7 +100,11 @@ export class PushService {
   }
 
   sendUniqueid() {
-    let token = "{ 'token': " + this.userId + "}";
+    this.oneSignal.getIds().then(info => {
+      this.userId = info.userId
+    })
+    let token = new Token()
+    token.token =  this.userId ;
     let json = JSON.stringify(token)
     let params = 'json=' + json;
     console.log(params)
@@ -112,4 +116,9 @@ export class PushService {
   }
 
 
+}
+
+
+export class Token{
+  token:string;
 }

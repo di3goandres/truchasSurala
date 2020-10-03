@@ -10,6 +10,7 @@ import { Camera, CameraOptions } from '@ionic-native/camera/ngx';
 import { UserService } from '../../../services/user.service';
 import { HomePage } from '../../00-Home/home/home.page';
 import { HttpClient } from '@angular/common/http';
+import { PushService } from '../../../services/push.service';
 
 @Component({
   selector: 'app-login',
@@ -38,6 +39,7 @@ export class LoginPage implements OnInit {
     private dataService: DatamenuService,
     private camera: Camera,
     private home: HomePage,
+    private PushService: PushService,
     private _http: HttpClient
 
   ) { }
@@ -126,8 +128,8 @@ export class LoginPage implements OnInit {
         // this.router.onSameUrlNavigation = 'reload';
         this.userService.getToken();
         this.userService.getIdentity();
-
-       
+        this.PushService.configuracionInicial()
+        this.PushService.tagUsuarioLogeado();
         this.router.navigate(['homelogin']);
         
     
