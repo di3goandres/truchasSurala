@@ -3,21 +3,32 @@
     <mat-card-title>
         {{title}}
     </mat-card-title>
-<mat-card-content>
-<div class="row">
-    <div class="col-3"></div>
+    <mat-card-content>
+        <mat-grid-list cols="1" rowHeight="3:1">
+            <!-- <mat-grid-tile></mat-grid-tile> -->
 
-    <div class="col-6" >
-        <mat-label> Ovas por Despacho</mat-label>
-        <app-cantidaddespachado></app-cantidaddespachado>
+            <mat-grid-tile>
+            <div class="table-responsive">
+                    <div class="row">
+                        <div class="col-3"></div>
+        
+                        <div class="col-6"> 
+                            <mat-label> Ovas por Despacho</mat-label>
+                            <app-cantidaddespachado></app-cantidaddespachado>
+        
+                        </div>
+        
+                        <div class="col-2"></div>
+        
+                    </div>
+                </div> 
+              
+            </mat-grid-tile>
+            <!-- <mat-grid-tile></mat-grid-tile> -->
 
-    </div>
 
-    <div class="col-2"></div>
 
-</div>
-</mat-card-content>
+        </mat-grid-list>
+        
+    </mat-card-content>
 </mat-card>
-
-
-
