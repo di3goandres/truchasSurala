@@ -92,6 +92,8 @@ Route::resource('/api/Notificaciones', 'NotificacionesController');
 
 Route::post('/api/Notificaciones/personalizado/', 'NotificacionesController@SendUniqueUser');
 
+
+
 Route::post('/api/pedidos/actualizarpedido', 'PedidosController@ActualizarPedido');
 Route::delete('/api/pedidos/eliminarpedido/{id}/{borrar}', 'PedidosController@EliminarPedido');
 

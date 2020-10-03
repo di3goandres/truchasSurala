@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Dispositivos;
+use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
 use GuzzleHttp\Client;
@@ -42,21 +43,31 @@ class NotificacionesController extends Controller
                     'errors' => $validate->errors()
                 );
             } else {
-                $dispositivo = new Dispositivos();
-                $dispositivo->user_id = $user->sub;
-                $dispositivo->token = $params_array["token"];
-                $dispositivo->save();
-                $data = array(
-                    'code' => 200,
-                    'status' => 'success',
-                    'message' => 'Registro Exitoso'
-                );
+                $usuario = User::find($user->sub);
+                if(is_object($usuario)){
+                    $dispositivo = new Dispositivos();
+                    $dispositivo->user_id = $user->sub;
+                    $dispositivo->token = $params_array["token"];
+                    $dispositivo->save();
+                    $data = array(
+                        'code' => 200,
+                        'status' => 'success',
+                        'message' => 'Registro Exitoso'
+                    );
+                }else{
+                    $data = array(
+                        'code' => 200,
+                        'status' => 'success',
+                        'message' => 'Registro No Exitoso'
+                    );
+                }
+               
             }
         } else {
             $data = array(
-                'code' => 400,
+                'code' => 200,
                 'status' => 'error',
-                'message' => 'Usuario no identificado'
+                'message' => 'Usuario no identificado',
             );
         }
 

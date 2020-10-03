@@ -1,6 +1,8 @@
 import { Injectable, EventEmitter } from '@angular/core';
 import { OneSignal, OSNotification, OSNotificationPayload } from '@ionic-native/onesignal/ngx';
 import { Storage } from '@ionic/storage';
+import { UserService } from './user.service';
+import { Respuesta } from '../models/Response';
 
 @Injectable({
   providedIn: 'root'
@@ -21,7 +23,8 @@ export class PushService {
   pushListener = new EventEmitter<OSNotificationPayload>();
   constructor(
     private oneSignal: OneSignal,
-    private storage: Storage
+    private storage: Storage,
+    private service: UserService
   ) {
 
     this.cargarMensajes();
@@ -87,5 +90,26 @@ export class PushService {
 
   tagUsuarioLogeado() {
     this.oneSignal.sendTag("user_type", "fincas");
+    this.sendUniqueid();
+
   }
+
+  tagNologueado() {
+    this.oneSignal.deleteTag("user_type");
+
+  }
+
+  sendUniqueid() {
+    let token = "{ 'token': " + this.userId + "}";
+    let json = JSON.stringify(token)
+    let params = 'json=' + json;
+    console.log(params)
+    this.service
+      .ejecutarQueryPost<Respuesta>('/api/Notificaciones', params).subscribe(
+        OK => { console.log(OK) },
+        ERROR => { console.log(ERROR) },
+      )
+  }
+
+
 }
