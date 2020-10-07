@@ -155,6 +155,8 @@ export class LoginPage implements OnInit {
           localStorage.removeItem('token');
           this.identity = null;
           this.token = null;
+          this.PushService.configuracionInicial()
+          this.PushService.tagUsuarioLogeado();
           this.userService.logout();
          
 

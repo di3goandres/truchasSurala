@@ -89,14 +89,14 @@ export class PushService {
   }
 
   tagUsuarioLogeado() {
-    this.oneSignal.sendTag("user_type", "fincas");
+  
     this.sendUniqueid();
 
   }
 
   tagNologueado() {
-    this.oneSignal.deleteTag("user_type");
-
+    
+    this.removeUniqueId();
   }
 
   sendUniqueid() {
@@ -110,7 +110,29 @@ export class PushService {
     console.log(params)
     this.service
       .ejecutarQueryPost<Respuesta>('/api/Notificaciones', params).subscribe(
-        OK => { console.log(OK) },
+        OK => { 
+
+          this.oneSignal.sendTag("user_type", "fincas");
+         },
+        ERROR => { console.log(ERROR) },
+      )
+  }
+
+  //remover para cuando se desloguee
+  removeUniqueId(){
+    this.oneSignal.getIds().then(info => {
+      this.userId = info.userId
+    })
+    let token = new Token()
+    token.token =  this.userId ;
+    let json = JSON.stringify(token)
+    let params = 'json=' + json;
+    console.log(params)
+    this.service
+      .ejecutarQueryPost<Respuesta>('/api/Notificaciones/borrar', params).subscribe(
+        OK => { 
+           this.oneSignal.deleteTag("user_type");
+        },
         ERROR => { console.log(ERROR) },
       )
   }

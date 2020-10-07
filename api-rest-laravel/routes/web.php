@@ -91,6 +91,7 @@ Route::resource('/api/Notificaciones', 'NotificacionesController');
 
 
 Route::post('/api/Notificaciones/personalizado/', 'NotificacionesController@SendUniqueUser');
+Route::post('/api/Notificaciones/borrar/', 'NotificacionesController@borrarToken');
 
 
 

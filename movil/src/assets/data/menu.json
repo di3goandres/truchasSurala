@@ -23,11 +23,6 @@
       "icon": "medkit-outline",
       "name": "Productos",
       "redirectTo": "/medicamentos"
-    },
-    {
-      "icon": "exit-outline",
-      "name": "Salir",
-      "redirectTo": "/logout/1"
     }
     
   ]
