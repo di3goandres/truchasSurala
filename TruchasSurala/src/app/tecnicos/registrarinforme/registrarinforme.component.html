@@ -1,0 +1,134 @@
+<!-- <div class="container alternate-theme"> -->
+
+<mat-horizontal-stepper [linear]="true" #stepper>
+
+    <mat-step>
+        <ng-template matStepLabel>Seleccionar Usuario y Finca</ng-template>
+
+        <mat-card class="example-card">
+            <mat-card-header>
+                <div mat-card-avatar class="example-header-image"></div>
+                <mat-card-title style="text-align: center;">Datos del Usuario</mat-card-title>
+
+            </mat-card-header>
+            <mat-card-content>
+
+                <form [formGroup]="firstFormGroup" style="width: 100%;">
+
+                    <div class="row">
+                        <div class="col-xs-12 col-12 form-group">
+                            <label>Seleccione un cliente</label>
+                            <button type="button" mat-mini-fab class="buttton-aldea" aria-label="fecha"
+                                (click)="openUsuarios()">
+                                <mat-icon>person</mat-icon>
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="row">
+
+                        <div class="col-xs-3  col-3 form-group" *ngIf="usuario.id!=0">
+                            <mat-form-field appearance="fill" floatLabel="always">
+                                <mat-label>Cliente</mat-label>
+                                <mat-icon matSuffix>sentiment_very_satisfied</mat-icon>
+
+                                <input matInput placeholder="Cliente" type="text" [disabled]="usuario.id!=0"
+                                    name="finca" [(value)]="usuario.nombreFinca">
+
+
+                            </mat-form-field>
+
+                        </div>
+                        <div class="col-xs-3  col-3 form-group" *ngIf="usuario.id!=0">
+                            <mat-form-field appearance="fill" floatLabel="always">
+                                <mat-label>Finca</mat-label>
+                                <mat-icon matSuffix>sentiment_very_satisfied</mat-icon>
+
+                                <input matInput placeholder="Cliente" type="text" [disabled]="usuario.id!=0"
+                                    name="finca" [(value)]="usuario.nombreFinca">
+
+
+                            </mat-form-field>
+
+                        </div>
+                        <div class="col-xs-3  col-3 form-group" *ngIf="usuario.id!=0">
+                            <mat-form-field appearance="fill" floatLabel="always">
+                                <mat-label>Ubicación</mat-label>
+                                <mat-icon matSuffix>sentiment_very_satisfied</mat-icon>
+
+                                <input matInput placeholder="Cliente" type="text" [disabled]="usuario.id!=0"
+                                    name="finca" [(value)]=" usuario.Ubicacion">
+
+
+                            </mat-form-field>
+
+                        </div>
+                        <div class="col-xs-3  col-3 form-group" *ngIf="usuario.id!=0">
+                            <mat-form-field appearance="fill" floatLabel="always">
+                                <mat-label>Número de Identificación</mat-label>
+                                <mat-icon matSuffix>sentiment_very_satisfied</mat-icon>
+
+                                <input matInput placeholder="Cliente" type="text" [disabled]="usuario.id!=0"
+                                    name="finca" [(value)]=" usuario.numeroIdentificacion">
+
+
+                            </mat-form-field>
+
+                        </div>
+                    </div>
+                    <div class="row" style="text-align: center;">
+
+                        <div class="col-12">
+                            <button type="button" matStepperNext mat-raised-button color="secondary"
+                                [disabled]="usuario.id==0">Continuar</button>
+
+                        </div>
+
+
+                    </div>
+
+                </form>
+
+
+            </mat-card-content>
+        </mat-card>
+
+    </mat-step>
+
+    <mat-step>
+        <ng-template matStepLabel>Observaciones</ng-template>
+        <mat-card>
+
+            <mat-card-header>
+                <mat-card-title>
+                    Observaciones
+                </mat-card-title>
+            </mat-card-header>
+            <mat-card-content>
+
+                <div class="row">
+                    <div class="col-xs-2  col-2 form-group"></div>
+
+                    <div class="col-xs-8  col-8 form-group">
+                        <mat-form-field [style.fontSize]="'13px'">
+                            <mat-label>OBSERVACIONES</mat-label>
+                            <textarea matInput cdkTextareaAutosize #autosize="cdkTextareaAutosize"
+                                cdkAutosizeMinRows="1" cdkAutosizeMaxRows="10"></textarea>
+                        </mat-form-field>
+                    </div>
+                    <div class="col-xs-2  col-2 form-group"></div>
+
+                </div>
+            </mat-card-content>
+
+
+        </mat-card>
+    </mat-step>
+    <mat-step>
+
+        <ng-template matStepLabel>Asociar Informes</ng-template>
+    </mat-step>
+    <mat-step>
+
+    </mat-step>
+</mat-horizontal-stepper>

@@ -93,6 +93,7 @@ import { VerusuarioComponent } from './componentes/02-Usuario/verusuario/verusua
 
 import { AuthInterceptor } from './service/interceptor/auth.interceptor';
 import { UserService } from './service/user/user.service';
+import { TecnicosModule } from './tecnicos/tecnicos.module';
 
 
 registerLocaleData(localCo);
@@ -165,6 +166,7 @@ registerLocaleData(localCo);
     NgxChartsModule,
     PdfViewerModule,
 
+    TecnicosModule
 
 
   ],

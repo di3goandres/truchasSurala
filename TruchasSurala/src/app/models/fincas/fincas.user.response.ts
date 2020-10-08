@@ -8,6 +8,10 @@ export interface FincaUserResponse {
 export class UserFinca {
     constructor(){
         this.id = 0
+        this.nombre = ""
+        this.nombreFinca = ""
+        this.Ubicacion = ""
+
     }
   numeroIdentificacion: string;
   nombre: string;

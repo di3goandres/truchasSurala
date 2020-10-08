@@ -89,6 +89,13 @@ const routes: Routes = [
   { // rutas de usuarios
     path: 'surala/usuarios', component: ListausuarioComponent, canLoad: [UsuarioGuard], canActivate: [UsuarioGuard]
   },
+  /** informes tecnicos */
+  
+  { // rutas de usuarios
+    path: 'surala/informestecnicos', 
+    loadChildren: './tecnicos/tecnicos.module#TecnicosModule',
+   
+  },
   //
   {
     path: '**',
@@ -107,7 +114,7 @@ const routes: Routes = [
 
   ],
   exports: [RouterModule]
-  
+
 
 })
 export class AppRoutingModule { }

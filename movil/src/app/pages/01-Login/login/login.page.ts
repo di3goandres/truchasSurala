@@ -156,7 +156,7 @@ export class LoginPage implements OnInit {
           this.identity = null;
           this.token = null;
           this.PushService.configuracionInicial()
-          this.PushService.tagUsuarioLogeado();
+          this.PushService.tagNologueado();
           this.userService.logout();
          
 

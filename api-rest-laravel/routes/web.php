@@ -154,6 +154,12 @@ Route::get('/api/fincas/avatar/{id}/{filename}', 'FincasController@getImage') ;
 Route::resource('/api/datos/mortalidad', 'MortalidadController');
 
 
+//informes tecnicos
+
+Route::resource('/api/informestecnicos', 'InformesTecnicosController');
+
+
+
 
 
 
