@@ -1,8 +1,8 @@
-<ion-header no-border translucent class="ion-no-border">
-  <ion-toolbar>
+<ion-header no-border  class="ion-no-border"  *ngIf="titulo!='Bienvenidos'" [class]="ocultar" >
+  <ion-toolbar >
 
     <ion-buttons slot="start">
-      <ion-back-button text="" [defaultHref]="ruta" color="primary" (click)="onClick()"></ion-back-button>
+      <ion-back-button text="" [defaultHref]="ruta" color="primary" (click)="onClick()" *ngIf="ruta=='/'"></ion-back-button>
       <ion-button (click)="toggleMenu()">
         <ion-icon slot="icon-only" name="ellipse" color="primary"></ion-icon>
       </ion-button>

@@ -11,3 +11,28 @@ table {
 .row{
     text-align: center;
 }
+
+.centrarObjetos {
+    margin: auto;
+   
+    width: 80%;
+
+    /* border: 3px solid green; */
+    padding: 10px;
+  }
+
+  mat-chip {
+    max-width: 100%;
+  }
+
+  .colorCheck{
+    background-color:rgb(14, 105, 179) !important;
+    color: white !important;
+    
+  }
+
+  .colorPendiente{
+    background-color: #f33d01 !important;
+    color: white !important;
+    
+  }

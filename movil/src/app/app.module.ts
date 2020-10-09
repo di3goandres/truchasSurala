@@ -50,7 +50,7 @@ registerLocaleData(localCo);
   imports: [
           BrowserModule,
           BrowserAnimationsModule,
-          IonicModule.forRoot(),
+          IonicModule.forRoot({swipeBackEnabled:false}),
           AppRoutingModule,
           HttpClientModule,
           ComponentsModule,
@@ -59,6 +59,7 @@ registerLocaleData(localCo);
           FormsModule,
           ReactiveFormsModule,
           PipesModule,
+    
           ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),
           IonicStorageModule.forRoot()
 
@@ -80,6 +81,7 @@ registerLocaleData(localCo);
     HomePage,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
     { provide: LOCALE_ID, useValue: 'es-Co' },
+  
 
   ],
   bootstrap: [AppComponent]

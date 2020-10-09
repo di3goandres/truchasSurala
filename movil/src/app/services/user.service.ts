@@ -116,6 +116,8 @@ export class UserService {
 
   }
 
+
+
   // tslint:disable-next-line: typedef
   public ejecutarQueryPost<T>(query: string, params: string) {
     this.header = new HttpHeaders().set('Authorization', this.token)

@@ -45,6 +45,7 @@ import { UnicafincaComponent } from './01-Fincas/unicafinca/unicafinca.component
     PdfViewerModule,
     NgxChartsModule,
     FormsModule,
+    
 
   ],
   exports: [
@@ -65,6 +66,7 @@ import { UnicafincaComponent } from './01-Fincas/unicafinca/unicafinca.component
 
 
   ],
+
   
   
 })

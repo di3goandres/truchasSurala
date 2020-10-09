@@ -33,9 +33,12 @@ import { PdfViewerModule } from 'ng2-pdf-viewer';
 import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 import { AppRoutingModule } from '../app-routing.module';
 import {TextFieldModule} from '@angular/cdk/text-field';
-
+import { AsociarinformesComponent } from './asociarinformes/asociarinformes.component';
+import {MatListModule} from '@angular/material/list';
+import {MatSnackBarModule} from '@angular/material/snack-bar';
+import {MatChipsModule} from '@angular/material/chips';
 @NgModule({
-  declarations: [RegistrarinformeComponent],
+  declarations: [RegistrarinformeComponent, AsociarinformesComponent],
   imports: [
     CommonModule,
     TecnicosRoutingModule,
@@ -64,7 +67,10 @@ import {TextFieldModule} from '@angular/cdk/text-field';
     MatRadioModule,
     NgxChartsModule,
     PdfViewerModule,
-    TextFieldModule
+    TextFieldModule,
+    MatListModule,
+    MatChipsModule,
+    MatSnackBarModule
   ]
 })
 export class TecnicosModule { }

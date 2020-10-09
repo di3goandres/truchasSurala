@@ -142,7 +142,7 @@ class NotificacionesController extends Controller
 
 
 
-        $userId = ["ed41dced-1eeb-473c-98c1-364c11b44bfd", "ed41dced-1eeb-473c-98c1-364c11b44bfd"];
+        $userId = ["ed41dced-1eeb-473c-98c1-364c11b44bfd", "e0dd170b-e011-4f37-8775-7ada2008435d"];
         $params = [];
         $params['include_player_ids'] = $userId;
         $contents = [

@@ -22,6 +22,7 @@ export class AppComponent implements OnInit, DoCheck {
 
 
   constructor(
+   
     private platform: Platform,
     private splashScreen: SplashScreen,
     private statusBar: StatusBar,

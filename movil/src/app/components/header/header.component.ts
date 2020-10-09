@@ -23,14 +23,28 @@ export class HeaderComponent implements OnInit {
     if(this.icon == null){
       this.icon ="bulb-outline"
     }
+    if(this.titulo=="Bienvenidos"){
+      this.ruta = '';
+      this.ocultar = 'animated fadeOut fast'
+    
+
+
+    }
+    else{
+      this.ruta = '/';
+ 
+      this.ocultar = 'animated fadeIn fast'
+
+    }
 
   }
   toggleMenu(){
     this.menuCtrl.toggle();
   }
   onClick(){
-    console.log('ocultar')
     this.ocultar = 'animated fadeOut fast'
+  
+    //this.ocultar = 'fadeOut fast'
     
   }
 }

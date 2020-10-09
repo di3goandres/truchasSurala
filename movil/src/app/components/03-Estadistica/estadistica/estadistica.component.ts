@@ -1,6 +1,8 @@
 import { Component, OnInit, HostListener, OnDestroy } from '@angular/core';
 import { PedidosService } from '../../../services/pedidos/pedidos.service';
 import { DatoEstadistica, Estadistica, EstadisticaMulti } from '../../../models/pedidos/estadistica.response';
+import { Storage } from '@ionic/storage';
+
 
 @Component({
   selector: 'app-estadistica',
@@ -30,7 +32,7 @@ export class EstadisticaComponent implements OnInit {
 
   single: any[];
   tamanio: any[];
-  multi: any[];
+  multi: any[] = [];
 
   xAxis: boolean = true;
   yAxis: boolean = true;
@@ -41,22 +43,28 @@ export class EstadisticaComponent implements OnInit {
 
 
 
+  ionViewWillEnter() {
+    this.single = [];
+    this.tamanio = [];
+    this.multi = [];
+    this.traerEstadistica();
+  }
   mySubscription: any;
 
-  constructor(private pedidosService: PedidosService) {
+  constructor(private pedidosService: PedidosService,
+    private storage: Storage,
+ 
+  ) {
 
     this.view = [innerWidth / 1.2, 400];
   }
 
   onResize(event) {
     this.view = [event.target.innerWidth / 1.25, 400];
-    console.log(event.target.innerWidth )
+    console.log(event.target.innerWidth)
   }
   doRefresh(event) {
 
-    this.single = [];
-    this.tamanio = [];
-    this.multi = [];
     this.traerEstadistica();
 
     setTimeout(() => {
@@ -64,28 +72,27 @@ export class EstadisticaComponent implements OnInit {
       event.target.complete();
     }, 2000);
   }
-  // @HostListener('unloaded')
-  // ngOnDestroy(): void {
 
-  //   console.log('Items destroyed estadistica');
-  //   if (this.mySubscription) {
-
-
-  //     this.mySubscription.unsubscribe();
-  //   }
-  // }
 
   ngOnInit() {
+    this.recargar()
+    if (this.multi.length == 0) {
+      this.traerEstadistica();
 
-    this.traerEstadistica();
+    }
   }
 
-  ionViewDidEnter() {
-
-    // this.traerFincas();
-    this.traerEstadistica();
 
 
+
+  async recargar() {
+    // this.fincas  = this.storage.get('fincas' )
+    this.multi = await this.storage.get('estadistica') || []
+
+
+  }
+  guardarEstadistica() {
+    this.storage.set('estadistica', this.multi);
   }
   traerEstadistica() {
     this.pedidosService.obtenerEstadistica().subscribe(
@@ -111,14 +118,17 @@ export class EstadisticaComponent implements OnInit {
         this.tamanio = this.datoTamanio
         this.single = this.datoEdad;
         this.multi = this.datoMulti;
+        this.guardarEstadistica();
 
 
       },
       ERROR => {
         console.log(ERROR)
-        // if(ERROR.message=="Usuario no identificado"){
-        this.pedidosService.responseError()
-        // }
+        this.recargar();
+
+        if (ERROR.message == "Usuario no identificado") {
+          this.pedidosService.responseError()
+        }
 
 
       }
@@ -126,9 +136,7 @@ export class EstadisticaComponent implements OnInit {
     )
   }
 
-  cuadrarDatos() {
 
-  }
 
   onSelect(data): void {
     console.log('Item clicked', JSON.parse(JSON.stringify(data)));

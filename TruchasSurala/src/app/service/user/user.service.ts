@@ -65,8 +65,6 @@ export class UserService {
 
   // tslint:disable-next-line: typedef
   public ejecutarQueryPost(query: string, params: string) {
-    this.header = new HttpHeaders().set('Authorization', this.token)
-      .set('Content-Type', 'application/x-www-form-urlencoded');
     return this.http.post(this.url + query, params);
 
   }

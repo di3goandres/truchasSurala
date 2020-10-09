@@ -59,9 +59,8 @@ class InformesTecnicosController extends Controller
 
         if (!empty($params_array)) {
             $validate = \Validator::make($params_array, [
-                'user_id' => 'required',
+                'cedula' => 'required',
                 'finca_id' => 'required',
-                'tipo_informe' => 'required',
                 'fecha' => 'required',
                 'observaciones' => 'required',
                 "informes" => "required|array|min:1",
@@ -79,20 +78,32 @@ class InformesTecnicosController extends Controller
                     'data' => $params_array
                 );
             } else {
-                $usuario = User::find($params_array['user_id']);
+            
+                $usuario = \DB::table('users')
+                 
+                    ->where('users.numero_identificacion', '=',  intval($params_array['cedula']))
+                    ->select('users.id', 'users.numero_identificacion')
+                    ->get();
                 $finca = Fincas::find($params_array['finca_id']);
 
                 if (is_object($usuario) &&  is_object($finca)) {
 
+                    $fecha = str_replace('T05:00:00.000Z', ' 00:00:00', $params_array['fecha']);
+                    
+                    $fechaUbicacions = str_replace(' 00:00:00', '', $fecha);
+
+                   
+
                     $data =  new InformesTecnicos();
-                    $data->user_id = $params_array['user_id'];
+                    $data->user_id = $usuario[0]->id;
 
                     $data->finca_id = $params_array['finca_id'];
-                    $data->required = $params_array['required'];
-                    $data->fecha = $params_array['fecha'];
+                    $data->fecha_visita = $fecha;
                     $data->observaciones = $params_array['observaciones'];
 
                     $archivos = $params_array['informes'];
+                   
+
                     foreach ($archivos as $archivo) {
 
                         $file = $archivo['file'];
@@ -114,8 +125,9 @@ class InformesTecnicosController extends Controller
                                 $data->histopatologia = $name;
                                 break;
                         }
+                      
                         \Storage::disk('users')
-                            ->put($usuario->numero_identificacion . '\\InformesTecnicos\\' . $$data->fecha . '\\' . $name, base64_decode($file));
+                            ->put($usuario[0]->numero_identificacion . '\\InformesTecnicos\\' . $fechaUbicacions. '\\' . $name, base64_decode($file));
                         $data->save();
                     }
                     $data = array(
