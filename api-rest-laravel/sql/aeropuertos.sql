@@ -100,8 +100,10 @@ INSERT INTO `ruta_departamento` (`id`, `id_ruta`, `id_departamento`, `created_at
 
 
 
-select u.id, u.name, u.surname, f.nombre Finca,r.nombre  ruta from u557099357_api_restrucha.fincas f
+select u.id, u.name, u.surname, f.nombre Finca,r.nombre ruta   , usm.token
+from u557099357_api_restrucha.fincas f
 left join u557099357_api_restrucha.users u on u.id = f.user_id
+right join u557099357_api_restrucha.users_movil usm on usm.user_id = u.id 
 left join u557099357_api_restrucha.municipios m on m.id = f.id_municipio
 left join u557099357_api_restrucha.departamentos d on d.id_departamento = m.cod_dane_departamento
 left join u557099357_api_restrucha.ruta_departamento rd on rd.id_departamento = d.id
@@ -111,7 +113,8 @@ left join u557099357_api_restrucha.pedidos p on p.id_finca = f.id
 left join u557099357_api_restrucha.despachos des on des.id =p.id_despacho
 
 where u.role = 'USUARIO'
-and des.id = 7;
+and des.id = 7
+
 
 
 
