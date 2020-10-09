@@ -12,7 +12,7 @@ class DatosGeneralesController extends Controller
 {
      public function __construct()
      {
-         $this->middleware('api.auth');
+         $this->middleware('api.auth', ['except' => ['EstadisticaMes']]);
      }
 
   public function index()

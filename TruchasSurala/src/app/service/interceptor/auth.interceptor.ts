@@ -40,6 +40,8 @@ export class AuthInterceptor implements HttpInterceptor {
           if (Error.status == 401) {
             this.Service.logout();
           }
+          this.Service.cerrarModal();
+          
           return throwError(Error)
         }));
   }
