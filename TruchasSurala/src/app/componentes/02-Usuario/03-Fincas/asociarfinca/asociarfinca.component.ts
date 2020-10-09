@@ -10,6 +10,7 @@ import { DatosDepartamento } from '../../../../models/dato.departament';
 import { FincasService } from '../../../../service/fincas/fincas.service';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 
+
 @Component({
   selector: 'app-asociarfinca',
   templateUrl: './asociarfinca.component.html',
@@ -58,7 +59,9 @@ export class AsociarfincaComponent implements OnInit {
   constructor(
     private userService: FincasService,
     private _formBuilder: FormBuilder,
-    public activeModal: NgbActiveModal
+    public activeModal: NgbActiveModal,
+   
+
 
   ) {
     this.password = false;
@@ -192,13 +195,15 @@ export class AsociarfincaComponent implements OnInit {
   }
   Guardar(): void {
 
+   
     this.user.id = this.UserId
     this.user.Fincas = [];
     this.user.Fincas = this.fincas;
-    console.log( this.user)
+   
     this.userService.asociarFinca(this.user).subscribe(
       response => {
-        console.log(response);
+    
+      
         // tslint:disable-next-line: triple-equals
         if (response.status == 'success') {
           this.status = response.status;
@@ -218,9 +223,10 @@ export class AsociarfincaComponent implements OnInit {
         }
       },
       error => {
+       
         this.status = 'error';
 
-        console.log(error as any);
+     
       }
 
     );

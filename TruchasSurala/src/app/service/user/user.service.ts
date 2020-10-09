@@ -18,9 +18,10 @@ import { UsuariosFincasResponse } from '../../models/usuarios.fincas';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { FincasResponse } from '../../models/fincas.response';
 import { DespachoResponseActual } from '../../models/despacho.response';
-
-
-
+import { MatDialogConfig } from '@angular/material/dialog';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { NgxSpinnerService } from 'ngx-spinner';
+ 
 @Injectable({
   providedIn: 'root'
 })
@@ -41,7 +42,11 @@ export class UserService {
   user: User;
   constructor(public http: HttpClient,
     private router: Router,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private spinner: NgxSpinnerService
+
+  
+
   ) {
     this.url = environment.apiUrl;
     this.header = new HttpHeaders();
@@ -55,6 +60,7 @@ export class UserService {
 
   // tslint:disable-next-line: typedef
   public ejecutarQuery<T>(query: string) {
+  
     if (this.token === null) {
       this.getToken();
     }
@@ -65,11 +71,15 @@ export class UserService {
 
   // tslint:disable-next-line: typedef
   public ejecutarQueryPost(query: string, params: string) {
+  
+
     return this.http.post(this.url + query, params);
 
   }
 
   public ejecutarQueryPostArchivo(query: string, parametros: FormData) {
+   
+
     this.header = new HttpHeaders().set('Authorization', this.token)
    
     return this.http.post(this.url + query,parametros);
@@ -292,6 +302,11 @@ export class UserService {
     this.params = 'json=' + this.json;
     return this.ejecutarQueryPost('/api/fincas/update', this.params);
   }
+
+
+
+   
+  
 
 }
 

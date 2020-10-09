@@ -67,7 +67,7 @@
 
                             <mat-form-field appearance="fill">
                                 <mat-label>Número de Ovas</mat-label>
-                                <input matInput type="number" [(ngModel)]="despacho.numero_ovas"
+                                <input matInput type="number" [(ngModel)]="despacho.numero_ovas"  (ngModelChange)="calcularOvas()"
                                     formControlName="NumeroDeOvas" required />
                             </mat-form-field>
                         </div>
@@ -109,7 +109,7 @@
 
                                 <mat-form-field appearance="fill">
                                     <mat-label>% Adicional</mat-label>
-                                    <input matInput type="number" [(ngModel)]="despacho.porcentaje"
+                                    <input matInput type="number" [(ngModel)]="despacho.porcentaje"  (ngModelChange)="calcularOvas()"
                                         formControlName="Porcentaje" required min="0" max="100" />
                                 </mat-form-field>
 

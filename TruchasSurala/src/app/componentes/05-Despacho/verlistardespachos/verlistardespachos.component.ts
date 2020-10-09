@@ -6,6 +6,7 @@ import { UserService } from 'src/app/service/user/user.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { DistribuciongloballistComponent } from '../../03-Distribucion/distribuciongloballist/distribuciongloballist.component';
 import { EditardespachoComponent } from '../editardespacho/editardespacho.component';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
   selector: 'app-verlistardespachos',
@@ -29,7 +30,8 @@ export class VerlistardespachosComponent implements OnInit , OnChanges {
   constructor(
     private userService: UserService,
     private modalService: NgbModal,
-    private changeDetectorRefs: ChangeDetectorRef
+   
+
   ) { }
   ngOnChanges(changes: SimpleChanges): void {
     this. cargaInicial();
@@ -37,23 +39,21 @@ export class VerlistardespachosComponent implements OnInit , OnChanges {
 
 
   cargaInicial(){
+   
     this.userService.getDespachos().subscribe(
       resp => {
-
-        console.log(resp)
-        this.respuesta = resp;
-
-
-
+               this.respuesta = resp;
         if (this.respuesta.status !== 'error') {
-
-
           this.dataSource = new MatTableDataSource(this.respuesta.despachos);
           this.actual = this.respuesta.despachos[0];
           this.dataSource.paginator = this.paginator;
-          // this.changeDetectorRefs.detectChanges();
+     
         }
 
+
+      },
+      error => {
+       
 
       });
   }

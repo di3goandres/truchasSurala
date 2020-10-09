@@ -6,6 +6,7 @@ import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 import { DatePipe } from '@angular/common';
 import { Router, ActivatedRoute } from '@angular/router';
 import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
   selector: 'app-agregarcaja',
@@ -32,9 +33,10 @@ export class AgregarcajaComponent implements OnInit {
   constructor(private userService: UserService,
     private modalService: NgbModal,
     public datepipe: DatePipe,
-    private router: Router,
-    private route: ActivatedRoute,
-    private _formBuilder: FormBuilder) {
+
+    private _formBuilder: FormBuilder,
+    
+    ) {
 
     this.title = 'Registro de Cajas';
   }
@@ -65,13 +67,14 @@ export class AgregarcajaComponent implements OnInit {
   }
 
   registrarCaja(formulario) {
-
+ 
     this.caja.fecha_desove = this.datepipe.transform(this.caja.fecha_desove, 'yyyy-MM-dd');
 
-    console.log(this.caja);
+  
     this.userService.storeCajasLotes(this.caja).subscribe(
       response => {
-        console.log(response);
+        
+
         // tslint:disable-next-line: triple-equals
         if (response.status == 'success') {
           formulario.reset();
@@ -82,7 +85,8 @@ export class AgregarcajaComponent implements OnInit {
         }
       },
       error => {
-        console.log(error);
+       
+
 
         this.status = 'error';
       }

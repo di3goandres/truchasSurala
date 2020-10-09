@@ -95,6 +95,8 @@ import { AuthInterceptor } from './service/interceptor/auth.interceptor';
 import { UserService } from './service/user/user.service';
 import { TecnicosModule } from './tecnicos/tecnicos.module';
 
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
+import { NgxSpinnerModule } from 'ngx-spinner';
 
 registerLocaleData(localCo);
 @NgModule({
@@ -133,8 +135,9 @@ registerLocaleData(localCo);
     InformesTecnicosComponent,
     CrearinformesTecnicosComponent,
     FiltroPipe,
-    
-    VerusuarioComponent
+    VerusuarioComponent,
+
+
 
 
   ],
@@ -165,8 +168,14 @@ registerLocaleData(localCo);
     MatRadioModule,
     NgxChartsModule,
     PdfViewerModule,
+    TecnicosModule,
+ 
+    MatProgressSpinnerModule,
 
-    TecnicosModule
+    NgxSpinnerModule
+
+    
+    
 
 
   ],
@@ -179,7 +188,7 @@ registerLocaleData(localCo);
     
     DatePipe,
     MatDatepickerModule, ListapedidosComponent, DespachoactualComponent,
-    DespachosComponent,
+    DespachosComponent
    
   ],
 

@@ -6,6 +6,7 @@ import { DatePipe } from '@angular/common';
 import { Router, ActivatedRoute } from '@angular/router';
 import { RegistroExitosoComponent } from '../../01-Comunes/registro-exitoso/registro-exitoso.component';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
   selector: 'app-creardespacho',
@@ -29,7 +30,9 @@ export class CreardespachoComponent implements OnInit {
               public datepipe: DatePipe,
               private router: Router,
               private modalService: NgbModal,
-              private _formBuilder: FormBuilder) {
+              private _formBuilder: FormBuilder,
+            
+              ) {
     this.title = 'Creación de un despacho';
     this.minDate = new Date();
     this.maxDate = new Date();
@@ -52,22 +55,31 @@ export class CreardespachoComponent implements OnInit {
       reposicion: ['', Validators.required],
 
 
-      Porcentaje: ['', Validators.required],
+      Porcentaje: ['', [Validators.min(0), Validators.max(100)]],
     });
     this.despacho = new DespachoClass();
     this.agregar = false;
   }
+  calcularOvas(){
+
+    let ovas: number = +this.despacho.numero_ovas;
+    this.despacho.ovas_adicionales = (ovas * this.despacho.porcentaje)/100
+
+  }
+
 
   onRegister(formulario): void {
+
 
      this.despacho.fecha = this.datepipe.transform(this.despacho.fechaEntrada, 'yyyy-MM-dd');
      this.despacho.fechaSalida = this.datepipe.transform(this.despacho.fechaEntrega, 'yyyy-MM-dd');
 
   
-    console.log(this.despacho)
+   
     this.userService.storeDespacho(this.despacho).subscribe(
       response => {
-        console.log(response);
+      
+
         // tslint:disable-next-line: triple-equals
         if (response.status == 'success') {
           formulario.reset();
@@ -79,11 +91,10 @@ export class CreardespachoComponent implements OnInit {
         }
       },
       error => {
-        console.log(error);
-
+       
         this.status = 'error';
 
-        console.log(error as any);
+     
       }
 
     );
