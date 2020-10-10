@@ -13,6 +13,6 @@ export class EstadisticaService {
 
   getEstadisticaMes(){
     this.userService.getToken();
-    return  this.userService.ejecutarQuery<EstadisticaResponse>('/api/estadistica/mensual/');
+    return  this.userService.ejecutarQuery<EstadisticaResponse>('/api/estadistica/mensual');
    }
 }

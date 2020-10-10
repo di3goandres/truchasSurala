@@ -99,6 +99,9 @@ class DespachoController extends Controller
                 $despacho->ovas_reposicion = $params_array['ovas_reposicion'];
                 $despacho->porcentaje = $params_array['porcentaje'];
                 $despacho->save();
+
+                \DB::select('call actualizarValorPropio()');
+            
                 //devolver array con resultado
 
                 Despacho::where('id', '<>', $despacho->id)

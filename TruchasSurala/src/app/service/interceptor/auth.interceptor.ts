@@ -51,7 +51,8 @@ export class AuthInterceptor implements HttpInterceptor {
       'Content-Type': 'application/x-www-form-urlencoded'
     });
     return request.clone({
-      headers
+      headers,
+    
     })
 
   }

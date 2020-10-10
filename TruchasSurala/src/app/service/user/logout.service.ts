@@ -17,7 +17,7 @@ export class LogoutService {
 
 
   logout(){
-    console.log('entrelog')
+   
     localStorage.removeItem('identity');
     localStorage.removeItem('token');
     // redireccion a la pagina principal.

@@ -34,16 +34,18 @@ export class LoginComponent implements OnInit {
   }
 
 
-  onLogin(formulario): void {
+  async onLogin(formulario) {
     this.status = '';
 
-    this.userService.loginUser(this.user).subscribe(
+  await  this.userService.loginUser(this.user).subscribe(
       response => {
         // tslint:disable-next-line: triple-equals
         if (response.status == null) {
 
           this.status = 'success';
           this.token = response;
+          localStorage.setItem('token', this.token);
+          this.userService.getToken();
           this.ObtenerdatosUser();
           formulario.reset();
          
@@ -62,15 +64,15 @@ export class LoginComponent implements OnInit {
   }
 
 
-  ObtenerdatosUser(): void {
-    this.userService.loginUser(this.user, true).subscribe(
+  async ObtenerdatosUser() {
+    await this.userService.loginUser(this.user, true).subscribe(
       response => {
         // tslint:disable-next-line: triple-equals
 
         this.status = 'success';
         this.identity = response;
 
-        localStorage.setItem('token', this.token);
+      
         localStorage.setItem('identity', JSON.stringify(this.identity));
         this.userService.getToken();
         this.router.navigate(['/surala/home']);

@@ -63,7 +63,8 @@ export class CreardespachoComponent implements OnInit {
   calcularOvas(){
 
     let ovas: number = +this.despacho.numero_ovas;
-    this.despacho.ovas_adicionales = (ovas * this.despacho.porcentaje)/100
+    this.despacho.ovas_adicionales = (ovas * this.despacho.porcentaje)/100;
+    this.despacho.ovas_adicionales =Math.round(this.despacho.ovas_adicionales);
 
   }
 
