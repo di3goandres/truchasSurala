@@ -18,4 +18,5 @@ export class UserFinca {
   id: number;
   nombreFinca: string;
   Ubicacion: string;
+  propia: boolean;
 }

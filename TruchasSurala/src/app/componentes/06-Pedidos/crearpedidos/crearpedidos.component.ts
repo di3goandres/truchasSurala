@@ -6,6 +6,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { NgbModal, NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { ListausuariosComponent } from '../listausuarios/listausuarios.component';
 import { ListapedidosComponent } from '../listapedidos/listapedidos.component';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-crearpedidos',
@@ -17,9 +18,10 @@ export class CrearpedidosComponent implements OnInit {
 
   @Input() idDespacho: number;
   @Input() porcentaje: number;
-
+  @Input() pendiente: number;
   title: string;
   pedido: PedidoClass;
+  firstFormGroup: FormGroup;
 
   usuario: UserFinca;
   pedidoMinimo: number;
@@ -33,12 +35,14 @@ export class CrearpedidosComponent implements OnInit {
     private router: Router,
     private modalService: NgbModal,
     private activeModal: NgbActiveModal,
+    private _formBuilder: FormBuilder,
+
 
     // private actualizarLista: ListapedidosComponent
   ) { }
 
   ngOnInit(): void {
-    this.usuario  = new UserFinca()
+    this.usuario = new UserFinca()
     this.urlPeticion = this.router.url + '/' + this.idDespacho;
     console.log(this.router.url);
     this.pedidoMinimo = 5000;
@@ -46,35 +50,54 @@ export class CrearpedidosComponent implements OnInit {
     this.title = 'Agregar Pedido';
     this.pedido = new PedidoClass(this.idDespacho, this.porcentaje);
     console.log(this.porcentaje)
-   
+
+
+    this.firstFormGroup = this._formBuilder.group({
+      pedidoMinimo: ['', [Validators.min(500), Validators.max(this.pendiente)]],
+      Pedido: ['', [Validators.min(500), Validators.max(this.pendiente)]],
+      porcentaje: ['', [Validators.min(0), Validators.max(100)]],
+      reposicion: ['', [Validators.min(0)]],
+      adicional: ['', [Validators.min(0)]],
+
+
+
+
+
+
+    });
+
   }
-  registrarPedido(formulario): void {
-    this.actualizar();
+  registrarPedido(): void {
+      this.actualizar();
 
+ 
+      this.userService.storePedidos(this.pedido).subscribe(
+        response => {
+          console.log(response);
+          // tslint:disable-next-line: triple-equals
+          if (response.status == 'success') {
+           
+            // this.actualizarLista.refresh();
+            this.activeModal.close('OK');
+          }
+        },
+        error => {
+          console.log(error);
 
-
-    this.userService.storePedidos(this.pedido).subscribe(
-      response => {
-        console.log(response);
-        // tslint:disable-next-line: triple-equals
-        if (response.status == 'success') {
-          formulario.reset();
-          // this.actualizarLista.refresh();
-          this.activeModal.close('OK');
         }
-      },
-      error => {
-        console.log(error);
-
-      }
-    );
+      );
+    
 
 
   }
 
   actualizar() {
-    this.pedido.adicional = (this.pedido.pedido * this.pedido.porcentaje) / 100;
-    this.pedido.total = this.pedido.adicional + this.pedido.reposicion + this.pedido.pedido;
+    
+ 
+      this.pedido.adicional = Math.round((this.pedido.pedido * this.pedido.porcentaje) / 100);
+      this.pedido.total = Math.round(this.pedido.adicional + this.pedido.reposicion + this.pedido.pedido);
+    
+
 
   }
   locationreload() {
@@ -82,16 +105,24 @@ export class CrearpedidosComponent implements OnInit {
     // To reload the entire page from the server
     location.reload();
   }
- 
 
-  
+
+
   openUsuarios() {
     const modalRef = this.modalService.open(ListausuariosComponent, { size: 'lg' });
-   
+
     modalRef.result.then((result: UserFinca) => {
-     console.log(result);
-     this.pedido.id_finca = result.id
-     this.usuario = result;
+      console.log(result);
+      this.pedido.id_finca = result.id
+      this.usuario = result;
+      if (this.usuario.propia) {
+        let number = 1 + (this.porcentaje/100)
+        console.log(number)
+        let valorePedido = (this.pendiente ) / number;
+        this.pedido.pedido =  Math.round(valorePedido);
+      
+          this.actualizar();
+      }
     }, (reason) => {
 
       if (reason === 'OK') {

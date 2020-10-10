@@ -166,12 +166,12 @@ export class UserService {
   // tslint:disable-next-line: typedef
   getDespachos() {
 
-    return this.ejecutarQuery<DespachoRootObject>('/api/Despacho/');
+    return this.ejecutarQuery<DespachoRootObject>('/api/Despacho');
   }
 
 
   getDespachoActual() {
-    return this.ejecutarQuery<DespachoResponseActual>('/api/despacho/actual/');
+    return this.ejecutarQuery<DespachoResponseActual>('/api/despacho/actual');
   }
   getTrazabilidad(id) {
     return this.ejecutarQuery<TopTrazabilidad>('/api/Distribucion/' + id);
@@ -186,11 +186,6 @@ export class UserService {
 
     return this.ejecutarQuery<BandejasCajaObject>('/api/CajasLotes/' + id);
 
-
-  }
-  // tslint:disable-next-line: typedef
-  test() {
-    return 'Hola Munndo Test';
 
   }
 

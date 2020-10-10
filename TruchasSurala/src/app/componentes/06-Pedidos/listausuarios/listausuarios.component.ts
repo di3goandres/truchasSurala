@@ -41,7 +41,7 @@ export class ListausuariosComponent implements OnInit {
     this.service.getFincasUser().subscribe(resp => {
 
       if (resp.status !== 'error') {
-
+        console.log(resp.userFincas);
         this.datasourceusuarios = [];
         this.datasourceusuarios.push(...resp.userFincas);
         this.show = true;

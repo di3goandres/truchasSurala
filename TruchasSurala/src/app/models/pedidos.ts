@@ -1,16 +1,18 @@
 
-export interface Despacho {
-  id: number;
-  fecha: string;
-  fecha_salida: string;
+// export interface Despacho {
+//   id: number;
+//   fecha: string;
+//   fecha_salida: string;
 
-  numero_factura: string;
-  Activo: number;
-  porcentaje: number;
-  numero_ovas: string;
-  created_at: string;
-  updated_at: string;
-}
+import { Despacho } from './despacho.response';
+
+//   numero_factura: string;
+//   Activo: number;
+//   porcentaje: number;
+//   numero_ovas: string;
+//   created_at: string;
+//   updated_at: string;
+// }
 
 export class Pedido {
   constructor(){}
@@ -38,6 +40,10 @@ export interface PedidosRootObject {
   code: number;
   status: string;
   pedido: Pedido[];
+  despacho: Despacho[];
+  totalPedidos: number;
+  total: number;
+  totalUsado: number;
 }
 
 

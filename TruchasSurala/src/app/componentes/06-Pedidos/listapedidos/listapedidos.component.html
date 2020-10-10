@@ -1,4 +1,4 @@
-<mat-horizontal-stepper [linear]="false">
+<mat-horizontal-stepper [linear]="false" *ngIf="actual!=null">
   <mat-step>
     <ng-template matStepLabel>Pedidos</ng-template>
     <mat-card class="example-card">
@@ -6,7 +6,68 @@
         <div mat-card-avatar class="example-header-image"></div>
 
 
-        <app-despachoactual></app-despachoactual>
+        <!-- <app-despachoactual [input]="actual"></app-despachoactual> -->
+        <mat-card class="example-card" *ngIf="actual">
+          <mat-card-header>
+            <mat-card-title>Despacho Actual</mat-card-title>
+            <mat-card-subtitle>Fecha del despacho: {{ actual.fecha | date: "MMM/dd/yyyy"| uppercase}}
+            </mat-card-subtitle>
+            <mat-card-content>
+
+
+              <div class="row">
+
+                <div class="col-6"></div>
+
+
+                <div class="col-6">
+                  <mat-label>
+                    Número ovas en las cajas: {{ totaldespacho| number }}
+                  </mat-label>
+                </div>
+
+                <div class="col-6"></div>
+
+
+                <div class="col-6">
+                  <mat-label>
+                    Número ovas en los Pedidos: {{ totalenPedidos| number }}
+                  </mat-label>
+                </div>
+
+
+                <div class="col-6"></div>
+                <div class="col-6">
+                  <mat-label>
+                    # de ovas pendientes {{ totaldespacho - totalenPedidos| number }}
+                  </mat-label>
+                </div>
+
+
+              </div>
+              <div class="row">
+
+                <div class="col-6">
+                  <mat-label>
+                    <button mat-raised-button id="logout-button" class="btn btn-primary btn-block" color="primary"
+                      [routerLink]="['/surala/despacho/', actual.id]">
+                      <mat-icon>dashboard</mat-icon>
+                    </button>
+
+                  </mat-label>
+                </div>
+                <div class="col-6"></div>
+
+              </div>
+
+
+              <mat-label>
+
+              </mat-label>
+            </mat-card-content>
+          </mat-card-header>
+        </mat-card>
+
 
       </mat-card-header>
 

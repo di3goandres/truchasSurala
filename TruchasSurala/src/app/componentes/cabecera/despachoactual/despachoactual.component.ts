@@ -4,7 +4,7 @@ import { UserService } from 'src/app/service/user/user.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 
-import { Despacho } from '../../../models/despacho.response';
+import { Despacho, DespachoResponseActual } from '../../../models/despacho.response';
 import { CrearpedidosComponent } from '../../06-Pedidos/crearpedidos/crearpedidos.component';
 
 
@@ -14,13 +14,14 @@ import { CrearpedidosComponent } from '../../06-Pedidos/crearpedidos/crearpedido
   styleUrls: ['./despachoactual.component.css']
 })
 export class DespachoactualComponent implements OnInit {
-  @Output() 
+  @Input() input: DespachoResponseActual;
+  @Output()
   public closeResult: string;
   public url: string;
-  actual : Despacho;
-  totaldespacho= 0;
-  totalenPedidos= 0;
-  totalUsado= 0;
+  actual: Despacho;
+  totaldespacho = 0;
+  totalenPedidos = 0;
+  totalUsado = 0;
 
 
   constructor(
@@ -32,16 +33,25 @@ export class DespachoactualComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-  this.traerActual()
+    // this.traerActual()
+    if (this.input != null) {
+      this.actual = this.input.despacho[0];
+      this.totaldespacho = this.input.total;
+      this.totalenPedidos = this.input.totalPedidos;
+      this.totalUsado = this.input.totalUsado;
+    } else {
+      this.traerActual()
+    }
+
   }
-  
 
 
-  traerActual(){
+
+  traerActual() {
     this.userService.getDespachoActual().subscribe(
-      response=> {
-        if(response.status==="OK"){
-          if(response.despacho.length>0){
+      response => {
+        if (response.status === "OK") {
+          if (response.despacho.length > 0) {
             this.actual = response.despacho[0];
             this.totaldespacho = response.total;
             this.totalenPedidos = response.totalPedidos;
@@ -50,7 +60,7 @@ export class DespachoactualComponent implements OnInit {
           }
         }
       }
-      
+
     );
   }
 
@@ -58,7 +68,7 @@ export class DespachoactualComponent implements OnInit {
     const modalRef = this.modalService.open(CrearpedidosComponent);
     modalRef.componentInstance.idDespacho = this.actual.id;
     modalRef.componentInstance.porcentaje = this.actual.porcentaje
-    
+
     modalRef.result.then((result) => {
       this.closeResult = `Closed with: ${result}`;
       console.log('result', result);
@@ -70,10 +80,10 @@ export class DespachoactualComponent implements OnInit {
       this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
       console.log('reason', reason);
       if (reason === 'OK') {
-      
+
         // this.consultaInicial(this.id);
         console.log(this.router.url);
-      
+
         this.url = this.router.url;
         // this.router.navigate([this.url]);
 

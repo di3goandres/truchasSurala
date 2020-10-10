@@ -137,16 +137,14 @@ class FincasController extends Controller
             foreach ($value->fincas as $finca) {
                 $retorno[$pos]['numeroIdentificacion'] = $value->numero_identificacion;
                 $retorno[$pos]['nombre'] = strtoupper($value->name . ' ' . $value->surname);
-
+                $retorno[$pos]['propia'] = $finca->propia;
                 $retorno[$pos]['id'] = $finca->id;
                 $retorno[$pos]['nombreFinca'] = $finca->nombre;
                 $retorno[$pos]['Ubicacion'] = strtoupper($finca->departamento . ' - ' . $finca->municipio);
                 $pos += 1;
             }
 
-            // $retorno[$pos]['numeroIdentificacion'] = $value->numero_identificacion;
-            // $retorno[$pos]['nombre'] = strtoupper($value->name . '  ' . $value->surname);
-            // $retorno[$pos]['id'] = $value->id;
+           
         }
 
 

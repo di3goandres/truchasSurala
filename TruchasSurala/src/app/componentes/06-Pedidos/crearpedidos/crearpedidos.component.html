@@ -1,75 +1,116 @@
 <div class="container">
 
     <mat-card class="example-card">
-     
+
         <mat-card-content>
-            <form #crearPedidoform="ngForm" (ngSubmit)="registrarPedido(crearPedidoform)">
-                <div class="row">
-                    <div class="col-xs-12 col-12 form-group">
-                        <label>Seleccione un cliente</label>
-                        <button type="button" mat-mini-fab class="buttton-aldea" aria-label="fecha"
+            <div class="row">
+                <div class="col-xs-12 col-12 form-group">
+                    <label>Seleccione un cliente</label>
+                    <button type="button" mat-mini-fab class="buttton-aldea" aria-label="fecha"
                         (click)="openUsuarios()">
                         <mat-icon>person</mat-icon>
                     </button>
-                    </div>
-                    <div class="col-xs-12 col-12  form-group" *ngIf="usuario.id!=0">
-                        <label>Cliente/Finca</label>
-
-                        <input disabled="true" class="form-control"
-                        [(value)]="usuario.nombre + '-'+ usuario.nombreFinca+ '-'+ usuario.Ubicacion"  
-                       />
-                    </div>
-
                 </div>
+                <div class="col-xs-12 col-12  form-group" *ngIf="usuario.id!=0">
+                    <label>Cliente/Finca</label>
+
+                    <input disabled="true" class="form-control"
+                        [(value)]="usuario.nombre + '-'+ usuario.nombreFinca+ '-'+ usuario.Ubicacion" />
+                </div>
+
+                <div class="col-xs-12 col-12  form-group" *ngIf="usuario.propia">
+                    <label class="main-blue-text" >Finca Propia</label>
+
+                 
+                </div>
+
+            </div>
+            <form [formGroup]="firstFormGroup">
+
                 <div class="row">
                     <div class="col-xs-12 col-6  form-group">
-                        <label>Pedido</label>
-                        <input name="pedido" type="number" placeholder="Numero de Ovas" class="form-control"
-                            #name="ngModel" [(ngModel)]="pedido.pedido" required (change)="actualizar()"
-                            [min]="pedidoMinimo" />
-                    </div>
-                    <div class="col-xs-12 col-6 form-group">
-                        <label>Porcentaje adicional</label>
-                        <input name="porcentaje" type="number" placeholder="Porcentaje adicional" class="form-control"
-                            #name="ngModel" [(ngModel)]="pedido.porcentaje" required (change)="actualizar()"/>
-                        <br>
 
-                    </div>
+                        <mat-form-field appearance="fill">
+                            <mat-icon matSuffix>add_shopping_cart</mat-icon>
+                            <mat-label>Pedido</mat-label>
+                            <input type="number" placeholder="Numero de Ovas" formControlName="Pedido" matInput
+                                class="form-control" [(ngModel)]="pedido.pedido" required (change)="actualizar()"
+                                [min]="pedidoMinimo" [max]="pendiente" />
 
+                        </mat-form-field>
 
-                </div>
-                <div class="row">
-                    <div class="col-xs-12 col-6 form-group">
-                        <label>Reposición</label>
-                        <input name="linea_genetica" type="number" placeholder="Reposicion" class="form-control"
-                            #name="ngModel" [(ngModel)]="pedido.reposicion" required (change)="actualizar()" />
                     </div>
                     <div class="col-xs-12 col-6  form-group">
-                        <label>Adicional: </label>
-                        <input disabled="disabled" name="adicional" type="number" placeholder="Numero de Ovas"
-                            class="form-control" #name="ngModel" [(ngModel)]="pedido.adicional" required />
+
+                        <mat-form-field appearance="fill">
+                            <mat-icon matSuffix>add</mat-icon>
+                            <mat-label>Porcentaje adicional</mat-label>
+                            <input type="number" placeholder="Porcentaje adicional" matInput
+                                formControlName="porcentaje" class="form-control" [(ngModel)]="pedido.porcentaje"
+                                required (change)="actualizar()" min="0" max="100" />
+
+                        </mat-form-field>
+
+                    </div>
+                </div>
+
+
+
+
+                <div class="row">
+
+                    <div class="col-xs-12 col-6  form-group">
+
+                        <mat-form-field appearance="fill">
+                            <mat-icon matSuffix>plus_one</mat-icon>
+                            <mat-label>Reposición</mat-label>
+                            <input type="number" matInput formControlName="reposicion" placeholder="Reposicion"
+                                class="form-control" [(ngModel)]="pedido.reposicion" required (change)="actualizar()" />
+
+                        </mat-form-field>
+
+                    </div>
+
+                    <div class="col-xs-12 col-6  form-group">
+
+                        <mat-form-field appearance="fill">
+                            <mat-icon matSuffix>sentiment_very_satisfied</mat-icon>
+                            <mat-label>Adicional</mat-label>
+                            <input type="number" matInput formControlName="adicional" placeholder="Adicional"
+                                class="form-control" [(ngModel)]="pedido.adicional" required (change)="actualizar()" />
+
+                        </mat-form-field>
+
                     </div>
 
                 </div>
                 <div class="row">
-                    <div class="col-xs-12 col-12 form-group">
-                        <label>Total</label>
-                        <input name="total" type="number" placeholder="Reposicion" class="form-control" #name="ngModel"
-                            [(ngModel)]="pedido.total" />
+                    <div class="col-xs-12 col-2  form-group"></div>
+
+                    <div class="col-xs-12 col-8  form-group">
+                        <mat-form-field appearance="fill">
+                            <mat-icon matSuffix>title</mat-icon>
+                            <mat-label>Total</mat-label>
+                            <input type="number" placeholder="Total" matInput formControlName="pedidoMinimo"
+                                class="form-control" [(ngModel)]="pedido.total" required (change)="actualizar()" />
+
+                        </mat-form-field>
                     </div>
+                    <div class="col-xs-12 col-2  form-group"></div>
 
 
                 </div>
 
 
-                <div class="col-xs-12 col-12  form-group">
-                
-            <button mat-raised-button type="submit" class="btn btn-primary btn-block"
-                        [disabled]="((!crearPedidoform.valid==true||usuario.id==0?true:false))">
-                        Agregar Pedido
-                    </button>
-                </div>
+
             </form>
+            <div class="col-xs-12 col-12  form-group">
+
+                <button mat-raised-button class="btn btn-primary btn-block" (click)="registrarPedido()"
+                    [disabled]="((!firstFormGroup.valid==true||usuario.id==0?true:false))">
+                    Agregar Pedido
+                </button>
+            </div>
         </mat-card-content>
     </mat-card>
 </div>

@@ -97,6 +97,7 @@ import { TecnicosModule } from './tecnicos/tecnicos.module';
 
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import { NgxSpinnerModule } from 'ngx-spinner';
+import { RegistroNoexitosoComponent } from './componentes/01-Comunes/registro-noexitoso/registro-noexitoso.component';
 
 registerLocaleData(localCo);
 @NgModule({
@@ -136,6 +137,7 @@ registerLocaleData(localCo);
     CrearinformesTecnicosComponent,
     FiltroPipe,
     VerusuarioComponent,
+    RegistroNoexitosoComponent,
 
 
 

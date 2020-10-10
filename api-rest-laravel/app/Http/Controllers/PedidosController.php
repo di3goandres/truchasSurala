@@ -10,7 +10,7 @@ use App\Lotes;
 use App\Trazabilidad;
 use App\TrazabilidadBandeja;
 use App\BandejasLotes;
-
+use App\Despacho;
 
 class PedidosController extends Controller
 {
@@ -33,17 +33,33 @@ class PedidosController extends Controller
 
     public function show($id)
     {
+
+
+
         $pedidos = Pedidos::where('id_despacho', '=', $id)->orderBy('total', 'DESC')->get();
 
-        if (is_object($pedidos)) {
+        $despacho = Despacho::where('Activo', '=', 1)->get();
+
+  
+           
+
+            
+       
+        if (is_object($pedidos) && is_object($despacho)) {
             $retorno = [];
             $id = 0;
+            foreach ($despacho as $des) {
+                $totalpedidos = Pedidos::where('id_despacho', '=', $des->id)->get()->sum('total');
+                $totaldespacho = Lotes::where('id_despacho', '=', $des->id)->get()->sum('total_lote');
+                $totaldespachoUsado = Lotes::where('id_despacho', '=', $des->id)->get()->sum('tamanio_usado');
+            }
+
             foreach ($pedidos as $pedido) {
                 $retorno[$id] = ($pedido);
                 $retorno[$id]['nombre'] = $pedido->finca->departamento . '/' . $pedido->finca->nombre;
                 $retorno[$id]['usuario'] = $pedido->finca->user->name . ' ' . $pedido->finca->user->surname;
 
-                $retorno[$id]['despacho'] = $pedido->despacho;
+                // $retorno[$id]['despacho'] = $pedido->despacho;
 
                 unset($retorno[$id]['finca']);
                 $id = $id + 1;
@@ -55,6 +71,10 @@ class PedidosController extends Controller
                 'code' => 200,
                 'status' => 'success',
                 'pedido' => $retorno,
+                'despacho' => $despacho,
+                'totalPedidos' => $totalpedidos,
+                'total' => $totaldespacho,
+                'totalUsado' => $totaldespachoUsado,
             ];
         } else {
             $data = [
