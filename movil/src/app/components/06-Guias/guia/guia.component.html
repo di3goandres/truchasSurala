@@ -1,0 +1,60 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-button color="danger" (click)="dismiss()">
+        <span ion-text color="primary"></span>
+        <ion-icon name="close-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title class="ova">Guía</ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+  <ion-card>
+    <ion-list lines="none">
+        <ion-item  >
+            <ion-icon [name]="guia.icon" slot="start" ></ion-icon>
+            <ion-card-header>
+                <ion-card-title text-center class="blue">
+                    {{guia.nombre}}
+                </ion-card-title>
+            </ion-card-header>
+        </ion-item>
+    </ion-list>
+    <ion-card-content>
+        <p>
+            {{guia.descripcion}}
+        </p>
+    </ion-card-content>
+  </ion-card>
+  <ion-slides pager="true" [options]="slideOpts">
+
+    <ion-slide *ngFor="let item of guia.slides">
+      <ion-slide>
+
+       
+        <ion-card>
+          <ion-card-header>
+            <ion-card-title class="ova">
+              {{item.titulo}}
+            </ion-card-title>
+          </ion-card-header>
+
+          <ion-card-content>
+            
+              <ion-chip *ngFor="let descripcion of item.descripciones" color="primary">
+                <ion-label class="blueItem" >{{descripcion}}</ion-label>
+              </ion-chip>
+             
+          
+          </ion-card-content>
+        </ion-card>
+      </ion-slide>
+    </ion-slide>
+
+
+
+
+  </ion-slides>
+
+</ion-content>

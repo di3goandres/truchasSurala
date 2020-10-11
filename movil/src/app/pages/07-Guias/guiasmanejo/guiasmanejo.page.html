@@ -4,4 +4,35 @@
 
 <ion-content>
 
+
+    <ion-grid>
+        <div *ngFor="let numero of [0,1,2,3,4,5]">
+            <ion-row>
+                <ion-col *ngFor="let item of guiasFinales.slice(numero*2, 2+ (numero*2))" sise="6">
+                    <ion-card>
+                        <ion-list lines="none">
+                            <ion-item (click)="presentModal(item)" >
+                                <ion-icon [name]="item.icon" slot="start" color="primary"></ion-icon>
+                                <ion-card-header>
+                                    <ion-card-title text-center class="blue">
+                                        {{item.nombre}}
+                                    </ion-card-title>
+                                </ion-card-header>
+                            </ion-item>
+                        </ion-list>
+                        <ion-card-content>
+                            <p>
+                                {{item.descripcion}}
+                            </p>
+                        </ion-card-content>
+                    </ion-card>
+
+                </ion-col>
+
+            </ion-row>
+        </div>
+
+
+    </ion-grid>
+
 </ion-content>
