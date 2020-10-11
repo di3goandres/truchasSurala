@@ -28,7 +28,7 @@ export class TrazabilidadesPage implements OnInit {
     private service: PedidosService,
     private route: ActivatedRoute,) { }
     slideOpts = {
-      initialSlide: 1,
+      initialSlide: 0,
       speed: 400
     };
   

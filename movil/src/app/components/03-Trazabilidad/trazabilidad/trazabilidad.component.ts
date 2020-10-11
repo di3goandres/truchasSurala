@@ -147,7 +147,7 @@ export class TrazabilidadComponent implements OnInit {
     if (!ultimohielo)
       this.ponerHielo()
 
-    this.ponerVacia()
+    
   }
 
 
