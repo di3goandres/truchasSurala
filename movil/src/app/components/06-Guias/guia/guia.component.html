@@ -13,7 +13,7 @@
   <ion-card>
     <ion-list lines="none">
         <ion-item  >
-            <ion-icon [name]="guia.icon" slot="start" ></ion-icon>
+            <ion-icon [name]="guia.icon" slot="start" color="primary"></ion-icon>
             <ion-card-header>
                 <ion-card-title text-center class="blue">
                     {{guia.nombre}}
@@ -33,6 +33,10 @@
       <ion-slide>
 
        
+
+
+
+
         <ion-card>
           <ion-card-header>
             <ion-card-title class="ova">
@@ -42,10 +46,28 @@
 
           <ion-card-content>
             
-              <ion-chip *ngFor="let descripcion of item.descripciones" color="primary">
+
+            <ion-list>
+          
+      
+              <ion-item *ngFor="let descripcion of item.descripciones">
+                <ion-avatar slot="start">
+                  <img src="./assets/avatars/avatar.png">
+                </ion-avatar>
+
+             
+                  <div class="ion-text-justify blueJustify">
+                    
+                    <p>{{descripcion}}</p>
+                  </div>
+                  <!-- <p class="blueItem ion-text-start">{</p> -->
+           
+              </ion-item>
+            </ion-list> 
+              <!-- <ion-chip *ngFor="let descripcion of item.descripciones" color="primary">
                 <ion-label class="blueItem" >{{descripcion}}</ion-label>
               </ion-chip>
-             
+              -->
           
           </ion-card-content>
         </ion-card>
