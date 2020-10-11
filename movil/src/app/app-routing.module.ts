@@ -99,6 +99,10 @@ const routes: Routes = [
     loadChildren: () => import('./pages/00-usuario/mensajes/mensajes.module').then( m => m.MensajesPageModule),
     canLoad: [UsuarioGuard],
     canActivate: [UsuarioGuard]
+  },
+  {
+    path: 'mensajemodal',
+    loadChildren: () => import('./pages/00-usuario/mensajemodal/mensajemodal.module').then( m => m.MensajemodalPageModule)
   }
 ];
 

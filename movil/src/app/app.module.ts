@@ -36,7 +36,7 @@ import { PdfViewerModule } from 'ng2-pdf-viewer';
 
 import { NgxChartsModule } from '@swimlane/ngx-charts'
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { registerLocaleData } from '@angular/common';
+import { DatePipe, registerLocaleData } from '@angular/common';
 import { PipesModule } from './pipes/pipes.module';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
@@ -60,7 +60,7 @@ registerLocaleData(localCo);
           ReactiveFormsModule,
           PipesModule,
     
-          ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),
+          ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }), 
           IonicStorageModule.forRoot()
 
        
@@ -79,6 +79,7 @@ registerLocaleData(localCo);
     WebView,
     Camera,
     HomePage,
+    DatePipe,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
     { provide: LOCALE_ID, useValue: 'es-Co' },
   

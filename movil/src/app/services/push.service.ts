@@ -3,6 +3,8 @@ import { OneSignal, OSNotification, OSNotificationPayload } from '@ionic-native/
 import { Storage } from '@ionic/storage';
 import { UserService } from './user.service';
 import { Respuesta } from '../models/Response';
+import { MensajesPush } from '../models/mensajes/mensajes.response';
+import { DatePipe } from '@angular/common';
 
 @Injectable({
   providedIn: 'root'
@@ -10,21 +12,16 @@ import { Respuesta } from '../models/Response';
 export class PushService {
 
   userId: string;
-  mensajes: OSNotificationPayload[] = [
-    // {
-    //   title: 'titulo de la notificacion',
-    //   body: 'Cuerpo de la notificacion',
-    //   date: new Date(),
-    //   additionalData: '',
-    //   notificacionID: 0
-    // }
+  mensajes: MensajesPush[] = [
+
   ];
 
-  pushListener = new EventEmitter<OSNotificationPayload>();
+  pushListener = new EventEmitter<MensajesPush>();
   constructor(
     private oneSignal: OneSignal,
     private storage: Storage,
-    private service: UserService
+    private service: UserService,
+    public datepipe: DatePipe
   ) {
 
     this.cargarMensajes();
@@ -65,8 +62,15 @@ export class PushService {
     if (existePush) {
       return;
     } else {
-      this.mensajes.unshift(payload);
-      this.pushListener.emit(payload);
+      let nuevoMensaje = new MensajesPush();
+      let latest_date =this.datepipe.transform(nuevoMensaje.fecha, 'yyyy-MM-dd HH:mm');
+      nuevoMensaje.FechaCorta = latest_date
+      nuevoMensaje.title = payload.title;
+      nuevoMensaje.notificationID = payload.notificationID;
+      nuevoMensaje.body = payload.body;
+
+      this.mensajes.unshift(nuevoMensaje);
+      this.pushListener.emit(nuevoMensaje);
       await this.guardarMensajes();
     }
 
@@ -84,18 +88,34 @@ export class PushService {
   }
   async cargarMensajes() {
     this.mensajes = await this.storage.get('mensajes') || []
+    this.mensajes.forEach(item => {
+      item.FechaCorta = this.datepipe.transform(item.fecha, 'yyyy-MM-dd HH:mm');
+    })
+
+
+  }
+
+  async BorrarMensaje(borrar: MensajesPush) {
+    this.mensajes = await this.storage.get('mensajes') || []
+
+    this.mensajes = this.mensajes.filter(item => {
+      return item.notificationID != borrar.notificationID;
+    })
+    this.guardarMensajes();
+    return [...this.mensajes];
+
 
 
   }
 
   tagUsuarioLogeado() {
-  
+
     this.sendUniqueid();
 
   }
 
   tagNologueado() {
-    
+
     this.removeUniqueId();
   }
 
@@ -104,34 +124,34 @@ export class PushService {
       this.userId = info.userId
     })
     let token = new Token()
-    token.token =  this.userId ;
+    token.token = this.userId;
     let json = JSON.stringify(token)
     let params = 'json=' + json;
     console.log(params)
     this.service
       .ejecutarQueryPost<Respuesta>('/api/Notificaciones', params).subscribe(
-        OK => { 
+        OK => {
 
           this.oneSignal.sendTag("user_type", "fincas");
-         },
+        },
         ERROR => { console.log(ERROR) },
       )
   }
 
   //remover para cuando se desloguee
-  removeUniqueId(){
+  removeUniqueId() {
     this.oneSignal.getIds().then(info => {
       this.userId = info.userId
     })
     let token = new Token()
-    token.token =  this.userId ;
+    token.token = this.userId;
     let json = JSON.stringify(token)
     let params = 'json=' + json;
     console.log(params)
     this.service
       .ejecutarQueryPost<Respuesta>('/api/Notificaciones/borrar', params).subscribe(
-        OK => { 
-           this.oneSignal.deleteTag("user_type");
+        OK => {
+          this.oneSignal.deleteTag("user_type");
         },
         ERROR => { console.log(ERROR) },
       )
@@ -141,6 +161,6 @@ export class PushService {
 }
 
 
-export class Token{
-  token:string;
+export class Token {
+  token: string;
 }

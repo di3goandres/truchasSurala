@@ -7,20 +7,41 @@
     <ion-card-content>
       <ion-list>
         <ion-list-header>
-          <ion-label>Mis Mensajes </ion-label>
-          <ion-button>See All</ion-button>
+          <ion-label class="ova">Mis Mensajes </ion-label>
+         
         </ion-list-header>
-        <ion-item *ngFor="let push of mensajes">
-          <ion-label>
 
-            <h3>
-              {{push.title}}
-            </h3>
-            <p>
-              {{push.body}}
-            </p>
-          </ion-label>
-        </ion-item>
+        <ion-item-sliding *ngFor="let push of mensajes">
+       
+          <ion-item (click)="presentModal(push)" >
+            <ion-label>
+  
+              <h3 class="ova">
+                {{push.title}}
+              </h3>
+              <p class="blue">
+                {{push.body}}
+              </p>
+            </ion-label>
+            
+            <ion-label slot="end" text-right >
+              <p class="blue" >
+                {{push.FechaCorta| date: "MMM dd yyyy HH:mm" | uppercase}}
+              </p>
+             
+            </ion-label>
+
+          </ion-item>
+
+          <ion-item-options side="end">
+           
+            <ion-item-option color="primary" (click)="borrar(push)">
+                 <ion-icon slot="icon-only" name="trash-outline"></ion-icon>
+              
+            </ion-item-option>
+          </ion-item-options>
+        </ion-item-sliding>
+
       </ion-list>
     </ion-card-content>
 

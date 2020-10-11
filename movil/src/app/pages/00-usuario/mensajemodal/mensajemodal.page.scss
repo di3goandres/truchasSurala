@@ -1,0 +1,21 @@
+/* DOES NOT WORK - not specific enough */
+.modal-wrapper {
+    background: #222;
+  }
+  
+  /* Works - pass "my-custom-class" in cssClass to increase specificity */
+  .my-custom-class .modal-wrapper {
+    background: #222;
+  }
+
+
+  .blue{
+    color: rgb(14, 105, 179);
+  
+
+  }
+  .ova{
+  
+    color: #f33d01;
+    font-weight: bold;
+  }
