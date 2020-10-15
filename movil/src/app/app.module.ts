@@ -43,7 +43,8 @@ import { environment } from '../environments/environment';
 import { IonicStorageModule } from '@ionic/storage';
 import { AuthinterceptorService } from './services/interceptor/authinterceptor.service';
 import { NgxSpinnerModule } from 'ngx-spinner';
-
+// Calendar UI Module
+import { CalendarModule } from 'ion2-calendar';
 registerLocaleData(localCo);
 
 @NgModule({
@@ -62,6 +63,7 @@ registerLocaleData(localCo);
           ReactiveFormsModule,
           PipesModule,
           NgxSpinnerModule,
+          CalendarModule,
           ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }), 
           IonicStorageModule.forRoot()
 

@@ -1,0 +1,39 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      
+    </ion-buttons>
+    <ion-title class="ova">TRUCHAS SURALA S.A.S.</ion-title>
+
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+  <ion-card>
+    <ion-list lines="none">
+      <ion-item>
+       
+        <ion-icon name="chatbox-ellipses-outline" slot="start" color="primary"></ion-icon>
+        <ion-card-header>
+          <ion-card-title text-center class="blue">
+            Calendario
+          </ion-card-title>
+       
+        </ion-card-header>
+      </ion-item>
+    </ion-list>
+    <ion-card-content>
+      <div class="ion-padding">
+
+        <ion-calendar [(ngModel)]="date"
+          (onChange)="onChange($event)"
+          [type]="type"
+          [format]="'YYYY-MM-DD'">
+        </ion-calendar>
+    
+      </div>
+    
+    </ion-card-content>
+  </ion-card>
+
+
+</ion-content>
