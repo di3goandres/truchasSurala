@@ -8,7 +8,28 @@
     </ion-card-header>
     <ion-card-content>
 
-      <ion-slides #slides (ionSlidesDidLoad)="bloquear()" [options]="slideOpts">
+      <ion-slides #slides [options]="slideOpts">
+
+        <ion-slide>
+          <ion-grid cols="1" rowHeight="1:1">
+            <ion-row>
+              <ion-col class="text-center">
+                <ion-label class="bandeja">
+                  Para Poder Continuar Lee nuestra politica de registro de Mortalidad
+                </ion-label>
+              </ion-col>
+            </ion-row>
+            <ion-row>
+              <ion-col>
+                <ion-button ion-button shape="round" color="primary" class="btnNext" (click)="VerPoliticas()">
+                  <ion-icon name="shield-checkmark-outline"></ion-icon>
+                </ion-button>
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+
+
+        </ion-slide>
         <ion-slide>
 
           <ion-grid cols="3" rowHeight="1:1" style="padding-bottom: 10px;">
@@ -23,16 +44,18 @@
 
               <ion-row>
                 <ion-col size="4" class="text-center">
+
                   <ion-item>
                     <ion-label class="bandeja" position="floating">
                       SUPERIOR
                     </ion-label>
-                    <ion-input required type="tel" min="0" max="40" formControlName="superior"
-                      [(ngModel)]="registro.temp_bandeja_superior"></ion-input>
-                    <!-- <small color="red" *ngIf="bsuperior.value>40" class="invalid-feedback d-block">
-                    Temperatura no valida
-                  </small> -->
+                    <ion-input required type="tel" min="0" max="40" maxlength="2" tabindex="1" (keyup)="moveFocus(a, b)"
+                      #a formControlName="superior" placeholder="0-40" [(ngModel)]="registro.temp_bandeja_superior">
+                    </ion-input>
+
                   </ion-item>
+
+
 
                 </ion-col>
 
@@ -42,11 +65,10 @@
                       MEDIA
 
                     </ion-label>
-                    <ion-input required type="tel" min="0" max="40" formControlName="mitad"
-                      [(ngModel)]="registro.temp_bandeja_intermedia"></ion-input>
-                    <!-- <small color="red" *ngIf="bmedia.value>40" class="invalid-feedback d-block">
-                    Temperatura no valida
-                  </small> -->
+                    <ion-input required type="tel" min="0" max="40" formControlName="mitad" maxlength="2" tabindex="2"
+                      (keyup)="moveFocus(b, c)" #b placeholder="0-40" [(ngModel)]="registro.temp_bandeja_intermedia">
+                    </ion-input>
+
                   </ion-item>
 
                 </ion-col>
@@ -56,7 +78,8 @@
                       INFERIOR
 
                     </ion-label>
-                    <ion-input required type="tel" min="0" max="40" formControlName="inferior"
+                    <ion-input required type="tel" min="0" max="40" formControlName="inferior" maxlength="2"
+                      tabindex="3" (keyup)="moveFocus(c, d)" #c placeholder="0-40"
                       [(ngModel)]="registro.temp_bandeja_inferior"></ion-input>
                     <!-- <small color="red" *ngIf="binferior.value>40" class="invalid-feedback d-block">
                     Temperatura no valida
@@ -65,6 +88,7 @@
 
                 </ion-col>
               </ion-row>
+
               <ion-row>
                 <ion-col class="text-center">
                   <ion-label class="hielo">
@@ -78,7 +102,8 @@
                     <ion-label class="hielo" position="floating">
                       SUPERIOR
                     </ion-label>
-                    <ion-input required type="tel" min="0" max="100" formControlName="superior2"
+                    <ion-input required type="tel" min="0" max="100" formControlName="superior2" maxlength="3"
+                      tabindex="4" (keyup)="moveFocus_3(d, e)" #d placeholder="0-100"
                       [(ngModel)]="registro.hielo_bandeja_superior"></ion-input>
 
                   </ion-item>
@@ -91,8 +116,10 @@
                       MEDIA
 
                     </ion-label>
-                    <ion-input required type="tel" min="0" max="100" formControlName="mitad2"
-                      [(ngModel)]="registro.hielo_bandeja_intermedia"></ion-input>
+                    <ion-input required type="tel" min="0" max="100" formControlName="mitad2" maxlength="3" tabindex="5"
+                      (keyup)="moveFocus_3(e, f)" #e placeholder="0-100"
+                      [(ngModel)]="registro.hielo_bandeja_intermedia">
+                    </ion-input>
 
                   </ion-item>
 
@@ -103,8 +130,8 @@
                       INFERIOR
 
                     </ion-label>
-                    <ion-input formControlName="inferior2" required type="tel" min="0" max="100"
-                      [(ngModel)]="registro.hielo_bandeja_inferior"></ion-input>
+                    <ion-input formControlName="inferior2" required type="tel" min="0" max="100" maxlength="3"
+                      tabindex="6" #f placeholder="0-100" [(ngModel)]="registro.hielo_bandeja_inferior"></ion-input>
 
                   </ion-item>
 
@@ -118,31 +145,246 @@
 
         </ion-slide>
 
-     
+
 
         <ion-slide>
-          <app-mortalidadpreguntas [preguntas]="preguntas"></app-mortalidadpreguntas>
+
+          
+          <ion-grid>
+            <ion-row>
+              <ion-col>
+                <ion-card-title class="center">INFORMACIÓN DE LA SIEMBRA</ion-card-title>
+
+              </ion-col>
+            </ion-row>
+            <ion-row>
+              <ion-col size="6" class="text-center">
+                <ion-list>
+                  <ion-item>
+                    <ion-label  position="floating"  mode="ios" class="hielo ion-text-wrap"> °C de las ovas al llegar </ion-label>
+
+                    <ion-select class="selectNuevo" mode="ios">
+                      <ion-select-option class="hielo" *ngFor="let item of Temperatura" [value]="item">{{item}}
+                      </ion-select-option>
+
+                    </ion-select>
+                  </ion-item>
+                </ion-list>
+
+              </ion-col>
+            <!-- </ion-row>
+
+            <ion-row> -->
+              <ion-col size="6" class="text-center">
+                <ion-list>
+                  <ion-item>
+                    <ion-label position="floating" mode="ios" class="hielo ion-text-wrap"> °C del agua de incubación </ion-label>
+
+                    <ion-select class="selectNuevo" mode="ios">
+                      <ion-select-option class="hielo" *ngFor="let item of Temperatura" [value]="item">{{item}}
+                      </ion-select-option>
+
+                    </ion-select>
+                  </ion-item>
+                </ion-list>
+
+              </ion-col>
+            </ion-row>
+
+            <ion-row>
+              <ion-col size="6" class="text-center">
+                <ion-list>
+                  <ion-item>
+                    <ion-label position="floating" mode="ios" class="hielo ion-text-wrap"> Método de aclimatación </ion-label>
+
+                    <ion-select class="selectNuevo" mode="ios">
+                      <ion-select-option class="hielo" *ngFor="let item of metodo" [value]="item">{{item}}
+                      </ion-select-option>
+
+                    </ion-select>
+                  </ion-item>
+                </ion-list>
+
+              </ion-col>
+            <!-- </ion-row>
+
+
+
+            <ion-row> -->
+              <ion-col size="6" class="text-center">
+                <ion-list>
+                  <ion-item>
+                    <ion-label position="floating" mode="ios" class="hielo ion-text-wrap"> Fuente de Agua de Incubación</ion-label>
+                    <ion-select class="selectNuevo" mode="ios">
+                      <ion-select-option class="hielo" *ngFor="let item of fuente" [value]="item">{{item}}
+                      </ion-select-option>
+                    </ion-select>
+                  </ion-item>
+                </ion-list>
+
+              </ion-col>
+            </ion-row>
+
+            <ion-row>
+              <ion-col size="6" class="text-center">
+                <ion-list>
+                  <ion-item>
+                    <ion-label position="floating" mode="ios" class="hielo ion-text-wrap"> ¿Origen del agua de incubación?</ion-label>
+
+                    <ion-select class="selectNuevo" mode="ios">
+                      <ion-select-option class="hielo" *ngFor="let item of origen" [value]="item">{{item}}
+                      </ion-select-option>
+
+                    </ion-select>
+                  </ion-item>
+                </ion-list>
+
+              </ion-col>
+            <!-- </ion-row>
+
+            <ion-row> -->
+              <ion-col size="6" class="text-center">
+                <ion-list>
+                  <ion-item>
+                    <ion-label  position="floating" mode="ios" class="hielo ion-text-wrap"> Uso del agua de Incubación</ion-label>
+
+                    <ion-select class="selectNuevo" mode="ios">
+                      <ion-select-option class="hielo" *ngFor="let item of USO" [value]="item">{{item}}
+                      </ion-select-option>
+
+                    </ion-select>
+                  </ion-item>
+                </ion-list>
+
+              </ion-col>
+            </ion-row>
+            <ion-row>
+              <ion-col size="12" class="text-center">
+                <ion-list>
+                  <ion-item>
+                    <ion-label position="floating" class="hielo ion-text-wrap">Nivel de Oxígeno</ion-label>
+                    <ion-textarea></ion-textarea>
+                  </ion-item>
+                  
+                </ion-list>
+
+              </ion-col>
+            </ion-row>
+
+            <ion-row>
+              <ion-col>
+                <ion-card-title class="center">TIEMPO DE ACLIMATACIÓN</ion-card-title>
+              </ion-col>
+            </ion-row>
+
+            <ion-row>
+              <ion-col size="6" class="text-center">
+                <ion-list>
+                  <ion-item>
+                    <ion-label  position="floating"  mode="ios" class="hielo ion-text-wrap">Horas</ion-label>
+
+                    <ion-select class="selectNuevo" mode="ios">
+                      <ion-select-option class="hielo" *ngFor="let item of HORAS" [value]="item">{{item}}
+                      </ion-select-option>
+
+                    </ion-select>
+                  </ion-item>
+                </ion-list>
+
+              </ion-col>
+              <ion-col size="6" class="text-center">
+                <ion-list>
+                  <ion-item>
+                    <ion-label position="floating"  mode="ios" class="hielo ion-text-wrap">Min</ion-label>
+
+                    <ion-select class="selectNuevo" mode="ios">
+                      <ion-select-option class="hielo" *ngFor="let item of MINUTOS" [value]="item">{{item}}
+                      </ion-select-option>
+
+                    </ion-select>
+                  </ion-item>
+                </ion-list>
+
+              </ion-col>
+            </ion-row>
+            <ion-row>
+              <ion-col size="12" class="text-center">
+              
+                  <ion-list>
+                    <ion-item>
+                      <ion-label  position="floating" mode="ios" class="hielo ion-text-wrap">Método de conteo de las ovas</ion-label>
+  
+                      <ion-select class="selectNuevo" mode="ios">
+                        <ion-select-option class="hielo" *ngFor="let item of METODOCONTEO" [value]="item">{{item}}
+                        </ion-select-option>
+  
+                      </ion-select>
+                    </ion-item>
+                  </ion-list>
+  
+              </ion-col>
+            </ion-row>
+            <ion-row>
+              <ion-col size="12" class="text-center">
+              
+                  <ion-list>
+                    <ion-item>
+                      <ion-label  position="floating" mode="ios" class="hielo ion-text-wrap"> Cual?</ion-label>
+  
+                      <ion-input>
+
+                      </ion-input>
+                    </ion-item>
+                  </ion-list>
+  
+              </ion-col>
+            </ion-row>
+            <ion-row>
+              <ion-col size="12" class="text-center">
+                <ion-list>
+                  <ion-item>
+                    <ion-label position="floating" class="hielo ion-text-wrap">Resultado</ion-label>
+                    <ion-input type="tel"></ion-input>
+                  </ion-item>
+                  
+                </ion-list>
+
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+          <!-- <app-mortalidadpreguntas [preguntas]="preguntas"></app-mortalidadpreguntas> -->
 
         </ion-slide>
 
         <ion-slide>
-          <app-mortalidadpreguntas [preguntas]="preguntas"></app-mortalidadpreguntas>
+          <ion-grid>
+            <ion-row>
+              <ion-col>
+                <ion-card-title class="center">INFORMACIÓN DE LA SIEMBRA</ion-card-title>
 
+              </ion-col>
+            </ion-row>
+            </ion-grid>
         </ion-slide>
+
 
       </ion-slides>
 
       <ion-grid cols="3" rowHeight="1:1" style="padding-bottom: 10px;">
         <ion-row>
           <ion-col class="center">
-            <ion-button float-center ion-button *ngIf="formValidar!=0"
-             shape="round" color="primary" class="btnPrev" (click)="prev()">Prev
+            <ion-button float-center ion-button *ngIf="formValidar!=0" shape="round" color="primary" class="btnPrev"
+              (click)="prev()">
+              <ion-icon name="arrow-back-outline"></ion-icon>
             </ion-button>
           </ion-col>
           <ion-col>
           </ion-col>
           <ion-col class="center">
-            <ion-button float-center ion-button shape="round" color="primary" class="btnNext" (click)="next()">Next
+            <ion-button *ngIf="acepta==true" float-center ion-button shape="round" color="primary" class="btnNext"
+              (click)="next()">
+              <ion-icon name="arrow-forward-outline"></ion-icon>
+
             </ion-button>
           </ion-col>
         </ion-row>

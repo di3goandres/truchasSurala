@@ -45,6 +45,7 @@
     "cordova-plugin-file-opener2": "^3.0.5",
     "cordova-plugin-ios-camera-permissions": "1.2.0",
     "ng2-pdf-viewer": "^6.3.2",
+    "ngx-spinner": "^10.0.1",
     "rxjs": "~6.6.3",
     "shelljs": "^0.8.4",
     "tslib": "^2.0.3",

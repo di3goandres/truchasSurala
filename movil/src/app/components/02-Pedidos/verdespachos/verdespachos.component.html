@@ -11,7 +11,7 @@
 <div *ngIf="noMostrar==false">
   <ion-card *ngFor="let despacho of despachos">
     <ion-card-header>
-      <ion-card-title>
+      <ion-card-title class="ovasTitulo">
         <ion-icon name="cart-outline"></ion-icon>
         {{despacho.fecha_salida.replace(' 00:00:00', 'T00:00:00') | date: "MMM/dd/yyyy" | uppercase}}
       </ion-card-title>
@@ -26,14 +26,14 @@
       <p>Temperatura de llegada: 3°C</p>
 
       <ion-buttons>
-        <ion-button *ngIf="despacho.certificado!='pendiente'" [routerLink]="'/certificados/'+despacho.id+'/'+despacho.certificado+'/certificado'">
+        <ion-button color="primary" *ngIf="despacho.certificado!='pendiente'" [routerLink]="'/certificados/'+despacho.id+'/'+despacho.certificado+'/certificado'">
           <ion-icon slot="icon-only" name="cash-outline"></ion-icon>
         </ion-button>
       
 
-      <ion-button [routerLink]="'/pedidos/'+despacho.id" expand="block" fill="clear" shape="round">
+      <ion-button color="primary" [routerLink]="'/pedidos/'+despacho.id" expand="block" fill="clear" shape="round">
 
-        Ver Pedidos
+        <ion-icon slot="icon-only"  name="reorder-three-outline"></ion-icon>
       </ion-button>
     </ion-buttons>
 

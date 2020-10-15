@@ -7,10 +7,27 @@ ion-label {
 
 }
 
+.selectNuevo{
+  color: #f33d01;
+  font-weight: bold;
+  font-size: 13px;
+  // left: auto!important;
+  overflow: hidden;
+  text-overflow: "---";
+
+}
+
+.item-select select {
+  // max-width: 100%!important;
+  // width: 100%!important;
+  left: auto!important;
+  // direction: ltr!important;
+  // padding-left: 0!important;
+}
 .hielo{
     color: rgb(14, 105, 179);
     font-weight: bold;
-    font-size: 9px;
+    font-size: 12px;
 
 
   }

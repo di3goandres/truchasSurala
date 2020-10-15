@@ -5,6 +5,7 @@
         "icon": "bus-outline",
         "slides": [
             {
+                "imagen": "assets/guias/apertura.jpg",
                 "titulo": "APERTURA DE LA NEVERA",
                 "descripciones": [
                     "Verificar que las neveras no presenten daños externos",
@@ -14,6 +15,7 @@
                 ]
             },
             {
+                "imagen": "assets/guias/datosrelevantes.jpg",
                 "titulo": "DATOS RELEVANTES",
                 "descripciones": [
                     "% de hielo por bandeja: la cantidad de hielo que queda en las bandejas,  nos indica que durante su viaje se hidrataron, esto garantizara el grado de humedad y la temperatura durante el transporte.",
@@ -21,6 +23,8 @@
                 ]
             },
             {
+                "imagen": "assets/guias/aclimatacion.jpg",
+
                 "titulo": "ACLIMATACIÓN",
                 "descripciones": [
                     "Medir la temperatura de todas las bandejas de ovas.",
@@ -39,6 +43,7 @@
         "icon": "thermometer-outline",
         "slides": [
             {
+                "imagen": "assets/guias/apertura.jpg",
                 "titulo": "APERTURA DE LA NEVERA",
                 "descripciones": [
                     "Verificar que las neveras no presenten daños externos",
@@ -48,6 +53,7 @@
                 ]
             },
             {
+                "imagen": "assets/guias/datosrelevantes.jpg",
                 "titulo": "DATOS RELEVANTES",
                 "descripciones": [
                     "% de hielo por bandeja: la cantidad de hielo que queda en las bandejas,  nos indica que durante su viaje se hidrataron, esto garantizara el grado de humedad y la temperatura durante el transporte.",
@@ -55,6 +61,8 @@
                 ]
             },
             {
+                "imagen": "assets/guias/aclimatacion.jpg",
+
                 "titulo": "ACLIMATACIÓN",
                 "descripciones": [
                     "Medir la temperatura de todas las bandejas de ovas.",

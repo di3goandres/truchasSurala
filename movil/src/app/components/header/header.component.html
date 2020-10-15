@@ -7,7 +7,7 @@
         <ion-icon slot="icon-only" name="ellipse" color="primary"></ion-icon>
       </ion-button>
       <ion-button slot="end">
-        <!-- <ion-icon name="ellipse"></ion-icon> -->
+       
         <ion-icon  color="primary" [name]="icon"></ion-icon>
       </ion-button>
     </ion-buttons>
@@ -15,7 +15,7 @@
     <ion-title text-capitalize class="ovas"> 
      {{ titulo }} </ion-title>
 
-     <ion-buttons slot="end">
+     <ion-buttons slot="end" *ngIf="user!=null">
      
       <ion-button slot="end" routerLink="/perfil">
         <!-- <ion-icon name="ellipse"></ion-icon> -->

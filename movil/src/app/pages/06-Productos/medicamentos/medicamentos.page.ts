@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { IonSegment } from '@ionic/angular';
+import { IonSegment, IonSlides } from '@ionic/angular';
 import { Observable } from 'rxjs';
 import { Medicamentos } from '../../../models/productos/medicamentos/medicamentos';
 import { MedicalService } from '../../../services/medicamentos/medical.service';
@@ -15,10 +15,13 @@ export class MedicamentosPage implements OnInit {
   tipo = '';
   mostrar = true;
   medicamentos: Observable<Medicamentos[]> 
+  @ViewChild(IonSlides, {static: false}) slides: IonSlides;
+
   constructor(
 
     private service: MedicalService
   ) { }
+
 
 
   cargarMedicamentos() {
@@ -33,6 +36,7 @@ export class MedicamentosPage implements OnInit {
     this.cargarMedicamentos()
 
 
+
   }
 
   slideOpts = {
@@ -43,6 +47,13 @@ export class MedicamentosPage implements OnInit {
   segmentChange(event) {
     const valorSegmento = event.detail.value;
     this.tipo = valorSegmento;
-    console.log(valorSegmento);
+    if(this.slides!=null){
+      this.slides.update();
+
+    }
+
+ 
+  
+
   }
 }

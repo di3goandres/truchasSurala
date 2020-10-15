@@ -1,5 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { MenuController } from '@ionic/angular';
+import { UserService } from 'src/app/services/user.service';
+import { User } from '../../models/user';
 
 @Component({
   selector: 'app-header',
@@ -12,7 +14,11 @@ export class HeaderComponent implements OnInit {
   @Input() icon: string;
   @Input() ocultar: string;
 
-  constructor(private menuCtrl: MenuController) { }
+  user: User;
+
+  constructor(private menuCtrl: MenuController,
+  private Service: UserService
+  ) { }
 
   ruta ="/"
   ngOnInit() {
@@ -36,6 +42,8 @@ export class HeaderComponent implements OnInit {
       this.ocultar = 'animated fadeIn fast'
 
     }
+   this.user = this.Service.getIdentity();
+
 
   }
   toggleMenu(){

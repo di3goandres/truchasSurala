@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { PedidosService } from '../../../services/pedidos/pedidos.service';
 import { ActivatedRoute } from '@angular/router';
 import { TrazabilidadResponse, Distribucion } from '../../../models/trazabilidad/trazabilidad.response';
+import { IonSlides } from '@ionic/angular';
 
 @Component({
   selector: 'app-trazabilidades',
@@ -23,10 +24,12 @@ export class TrazabilidadesPage implements OnInit {
   //   private modalService: NgbModal
 
   // ) { }
+  @ViewChild(IonSlides, {static: false}) slides: IonSlides;
 
   constructor(
     private service: PedidosService,
-    private route: ActivatedRoute,) { }
+    private route: ActivatedRoute,
+    ) { }
     slideOpts = {
       initialSlide: 0,
       speed: 400
@@ -37,15 +40,27 @@ export class TrazabilidadesPage implements OnInit {
 
     this.mostrar=false;
     this.distribucion = [];
-    this.service.obtenerTrazabilidad(this.id ).subscribe(
-      response => {
+
+    this.CargarInicial();
+   
+    
+  }
+  async update(){
+    await this.slides.update();
+
+  }
+ async CargarInicial()
+  {
+    await this.service.obtenerTrazabilidad(this.id ).subscribe(
+       response => {
 
         
           if(response.status=="success"){
             this.traza= response;
             this.distribucion = this.traza.distribucion;
             this.noMostrar = false
-        
+           
+            this.update();
 
           }
       

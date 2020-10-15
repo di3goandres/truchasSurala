@@ -66,7 +66,9 @@ export class LoginPage implements OnInit {
 
 
   }
-
+  ionViewDidEnter(){
+    this.verificarLogueo();
+  }
   verificarLogueo() {
     if (this.userService.getIdentity() != null && this.userService.getToken() != null) {
       this.router.onSameUrlNavigation = 'reload';

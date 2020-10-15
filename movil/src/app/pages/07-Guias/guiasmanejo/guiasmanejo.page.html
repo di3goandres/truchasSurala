@@ -9,9 +9,9 @@
         <div *ngFor="let numero of [0,1,2,3,4,5]">
             <ion-row>
                 <ion-col *ngFor="let item of guiasFinales.slice(numero*2, 2+ (numero*2))" sise="6">
-                    <ion-card>
+                    <ion-card (click)="presentModal(item)" >
                         <ion-list lines="none">
-                            <ion-item (click)="presentModal(item)" >
+                            <ion-item  >
                                 <ion-icon [name]="item.icon" slot="start" color="primary"></ion-icon>
                                 <ion-card-header>
                                     <ion-card-title text-center class="blue">

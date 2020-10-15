@@ -19,6 +19,7 @@ import { CmedicamentoComponent } from './05-Productos/cmedicamento/cmedicamento.
 import { ActualizarfotofincaComponent } from './01-Fincas/actualizarfotofinca/actualizarfotofinca.component';
 import { UnicafincaComponent } from './01-Fincas/unicafinca/unicafinca.component';
 import { GuiaComponent } from './06-Guias/guia/guia.component';
+import { PoliticasmortalidadComponent } from './04-Mortalidad/politicasmortalidad/politicasmortalidad.component';
 
 
 @NgModule({
@@ -36,7 +37,9 @@ import { GuiaComponent } from './06-Guias/guia/guia.component';
     CmedicamentoComponent,
     ActualizarfotofincaComponent,
     UnicafincaComponent,
-    GuiaComponent
+    GuiaComponent,
+    PoliticasmortalidadComponent
+
 
 
   ],
@@ -65,7 +68,8 @@ import { GuiaComponent } from './06-Guias/guia/guia.component';
     CmedicamentoComponent,
     ActualizarfotofincaComponent,
     UnicafincaComponent,
-    GuiaComponent
+    GuiaComponent,
+    PoliticasmortalidadComponent
 
 
   ],

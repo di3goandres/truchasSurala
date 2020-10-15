@@ -109,10 +109,7 @@ export class UserService {
     // .set('Cache-Control',  'no-cache, no-store, must-revalidate, post-check=0, pre-check=0')
     // .set('Pragma','no-cache')
     // .set('Expires', '0');
-    return this.http.get<T>(this.url + query, { headers: this.header })
-      .pipe(
-        delay(500)
-      );
+    return this.http.get<T>(this.url + query, { headers: this.header });
 
   }
 

@@ -1,0 +1,70 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      
+    </ion-buttons>
+    <ion-title class="ova">TRUCHAS SURALA S.A.S.</ion-title>
+
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+  <ion-card>
+    <ion-list lines="none">
+      <ion-item>
+       
+        <ion-icon name="chatbox-ellipses-outline" slot="start" color="primary"></ion-icon>
+        <ion-card-header>
+          <ion-card-subtitle text-center class="blue">
+            Procedimiento de Quejas y Reclamos
+          </ion-card-subtitle>
+        </ion-card-header>
+      </ion-item>
+    </ion-list>
+    <ion-card-content>
+      <div class="ion-text-left blueJustify">
+      <p>
+        La siguiente información nos permite hacer una evaluación de su lote, durante el proceso de incubación y
+        eclosión, para proporcionar una respuesta rápida y una solución apropiada a la situación.
+      
+
+      </p>  
+      <p>
+            Por favor proporcionar fotografías de la mortalidad dentro de las incubadoras (antes de limpiarlas), en buena
+        resolución para apoyar el reclamo siempre que sea posible.
+
+      </p>
+      <p>
+    
+        De acuerdo a las políticas de reclamación de Troutlodge & Truchas Surala, tenga en cuenta lo siguiente:
+
+      </p>
+      </div>
+      <ion-list lines="none">
+       
+        <ion-item *ngFor="let descripcion of descripciones">
+          <ion-avatar slot="start">
+            <img src="./assets/avatars/av-2.png">
+          </ion-avatar>
+          <div class="ion-text-left blueJustify">
+            <p>
+              {{descripcion}}
+            </p>
+          </div>
+        </ion-item>
+      </ion-list>
+      <ion-grid>
+        <ion-row style="text-align: center;"> 
+          <ion-col class="text-center">
+            <ion-button float-center  color="primary" (click)="dismiss()">
+              <span ion-text color="primary"></span>
+              <ion-icon name="shield-checkmark-outline"></ion-icon>
+            </ion-button>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    
+    </ion-card-content>
+  </ion-card>
+
+
+</ion-content>

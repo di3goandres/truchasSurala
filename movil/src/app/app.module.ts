@@ -7,7 +7,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { RouteReuseStrategy } from '@angular/router';
 
 
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 
 
 import { IonicModule, IonicRouteStrategy } from '@ionic/angular';
@@ -41,6 +41,8 @@ import { PipesModule } from './pipes/pipes.module';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
 import { IonicStorageModule } from '@ionic/storage';
+import { AuthinterceptorService } from './services/interceptor/authinterceptor.service';
+import { NgxSpinnerModule } from 'ngx-spinner';
 
 registerLocaleData(localCo);
 
@@ -59,7 +61,7 @@ registerLocaleData(localCo);
           FormsModule,
           ReactiveFormsModule,
           PipesModule,
-    
+          NgxSpinnerModule,
           ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }), 
           IonicStorageModule.forRoot()
 
@@ -82,6 +84,8 @@ registerLocaleData(localCo);
     DatePipe,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
     { provide: LOCALE_ID, useValue: 'es-Co' },
+    { provide: HTTP_INTERCEPTORS, useClass: AuthinterceptorService, multi: true },
+
   
 
   ],

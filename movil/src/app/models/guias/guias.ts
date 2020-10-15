@@ -8,8 +8,14 @@ export class Guias{
 }
 
 export class SlidesGuias{
+   
     titulo: string;
     descripciones: string[]
     imagen: string;
 
+}
+
+
+export class Politicas{
+    descripciones: string[]
 }

@@ -31,52 +31,30 @@
 
     <ion-slide *ngFor="let item of guia.slides">
       <ion-slide>
-
-       
-
-
-
-
         <ion-card>
           <ion-card-header>
-            <ion-card-title class="ova">
+            <img [src]="item.imagen">
+
+            <ion-card-title class="ova"> 
               {{item.titulo}}
             </ion-card-title>
           </ion-card-header>
-
-          <ion-card-content>
-            
-
-            <ion-list>
-          
-      
+          <ion-card-content >
+            <ion-list lines="none">
               <ion-item *ngFor="let descripcion of item.descripciones">
-                <ion-avatar slot="start">
-                  <img src="./assets/avatars/avatar.png">
+                <ion-avatar slot="start" >
+                  <img src="./assets/avatars/av-2.png">
                 </ion-avatar>
-
-             
-                  <div class="ion-text-justify blueJustify">
-                    
+                  <div class="ion-text-left blueJustify">
                     <p>{{descripcion}}</p>
                   </div>
-                  <!-- <p class="blueItem ion-text-start">{</p> -->
-           
               </ion-item>
             </ion-list> 
-              <!-- <ion-chip *ngFor="let descripcion of item.descripciones" color="primary">
-                <ion-label class="blueItem" >{{descripcion}}</ion-label>
-              </ion-chip>
-              -->
-          
+
           </ion-card-content>
         </ion-card>
       </ion-slide>
     </ion-slide>
-
-
-
-
-  </ion-slides>
+</ion-slides>
 
 </ion-content>

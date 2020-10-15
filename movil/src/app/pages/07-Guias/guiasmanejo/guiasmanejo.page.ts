@@ -30,7 +30,7 @@ export class GuiasmanejoPage implements OnInit {
 
   async cargar() {
     this.service.getGuias().subscribe(items => {
-      console.log(items);
+      
       this.guiasFinales.push(...items)
     }
     );

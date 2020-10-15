@@ -1,0 +1,80 @@
+.blue{
+    color: rgb(14, 105, 179);
+    text-align: left;
+    font-size: 16px;
+  
+
+  }
+
+  .blueItem{
+    color: rgb(14, 105, 179);
+    text-align: left;
+    font-size: 16px;
+  
+
+  }
+
+  ion-avatar{
+    position: absolute;
+    top: 0px;
+    left: 0px;
+  }
+
+
+  
+  .blueJustify{
+    color: rgb(14, 105, 179);
+    margin-left: 28px;
+    font-size: 12px;
+    margin-top: 15px;
+
+
+  }
+  .ova{
+  
+    color: #f33d01;
+    font-weight: bold;
+    font-size: 15px;
+
+  }
+
+
+
+  .selectNuevo {
+    color: #f33d01 !important;
+   
+    font-size: 9px !important;
+  }
+
+  /* Popover Interface: set color for the popover using Item's CSS variables */
+.selectNuevo .select-interface-option {
+    --color: #f33d01;
+    --color-hover: #79193b;
+  }
+
+  .selectNuevo .alert-title .sc-ion-alert-ios{
+    color: #f33d01 !important;
+
+
+
+
+  }
+  #alert-2-hdr{
+    color: #f33d01 !important;
+
+  }
+
+
+  .alert-head.sc-ion-alert-ios
+  {
+    margin-top: 8px;
+    color: #f33d01 !important;
+    font-size: 17px;
+    font-weight: 600;
+}
+
+  
+  ion-alert{
+    color: #f33d01 !important;
+
+  }
