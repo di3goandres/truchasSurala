@@ -7,11 +7,20 @@
       <ion-card-title class="center">Procedimiento de Quejas y Reclamos</ion-card-title>
     </ion-card-header>
     <ion-card-content>
-
+    </ion-card-content>
+ 
+  </ion-card>
       <ion-slides #slides [options]="slideOpts">
 
         <ion-slide>
-          <ion-grid cols="1" rowHeight="1:1">
+          <ion-card>
+          <ion-card-header>
+            
+            <ion-card-title>Aceptacion de Politica</ion-card-title>
+          </ion-card-header>  
+       
+          <ion-card-content>
+            <ion-grid cols="1" rowHeight="1:1">
             <ion-row>
               <ion-col class="text-center">
                 <ion-label class="bandeja">
@@ -26,13 +35,36 @@
                 </ion-button>
               </ion-col>
             </ion-row>
+          <!-- </ion-grid>
+          <ion-grid cols="3" rowHeight="1:1" style="padding-bottom: 10px;"> -->
+            <ion-row>
+              <ion-col class="center">
+                <ion-button float-center ion-button *ngIf="formValidar!=0" shape="round" color="primary" class="btnPrev"
+                  (click)="prev()">
+                  <ion-icon name="arrow-back-outline"></ion-icon>
+                </ion-button>
+              </ion-col>
+              <ion-col>
+              </ion-col>
+              <ion-col class="center">
+                <ion-button *ngIf="acepta==true" float-center ion-button shape="round" color="primary" class="btnNext"
+                  (click)="next()">
+                  <ion-icon name="arrow-forward-outline"></ion-icon>
+    
+                </ion-button>
+              </ion-col>
+            </ion-row>
+    
           </ion-grid>
-
-
+          </ion-card-content>
+          
+        </ion-card>
         </ion-slide>
         <ion-slide>
 
-          <ion-grid cols="3" rowHeight="1:1" style="padding-bottom: 10px;">
+          <ion-card>
+            <ion-card-content>
+                <ion-grid cols="3" rowHeight="1:1" style="padding-bottom: 10px;">
             <ion-row>
               <ion-col class="text-center">
                 <ion-label class="bandeja">
@@ -44,16 +76,26 @@
 
               <ion-row>
                 <ion-col size="4" class="text-center">
-
+                   <ion-list>
+                        
                   <ion-item>
                     <ion-label class="bandeja" position="floating">
                       SUPERIOR
                     </ion-label>
                     <ion-input required type="tel" min="0" max="40" maxlength="2" tabindex="1" (keyup)="moveFocus(a, b)"
-                      #a formControlName="superior" placeholder="0-40" [(ngModel)]="registro.temp_bandeja_superior">
+                     
+                      #a name="superior" formControlName="superior" [(ngModel)]="registro.temp_bandeja_superior">
                     </ion-input>
 
                   </ion-item>
+                  <!-- <ion-item *ngIf="superior.touched">
+                    <small style="color:red"  class="invalid-feedback d-block">
+                       
+                    </small>
+  
+                  </ion-item> -->
+                  </ion-list>
+                 
 
 
 
@@ -66,7 +108,7 @@
 
                     </ion-label>
                     <ion-input required type="tel" min="0" max="40" formControlName="mitad" maxlength="2" tabindex="2"
-                      (keyup)="moveFocus(b, c)" #b placeholder="0-40" [(ngModel)]="registro.temp_bandeja_intermedia">
+                      (keyup)="moveFocus(b, c)" #b  [(ngModel)]="registro.temp_bandeja_intermedia">
                     </ion-input>
 
                   </ion-item>
@@ -81,9 +123,7 @@
                     <ion-input required type="tel" min="0" max="40" formControlName="inferior" maxlength="2"
                       tabindex="3" (keyup)="moveFocus(c, d)" #c placeholder="0-40"
                       [(ngModel)]="registro.temp_bandeja_inferior"></ion-input>
-                    <!-- <small color="red" *ngIf="binferior.value>40" class="invalid-feedback d-block">
-                    Temperatura no valida
-                  </small> -->
+              
                   </ion-item>
 
                 </ion-col>
@@ -112,6 +152,7 @@
 
                 <ion-col size="4" class="text-center">
                   <ion-item>
+               
                     <ion-label style="font-weight: bold;" class="hielo" position="floating">
                       MEDIA
 
@@ -140,7 +181,27 @@
               </ion-row>
             </form>
 
+            <ion-row>
+              <ion-col class="center">
+                <ion-button float-center ion-button *ngIf="formValidar!=0" shape="round" color="primary" class="btnPrev"
+                  (click)="prev()">
+                  <ion-icon name="arrow-back-outline"></ion-icon>
+                </ion-button>
+              </ion-col>
+              <ion-col>
+              </ion-col>
+              <ion-col class="center">
+                <ion-button *ngIf="acepta==true"  [disabled]="formGroupTemperatura.invalid"float-center ion-button shape="round" color="primary" class="btnNext"
+                  (click)="next()">
+                  <ion-icon name="arrow-forward-outline"></ion-icon>
+    
+                </ion-button>
+              </ion-col>
+            </ion-row>
           </ion-grid>
+            </ion-card-content>
+          </ion-card>
+        
 
 
         </ion-slide>
@@ -370,29 +431,9 @@
 
       </ion-slides>
 
-      <ion-grid cols="3" rowHeight="1:1" style="padding-bottom: 10px;">
-        <ion-row>
-          <ion-col class="center">
-            <ion-button float-center ion-button *ngIf="formValidar!=0" shape="round" color="primary" class="btnPrev"
-              (click)="prev()">
-              <ion-icon name="arrow-back-outline"></ion-icon>
-            </ion-button>
-          </ion-col>
-          <ion-col>
-          </ion-col>
-          <ion-col class="center">
-            <ion-button *ngIf="acepta==true" float-center ion-button shape="round" color="primary" class="btnNext"
-              (click)="next()">
-              <ion-icon name="arrow-forward-outline"></ion-icon>
-
-            </ion-button>
-          </ion-col>
-        </ion-row>
-
-      </ion-grid>
+     
 
 
 
-    </ion-card-content>
-  </ion-card>
+ 
 </ion-content>

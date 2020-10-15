@@ -16,7 +16,7 @@ import { Politicas } from '../../../models/guias/guias';
 export class RegistromortalidadPage implements OnInit {
   Temperatura: any[] = [9, 10, 11, 12, 13, 14, 15, 16]
   HORAS: any[] = [1, 2, 3, 4, 5, 6, 9]
-  MINUTOS: any[] =  [5, 10, 15,20, 25, 30, 35, 40, 45, 50, 55]
+  MINUTOS: any[] = [5, 10, 15, 20, 25, 30, 35, 40, 45, 50, 55]
 
   metodo: any[] = ['MANUAL', 'BOMBA']
   fuente: any[] = ['RIO', 'QUEBRADA', 'NACEDERO']
@@ -66,14 +66,25 @@ export class RegistromortalidadPage implements OnInit {
 
 
   moveFocus(actual, nextElement) {
-    console.log(actual.value.length)
+
+    let regExp = new RegExp('^[0-9]*$');
+    let newValue = actual.value;
+    console.log(regExp.test(newValue))
+    if (!regExp.test(newValue)) {
+      actual.value = newValue.slice(0, -1);
+    }else
     if (actual.value.length == 2) {
       nextElement.setFocus();
 
     }
   }
   moveFocus_3(actual, nextElement) {
-    console.log(actual.value.length)
+   
+    let regExp = new RegExp('^[0-9]*$');
+    let newValue = actual.value;
+    if (!regExp.test(newValue)) {
+      actual.value = newValue.slice(0, -1);
+    }else
     if (actual.value.length == 3) {
       nextElement.setFocus();
 
@@ -105,12 +116,12 @@ export class RegistromortalidadPage implements OnInit {
   ngOnInit() {
     this.cargarPoliticas();
     this.formGroupTemperatura = new FormGroup({
-      inferior: new FormControl('', Validators.required),
-      mitad: new FormControl('', Validators.required),
-      superior: new FormControl('', Validators.required),
-      inferior2: new FormControl('', Validators.required),
-      mitad2: new FormControl('', Validators.required),
-      superior2: new FormControl('', Validators.required)
+      inferior: new FormControl('', [Validators.min(0), Validators.max(40)]),
+      mitad: new FormControl('', [Validators.min(0), Validators.max(40)]),
+      superior: new FormControl('', [Validators.min(0), Validators.max(40)]),
+      inferior2: new FormControl('', [Validators.min(0), Validators.max(100)]),
+      mitad2: new FormControl('', [Validators.min(0), Validators.max(100)]),
+      superior2: new FormControl('', [Validators.min(0), Validators.max(100)]),
 
     });
 
@@ -121,7 +132,7 @@ export class RegistromortalidadPage implements OnInit {
   bloquear() {
     // console.log('cargue')
     this.slides.lockSwipes(true);
-    
+
 
   }
   slideChanged() {
@@ -195,7 +206,7 @@ export class RegistromortalidadPage implements OnInit {
 
   }
 
-  AceptoPoliticas(){
+  AceptoPoliticas() {
     this.acepta = true;
     this.slides.lockSwipes(false);
     this.slides.slideNext();
