@@ -48,7 +48,9 @@
                 <th mat-header-cell *matHeaderCellDef> Editar</th>
                 <td mat-cell mat-cell *matCellDef="let element">
                   <button mat-raised-button id="logout-button" class="btn btn-primary btn-block" style="width:50%"
-                    color="primary" (click)="OpenEditar(element)">
+                    color="primary" (click)="OpenEditar(element)"
+                    [disabled]="element.Activo!=1"
+                    >
                     <mat-icon>edit_attributes</mat-icon>
                   </button>
                 </td>

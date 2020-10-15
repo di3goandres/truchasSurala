@@ -98,6 +98,7 @@ import { TecnicosModule } from './tecnicos/tecnicos.module';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import { NgxSpinnerModule } from 'ngx-spinner';
 import { RegistroNoexitosoComponent } from './componentes/01-Comunes/registro-noexitoso/registro-noexitoso.component';
+import { BorrarloteComponent } from './componentes/05-Despacho/borrarlote/borrarlote.component';
 
 registerLocaleData(localCo);
 @NgModule({
@@ -138,6 +139,7 @@ registerLocaleData(localCo);
     FiltroPipe,
     VerusuarioComponent,
     RegistroNoexitosoComponent,
+    BorrarloteComponent,
 
 
 

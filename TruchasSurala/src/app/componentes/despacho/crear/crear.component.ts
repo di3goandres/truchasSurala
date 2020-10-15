@@ -4,6 +4,8 @@ import { UserService } from '../../../service/user/user.service';
 import { DatePipe } from '@angular/common';
 import { Router, ActivatedRoute } from '@angular/router';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { RegistroExitosoComponent } from '../../01-Comunes/registro-exitoso/registro-exitoso.component';
+import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-crear',
@@ -25,6 +27,9 @@ export class CrearComponent implements OnInit {
               private userService: UserService,
               public datepipe: DatePipe,
               private router: Router,
+              private modalService: NgbModal,
+              public activeModal: NgbActiveModal,
+
               private route: ActivatedRoute,
               private _formBuilder: FormBuilder) {
     this.title = 'Creacion de un despacho';
@@ -49,6 +54,19 @@ export class CrearComponent implements OnInit {
     this.agregar = false;
   }
 
+  openExitoso(){
+    const modalRef = this.modalService.open(RegistroExitosoComponent,
+       {size: 'md'});
+  
+    modalRef.result.then((result) => {
+    
+    
+    }, (reason) => {
+    
+    
+    });
+  }
+
   onRegister(formulario): void {
 
      this.despacho.fecha = this.datepipe.transform(this.despacho.fechaEntrada, 'yyyy-MM-dd');
@@ -58,11 +76,14 @@ export class CrearComponent implements OnInit {
     console.log(this.despacho)
     this.userService.storeDespacho(this.despacho).subscribe(
       response => {
-        console.log(response);
+        
         // tslint:disable-next-line: triple-equals
         if (response.status == 'success') {
-          formulario.reset();
-          this.router.navigate(['/surala/despacho/', response.despacho.id]);
+           formulario.reset();
+           this.openExitoso()
+          //  this.activeModal.dismiss('OK')
+
+          // this.router.navigate(['/surala/despacho/', response.despacho.id]);
 
         } else {
           this.status = 'error';

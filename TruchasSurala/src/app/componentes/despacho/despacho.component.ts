@@ -10,6 +10,9 @@ import {MatPaginator} from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { BandejascajaComponent } from '../bandejascaja/bandejascaja.component';
 import { DespachosComponent } from '../despachos/despachos.component';
+import { DespachoService } from '../../service/despacho/despacho.service';
+import { RegistroExitosoComponent } from '../01-Comunes/registro-exitoso/registro-exitoso.component';
+import { BorrarloteComponent } from '../05-Despacho/borrarlote/borrarlote.component';
 
 
 const ELEMENT_DATA: Caja[] = []
@@ -24,7 +27,7 @@ export class DespachoComponent implements OnInit {
   displayedColumns: string[] = ['position', 'FechaDesove', 
   'LineaGenetica', 'NumLote',
   'EdadTcu', 'Tamaño', 'Ovasml', 
-  'NumberoBandejas', 'TotalCaja', 'TotalUsados', 'VerBandejas'];
+  'NumberoBandejas', 'TotalCaja', 'TotalUsados', 'VerBandejas', 'borrar'];
 
   
   public despacho: Despachosroot = new Despachosroot();
@@ -38,6 +41,7 @@ export class DespachoComponent implements OnInit {
   public closeResult: string;
   constructor(
     private userService: UserService,
+    private servicio: DespachoService,
     private route: ActivatedRoute,
     private router: Router,
     private modalService: NgbModal,
@@ -50,7 +54,54 @@ export class DespachoComponent implements OnInit {
     this.consultaInicial();
     
   }
+  openExitoso(){
+    const modalRef = this.modalService.open(RegistroExitosoComponent,
+       {size: 'md'});
+  
+    modalRef.result.then((result) => {
+    
+    
+    }, (reason) => {
+    
+    
+    });
+  }
+  
+  borrarLoteid(id){
+    this.servicio.borrarLote(id).subscribe(
+      OK => {
+        this.openExitoso()
+        this.consultaInicial(this.id);
 
+
+      },
+      ERROR => {console.log(ERROR)},
+    )
+  }
+  borrarLote(id){
+    const modalRef = this.modalService.open(BorrarloteComponent, {size: 'mg'});
+   
+    modalRef.result.then((result) => {
+      if (result === "BORRAR") {
+        this.borrarLoteid(id);
+      }
+      console.log('result', result);
+    }, (reason) => {
+
+     
+       
+
+
+      this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+ 
+      if (reason === 'OK') {
+     
+       
+      }
+    });
+   
+
+  }
   private consultaInicial(id = null) {
     this.agregar = false;
     if (id == null) {
@@ -60,7 +111,7 @@ export class DespachoComponent implements OnInit {
       this.id = id;
     }
     // console.log('id2:', this.route.snapshot.paramMap.get('id'));
-    this.userService.getDespacho(this.id).subscribe(resp => {
+    this.servicio.getDespacho(this.id).subscribe(resp => {
  
       if (resp.status !== 'error') {
 

@@ -1,4 +1,4 @@
-<div class="container alternate-theme" >
+<div class="container alternate-theme">
   <mat-horizontal-stepper [linear]="false">
     <mat-step>
       <ng-template matStepLabel>Datos Despacho</ng-template>
@@ -7,9 +7,10 @@
         <mat-card-header>
           <div mat-card-avatar class="example-header-image"></div>
           <mat-card-title>Datos del despacho</mat-card-title>
-          <mat-card-subtitle>Agregar las Cajas del despacho con fecha: {{despacho.despacho.fecha|date :"MMM/dd/yyyy"}}</mat-card-subtitle>
-          <button type="button" mat-mini-fab color="secondary"  mat-raised-button
-          aria-label="caja" (click)="open()" [disabled]="habilitarAgregar">
+          <mat-card-subtitle>Agregar las Cajas del despacho con fecha: {{despacho.despacho.fecha|date :"MMM/dd/yyyy"}}
+          </mat-card-subtitle>
+          <button type="button" mat-mini-fab color="secondary" mat-raised-button aria-label="caja" (click)="open()"
+            [disabled]="habilitarAgregar">
             <mat-icon>plus_one</mat-icon>
           </button>
           <span *ngIf="habilitarAgregar" color="primary">
@@ -19,8 +20,8 @@
 
         <a>
           <main id="logout-button-holder">
-  
-             
+
+
             <br>
           </main>
           <!-- <button *ngIf="!agregar"  class="btn btn-primary btn-block" style="width:50%"  (click)="open()">Agregar Caja</button> -->
@@ -28,89 +29,100 @@
         <!-- <img mat-card-image src="https://material.angular.io/assets/img/examples/shiba2.jpg" alt="Photo of a Shiba Inu"> -->
         <mat-card-content>
           <div class="table-responsive">
-        
-          <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
 
-            <!--- Note that these columns can be defined in any order.
+            <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+
+              <!--- Note that these columns can be defined in any order.
                   The actual rendered columns are set as a property on the row definition" -->
-          
-            <!-- Position Column -->
-            <ng-container matColumnDef="position">
-              <th mat-header-cell *matHeaderCellDef> No. </th>
-              <td mat-cell *matCellDef="let element; let i = index"> {{i + 1}} </td>
-            </ng-container>
-          
-            <!-- Name Column -->
-            <ng-container matColumnDef="FechaDesove">
-              <th mat-header-cell *matHeaderCellDef> Fecha desove </th>
-              <td mat-cell *matCellDef="let element"> {{element.fecha_desove.replace(' 00:00:00', 'T00:00:00') |date :"MMM/dd/yyyy" | uppercase }} </td>
-            </ng-container>
-          
-            <!-- Weight Column -->
-            <ng-container matColumnDef="LineaGenetica">
-              <th mat-header-cell *matHeaderCellDef> Linea Genetica </th>
-              <td mat-cell *matCellDef="let element"> {{element.linea_genetica}} </td>
-            </ng-container>
 
-            <ng-container matColumnDef="NumLote">
-              <th mat-header-cell *matHeaderCellDef> # Lote </th>
-              <td mat-cell *matCellDef="let element"> {{element.numero_lote}} </td>
-            </ng-container>
-          
-            <!-- Symbol Column -->
-            <ng-container matColumnDef="EdadTcu">
-              <th mat-header-cell *matHeaderCellDef> Edad TCU </th>
-              <td mat-cell *matCellDef="let element"> {{element.edad_tcu}} </td>
-            </ng-container>
+              <!-- Position Column -->
+              <ng-container matColumnDef="position">
+                <th mat-header-cell *matHeaderCellDef> No. </th>
+                <td mat-cell *matCellDef="let element; let i = index"> {{i + 1}} </td>
+              </ng-container>
 
-            <ng-container matColumnDef="Tamaño">
-              <th mat-header-cell *matHeaderCellDef> Tamaño</th>
-              <td mat-cell *matCellDef="let element"> {{element.tamanio}} </td>
-            </ng-container>
+              <!-- Name Column -->
+              <ng-container matColumnDef="FechaDesove">
+                <th mat-header-cell *matHeaderCellDef> Fecha desove </th>
+                <td mat-cell *matCellDef="let element">
+                  {{element.fecha_desove.replace(' 00:00:00', 'T00:00:00') |date :"MMM/dd/yyyy" | uppercase }} </td>
+              </ng-container>
 
+              <!-- Weight Column -->
+              <ng-container matColumnDef="LineaGenetica">
+                <th mat-header-cell *matHeaderCellDef> Linea Genetica </th>
+                <td mat-cell *matCellDef="let element"> {{element.linea_genetica}} </td>
+              </ng-container>
 
-            <ng-container matColumnDef="Ovasml">
-              <th mat-header-cell *matHeaderCellDef> Ovas ml</th>
-              <td mat-cell *matCellDef="let element"> {{element.ovas_ml}} </td>
-            </ng-container>
+              <ng-container matColumnDef="NumLote">
+                <th mat-header-cell *matHeaderCellDef> # Lote </th>
+                <td mat-cell *matCellDef="let element"> {{element.numero_lote}} </td>
+              </ng-container>
 
-            <ng-container matColumnDef="NumberoBandejas">
-              <th mat-header-cell *matHeaderCellDef># de Bandejas</th>
-              <td mat-cell *matCellDef="let element"> {{element.numero_bandejas}} </td>
-            </ng-container>
-          
+              <!-- Symbol Column -->
+              <ng-container matColumnDef="EdadTcu">
+                <th mat-header-cell *matHeaderCellDef> Edad TCU </th>
+                <td mat-cell *matCellDef="let element"> {{element.edad_tcu}} </td>
+              </ng-container>
+
+              <ng-container matColumnDef="Tamaño">
+                <th mat-header-cell *matHeaderCellDef> Tamaño</th>
+                <td mat-cell *matCellDef="let element"> {{element.tamanio}} </td>
+              </ng-container>
 
 
-            <ng-container matColumnDef="TotalCaja">
-              <th mat-header-cell *matHeaderCellDef>Total Caja</th>
-              <td mat-cell *matCellDef="let element"> {{element.total_lote | number}} </td>
-            </ng-container>
+              <ng-container matColumnDef="Ovasml">
+                <th mat-header-cell *matHeaderCellDef> Ovas ml</th>
+                <td mat-cell *matCellDef="let element"> {{element.ovas_ml}} </td>
+              </ng-container>
+
+              <ng-container matColumnDef="NumberoBandejas">
+                <th mat-header-cell *matHeaderCellDef># de Bandejas</th>
+                <td mat-cell *matCellDef="let element"> {{element.numero_bandejas}} </td>
+              </ng-container>
 
 
-            <ng-container matColumnDef="TotalUsados">
-              <th mat-header-cell *matHeaderCellDef>Total usado</th>
-              <td mat-cell *matCellDef="let element"> {{element.tamanio_usado | number}} </td>
-            </ng-container>
+
+              <ng-container matColumnDef="TotalCaja">
+                <th mat-header-cell *matHeaderCellDef>Total Caja</th>
+                <td mat-cell *matCellDef="let element"> {{element.total_lote | number}} </td>
+              </ng-container>
 
 
-            <ng-container matColumnDef="VerBandejas">
-              <th mat-header-cell *matHeaderCellDef>Ver Bandejas</th>
-              <td mat-cell *matCellDef="let element"> 
-                <!-- <a [routerLink]="['/surala/cajas/bandejas', element.id]">Ver bandejas</a> -->
-                <button mat-raised-button id="logout-button" class="btn btn-primary btn-block" style="width:50%"
-                color="primary"
-                (click)="openBandejas(element.id)">Ver</button>
-               </td>
-            </ng-container>
+              <ng-container matColumnDef="TotalUsados">
+                <th mat-header-cell *matHeaderCellDef>Total usado</th>
+                <td mat-cell *matCellDef="let element"> {{element.tamanio_usado | number}} </td>
+              </ng-container>
 
-            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-          </table>
-          <mat-paginator [pageSizeOptions]="[10, 20, 30]" showFirstLastButtons></mat-paginator>
 
-        </div>
+              <ng-container matColumnDef="VerBandejas">
+                <th mat-header-cell *matHeaderCellDef>Ver Bandejas</th>
+                <td mat-cell *matCellDef="let element">
+                  <!-- <a [routerLink]="['/surala/cajas/bandejas', element.id]">Ver bandejas</a> -->
+                  <button mat-raised-button id="logout-button" class="btn btn-primary btn-block" style="width:50%"
+                    color="primary" (click)="openBandejas(element.id)">Ver</button>
+                </td>
+              </ng-container>
+
+              <ng-container matColumnDef="borrar">
+                <th mat-header-cell *matHeaderCellDef>Borrar</th>
+                <td mat-cell *matCellDef="let element">
+                  <!-- <a [routerLink]="['/surala/cajas/bandejas', element.id]">Ver bandejas</a> -->
+                  <button mat-raised-button [disabled]="element.tamanio_usado!=0" id="logout-button"
+                    class="btn btn-primary btn-block" style="width:50%" color="primary"
+                    (click)="borrarLote(element.id)">
+                    <mat-icon>delete_forever</mat-icon>
+                  </button>
+                </td>
+              </ng-container>
+              <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+              <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+            </table>
+            <mat-paginator [pageSizeOptions]="[10, 20, 30]" showFirstLastButtons></mat-paginator>
+
+          </div>
         </mat-card-content>
-   
+
       </mat-card>
     </mat-step>
 
@@ -120,7 +132,7 @@
 
 <div class="col-md-12" *ngIf="despacho">
   <div class="card" style="width: 100%;">
-  
+
 
     <!-- <ng-template let-modal>
       <div #mymodal>
@@ -128,7 +140,7 @@
       </div>
     </ng-template> -->
 
-  
-     
+
+
   </div>
-  </div>
+</div>

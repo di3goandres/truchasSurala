@@ -1,0 +1,38 @@
+<div class="center alternate-theme">
+
+    <mat-card class="example-card">
+        <mat-card-title>{{subtitle}}</mat-card-title>
+
+        <mat-card-content>
+            <div class="row">
+                <div class="col-12">
+
+                 <p  style="text-align:center">{{TituloMOstrar}}</p>
+
+                </div>
+            </div>
+
+
+        </mat-card-content>
+        <mat-card-actions>
+            <div class="row">
+                <div class="col-6">
+
+                    <button ngbAutofocus  id="logout-button"
+                    class="btn btn-primary btn-block toolbar-button"  (click)="cerrar()" style="background-color:#f33d01">NO!</button>
+        
+                
+                </div>
+                <div class="col-6">
+
+                    <button ngbAutofocus  id="logout-button"
+                    class="btn btn-primary btn-block toolbar-button" (click)="borrar()" color="primary">Si?!</button>
+        
+                  
+
+                </div>
+            </div>
+           
+        </mat-card-actions>
+    </mat-card>
+</div>

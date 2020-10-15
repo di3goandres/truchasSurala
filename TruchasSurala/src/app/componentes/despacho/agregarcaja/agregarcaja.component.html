@@ -27,7 +27,7 @@
             <mat-form-field appearance="fill">
               <mat-label>Numero de Bandejas </mat-label>
               <input matInput [(ngModel)]="caja.numero_cajas" 
-              type="number" min="1"
+              type="number" min="1" (change)="actualizarBandeja()"
               formControlName="NumeroBandejas" required />
       
             </mat-form-field>

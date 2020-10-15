@@ -125,6 +125,7 @@ Route::get('/api/Distribucion/Obtenerdatos/{id}', 'TrazabilidadController@obtene
 
 Route::get('/api/Trazabilidad/{id}', 'TrazabilidadController@getTraza');
 Route::get('/api/Lotes/prueba/{id}', 'LoteController@prueba');
+Route::get('/api/Lotes/borrar/{id}', 'LoteController@BorrarLote');
 
 Route::get('/api/usuarios/fincas', 'FincasController@getUserFincas');
 Route::get('/api/usuarios/fincas/{id}', 'FincasController@getFincasUser');

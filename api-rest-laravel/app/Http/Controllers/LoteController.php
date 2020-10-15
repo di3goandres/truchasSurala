@@ -7,7 +7,8 @@ use Illuminate\Http\Response;
 use App\Lotes;
 use App\BandejasLotes;
 
-class LoteController extends Controller {
+class LoteController extends Controller
+{
 
     public function __construct()
     {
@@ -19,29 +20,28 @@ class LoteController extends Controller {
         $lotes = Lotes::all();
 
         return response()->json([
-                    'code' => 200,
-                    'status' => 'success',
-                    'Lotes' => $lotes
+            'code' => 200,
+            'status' => 'success',
+            'Lotes' => $lotes
         ]);
     }
 
     public function show($id)
     {
         $lotes = Lotes::find($id);
-        if (is_object($lotes))
-        {
+        if (is_object($lotes)) {
 
             $bandejas = BandejasLotes::where('id_lote', $id)->get();
 
-            $data = ['code' => 200,
+            $data = [
+                'code' => 200,
                 'status' => 'success',
                 'cajas' => $lotes,
                 'bandejas' => $bandejas
             ];
-        }
-        else
-        {
-            $data = ['code' => 200,
+        } else {
+            $data = [
+                'code' => 200,
                 'status' => 'Lote No encontrado',
             ];
         }
@@ -58,24 +58,22 @@ class LoteController extends Controller {
         // validar los datos
 
 
-        if (!empty($params_array))
-        {
+        if (!empty($params_array)) {
             $validate = \Validator::make($params_array, [
-                        'id_despacho' => 'required',
-                        'fecha_desove' => 'required',
-                        'linea_genetica' => 'required',
-                        'tamanio' => 'required|regex:/^\d+(\.\d{1,9})?$/',
-                        'ovasml' => 'required|regex:/^\d+(\.\d{1,9})?$/',
-                        'total_lote' => 'required|numeric',
-                        'numero_cajas' => 'required|numeric',
-                        'edad' => 'required|numeric',
-                        'numero_lote' => 'required',
-                        'repetir' => 'numeric'
+                'id_despacho' => 'required',
+                'fecha_desove' => 'required',
+                'linea_genetica' => 'required',
+                'tamanio' => 'required|regex:/^\d+(\.\d{1,9})?$/',
+                'ovasml' => 'required|regex:/^\d+(\.\d{1,9})?$/',
+                'total_lote' => 'required|numeric',
+                'numero_cajas' => 'required|numeric',
+                'edad' => 'required|numeric',
+                'numero_lote' => 'required',
+                'repetir' => 'numeric'
             ]);
 
 
-            if ($validate->fails())
-            {
+            if ($validate->fails()) {
                 $data = array(
                     'status' => 'error',
                     'code' => 200,
@@ -83,30 +81,24 @@ class LoteController extends Controller {
                     'errors' => $validate->errors(),
                     'data' => $params_array
                 );
-            }
-            else
-            {
+            } else {
 
                 $modulo = $params_array['total_lote'] % $params_array['numero_cajas'];
 
-                if ($modulo != 0)
-                {
+                if ($modulo != 0) {
                     $data = array(
                         'code' => 200,
                         'status' => 'error',
                         'message' => 'validar el tamaño del lote, y el numero de cajas'
                     );
-                }
-                else
-                {
-                    
-                    
-                    $lotes=   Lotes::where('id_despacho','=', $params_array['id_despacho'])->get();
-                    $countLotes =count( $lotes);
-                    
-                    for ($i = 1; $i <= $params_array['repetir']; $i++)
-                    {
-                        $countLotes+=1;
+                } else {
+
+
+                    $lotes =   Lotes::where('id_despacho', '=', $params_array['id_despacho'])->get();
+                    $countLotes = count($lotes);
+
+                    for ($i = 1; $i <= $params_array['repetir']; $i++) {
+                        $countLotes += 1;
                         $lote = new Lotes();
                         $lote->id_despacho = $params_array['id_despacho'];
                         $lote->fecha_desove = $params_array['fecha_desove'];
@@ -132,9 +124,7 @@ class LoteController extends Controller {
                     );
                 }
             }
-        }
-        else
-        {
+        } else {
             $data = array(
                 'status' => 'error',
                 'code' => 400,
@@ -147,28 +137,56 @@ class LoteController extends Controller {
         return response()->json($data, $data['code']);
     }
 
+    public function BorrarLote($id)
+    {
+        $lote = Lotes::find($id);
+        if (is_object($lote)) {
+            $bandejas =  BandejasLotes::where(
+                [
+                    ['id_lote', '=', $lote->id]
+                ]
+            )->get();
+
+            foreach ($bandejas as $borrar) {
+                $borrar->delete();
+            }
+            $lote->delete();
+            $data = array(
+                'status' => 'success',
+                'code' => 200,
+                'message' => 'borrado exitosamente',
+            );
+        } else {
+            $data = array(
+                'status' => 'error',
+                'code' => 400,
+                'message' => 'Sin datos que procesar',
+            );
+        }
+       
+        // devolver el resutlado
+        return response()->json($data, $data['code']);
+    }
     public function prueba($id)
     {
         $lotes = Lotes::find($id);
-        if (is_object($lotes))
-        {
+        if (is_object($lotes)) {
 
             $bandejas = $lotes->bandejas;
 
-            $data = ['code' => 200,
+            $data = [
+                'code' => 200,
                 'status' => 'success',
                 'cajas' => $lotes,
                 'bandejas' => $bandejas
             ];
-        }
-        else
-        {
-            $data = ['code' => 200,
+        } else {
+            $data = [
+                'code' => 200,
                 'status' => 'Lote No encontrado',
             ];
         }
 
         return response()->json($data, $data['code']);
     }
-
 }

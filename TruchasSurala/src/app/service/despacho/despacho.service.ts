@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { UserService } from '../user/user.service';
-import { Despacho } from '../../models/despacho';
+import { Despacho, Despachosroot } from '../../models/despacho';
 import { Observable } from 'rxjs';
 import { SaveFile } from '../../models/pedidos/guardar.pdf.response';
 
@@ -28,5 +28,11 @@ export class DespachoService {
  
     return this.userService.ejecutarQueryPost('/api/despacho/subirarchivo', params);
 
+  }
+  getDespacho(id = null) {
+    return this.userService.ejecutarQuery<Despachosroot>('/api/Despacho/' + id);
+  }
+  borrarLote(id) {
+    return this.userService.ejecutarQuery<Despachosroot>('/api/Lotes/borrar/' + id);
   }
 }
