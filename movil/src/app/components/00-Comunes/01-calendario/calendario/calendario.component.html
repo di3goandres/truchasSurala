@@ -22,16 +22,18 @@
       </ion-item>
     </ion-list>
     <ion-card-content>
-      <div class="ion-padding">
+  
+            <div class="ion-padding">
 
-        <ion-calendar [(ngModel)]="date"
-          (onChange)="onChange($event)"
-          [type]="type"
-          [format]="'YYYY-MM-DD'">
-        </ion-calendar>
-    
-      </div>
-    
+              <ion-calendar [(ngModel)]="date"
+                (onChange)="onChange($event)"
+                [type]="type"
+                [format]="'YYYY-MM-DD'">
+              </ion-calendar>
+          
+            </div>
+     
+   
     </ion-card-content>
   </ion-card>
 

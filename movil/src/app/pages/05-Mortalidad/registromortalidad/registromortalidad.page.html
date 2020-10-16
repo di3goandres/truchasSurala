@@ -424,19 +424,10 @@
           </ion-row>
   
           <ion-row>
-            <ion-col size="6" class="text-center">
-              <ion-list>
-                <ion-item>
-                  <ion-label position="floating" mode="ios" class="hielo ion-text-wrap">Horas</ion-label>
-  
-                  <ion-select class="selectNuevo" mode="ios">
-                    <ion-select-option class="hielo" *ngFor="let item of HORAS" [value]="item">{{item}}
-                    </ion-select-option>
-  
-                  </ion-select>
-                </ion-item>
-              </ion-list>
-  
+            <ion-col>
+              <ion-button ion-button shape="round" color="primary" class="btnNext" (click)="Calendario()">
+                <ion-icon name="calendar-outline"></ion-icon>
+              </ion-button>
             </ion-col>
           </ion-row>
       </ion-grid>
@@ -445,6 +436,9 @@
 
   </ion-slides>
 
+
+
+ 
 
 
 

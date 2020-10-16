@@ -5,6 +5,7 @@ import { Validators, FormBuilder, FormGroup, FormControl } from '@angular/forms'
 import { PoliticasmortalidadComponent } from '../../../components/04-Mortalidad/politicasmortalidad/politicasmortalidad.component';
 import { GuiasService } from 'src/app/services/guias/guias.service';
 import { Politicas } from '../../../models/guias/guias';
+import { CalendarioComponent } from '../../../components/00-Comunes/01-calendario/calendario/calendario.component';
 
 
 
@@ -199,6 +200,26 @@ export class RegistromortalidadPage implements OnInit {
       .then((data) => {
         console.log(data);
         this.AceptoPoliticas();
+      });
+    // const { data } = await modal.onWillDismiss();
+
+    return await modal.present();
+
+  }
+
+  async Calendario() {
+
+
+    const modal = await this.modalController.create({
+      component: CalendarioComponent,
+      cssClass: 'my-custom-class',
+     
+    });
+
+    modal.onDidDismiss()
+      .then((data) => {
+        console.log(data);
+        
       });
     // const { data } = await modal.onWillDismiss();
 

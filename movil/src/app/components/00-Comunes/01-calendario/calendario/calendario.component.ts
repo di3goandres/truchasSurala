@@ -14,9 +14,10 @@ export class CalendarioComponent implements OnInit {
 
   ) { }
 
-  ngOnInit() {}
-  onChange($event) {
-    console.log($event);
+  ngOnInit() { }
+  onChange(event) {
+    console.log(event);
+    this.viewCtrl.dismiss(null, this.date);
   }
   dismiss() {
     this.viewCtrl.dismiss(null, 'cancel');
