@@ -26,7 +26,7 @@ export class CantidaddespachadoComponent implements OnInit {
   multi: any[];
 
   colorScheme = {
-    domain: ['#5AA454', '#A10A28', '#C7B42C', '#AAAAAA']
+    domain: ['#5AA454', '#A10A28', '#C7B42C', '#AAAAAA', '#FF8633', '#19B4CD', '#B2CD19', '#CD5019', '#DFEF1F']
   }
   constructor(private service: EstadisticaService) {
     // Object.assign(this, { this.single })
