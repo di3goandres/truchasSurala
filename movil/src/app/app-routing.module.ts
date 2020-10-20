@@ -103,6 +103,14 @@ const routes: Routes = [
   {
     path: 'mensajemodal',
     loadChildren: () => import('./pages/00-usuario/mensajemodal/mensajemodal.module').then( m => m.MensajemodalPageModule)
+  },
+  {
+    path: 'tipoReporteMortalidad',
+    loadChildren: () => import('./pages/05-Mortalidad/tipomortalidad/tipomortalidad.module').then( m => m.TipomortalidadPageModule)
+  },
+  {
+    path: 'mortalidadpedidos/:id',
+    loadChildren: () => import('./pages/05-Mortalidad/mortalidadpedidos/mortalidadpedidos.module').then( m => m.MortalidadpedidosPageModule)
   }
 ];
 

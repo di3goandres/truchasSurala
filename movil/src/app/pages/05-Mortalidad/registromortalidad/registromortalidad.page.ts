@@ -77,7 +77,7 @@ export class RegistromortalidadPage implements OnInit {
     const toast = await this.toastController.create({
       message,
       duration: 2000,
-      position: 'top',
+      position: 'middle',
     });
     toast.present();
   }

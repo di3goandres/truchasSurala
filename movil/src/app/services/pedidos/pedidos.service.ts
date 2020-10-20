@@ -46,6 +46,15 @@ export class PedidosService {
 
   }
 
+  obtenerPedidosMortalidad(id){
+    this.pedido = new PedidosRequest(id);
+    let json = JSON.stringify(this.pedido)
+    let params = 'json=' + json;
+    return this.userService
+      .ejecutarQueryPost<PedidosResponse>('/api/movil/pedidosMortalidad', params)
+
+  }
+
   responseError(){
     this.userService.responseError();
   }

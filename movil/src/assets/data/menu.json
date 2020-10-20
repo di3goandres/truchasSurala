@@ -15,6 +15,11 @@
       "redirectTo": "/despachos"
     },
     {
+      "icon": "fish-outline",
+      "name": "Reclamos",
+      "redirectTo": "/tipoReporteMortalidad"
+    },
+    {
       "icon": "book-outline",
       "name": "Guia de Manejos",
       "redirectTo": "/guiasmanejo"

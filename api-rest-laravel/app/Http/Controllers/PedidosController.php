@@ -608,4 +608,30 @@ class PedidosController extends Controller
 
         return response()->json($data, $data['code']);
     }
+
+    public function pedidosByTokenMortalidad(Request $request)
+    {
+        $token = $request->header('Authorization');
+        //aca
+        $jwtAuth = new \JwtAuth();
+        $checktoken = $jwtAuth->checkToken($token);
+
+        if ($checktoken) {
+       
+            $user = $jwtAuth->checkToken($token, true);
+            $pedidos = \DB::select('call PedidosUsuarioMortalidad(?)', array($user->sub));
+            $data = array(
+                'code' => 200,
+                'status' => 'success',
+                'pedidos' => $pedidos
+            );
+        } else {
+            $data = array(
+                'code' => 200,
+                'status' => 'error',
+                'message' => 'Usuario no identificado'
+            );
+        }
+        return response()->json($data, $data['code']);
+    }
 }

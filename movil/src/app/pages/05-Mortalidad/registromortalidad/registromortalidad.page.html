@@ -1,6 +1,6 @@
 <app-header titulo="Registro Mortalidad" icon="heart-dislike-circle-outline"></app-header>
 
-<ion-content *ngIf="pedido!=null">
+<ion-content >
 
   <ion-card>
     <ion-card-header>
@@ -415,141 +415,132 @@
     </ion-slide>
 
     <ion-slide>
-      <ion-grid>
-        <ion-row>
-          <ion-col>
-            <ion-card-title class="center">INFORMACIÓN DE LA SIEMBRA</ion-card-title>
+      <ion-card>
+        <ion-card-header>
+          <ion-card-title class="center">INFORMACIÓN DE LA SIEMBRA</ion-card-title>
 
-          </ion-col>
-        </ion-row>
-        <ion-row>
-          <ion-col>
-            <ion-card-title class="center">Llegada de las ovas</ion-card-title>
-          </ion-col>
-        </ion-row>
+        </ion-card-header>
+      <ion-card-content>
+        <ion-grid style="padding-bottom: 10px;">
 
-        <ion-row>
-          <ion-col>
-            <!-- <ion-button ion-button shape="round" color="primary" class="btnNext" (click)="Calendario()">
+          <ion-row>
+            <ion-col>
+              <ion-card-title class="center">Llegada de las ovas</ion-card-title>
+            </ion-col>
+          </ion-row>
+
+          <ion-row>
+            <ion-col>
+              <!-- <ion-button ion-button shape="round" color="primary" class="btnNext" (click)="Calendario()">
               <ion-icon name="calendar-outline"></ion-icon>
             </ion-button> -->
-            <ion-list>
-              <ion-item>
-                <ion-icon slot="start" color="primary"  name="calendar-outline"></ion-icon>
-                <ion-label position="floating">Llegada de las ovas</ion-label>
-                <ion-datetime doneText="Listo" (click)="presentToast('Llegada de las ovas a aeropuerto/terminal/lugar de entrega')"
-                  monthNames="Enero, Febrero, Marzo, Abril,Mayo, Junio, Julio, Agosto, Septiembre,Octubre,Noviembre,Diciembre"
-                  monthShortNames="Ene,Feb,Mar,Abr,May,Jun,Jul,Ago,Sept,Oct,Nov,Dic" display-timezone="utc"
-                  displayFormat="MMM DD, YYYY HH:mm"
-                  [min]="minDate"
-                  [max]="maxDate"
-                  ></ion-datetime>
-              </ion-item>
+              <ion-list>
+                <ion-item>
+                  <ion-icon slot="start" color="primary" name="calendar-outline"></ion-icon>
+                  <ion-label position="floating">Llegada al lugar de entrega</ion-label>
+                  <ion-datetime doneText="Listo"
+                    (click)="presentToast('Llegada de las ovas a aeropuerto/terminal/lugar de entrega')"
+                    monthNames="Enero, Febrero, Marzo, Abril,Mayo, Junio, Julio, Agosto, Septiembre,Octubre,Noviembre,Diciembre"
+                    monthShortNames="Ene,Feb,Mar,Abr,May,Jun,Jul,Ago,Sept,Oct,Nov,Dic" display-timezone="utc"
+                    displayFormat="MMM DD, YYYY HH:mm" [min]="minDate" [max]="maxDate" mode="ios"></ion-datetime>
+                </ion-item>
 
-            </ion-list>
-          </ion-col>
-         
-        </ion-row>
+              </ion-list>
+            </ion-col>
 
-        <ion-row>
-          <ion-col>
-           
-            <ion-list>
-              <ion-item>
-                <ion-icon slot="start" color="primary"  name="calendar-outline"></ion-icon>
-                <ion-label position="floating">Llegada de las ovas a la finca</ion-label>
-                <ion-datetime doneText="Listo" (click)="presentToast('Llegada de las ovas a la finca')"
-                  monthNames="Enero, Febrero, Marzo, Abril,Mayo, Junio, Julio, Agosto, Septiembre,Octubre,Noviembre,Diciembre"
-                  monthShortNames="Ene,Feb,Mar,Abr,May,Jun,Jul,Ago,Sept,Oct,Nov,Dic" display-timezone="utc"
-                  displayFormat="MMM DD, YYYY HH:mm"
-                  [min]="minDate"
-                  [max]="maxDate"
-                  ></ion-datetime>
-              </ion-item>
+          </ion-row>
 
-            </ion-list>
-          </ion-col>
-         
-        </ion-row>
+          <ion-row>
+            <ion-col>
 
-        <ion-row>
-          <ion-col>
-           
-            <ion-list>
-              <ion-item>
-                <ion-icon slot="start" color="primary"  name="calendar-outline"></ion-icon>
-                <ion-label position="floating">Apertura de las cajas</ion-label>
-                <ion-datetime doneText="Listo" 
-                  monthNames="Enero, Febrero, Marzo, Abril,Mayo, Junio, Julio, Agosto, Septiembre,Octubre,Noviembre,Diciembre"
-                  monthShortNames="Ene,Feb,Mar,Abr,May,Jun,Jul,Ago,Sept,Oct,Nov,Dic" display-timezone="utc"
-                  displayFormat="MMM DD, YYYY HH:mm"
-                  [min]="minDate"
-                  [max]="maxDate"></ion-datetime>
-              </ion-item>
+              <ion-list>
+                <ion-item>
+                  <ion-icon slot="start" color="primary" name="calendar-outline"></ion-icon>
+                  <ion-label position="floating">Llegada de las ovas a la finca</ion-label>
+                  <ion-datetime doneText="Listo" (click)="presentToast('Llegada de las ovas a la finca')"
+                    monthNames="Enero, Febrero, Marzo, Abril,Mayo, Junio, Julio, Agosto, Septiembre,Octubre,Noviembre,Diciembre"
+                    monthShortNames="Ene,Feb,Mar,Abr,May,Jun,Jul,Ago,Sept,Oct,Nov,Dic" display-timezone="utc"
+                    displayFormat="MMM DD, YYYY HH:mm" [min]="minDate" [max]="maxDate" mode="ios"></ion-datetime>
+                </ion-item>
 
-            </ion-list>
-          </ion-col>
-         
-        </ion-row>
-        <ion-row>
-          <ion-col>
-           
-            <ion-list>
-              <ion-item>
-                <ion-icon slot="start" color="primary"  name="calendar-outline"></ion-icon>
-                <ion-label position="floating">Inicio Hidratación y aclimatación</ion-label>
-                <ion-datetime doneText="Listo" 
-                  monthNames="Enero, Febrero, Marzo, Abril,Mayo, Junio, Julio, Agosto, Septiembre,Octubre,Noviembre,Diciembre"
-                  monthShortNames="Ene,Feb,Mar,Abr,May,Jun,Jul,Ago,Sept,Oct,Nov,Dic" display-timezone="utc"
-                  displayFormat="MMM DD, YYYY HH:mm"
-                  [min]="minDate"
-                  [max]="maxDate"></ion-datetime>
-              </ion-item>
+              </ion-list>
+            </ion-col>
 
-            </ion-list>
-          </ion-col>
-         
-        </ion-row>
+          </ion-row>
 
-        <ion-row>
-          <ion-col>
-           
-            <ion-list>
-              <ion-item>
-                <ion-icon slot="start" color="primary"  name="calendar-outline"></ion-icon>
-                <ion-label position="floating">Inicio Siembra </ion-label>
-                <ion-datetime doneText="Listo" 
-                  monthNames="Enero, Febrero, Marzo, Abril,Mayo, Junio, Julio, Agosto, Septiembre,Octubre,Noviembre,Diciembre"
-                  monthShortNames="Ene,Feb,Mar,Abr,May,Jun,Jul,Ago,Sept,Oct,Nov,Dic" display-timezone="utc"
-                  displayFormat="MMM DD, YYYY HH:mm"
-                  [min]="minDate"
-                  [max]="maxDate"></ion-datetime>
-              </ion-item>
+          <ion-row>
+            <ion-col>
 
-            </ion-list>
-          </ion-col>
-         
-        </ion-row>
-        <ion-row>
-          <ion-col>
-           
-            <ion-list>
-              <ion-item>
-                <ion-icon slot="start" color="primary"  name="calendar-outline"></ion-icon>
-                <ion-label position="floating">Finalización siembra</ion-label>
-                <ion-datetime doneText="Listo" 
-                  monthNames="Enero, Febrero, Marzo, Abril,Mayo, Junio, Julio, Agosto, Septiembre,Octubre,Noviembre,Diciembre"
-                  monthShortNames="Ene,Feb,Mar,Abr,May,Jun,Jul,Ago,Sept,Oct,Nov,Dic" display-timezone="utc"
-                  displayFormat="MMM DD, YYYY HH:mm"
-                  [min]="minDate"
-                  [max]="maxDate"></ion-datetime>
-              </ion-item>
+              <ion-list>
+                <ion-item>
+                  <ion-icon slot="start" color="primary" name="calendar-outline"></ion-icon>
+                  <ion-label position="floating">Apertura de las cajas</ion-label>
+                  <ion-datetime doneText="Listo"
+                    monthNames="Enero, Febrero, Marzo, Abril,Mayo, Junio, Julio, Agosto, Septiembre,Octubre,Noviembre,Diciembre"
+                    monthShortNames="Ene,Feb,Mar,Abr,May,Jun,Jul,Ago,Sept,Oct,Nov,Dic" display-timezone="utc"
+                    displayFormat="MMM DD, YYYY HH:mm" mode="ios" [min]="minDate" [max]="maxDate"></ion-datetime>
+                </ion-item>
 
-            </ion-list>
-          </ion-col>
-         
-        </ion-row>
-      </ion-grid>
+              </ion-list>
+            </ion-col>
+
+          </ion-row>
+          <ion-row>
+            <ion-col>
+
+              <ion-list>
+                <ion-item>
+                  <ion-icon slot="start" color="primary" name="calendar-outline"></ion-icon>
+                  <ion-label position="floating">Inicio Hidratación y aclimatación</ion-label>
+                  <ion-datetime doneText="Listo"
+                    monthNames="Enero, Febrero, Marzo, Abril,Mayo, Junio, Julio, Agosto, Septiembre,Octubre,Noviembre,Diciembre"
+                    monthShortNames="Ene,Feb,Mar,Abr,May,Jun,Jul,Ago,Sept,Oct,Nov,Dic" display-timezone="utc"
+                    displayFormat="MMM DD, YYYY HH:mm" mode="ios" [min]="minDate" [max]="maxDate"></ion-datetime>
+                </ion-item>
+
+              </ion-list>
+            </ion-col>
+
+          </ion-row>
+
+          <ion-row>
+            <ion-col>
+
+              <ion-list>
+                <ion-item>
+                  <ion-icon slot="start" color="primary" name="calendar-outline"></ion-icon>
+                  <ion-label position="floating">Inicio Siembra </ion-label>
+                  <ion-datetime doneText="Listo"
+                    monthNames="Enero, Febrero, Marzo, Abril,Mayo, Junio, Julio, Agosto, Septiembre,Octubre,Noviembre,Diciembre"
+                    monthShortNames="Ene,Feb,Mar,Abr,May,Jun,Jul,Ago,Sept,Oct,Nov,Dic" display-timezone="utc"
+                    displayFormat="MMM DD, YYYY HH:mm" mode="ios" [min]="minDate" [max]="maxDate"></ion-datetime>
+                </ion-item>
+
+              </ion-list>
+            </ion-col>
+
+          </ion-row>
+          <ion-row>
+            <ion-col>
+
+              <ion-list>
+                <ion-item>
+                  <ion-icon slot="start" color="primary" name="calendar-outline"></ion-icon>
+                  <ion-label position="floating">Finalización siembra</ion-label>
+                  <ion-datetime doneText="Listo"
+                    monthNames="Enero, Febrero, Marzo, Abril,Mayo, Junio, Julio, Agosto, Septiembre,Octubre,Noviembre,Diciembre"
+                    monthShortNames="Ene,Feb,Mar,Abr,May,Jun,Jul,Ago,Sept,Oct,Nov,Dic" display-timezone="utc"
+                    displayFormat="MMM DD, YYYY HH:mm" mode="ios" [min]="minDate" [max]="maxDate"></ion-datetime>
+                </ion-item>
+
+              </ion-list>
+            </ion-col>
+
+          </ion-row>
+        </ion-grid>
+      </ion-card-content>
+    </ion-card>
+
     </ion-slide>
 
 

@@ -1,0 +1,86 @@
+<ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+  <ion-refresher-content pullingIcon="chevron-down-circle-outline" pullingText="Desliza para refrescar"
+    refreshingSpinner="circles" refreshingText="Refrescando...">
+  </ion-refresher-content>
+</ion-refresher>
+<ion-content>
+
+<ion-buttons>
+  <ion-buttons slot="start">
+
+  </ion-buttons>
+</ion-buttons>
+<ion-card *ngFor="let pedido of pedidos">
+  <ion-card-header>
+    <ion-card-title class="ovasTitulo">
+      <ion-icon name="cart-outline"></ion-icon>{{pedido.fecha_salida | date: "MMM/dd/yyyy" | uppercase}}
+    </ion-card-title>
+    <ion-card-subtitle></ion-card-subtitle>
+
+    <!-- <ion-img src="https://cdn.needish.tools/is-prod-deals/ZTT2WXf38Do4jIh3HLdzGg/scale/900x600.jpg"></ion-img> -->
+  </ion-card-header>
+  <ion-card-content>
+    <div class="row">
+      <div class="col-4">
+        <ion-label class="blueGlobal">
+          Finca: {{pedido.departamento +" - "+ pedido.municipio+" - "+ pedido.nombre}}
+        </ion-label>
+      </div>
+      <div class="col-4">
+        <ion-label class="blueGlobal">
+          Total: {{pedido.total| number}}
+        </ion-label>
+      </div>
+      <div class="col-4">
+        <ion-label class="blueGlobal">
+          Pedido: {{pedido.pedido| number}}
+        </ion-label>
+      </div>
+      <div class="col-4">
+        <ion-label class="blueGlobal">
+          Adicional: {{pedido.adicional| number}}
+        </ion-label>
+      </div>
+      <div class="col-4">
+        <ion-label class="blueGlobal">
+          Porcentaje adicional: {{pedido.porcentaje}}%
+        </ion-label>
+      </div>
+      <div class="col-4">
+        <ion-label class="blueGlobal">
+          Reposición: {{pedido.reposicion| number}}
+        </ion-label>
+      </div>
+     
+    </div>
+
+    <ion-toolbar>
+     
+      <ion-buttons slot="primary">
+        <ion-button color="primary" [routerLink]="'/RegistroMortalidad/'+pedido.id">
+          <ion-icon name="skull-outline"></ion-icon>
+        </ion-button>
+      </ion-buttons>
+    </ion-toolbar>
+
+
+  </ion-card-content>
+</ion-card>
+
+<ion-card *ngIf="pedidos.length==0">
+  <ion-card-header>
+    <ion-card-title class="center">No tienes Pedidos Vigentes</ion-card-title>
+    <img src="./assets/data/mortalidad/sorry.jpeg">
+
+  </ion-card-header>
+  <ion-card-content>
+
+    <p class="blueJustify">
+      Cualquier inquietud comunicate con Nosotros
+    </p>
+  </ion-card-content>
+</ion-card>
+
+</ion-content>
+
+
