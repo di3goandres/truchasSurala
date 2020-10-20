@@ -21,7 +21,7 @@ import { UnicafincaComponent } from './01-Fincas/unicafinca/unicafinca.component
 import { GuiaComponent } from './06-Guias/guia/guia.component';
 import { PoliticasmortalidadComponent } from './04-Mortalidad/politicasmortalidad/politicasmortalidad.component';
 import { CalendarioComponent } from './00-Comunes/01-calendario/calendario/calendario.component';
-import { CalendarModule } from 'ion2-calendar';
+// import { CalendarModule } from 'ion2-calendar';
 
 
 @NgModule({
@@ -53,7 +53,7 @@ import { CalendarModule } from 'ion2-calendar';
     PdfViewerModule,
     NgxChartsModule,
     FormsModule,
-    CalendarModule
+    // CalendarModule
 
     
 

@@ -131,6 +131,8 @@ Route::get('/api/usuarios/fincas', 'FincasController@getUserFincas');
 Route::get('/api/usuarios/fincas/{id}', 'FincasController@getFincasUser');
 Route::get('/api/datos/departamentos/', 'DatosGeneralesController@index');
 Route::post('/api/movil/pedidosusuario', 'PedidosController@pedidosByToken');
+Route::get('/api/movil/pedidoMortalidad/{id}', 'PedidosController@pedidosMortalidad');
+
 
 
 

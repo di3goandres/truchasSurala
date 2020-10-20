@@ -40,11 +40,11 @@ class PedidosController extends Controller
 
         $despacho = Despacho::where('Activo', '=', 1)->get();
 
-  
-           
 
-            
-       
+
+
+
+
         if (is_object($pedidos) && is_object($despacho)) {
             $retorno = [];
             $id = 0;
@@ -315,14 +315,14 @@ class PedidosController extends Controller
         if (is_object($pedidos)) {
             $finca = $pedidos->finca;
             $usuario = $finca->user;
-            $nombre = $usuario->name.' '.$usuario->surname;
-            $fincaNombre = $finca->departamento.'/'.$finca->municipio.', '.$finca->nombre;
+            $nombre = $usuario->name . ' ' . $usuario->surname;
+            $fincaNombre = $finca->departamento . '/' . $finca->municipio . ', ' . $finca->nombre;
             unset($pedidos['usuarios']);
             unset($pedidos['finca']);
 
-          
-            $pedidos['finca'] =$fincaNombre;
-            $pedidos['usuario'] =$nombre;
+
+            $pedidos['finca'] = $fincaNombre;
+            $pedidos['usuario'] = $nombre;
 
             $data = [
                 'code' => 200,
@@ -541,32 +541,10 @@ class PedidosController extends Controller
             // var_dump($params->id);
             // die();
 
+            $pedidos = \DB::select('call PedidosUsuario(?, ?)', array($user->sub, $params_array['id']));
 
-            $pedidos = \DB::table('pedidos')
-                ->join('despachos', 'despachos.id', '=', 'pedidos.id_despacho')
 
-                ->join('fincas', 'pedidos.id_finca', '=', 'fincas.id')
-                ->join('users', 'users.id', '=', 'fincas.user_id')
-                ->where([
-                    ['users.id', '=',  $user->sub],
-                    ['despachos.id', '=', $params_array['id']]
-                ])
-                ->select(
-                    'pedidos.id',
-                    'pedidos.pedido',
-                    'pedidos.porcentaje',
-                    'pedidos.adicional',
-                    'pedidos.reposicion',
-                    'pedidos.total',
-                    'pedidos.nombre_factura',
-                    'despachos.fecha_salida',
-                    'despachos.certificado',
-                    'fincas.nombre',
-                    'fincas.municipio',
-                    'fincas.departamento'
-                )
 
-                ->get();
 
             $data = array(
                 'code' => 200,
@@ -612,6 +590,22 @@ class PedidosController extends Controller
                 'message' => 'Usuario no identificado'
             );
         }
+        return response()->json($data, $data['code']);
+    }
+
+
+
+    public function pedidosMortalidad($id)
+    {
+
+        $pedidos = \DB::select('call PedidoMortatalidad(?)', array($id));
+
+        $data = array(
+            'code' => 200,
+            'status' => 'success',
+            'pedidos' => $pedidos
+        );
+
         return response()->json($data, $data['code']);
     }
 }

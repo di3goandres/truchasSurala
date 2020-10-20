@@ -25,16 +25,7 @@ export class PhonePipe implements PipeTransform {
     }else{
       newStr = rawNum;
     }
-    // for (; i < Math.floor(rawNum.length / 2) - 1; i++) {
-    //   if(i==0){
-    //   newStr = newStr + rawNum.substr(i * 2, 3) + "-";
-
-    //   }else{
-    //     newStr = newStr + rawNum.substr(i * 2, 2) + "-";
-
-    //   }
-      console.log(newStr);
-    // }
+  
 
     return newStr;
   }

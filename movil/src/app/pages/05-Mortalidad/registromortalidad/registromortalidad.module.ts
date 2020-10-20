@@ -8,6 +8,7 @@ import { RegistromortalidadPageRoutingModule } from './registromortalidad-routin
 
 import { RegistromortalidadPage } from './registromortalidad.page';
 import { ComponentsModule } from '../../../components/components.module';
+import { DatePicker } from '@ionic-native/date-picker/ngx';
 
 @NgModule({
   imports: [
@@ -19,6 +20,7 @@ import { ComponentsModule } from '../../../components/components.module';
     ComponentsModule
 
   ],
-  declarations: [RegistromortalidadPage]
+  declarations: [RegistromortalidadPage],
+  providers: [DatePicker]
 })
 export class RegistromortalidadPageModule {}

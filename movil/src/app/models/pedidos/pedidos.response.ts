@@ -7,7 +7,10 @@ export interface PedidosResponse {
     pedidos: Pedido[];
 }
 
-export interface Pedido {
+export class Pedido {
+    constructor(){
+        this.id =0;
+    }
     id:             number;
     pedido:         number;
     porcentaje:     number;
@@ -16,6 +19,7 @@ export interface Pedido {
     total:          number;
     nombre_factura: string;
     fecha_salida:   string;
+    fecha_maxima:   string;
     certificado:    string;
 
     nombre:         string;

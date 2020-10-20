@@ -2,15 +2,40 @@
 
 
 export class Mortalidad {
+    constructor(){
+
+     
+        this.temp_ovas_llegar= 0         
+        this.temp_agua_incubacion= 0     
+        this.metodo_aclimatacion= ""      
+        this.fuente_agua_incubacion=""   
+        this.origen_agua_incubacion=""   
+        this.uso_agua_incubacion=""      
+        this.nivel_oxigeno=""            
+        this.hora_aclimatacion=""        
+        this.minutos_aclimatacion=""     
+       
+    
+    }
     id:                       number;
     id_pedido:                number;
     id_finca:                 number;
     temp_bandeja_superior:    number;
     temp_bandeja_intermedia:  number;
     temp_bandeja_inferior:    number;
-    hielo_bandeja_superior:   number;
-    hielo_bandeja_intermedia: number;
-    hielo_bandeja_inferior:   number;
+    hielo_bandeja_superior:   string;
+    hielo_bandeja_intermedia: string;
+    hielo_bandeja_inferior:   string;
+    temp_ovas_llegar:         number;
+    temp_agua_incubacion:     number;
+    metodo_aclimatacion:      string;
+    fuente_agua_incubacion:   string;
+    origen_agua_incubacion:   string;
+    uso_agua_incubacion:      string;
+    nivel_oxigeno:            string;
+    hora_aclimatacion:        string;
+    minutos_aclimatacion:     string;
+   
     preguntas:                Pregunta[];
     diario:                   Diario[];
 }

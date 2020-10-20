@@ -1,4 +1,4 @@
-import { LOCALE_ID,NgModule } from '@angular/core';
+import { LOCALE_ID, NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import localCo from '@angular/common/locales/es-CO';
@@ -36,61 +36,68 @@ import { PdfViewerModule } from 'ng2-pdf-viewer';
 
 import { NgxChartsModule } from '@swimlane/ngx-charts'
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { DatePipe, registerLocaleData } from '@angular/common';
+import { DatePipe, getLocaleMonthNames, registerLocaleData } from '@angular/common';
 import { PipesModule } from './pipes/pipes.module';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
 import { IonicStorageModule } from '@ionic/storage';
 import { AuthinterceptorService } from './services/interceptor/authinterceptor.service';
 import { NgxSpinnerModule } from 'ngx-spinner';
-// Calendar UI Module
-import { CalendarModule } from 'ion2-calendar';
+import { DatePicker } from '@ionic-native/date-picker';
+
 registerLocaleData(localCo);
 
 @NgModule({
   declarations: [AppComponent],
   entryComponents: [],
   imports: [
-          BrowserModule,
-          BrowserAnimationsModule,
-          IonicModule.forRoot({swipeBackEnabled:false}),
-          AppRoutingModule,
-          HttpClientModule,
-          ComponentsModule,
-          PdfViewerModule,
-          NgxChartsModule,
-          FormsModule,
-          ReactiveFormsModule,
-          PipesModule,
-          NgxSpinnerModule,
-          CalendarModule,
-          ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }), 
-          IonicStorageModule.forRoot()
+    BrowserModule,
+    BrowserAnimationsModule,
+    IonicModule.forRoot(
+      {
+        swipeBackEnabled: false
+      }
 
-       
-        ],
+    ),
+    AppRoutingModule,
+    HttpClientModule,
+    ComponentsModule,
+    PdfViewerModule,
+    NgxChartsModule,
+    FormsModule,
+    ReactiveFormsModule,
+    PipesModule,
+    NgxSpinnerModule,
+
+    ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),
+    IonicStorageModule.forRoot()
+
+
+  ],
   providers: [
     FormsModule,
 
     ReactiveFormsModule,
     StatusBar,
-    SplashScreen, 
+    SplashScreen,
     OneSignal,
     File,
-    FileOpener, 
+    FileOpener,
     FileTransfer,
     DocumentViewer,
     WebView,
     Camera,
     HomePage,
     DatePipe,
+
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
     { provide: LOCALE_ID, useValue: 'es-Co' },
     { provide: HTTP_INTERCEPTORS, useClass: AuthinterceptorService, multi: true },
 
-  
+
+
 
   ],
   bootstrap: [AppComponent]
 })
-export class AppModule {}
+export class AppModule { }

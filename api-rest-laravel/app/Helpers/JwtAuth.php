@@ -45,7 +45,7 @@ class JwtAuth {
                 'telefono' => $user->telefono,
 
                 'iat' => time(),
-                'exp' => time() + (7 * 24 * 60 * 60),
+                'exp' => time() + (180 * 24 * 60 * 60),
             );
 
             $jwt = JWT::encode($token, $this->key, 'HS256'); //key es la que va estar en el bakend

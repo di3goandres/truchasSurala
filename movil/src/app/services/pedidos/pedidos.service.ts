@@ -18,7 +18,7 @@ export class PedidosService {
     this.pedido = new PedidosRequest(id);
     let json = JSON.stringify(this.pedido)
     let params = 'json=' + json;
-    console.log(params)
+    
     return this.userService
       .ejecutarQueryPost<PedidosResponse>('/api/movil/pedidosusuario', params)
   }
@@ -37,6 +37,12 @@ export class PedidosService {
     return this.userService
       .ejecutarQuery<TrazabilidadResponse>('/api/Distribucion/' + id)
 
+
+  }
+
+  obtenerPedidoMoralidad(id){
+    return this.userService
+      .ejecutarQuery<PedidosResponse>('/api/movil/pedidoMortalidad/' + id)
 
   }
 

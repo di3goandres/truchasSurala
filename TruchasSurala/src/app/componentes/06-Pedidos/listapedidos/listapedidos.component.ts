@@ -188,23 +188,12 @@ export class ListapedidosComponent implements OnInit {
           this.pedidos = [];
           if (response.pedido.length !== 0) {
             this.pedidos.push(...response.pedido);
-
-
-
           }
           this.actual = new Despacho();
           this.actual = response.despacho[0];
-
-
-
-
           this.totaldespacho = response.total;
           this.totalenPedidos = response.totalPedidos;
           this.totalUsado = response.totalUsado;
-
-
-
-
 
           this.porcentaje = response.despacho[0].porcentaje;
           this.dataSource = new MatTableDataSource(this.pedidos);

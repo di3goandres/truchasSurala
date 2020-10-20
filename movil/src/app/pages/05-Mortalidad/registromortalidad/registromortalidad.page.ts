@@ -1,11 +1,14 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
-import { IonSlides, ModalController } from '@ionic/angular';
+import { IonSlides, ModalController, ToastController } from '@ionic/angular';
 import { Mortalidad, Preguntas } from '../../../models/mortalidad/mortalidad.request';
 import { Validators, FormBuilder, FormGroup, FormControl } from '@angular/forms';
 import { PoliticasmortalidadComponent } from '../../../components/04-Mortalidad/politicasmortalidad/politicasmortalidad.component';
 import { GuiasService } from 'src/app/services/guias/guias.service';
 import { Politicas } from '../../../models/guias/guias';
-import { CalendarioComponent } from '../../../components/00-Comunes/01-calendario/calendario/calendario.component';
+import { DatePicker } from '@ionic-native/date-picker/ngx';
+import { ActivatedRoute } from '@angular/router';
+import { PedidosService } from '../../../services/pedidos/pedidos.service';
+import { Pedido } from '../../../models/pedidos/pedidos.response';
 
 
 
@@ -15,9 +18,21 @@ import { CalendarioComponent } from '../../../components/00-Comunes/01-calendari
   styleUrls: ['./registromortalidad.page.scss'],
 })
 export class RegistromortalidadPage implements OnInit {
+  idPedido = 0;
+  pedido: Pedido;
+  minDate: any;
+  maxDate: any;
   Temperatura: any[] = [9, 10, 11, 12, 13, 14, 15, 16]
   HORAS: any[] = [1, 2, 3, 4, 5, 6, 9]
   MINUTOS: any[] = [5, 10, 15, 20, 25, 30, 35, 40, 45, 50, 55]
+  Months = "Enero, Febrero, Marzo, Abril,Mayo, Junio, Julio, Agosto, Septiembre,Octubre,Noviembre,Diciembre";
+  ShortMonths: "Ene,Feb,Mar,Abr,May,Jun,Jul,Ago,Sept,Oct,Nov,Dic"
+  customPickerOptions: any;
+  rangoPorcentaje: any[] = ['0-10%', '11-20%', '21-30%',
+    '31-40%', '41-50%', '51-60%',
+    '61-70%', '71-80%', '81-90%',
+    '91-100%']
+
 
   metodo: any[] = ['MANUAL', 'BOMBA']
   fuente: any[] = ['RIO', 'QUEBRADA', 'NACEDERO']
@@ -34,14 +49,38 @@ export class RegistromortalidadPage implements OnInit {
   registro: Mortalidad = new Mortalidad();
   formGroupTemperatura: FormGroup;
   formGroupTemperatura2: FormGroup;
+  formGroupSiembra: FormGroup;
   formValidar = 0;
   constructor(
-    private _formBuilder: FormBuilder,
+
     public modalController: ModalController,
     private guiasService: GuiasService,
+    private datePicker: DatePicker,
+    public toastController: ToastController,
+    private route: ActivatedRoute,
+    private servicio: PedidosService,
+
+
 
   ) { }
 
+  cargar(): void {
+    this.route.params.subscribe(
+      params => {
+        this.idPedido = params.id;
+
+      }
+    );
+  }
+
+  async presentToast(message) {
+    const toast = await this.toastController.create({
+      message,
+      duration: 2000,
+      position: 'top',
+    });
+    toast.present();
+  }
   cargarPoliticas() {
     this.guiasService.getPoliticas().subscribe(
       OK => {
@@ -73,23 +112,23 @@ export class RegistromortalidadPage implements OnInit {
     console.log(regExp.test(newValue))
     if (!regExp.test(newValue)) {
       actual.value = newValue.slice(0, -1);
-    }else
-    if (actual.value.length == 2) {
-      nextElement.setFocus();
+    } else
+      if (actual.value.length == 2) {
+        nextElement.setFocus();
 
-    }
+      }
   }
   moveFocus_3(actual, nextElement) {
-   
+
     let regExp = new RegExp('^[0-9]*$');
     let newValue = actual.value;
     if (!regExp.test(newValue)) {
       actual.value = newValue.slice(0, -1);
-    }else
-    if (actual.value.length == 3) {
-      nextElement.setFocus();
+    } else
+      if (actual.value.length == 3) {
+        nextElement.setFocus();
 
-    }
+      }
   }
   cargarPreguntas() {
     this.preguntas.tipo_pregunta = 'INFORMACION DE LA SIEMBRA';
@@ -114,21 +153,7 @@ export class RegistromortalidadPage implements OnInit {
     // this.preguntas.preguntas.push(this.cargarPregunta('Nivel de Oxígeno - agua de entrada y salida (ppm)', false, 'text', null))
 
   }
-  ngOnInit() {
-    this.cargarPoliticas();
-    this.formGroupTemperatura = new FormGroup({
-      inferior: new FormControl('', [Validators.min(0), Validators.max(40)]),
-      mitad: new FormControl('', [Validators.min(0), Validators.max(40)]),
-      superior: new FormControl('', [Validators.min(0), Validators.max(40)]),
-      inferior2: new FormControl('', [Validators.min(0), Validators.max(100)]),
-      mitad2: new FormControl('', [Validators.min(0), Validators.max(100)]),
-      superior2: new FormControl('', [Validators.min(0), Validators.max(100)]),
 
-    });
-
-    this.cargarPreguntas();
-
-  }
 
   bloquear() {
     // console.log('cargue')
@@ -206,24 +231,24 @@ export class RegistromortalidadPage implements OnInit {
     return await modal.present();
 
   }
+  myDateNTime: Date;
+  Calendario() {
 
-  async Calendario() {
-
-
-    const modal = await this.modalController.create({
-      component: CalendarioComponent,
-      cssClass: 'my-custom-class',
-     
-    });
-
-    modal.onDidDismiss()
-      .then((data) => {
-        console.log(data);
-        
-      });
-    // const { data } = await modal.onWillDismiss();
-
-    return await modal.present();
+    let time = new Date()
+    this.datePicker.show({
+      date: new Date(),
+      minDate: time.setDate(time.getDate() - 3),
+      maxDate: time.setDate(time.getDate() + 2),
+      titleText: "Llegada de Ovas a la Finca",
+      mode: 'datetime',
+      androidTheme: this.datePicker.ANDROID_THEMES.THEME_HOLO_DARK
+    }).then(
+      date => {
+        console.log('Got date: ', date)
+        this.myDateNTime = date// date.getDate()+"/"+date.toLocaleString('default', { month: 'long' })+"/"+date.getFullYear();
+      },
+      err => console.log('Error occurred while getting date: ', err)
+    );
 
   }
 
@@ -233,5 +258,57 @@ export class RegistromortalidadPage implements OnInit {
     this.slides.slideNext();
     this.slideChanged()
     this.slides.lockSwipes(true);
+  }
+
+  Guardar() {
+    console.log("Datos", this.registro)
+  }
+
+  traerPedido() {
+    this.servicio.obtenerPedidoMoralidad(this.idPedido).subscribe(
+      OK => { console.log(OK)
+        this.pedido = new Pedido();
+        this.pedido = OK.pedidos[0];
+        this.minDate = this.pedido.fecha_salida
+        this.maxDate = this.pedido.fecha_maxima
+      },
+      ERROR => { console.log(ERROR) },
+    )
+  }
+  ngOnInit() {
+
+    this.cargar()
+    this.traerPedido();
+
+    this.cargarPoliticas();
+    this.formGroupTemperatura = new FormGroup({
+      inferior: new FormControl('', [Validators.min(0), Validators.max(40)]),
+      mitad: new FormControl('', [Validators.min(0), Validators.max(40)]),
+      superior: new FormControl('', [Validators.min(0), Validators.max(40)]),
+      // inferior2: new FormControl('', [Validators.min(0), Validators.max(40)]),
+
+      inferior2: new FormControl('', Validators.required),
+      mitad2: new FormControl('', Validators.required),
+      superior2: new FormControl('', Validators.required),
+
+    });
+
+    this.formGroupSiembra = new FormGroup({
+      temLlegada: new FormControl('', Validators.required),
+      temLlegadaAgua: new FormControl('', Validators.required),
+      metAclimatacion: new FormControl('', Validators.required),
+      FuenteAgua: new FormControl('', Validators.required),
+      OrigenAgua: new FormControl('', Validators.required),
+      UsoAgua: new FormControl('', Validators.required),
+      NivelOxigeno: new FormControl('', Validators.required),
+      Horas: new FormControl('', Validators.required),
+      Min: new FormControl('', Validators.required),
+
+
+
+    })
+
+    this.cargarPreguntas();
+
   }
 }
