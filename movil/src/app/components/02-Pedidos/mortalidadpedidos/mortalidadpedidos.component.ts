@@ -9,6 +9,7 @@ import { Pedido } from '../../../models/pedidos/pedidos.response';
 })
 export class MortalidadpedidosComponent implements OnInit {
 
+  noMostrar = false;
   pedidos: Pedido[] = []
   constructor(
     private servicio: PedidosService,
@@ -25,6 +26,7 @@ async  cargar() {
           OK => {
             this.pedidos = [];
             this.pedidos.push(... OK.pedidos)
+            this.noMostrar = true
           },
           ERROR => {console.log(ERROR)},
         )

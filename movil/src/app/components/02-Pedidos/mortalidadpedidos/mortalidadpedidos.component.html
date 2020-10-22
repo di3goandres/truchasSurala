@@ -10,7 +10,7 @@
 
   </ion-buttons>
 </ion-buttons>
-<ion-card *ngFor="let pedido of pedidos">
+<ion-card *ngFor="let pedido of pedidos" [routerLink]="'/RegistroMortalidad/'+pedido.id">
   <ion-card-header>
     <ion-card-title class="ovasTitulo">
       <ion-icon name="cart-outline"></ion-icon>{{pedido.fecha_salida | date: "MMM/dd/yyyy" | uppercase}}
@@ -67,7 +67,8 @@
   </ion-card-content>
 </ion-card>
 
-<ion-card *ngIf="pedidos.length==0">
+<div *ngIf="noMostrar==true">
+  <ion-card *ngIf="pedidos.length==0">
   <ion-card-header>
     <ion-card-title class="center">No tienes Pedidos Vigentes</ion-card-title>
     <img src="./assets/data/mortalidad/sorry.jpeg">
@@ -80,6 +81,8 @@
     </p>
   </ion-card-content>
 </ion-card>
+</div>
+
 
 </ion-content>
 

@@ -22,7 +22,7 @@ export class PoliticasmortalidadComponent implements OnInit {
   }
 
   dismiss() {
-    this.viewCtrl.dismiss(null, 'cancel');
+    this.viewCtrl.dismiss(null, 'OK');
   }
 
   carcarPoliticas() {

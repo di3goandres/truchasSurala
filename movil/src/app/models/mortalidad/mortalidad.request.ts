@@ -4,16 +4,8 @@
 export class Mortalidad {
     constructor(){
 
+
      
-        this.temp_ovas_llegar= 0         
-        this.temp_agua_incubacion= 0     
-        this.metodo_aclimatacion= ""      
-        this.fuente_agua_incubacion=""   
-        this.origen_agua_incubacion=""   
-        this.uso_agua_incubacion=""      
-        this.nivel_oxigeno=""            
-        this.hora_aclimatacion=""        
-        this.minutos_aclimatacion=""     
        
     
     }
@@ -26,6 +18,19 @@ export class Mortalidad {
     hielo_bandeja_superior:   string;
     hielo_bandeja_intermedia: string;
     hielo_bandeja_inferior:   string;
+
+    utilizo_transporte:       boolean;  
+    demora_llegada:           boolean;  
+    danio_cajas:              boolean;  
+
+    cambioGranja:             boolean;
+    distintas:                boolean;
+    similar:                  boolean;
+
+
+
+
+
     temp_ovas_llegar:         number;
     temp_agua_incubacion:     number;
     metodo_aclimatacion:      string;
@@ -35,6 +40,27 @@ export class Mortalidad {
     nivel_oxigeno:            string;
     hora_aclimatacion:        string;
     minutos_aclimatacion:     string;
+
+    //fechas que quedaran guardaddas como horas?
+    llegada_ovas:             string;
+    llegada_ovas_finca:       string;
+    apertura_cajas:           string;
+    inicio_hidratacion:       string;
+    inicio_siembra:           string;
+    finalizacion_siembra:     string;
+    inicio_eclosion:          string;
+    fin_eclosion:             string;
+    fecha_inicioProblema:     string;  
+
+
+
+
+    //preguntas
+
+
+
+
+
    
     preguntas:                Pregunta[];
     diario:                   Diario[];

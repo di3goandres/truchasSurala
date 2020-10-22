@@ -26,7 +26,7 @@ export class EstadisticaComponent implements OnInit {
   showXAxisLabel = true;
   xAxisLabel = 'Fecha';
   showYAxisLabel = true;
-  yAxisLabel = 'Dato';
+  yAxisLabel = '';
   ytamanioAxisLabel = 'Tamaño';
   timeline: boolean = true;
 

@@ -9,7 +9,7 @@ ion-label {
 
 .selectNuevo{
   color: #f33d01;
-  font-weight: bold;
+  // font-weight: bold;
   font-size: 14px;
   // left: auto!important;
   overflow: hidden;
@@ -26,16 +26,46 @@ ion-label {
 }
 .hielo{
     color: rgb(14, 105, 179);
-    font-weight: bold;
-    font-size: 12px;
+    // font-weight: bold;
+    font-size: 14px;
+
+
+  }
+  .centrarIcon{
+    padding-top: 18px;
+  }
+  .hielo_v2{
+    color: rgb(14, 105, 179);
+    font-size: 18px;
+
+
+  }
+  .hielo_v3{
+    color: rgb(14, 105, 179);
+    font-size: 18px;
+    text-align: center;
 
 
   }
   .bandeja{
   
     color: #f33d01;
-    font-weight: bold;
+    // font-weight: bold;
     font-size: 14px;
+  }
+
+  .bandeja_center{
+  
+    color: #f33d01;
+    // font-weight: bold;
+    font-size: 16px;
+    text-align: center;
+  }
+
+  .bandeja_fechas{
+  
+    color: #f33d01;
+    font-size: 17px;
 
   }
 
@@ -46,4 +76,12 @@ ion-label {
     font-size: 14px;
     text-align: center;
 
+  }
+
+  .ajuste{
+    height: 100%;
+  
+    ion-row {
+      height: 11.11%;
+    }
   }
