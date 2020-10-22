@@ -186,14 +186,14 @@ export class RegistromortalidadPage implements OnInit {
         this.slides.lockSwipes(false);
         this.slides.slideNext();
         this.slideChanged() 
-        this.ionContent.scrollToTop(1000)
+        this.ionContent.scrollToTop(500)
         this.slides.lockSwipes(true);
       } else {
         console.log('Soy invalido y debo mostarr que lo soy');
       }
     } else {
       this.slides.lockSwipes(false);
-      this.ionContent.scrollToTop(1000)
+      this.ionContent.scrollToTop(500)
       this.slides.slideNext();
       this.slideChanged()
       this.slides.lockSwipes(true);
@@ -204,7 +204,7 @@ export class RegistromortalidadPage implements OnInit {
     this.slides.lockSwipes(false);
 
     this.slides.slidePrev();
-    this.ionContent.scrollToTop(1000)
+    this.ionContent.scrollToTop(500)
     this.slideChanged()
     this.slides.lockSwipes(true);
 
@@ -213,7 +213,7 @@ export class RegistromortalidadPage implements OnInit {
 
   slideOpts = {
     initialSlide: 0,
-    speed: 1000,
+    speed: 500,
   }
 
     async VerPoliticas() {
@@ -264,6 +264,8 @@ export class RegistromortalidadPage implements OnInit {
       this.slides.lockSwipes(false);
       this.slides.slideNext();
       this.slideChanged()
+      this.ionContent.scrollToTop(500)
+
       this.slides.lockSwipes(true);
     }
 

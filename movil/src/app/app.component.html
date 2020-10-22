@@ -37,7 +37,7 @@
         <ion-list>
 
           <ion-menu-toggle autoHide="false" *ngFor="let c of componentesInvitado | async">
-            <ion-item [routerLink]="c.redirectTo">
+            <ion-item [routerLink]="c.redirectTo" class="equal-sized-item_v2">
               <ion-icon slot="start" [name]="c.icon" class="blue"></ion-icon>
               <ion-label class="ovas">{{ c.name }}</ion-label>
             </ion-item>
