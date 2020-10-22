@@ -15,7 +15,7 @@
   </ion-card>
 
   <!-- (ionSlidesDidLoad)="bloquear()" -->
-  <ion-slides #slides [options]="slideOpts" >
+  <ion-slides #slides [options]="slideOpts">
 
     <ion-slide #slideaceptacion style="height: 100%;">
       <ion-card>
@@ -85,10 +85,9 @@
                     <ion-label class="bandeja" position="floating">
                       SUPERIOR
                     </ion-label>
-                    <ion-input
-                      class="hielo_v3"
-                    required type="tel" min="0" max="40" maxlength="2" tabindex="1" (keyup)="moveFocus(a, b)"
-                      #a name="superior" formControlName="superior" [(ngModel)]="registro.temp_bandeja_superior">
+                    <ion-input class="hielo_v3" required type="tel" min="0" max="40" maxlength="2" tabindex="1"
+                      (keyup)="moveFocus(a, b)" #a name="superior" formControlName="superior"
+                      [(ngModel)]="registro.temp_bandeja_superior">
                     </ion-input>
 
                   </ion-item>
@@ -98,10 +97,9 @@
                     <ion-label class="bandeja" position="floating">
                       MEDIA
                     </ion-label>
-                    <ion-input 
-                    class="hielo_v3"
-                    required type="tel" min="0" max="40" formControlName="mitad" maxlength="2" tabindex="2"
-                      (keyup)="moveFocus(b, c)" #b [(ngModel)]="registro.temp_bandeja_intermedia">
+                    <ion-input class="hielo_v3" required type="tel" min="0" max="40" formControlName="mitad"
+                      maxlength="2" tabindex="2" (keyup)="moveFocus(b, c)" #b
+                      [(ngModel)]="registro.temp_bandeja_intermedia">
                     </ion-input>
 
                   </ion-item>
@@ -113,10 +111,8 @@
                       INFERIOR
 
                     </ion-label>
-                    <ion-input 
-                    class="hielo_v3"
-                    required type="tel" min="0" max="40" formControlName="inferior" maxlength="2"
-                      tabindex="3" #c [(ngModel)]="registro.temp_bandeja_inferior">
+                    <ion-input class="hielo_v3" required type="tel" min="0" max="40" formControlName="inferior"
+                      maxlength="2" tabindex="3" #c [(ngModel)]="registro.temp_bandeja_inferior">
                     </ion-input>
 
                   </ion-item>
@@ -138,7 +134,7 @@
                     <ion-label position="floating" mode="ios" class="hielo"> SUPERIOR
                     </ion-label>
 
-                    <ion-select class="selectNuevo" mode="ios" required formControlName="superior2"
+                    <ion-select class="selectNuevo" mode="ios"   tabindex="4" required formControlName="superior2"
                       [(ngModel)]="registro.hielo_bandeja_superior">
                       <ion-select-option class="hielo" *ngFor="let item of rangoPorcentaje" [value]="item">{{item}}
                       </ion-select-option>
@@ -190,21 +186,22 @@
                   <ion-list>
                     <ion-item>
                       <ion-list lines="none">
-                        <ion-radio-group [(ngModel)]="registro.utilizo_transporte" required formControlName="transporte">
+                        <ion-radio-group [(ngModel)]="registro.utilizo_transporte" required
+                          formControlName="transporte">
                           <ion-list-header>
                             <ion-label class="bandeja_center ion-text-wrap">
                               ¿Se utilizó transporte con refrigeración para el transporte de las ovas?
                             </ion-label>
                           </ion-list-header>
 
-                          <ion-item>
-                            <ion-label mode="ios" class="hielo_v2 ion-text-wrap">Si</ion-label>
-                            <ion-radio mode="ios" slot="end"  value="true"></ion-radio>
+                          <ion-item mode="md">
+                            <ion-label mode="ios" class="hielo ion-text-wrap">Si</ion-label>
+                            <ion-radio mode="ios" slot="end" value="true"></ion-radio>
                           </ion-item>
 
-                          <ion-item>
-                            <ion-label  mode="ios" class="hielo_v2 ion-text-wrap">No</ion-label>
-                            <ion-radio mode="ios" slot="end"  value="false"></ion-radio>
+                          <ion-item mode="md">
+                            <ion-label mode="ios" class="hielo ion-text-wrap">No</ion-label>
+                            <ion-radio mode="ios" slot="end" value="false"></ion-radio>
                           </ion-item>
 
                         </ion-radio-group>
@@ -212,21 +209,22 @@
                     </ion-item>
                     <ion-item>
                       <ion-list lines="none">
-                        <ion-radio-group [(ngModel)]="registro.demora_llegada" required formControlName="demora_llegada">
+                        <ion-radio-group [(ngModel)]="registro.demora_llegada" required
+                          formControlName="demora_llegada">
                           <ion-list-header>
                             <ion-label class="bandeja_center ion-text-wrap">
                               A su conocimiento hubo problemas/demora en el transporte de las ovas?
                             </ion-label>
                           </ion-list-header>
 
-                          <ion-item>
-                            <ion-label  mode="ios" class="hielo_v2 ion-text-wrap">Si</ion-label>
-                            <ion-radio mode="ios" slot="end"  value="true"></ion-radio>
+                          <ion-item mode="md"> 
+                            <ion-label mode="ios" class="hielo ion-text-wrap">Si</ion-label>
+                            <ion-radio mode="ios" slot="end" value="true"></ion-radio>
                           </ion-item>
 
-                          <ion-item>
-                            <ion-label mode="ios" class="hielo_v2 ion-text-wrap">No</ion-label>
-                            <ion-radio mode="ios" slot="end"  value="false"></ion-radio>
+                          <ion-item mode="md">
+                            <ion-label mode="ios" class="hielo ion-text-wrap">No</ion-label>
+                            <ion-radio mode="ios" slot="end" value="false"></ion-radio>
                           </ion-item>
 
                         </ion-radio-group>
@@ -235,20 +233,20 @@
                     <ion-item>
                       <ion-list lines="none">
                         <ion-radio-group [(ngModel)]="registro.danio_cajas" required formControlName="danio_cajas">
-                          <ion-list-header>
+                          <ion-list-header  class="bandeja_center">
                             <ion-label class="bandeja_center ion-text-wrap">
-                              ¿Hubo algún daño en las cajas?
+                               ¿Hubo algún daño en las cajas?
                             </ion-label>
                           </ion-list-header>
 
-                          <ion-item>
-                            <ion-label mode="ios" class="hielo_v2 ion-text-wrap">Si</ion-label>
-                            <ion-radio mode="ios" slot="end"  value="true"></ion-radio>
+                          <ion-item mode="md">
+                            <ion-label mode="ios" class="hielo ion-text-wrap">Si</ion-label>
+                            <ion-radio mode="ios" slot="end" value="true"></ion-radio>
                           </ion-item>
 
-                          <ion-item>
-                            <ion-label mode="ios" class="hielo_v2 ion-text-wrap">No</ion-label>
-                            <ion-radio mode="ios" slot="end"  value="false"></ion-radio>
+                          <ion-item mode="md">
+                            <ion-label mode="ios" class="hielo ion-text-wrap">No</ion-label>
+                            <ion-radio mode="ios" slot="end" value="false"></ion-radio>
                           </ion-item>
 
                         </ion-radio-group>
@@ -286,7 +284,7 @@
 
       <ion-card>
         <ion-card-header>
-          <ion-card-title class="center">INFORMACIÓN DE LA SIEMBRA</ion-card-title>
+          <ion-card-title class="bandeja">INFORMACIÓN DE LA SIEMBRA</ion-card-title>
 
         </ion-card-header>
         <ion-card-content>
@@ -298,13 +296,14 @@
               <ion-row>
                 <ion-col size="6" class="text-center">
                   <ion-list>
-                    <ion-item>
-                      <ion-label position="floating" mode="ios" class="hielo ion-text-wrap">°C de las ovas al llegar
+                    <ion-item mode="md">
+                      <ion-label position="floating" mode="ios" class="hielo ion-text-wrap">Temperatura (°C) de las ovas al llegar
                       </ion-label>
 
                       <ion-select class="selectNuevo" mode="ios" required formControlName="temLlegada"
                         [(ngModel)]="registro.temp_ovas_llegar">
-                        <ion-select-option class="hielo" *ngFor="let item of Temperatura" [value]="item">{{item}}
+                        <ion-select-option class="hielo" *ngFor="let item of Temperatura_llegada" [value]="item">
+                          {{item}}
                         </ion-select-option>
 
                       </ion-select>
@@ -317,9 +316,9 @@
             <ion-row> -->
                 <ion-col size="6" class="text-center">
                   <ion-list>
-                    <ion-item>
-                      <ion-label position="floating" mode="ios" class="hielo ion-text-wrap"> °C del agua de
-                        incubación
+                    <ion-item mode="md">
+                      <ion-label position="floating" mode="ios" class="hielo ion-text-wrap"> Temperatura (°C) del agua
+                        de incubación
                       </ion-label>
 
                       <ion-select class="selectNuevo" mode="ios" required formControlName="temLlegadaAgua"
@@ -337,7 +336,7 @@
               <ion-row>
                 <ion-col size="6" class="text-center">
                   <ion-list>
-                    <ion-item>
+                    <ion-item mode="md">
                       <ion-label position="floating" mode="ios" class="hielo ion-text-wrap"> Método de aclimatación
                       </ion-label>
 
@@ -358,7 +357,7 @@
             <ion-row> -->
                 <ion-col size="6" class="text-center">
                   <ion-list>
-                    <ion-item>
+                    <ion-item mode="md">
                       <ion-label position="floating" mode="ios" class="hielo ion-text-wrap"> Fuente de Agua de
                         Incubación
                       </ion-label>
@@ -376,7 +375,7 @@
               <ion-row>
                 <ion-col size="6" class="text-center">
                   <ion-list>
-                    <ion-item>
+                    <ion-item mode="md">
                       <ion-label position="floating" mode="ios" class="hielo ion-text-wrap"> ¿Origen del agua de
                         incubación?
                       </ion-label>
@@ -396,9 +395,8 @@
             <ion-row> -->
                 <ion-col size="6" class="text-center">
                   <ion-list>
-                    <ion-item>
-                      <ion-label position="floating" mode="ios" class="hielo ion-text-wrap"> Uso del agua de
-                        Incubación
+                    <ion-item mode="md">
+                      <ion-label position="floating" mode="ios" class="hielo ion-text-wrap"> Sistema de circulación del agua
                       </ion-label>
 
                       <ion-select class="selectNuevo" mode="ios" required formControlName="UsoAgua"
@@ -415,10 +413,14 @@
               <ion-row>
                 <ion-col size="12" class="text-center">
                   <ion-list>
-                    <ion-item>
-                      <ion-label position="floating" class="hielo ion-text-wrap">Nivel de Oxígeno</ion-label>
-                      <ion-textarea required formControlName="NivelOxigeno" [(ngModel)]="registro.nivel_oxigeno">
-                      </ion-textarea>
+                    <ion-item mode="md">
+                      <ion-label position="floating" class="hielo ion-text-wrap">Nivel de Oxígeno (PPM o mg/l)
+                      </ion-label>
+
+
+                      <ion-input class="hielo_v3" maxlength="3" required type="tel" required
+                        formControlName="NivelOxigeno" [(ngModel)]="registro.nivel_oxigeno">
+                      </ion-input>
                     </ion-item>
 
                   </ion-list>
@@ -428,14 +430,14 @@
 
               <ion-row>
                 <ion-col>
-                  <ion-card-title class="center">TIEMPO DE ACLIMATACIÓN</ion-card-title>
+                  <ion-card-title class="bandeja">TIEMPO DE ACLIMATACIÓN</ion-card-title>
                 </ion-col>
               </ion-row>
 
               <ion-row>
                 <ion-col size="6" class="text-center">
                   <ion-list>
-                    <ion-item>
+                    <ion-item mode="md">
                       <ion-label position="floating" mode="ios" class="hielo ion-text-wrap">Horas</ion-label>
 
                       <ion-select class="selectNuevo" mode="ios" required formControlName="Horas"
@@ -450,7 +452,7 @@
                 </ion-col>
                 <ion-col size="6" class="text-center">
                   <ion-list>
-                    <ion-item>
+                    <ion-item mode="md">
                       <ion-label position="floating" mode="ios" class="hielo ion-text-wrap">Min</ion-label>
 
                       <ion-select class="selectNuevo" mode="ios" required formControlName="Min"
@@ -498,7 +500,8 @@
     <ion-slide #slidefechas>
       <ion-card>
         <ion-card-header>
-          <ion-card-title class="center">INFORMACIÓN DE LA SIEMBRA</ion-card-title>
+          <ion-card-title class="bandeja">INFORMACIÓN DE LA SIEMBRA</ion-card-title>
+          <ion-card-subtitle class="hielo">Fecha y Hora</ion-card-subtitle>
 
         </ion-card-header>
         <ion-card-content>
@@ -507,12 +510,12 @@
 
 
               <ion-row>
-                <ion-col>
+                <ion-col size="12">
 
                   <ion-list>
-                    <ion-item>
+                    <ion-item mode="md">
                       <ion-icon class="centrarIcon" slot="start" color="primary" name="calendar-outline"></ion-icon>
-                      <ion-label position="floating" mode="ios" class="hielo_v2 ion-text-wrap">Lugar de entrega
+                      <ion-label position="floating" mode="ios" class="hielo ion-text-wrap">Recepción
                       </ion-label>
                       <ion-datetime doneText="Listo" required [(ngModel)]="registro.llegada_ovas"
                         formControlName="llegada_ovas" class="bandeja_fechas"
@@ -521,9 +524,10 @@
                         monthShortNames="Ene,Feb,Mar,Abr,May,Jun,Jul,Ago,Sept,Oct,Nov,Dic" display-timezone="utc"
                         displayFormat="MMM DD, YYYY HH:mm" [min]="minDate" [max]="maxDate" mode="ios"></ion-datetime>
                     </ion-item>
-                    <ion-item>
+                    <ion-item mode="md">
                       <ion-icon class="centrarIcon" slot="start" color="primary" name="calendar-outline"></ion-icon>
-                      <ion-label position="floating" mode="ios" class="hielo_v2 ion-text-wrap">A la finca</ion-label>
+                      <ion-label position="floating" mode="ios" class="hielo ion-text-wrap">Llegada a la finca
+                      </ion-label>
                       <ion-datetime doneText="Listo" (click)="presentToast('Llegada de las ovas a la finca')" required
                         [(ngModel)]="registro.llegada_ovas_finca" formControlName="llegada_ovas_finca"
                         class="bandeja_fechas"
@@ -531,9 +535,10 @@
                         monthShortNames="Ene,Feb,Mar,Abr,May,Jun,Jul,Ago,Sept,Oct,Nov,Dic" display-timezone="utc"
                         displayFormat="MMM DD, YYYY HH:mm" [min]="minDate" [max]="maxDate" mode="ios"></ion-datetime>
                     </ion-item>
-                    <ion-item>
+                
+                    <ion-item mode="md">
                       <ion-icon class="centrarIcon" slot="start" color="primary" name="calendar-outline"></ion-icon>
-                      <ion-label position="floating" mode="ios" class="hielo_v2 ion-text-wrap">Apertura de las cajas
+                      <ion-label position="floating" mode="ios" class="hielo ion-text-wrap">Apertura de las cajas
                       </ion-label>
                       <ion-datetime doneText="Listo" required [(ngModel)]="registro.apertura_cajas"
                         formControlName="apertura_cajas" class="bandeja_fechas"
@@ -541,18 +546,18 @@
                         monthShortNames="Ene,Feb,Mar,Abr,May,Jun,Jul,Ago,Sept,Oct,Nov,Dic" display-timezone="utc"
                         displayFormat="MMM DD, YYYY HH:mm" mode="ios" [min]="minDate" [max]="maxDate"></ion-datetime>
                     </ion-item>
-                    <ion-item>
+                    <ion-item mode="md">
                       <ion-icon class="centrarIcon" slot="start" color="primary" name="calendar-outline"></ion-icon>
-                      <ion-label position="floating" mode="ios" class="hielo_v2 ">Hidratación y aclimatación</ion-label>
+                      <ion-label position="floating" mode="ios" class="hielo ">Hidratación y aclimatación</ion-label>
                       <ion-datetime doneText="Listo" required [(ngModel)]="registro.inicio_hidratacion"
                         formControlName="inicio_hidratacion" class="bandeja_fechas"
                         monthNames="Enero, Febrero, Marzo, Abril,Mayo, Junio, Julio, Agosto, Septiembre,Octubre,Noviembre,Diciembre"
                         monthShortNames="Ene,Feb,Mar,Abr,May,Jun,Jul,Ago,Sept,Oct,Nov,Dic" display-timezone="utc"
                         displayFormat="MMM DD, YYYY HH:mm" mode="ios" [min]="minDate" [max]="maxDate"></ion-datetime>
                     </ion-item>
-                    <ion-item>
+                    <ion-item mode="md">
                       <ion-icon class="centrarIcon" slot="start" color="primary" name="calendar-outline"></ion-icon>
-                      <ion-label position="floating" mode="ios" class="hielo_v2 ion-text-wrap">Inicio Siembra
+                      <ion-label position="floating" mode="ios" class="hielo ion-text-wrap">Inicio Siembra
                       </ion-label>
                       <ion-datetime doneText="Listo" required [(ngModel)]="registro.inicio_siembra"
                         class="bandeja_fechas" formControlName="inicio_siembra"
@@ -560,9 +565,9 @@
                         monthShortNames="Ene,Feb,Mar,Abr,May,Jun,Jul,Ago,Sept,Oct,Nov,Dic" display-timezone="utc"
                         displayFormat="MMM DD, YYYY HH:mm" mode="ios" [min]="minDate" [max]="maxDate"></ion-datetime>
                     </ion-item>
-                    <ion-item>
+                    <ion-item mode="md">
                       <ion-icon class="centrarIcon" slot="start" color="primary" name="calendar-outline"></ion-icon>
-                      <ion-label position="floating" mode="ios" class="hielo_v2 ion-text-wrap">Finalización siembra
+                      <ion-label position="floating" mode="ios" class="hielo ion-text-wrap">Finalización siembra
                       </ion-label>
                       <ion-datetime doneText="Listo" required [(ngModel)]="registro.finalizacion_siembra"
                         class="bandeja_fechas" formControlName="finalizacion_siembra"
@@ -570,9 +575,9 @@
                         monthShortNames="Ene,Feb,Mar,Abr,May,Jun,Jul,Ago,Sept,Oct,Nov,Dic" display-timezone="utc"
                         displayFormat="MMM DD, YYYY HH:mm" mode="ios" [min]="minDate" [max]="maxDate"></ion-datetime>
                     </ion-item>
-                    <ion-item>
+                    <ion-item mode="md">
                       <ion-icon class="centrarIcon" slot="start" color="primary" name="calendar-outline"></ion-icon>
-                      <ion-label position="floating" mode="ios" class="hielo_v2 ion-text-wrap">Inicio Eclosión
+                      <ion-label position="floating" mode="ios" class="hielo ion-text-wrap">Inicio Eclosión
                       </ion-label>
                       <ion-datetime doneText="Listo" required [(ngModel)]="registro.inicio_eclosion"
                         class="bandeja_fechas" formControlName="inicio_eclosion"
@@ -581,9 +586,9 @@
                         displayFormat="MMM DD, YYYY HH:mm" mode="ios" [min]="minDate" [max]="maxDate"></ion-datetime>
                     </ion-item>
 
-                    <ion-item>
+                    <ion-item mode="md">
                       <ion-icon class="centrarIcon" slot="start" color="primary" name="calendar-outline"></ion-icon>
-                      <ion-label position="floating" mode="ios" class="hielo_v2 ion-text-wrap">Fin Eclosión</ion-label>
+                      <ion-label position="floating" mode="ios" class="hielo ion-text-wrap">Fin Eclosión</ion-label>
                       <ion-datetime doneText="Listo" required [(ngModel)]="registro.fin_eclosion" class="bandeja_fechas"
                         formControlName="fin_eclosion"
                         monthNames="Enero, Febrero, Marzo, Abril,Mayo, Junio, Julio, Agosto, Septiembre,Octubre,Noviembre,Diciembre"
@@ -591,9 +596,9 @@
                         displayFormat="MMM DD, YYYY HH:mm" mode="ios" [min]="minDate" [max]="maxDate"></ion-datetime>
                     </ion-item>
 
-                    <ion-item>
+                    <ion-item mode="md">
                       <ion-icon class="centrarIcon" slot="start" color="primary" name="calendar-outline"></ion-icon>
-                      <ion-label position="floating" mode="ios" class="hielo_v2 ion-text-wrap">Inicio de Problemas
+                      <ion-label position="floating" mode="ios" class="hielo ion-text-wrap">Inicio de Problemas
                       </ion-label>
                       <ion-datetime doneText="Listo" required [(ngModel)]="registro.fecha_inicioProblema"
                         class="bandeja_fechas" formControlName="fecha_inicioProblema"
@@ -603,6 +608,7 @@
                     </ion-item>
                   </ion-list>
                 </ion-col>
+            
 
               </ion-row>
             </form>
@@ -630,94 +636,95 @@
 
     </ion-slide>
 
-  
+
     <ion-slide #slideResultados>
       <ion-card>
         <ion-card-header>
-          <ion-card-title class="center">INFORMACIÓN ADICIONAL</ion-card-title>
+          <ion-card-title class="bandeja">INFORMACIÓN ADICIONAL</ion-card-title>
 
         </ion-card-header>
         <ion-card-content>
           <ion-grid fixed>
             <form [formGroup]="formGroupAdicionales">
-                  <ion-row>
-              <ion-col>
-                <ion-list>
-                  <ion-item>
-                    <ion-list lines="none">
-                      <ion-radio-group [(ngModel)]="registro.cambioGranja" required formControlName="cambioGranja">
-                        <ion-list-header>
-                          <ion-label class="bandeja_center ion-text-wrap">
-                             ¿Ha hecho algún cambio reciente a su granja? (equipo, fuente de agua, etc.)
-                          </ion-label>
-                        </ion-list-header>
+              <ion-row>
+                <ion-col>
+                  <ion-list>
+                    <ion-item>
+                      <ion-list lines="none">
+                        <ion-radio-group [(ngModel)]="registro.cambioGranja" required formControlName="cambioGranja">
+                          <ion-list-header>
+                            <ion-label class="bandeja_center ion-text-wrap">
+                              ¿Ha hecho algún cambio reciente a su granja? (equipo, fuente de agua, etc.)
+                            </ion-label>
+                          </ion-list-header>
 
-                        <ion-item>
-                          <ion-label mode="ios" class="hielo_v2 ion-text-wrap">Si</ion-label>
-                          <ion-radio mode="ios" slot="end"  value="true"></ion-radio>
-                        </ion-item>
+                          <ion-item mode="md">
+                            <ion-label mode="ios" class="hielo ion-text-wrap">Si</ion-label>
+                            <ion-radio mode="ios" slot="end" value="true"></ion-radio>
+                          </ion-item>
 
-                        <ion-item>
-                          <ion-label  mode="ios" class="hielo_v2 ion-text-wrap">No</ion-label>
-                          <ion-radio mode="ios" slot="end"  value="false"></ion-radio>
-                        </ion-item>
-
-
-                      </ion-radio-group>
-                    </ion-list>
-                  </ion-item>
-                  <ion-item>
-                    <ion-list lines="none">
-                      <ion-radio-group [(ngModel)]="registro.distintas" required formControlName="distintas">
-                        <ion-list-header>
-                          <ion-label class="bandeja_center ion-text-wrap">
-                            ¿Obtuvo resultados distintos o eclosionan de manera distinta, las ovas de las distintas cajas o bandejas? 
-                          </ion-label>
-                        </ion-list-header>
-
-                        <ion-item>
-                          <ion-label mode="ios" class="hielo_v2 ion-text-wrap">Si</ion-label>
-                          <ion-radio mode="ios" slot="end"  value="true"></ion-radio>
-                        </ion-item>
-
-                        <ion-item>
-                          <ion-label  mode="ios" class="hielo_v2 ion-text-wrap">No</ion-label>
-                          <ion-radio mode="ios" slot="end"  value="false"></ion-radio>
-                        </ion-item>
+                          <ion-item mode="md">
+                            <ion-label mode="ios" class="hielo ion-text-wrap">No</ion-label>
+                            <ion-radio mode="ios" slot="end" value="false"></ion-radio>
+                          </ion-item>
 
 
-                      </ion-radio-group>
-                    </ion-list>
-                  </ion-item>
-                  <ion-item>
-                    <ion-list lines="none">
-                      <ion-radio-group [(ngModel)]="registro.similar" required formControlName="similar">
-                        <ion-list-header>
-                          <ion-label class="bandeja_center ion-text-wrap">
-                            ¿Ha observado un problema similar anteriormente??
-                          </ion-label>
-                        </ion-list-header>
+                        </ion-radio-group>
+                      </ion-list>
+                    </ion-item>
+                    <ion-item>
+                      <ion-list lines="none">
+                        <ion-radio-group [(ngModel)]="registro.distintas" required formControlName="distintas">
+                          <ion-list-header>
+                            <ion-label class="bandeja_center ion-text-wrap">
+                              ¿Obtuvo resultados distintos o eclosionan de manera distinta, las ovas de las distintas
+                              cajas o bandejas?
+                            </ion-label>
+                          </ion-list-header>
 
-                        <ion-item>
-                          <ion-label mode="ios" class="hielo_v2 ion-text-wrap">Si</ion-label>
-                          <ion-radio mode="ios" slot="end"  value="true"></ion-radio>
-                        </ion-item>
+                          <ion-item mode="md">
+                            <ion-label mode="ios" class="hielo ion-text-wrap">Si</ion-label>
+                            <ion-radio mode="ios" slot="end" value="true"></ion-radio>
+                          </ion-item>
 
-                        <ion-item>
-                          <ion-label  mode="ios" class="hielo_v2 ion-text-wrap">No</ion-label>
-                          <ion-radio mode="ios" slot="end"  value="false"></ion-radio>
-                        </ion-item>
+                          <ion-item mode="md">
+                            <ion-label mode="ios" class="hielo ion-text-wrap">No</ion-label>
+                            <ion-radio mode="ios" slot="end" value="false"></ion-radio>
+                          </ion-item>
 
 
-                      </ion-radio-group>
-                    </ion-list>
-                  </ion-item>
-                </ion-list>
+                        </ion-radio-group>
+                      </ion-list>
+                    </ion-item>
+                    <ion-item >
+                      <ion-list lines="none">
+                        <ion-radio-group [(ngModel)]="registro.similar" required formControlName="similar">
+                          <ion-list-header>
+                            <ion-label class="bandeja_center ion-text-wrap">
+                              ¿Ha observado un problema similar anteriormente??
+                            </ion-label>
+                          </ion-list-header>
 
-              </ion-col>
-            </ion-row>
+                          <ion-item mode="md"> 
+                            <ion-label mode="ios" class="hielo ion-text-wrap">Si</ion-label>
+                            <ion-radio mode="ios" slot="end" value="true"></ion-radio>
+                          </ion-item>
+
+                          <ion-item mode="md">
+                            <ion-label mode="ios" class="hielo ion-text-wrap">No</ion-label>
+                            <ion-radio mode="ios" slot="end" value="false"></ion-radio>
+                          </ion-item>
+
+
+                        </ion-radio-group>
+                      </ion-list>
+                    </ion-item>
+                  </ion-list>
+
+                </ion-col>
+              </ion-row>
             </form>
-        
+
             <ion-row>
               <ion-col class="center">
                 <ion-button float-center ion-button *ngIf="formValidar!=0" shape="round" color="primary" class="btnPrev"
@@ -757,7 +764,7 @@
       </ion-card>
 
     </ion-slide>
-   
+
 
   </ion-slides>
 

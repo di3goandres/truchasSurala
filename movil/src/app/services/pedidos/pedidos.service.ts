@@ -5,6 +5,7 @@ import { EstadisticaResponse } from '../../models/pedidos/estadistica.response';
 import { DespachoResponse } from '../../models/despacho/despacho.response';
 import { PedidosRequest } from '../../models/pedidos/pedidos.request';
 import { TrazabilidadResponse } from '../../models/trazabilidad/trazabilidad.response';
+import { Mortalidad } from '../../models/mortalidad/mortalidad.request';
 
 @Injectable({
   providedIn: 'root'
@@ -53,6 +54,13 @@ export class PedidosService {
     return this.userService
       .ejecutarQueryPost<PedidosResponse>('/api/movil/pedidosMortalidad', params)
 
+  }
+
+  registrarMortalidadInicial(mortalidad:Mortalidad ){
+    let json = JSON.stringify(mortalidad);
+    let params = 'json=' + json;
+
+    return this.userService.ejecutarQueryPost('/api/datos/mortalidad', params);
   }
 
   responseError(){

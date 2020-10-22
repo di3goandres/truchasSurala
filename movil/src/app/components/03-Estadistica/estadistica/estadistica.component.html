@@ -4,34 +4,36 @@
   </ion-refresher-content>
 </ion-refresher>
 
-<ion-grid>
-  <ion-row style="padding-bottom: 63px;">
-  </ion-row>
+<ion-card>
+  <ion-card-header>
+    <ion-card-title class="ova">TAMAÑO Y EDAD DE SUS OVAS</ion-card-title>
 
-  <ion-row>
-    <ion-col></ion-col>
-    <ion-col style="text-align: center;">
-      <ion-label>TAMAÑO Y EDAD TCU</ion-label>
+    <ion-card-subtitle class="blue">De cada lote recibido</ion-card-subtitle>
+  </ion-card-header>
+  <ion-card-content>
 
-      <ngx-charts-line-chart (window:resize)="onResize($event)" [view]="view" [scheme]="colorScheme" [legend]="legend"
-        [showXAxisLabel]="showXAxisLabel" [showYAxisLabel]="showYAxisLabel" [xAxis]="xAxis" [yAxis]="yAxis"
-        [xAxisLabel]="xAxisLabel" [yAxisLabel]="yAxisLabel" [timeline]="timeline" [results]="multi"
-        (select)="onSelect($event)" (activate)="onActivate($event)" (deactivate)="onDeactivate($event)"
-        animations="true" [legendPosition]="'below'">
-      </ngx-charts-line-chart>
-    </ion-col>
-
-    <ion-col></ion-col>
+    <ion-grid fixed>
+      <ion-row>
+        <ion-col></ion-col>
+        <ion-col style="text-align: center;">
 
 
+          <ngx-charts-line-chart (window:resize)="onResize($event)" [view]="view" [scheme]="colorScheme"
+            [legend]="legend" [showXAxisLabel]="showXAxisLabel" [showYAxisLabel]="showYAxisLabel" [xAxis]="xAxis"
+            [yAxis]="yAxis" [xAxisLabel]="xAxisLabel" [yAxisLabel]="yAxisLabel" [timeline]="timeline" [results]="multi"
+            (select)="onSelect($event)" (activate)="onActivate($event)" (deactivate)="onDeactivate($event)"
+            animations="true" [legendPosition]="'below'">
+          </ngx-charts-line-chart>
+        </ion-col>
+        <ion-col></ion-col>
+
+       
 
 
-  </ion-row>
-  <ion-row>
-
-  </ion-row>
-  <ion-row>
 
 
-  </ion-row>
-</ion-grid>
+      </ion-row>
+
+    </ion-grid>
+  </ion-card-content>
+</ion-card>

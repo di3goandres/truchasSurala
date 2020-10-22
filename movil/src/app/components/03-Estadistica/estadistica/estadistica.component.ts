@@ -70,7 +70,7 @@ export class EstadisticaComponent implements OnInit {
     setTimeout(() => {
       console.log('Async operation has ended');
       event.target.complete();
-    }, 2000);
+    }, 1000);
   }
 
 

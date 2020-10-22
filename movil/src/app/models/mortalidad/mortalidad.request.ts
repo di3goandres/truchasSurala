@@ -55,11 +55,6 @@ export class Mortalidad {
 
 
 
-    //preguntas
-
-
-
-
 
    
     preguntas:                Pregunta[];

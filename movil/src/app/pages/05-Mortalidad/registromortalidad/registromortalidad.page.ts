@@ -23,9 +23,11 @@ export class RegistromortalidadPage implements OnInit {
   pedido: Pedido;
   minDate: any;
   maxDate: any;
-  Temperatura: any[] = [9, 10, 11, 12, 13, 14, 15, 16]
+  Temperatura: any[] = [7,8,9, 10, 11, 12, 13, 14, 15, 16]
+  Temperatura_llegada: any[] = [0,1,2,3,4,5,6,7,8,9,10]
+  numRegex = '/^\d{0,1}\,\d{1,1}$|^\d{0,11}$/';
   HORAS: any[] = [1, 2, 3, 4, 5, 6, 9]
-  MINUTOS: any[] = [5, 10, 15, 20, 25, 30, 35, 40, 45, 50, 55]
+  MINUTOS: any[] = [0, 5, 10, 15, 20, 25, 30, 35, 40, 45, 50, 55]
   Months = "Enero, Febrero, Marzo, Abril,Mayo, Junio, Julio, Agosto, Septiembre,Octubre,Noviembre,Diciembre";
   ShortMonths: "Ene,Feb,Mar,Abr,May,Jun,Jul,Ago,Sept,Oct,Nov,Dic"
   customPickerOptions: any;
@@ -271,6 +273,10 @@ export class RegistromortalidadPage implements OnInit {
 
   Guardar() {
       console.log("Datos", this.registro)
+      this.servicio.registrarMortalidadInicial(this.registro).subscribe(
+            OK => {console.log(OK)},
+            ERROR => {console.log(ERROR)},
+          )
     }
 
   traerPedido() {
@@ -289,7 +295,7 @@ export class RegistromortalidadPage implements OnInit {
 
       this.cargar()
       this.traerPedido();
-
+      this.registro.id_pedido = this.idPedido;
       this.cargarPoliticas();
       this.formGroupTemperatura = new FormGroup({
         inferior: new FormControl('', [Validators.min(0), Validators.max(40)]),
@@ -315,7 +321,8 @@ export class RegistromortalidadPage implements OnInit {
         FuenteAgua: new FormControl('', Validators.required),
         OrigenAgua: new FormControl('', Validators.required),
         UsoAgua: new FormControl('', Validators.required),
-        NivelOxigeno: new FormControl('', Validators.required),
+        NivelOxigeno: new FormControl('', [Validators.min(0), Validators.max(10)]),
+
         Horas: new FormControl('', Validators.required),
         Min: new FormControl('', Validators.required),
 
