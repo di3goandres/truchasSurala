@@ -6,6 +6,10 @@ import { DespachoResponse } from '../../models/despacho/despacho.response';
 import { PedidosRequest } from '../../models/pedidos/pedidos.request';
 import { TrazabilidadResponse } from '../../models/trazabilidad/trazabilidad.response';
 import { Mortalidad } from '../../models/mortalidad/mortalidad.request';
+import { Observable } from 'rxjs';
+import { MortalidadDiarioResponse } from '../../models/mortalidad/mortalidad.diario.response';
+import { DiarioRequest } from '../../models/mortalidad/mortalidad.diario.request';
+import { Respuesta } from '../../models/Response';
 
 @Injectable({
   providedIn: 'root'
@@ -56,13 +60,25 @@ export class PedidosService {
 
   }
 
-  registrarMortalidadInicial(mortalidad:Mortalidad ){
+  registrarMortalidadInicial(mortalidad:Mortalidad ): Observable<any>{
     let json = JSON.stringify(mortalidad);
     let params = 'json=' + json;
 
     return this.userService.ejecutarQueryPost('/api/datos/mortalidad', params);
   }
 
+  getReporteDiario($id){
+    return this.userService.ejecutarQuery<MortalidadDiarioResponse>('/api/datos/mortalidad/reportediario/' + $id)
+  }
+
+
+  updateReportDiario(diario : DiarioRequest){
+    let json = JSON.stringify(diario);
+    let params = 'json=' + json;
+
+    return this.userService.ejecutarQueryPost<Respuesta>('/api/datos/mortalidad/reportediario/update', params);
+    
+  }
   responseError(){
     this.userService.responseError();
   }

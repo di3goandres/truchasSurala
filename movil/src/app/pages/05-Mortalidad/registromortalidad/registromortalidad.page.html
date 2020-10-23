@@ -15,7 +15,7 @@
   </ion-card>
 
   <!-- (ionSlidesDidLoad)="bloquear()" -->
-  <ion-slides #slides [options]="slideOpts">
+  <ion-slides #slides [options]="slideOpts" *ngIf="Guardo==false" (ionSlidesDidLoad)="bloquear()" >
 
     <ion-slide #slideaceptacion style="height: 100%;">
       <ion-card>
@@ -85,7 +85,7 @@
                     <ion-label class="bandeja" position="floating">
                       SUPERIOR
                     </ion-label>
-                    <ion-input class="hielo_v3" required type="tel" min="0" max="40" maxlength="2" tabindex="1"
+                    <ion-input class="hielo_v3" required type="tel" min="0" max="10" maxlength="2" tabindex="1"
                       (keyup)="moveFocus(a, b)" #a name="superior" formControlName="superior"
                       [(ngModel)]="registro.temp_bandeja_superior">
                     </ion-input>
@@ -97,7 +97,7 @@
                     <ion-label class="bandeja" position="floating">
                       MEDIA
                     </ion-label>
-                    <ion-input class="hielo_v3" required type="tel" min="0" max="40" formControlName="mitad"
+                    <ion-input class="hielo_v3" required type="tel" min="0" max="10" formControlName="mitad"
                       maxlength="2" tabindex="2" (keyup)="moveFocus(b, c)" #b
                       [(ngModel)]="registro.temp_bandeja_intermedia">
                     </ion-input>
@@ -111,7 +111,7 @@
                       INFERIOR
 
                     </ion-label>
-                    <ion-input class="hielo_v3" required type="tel" min="0" max="40" formControlName="inferior"
+                    <ion-input class="hielo_v3" required type="tel" min="0" max="10" formControlName="inferior"
                       maxlength="2" tabindex="3" #c [(ngModel)]="registro.temp_bandeja_inferior">
                     </ion-input>
 
@@ -134,7 +134,7 @@
                     <ion-label position="floating" mode="ios" class="hielo"> SUPERIOR
                     </ion-label>
 
-                    <ion-select class="selectNuevo" mode="ios"   tabindex="4" required formControlName="superior2"
+                    <ion-select class="selectNuevo" mode="ios" tabindex="4" required formControlName="superior2"
                       [(ngModel)]="registro.hielo_bandeja_superior">
                       <ion-select-option class="hielo" *ngFor="let item of rangoPorcentaje" [value]="item">{{item}}
                       </ion-select-option>
@@ -217,7 +217,7 @@
                             </ion-label>
                           </ion-list-header>
 
-                          <ion-item mode="md"> 
+                          <ion-item mode="md">
                             <ion-label mode="ios" class="hielo ion-text-wrap">Si</ion-label>
                             <ion-radio mode="ios" slot="end" value="true"></ion-radio>
                           </ion-item>
@@ -233,9 +233,9 @@
                     <ion-item>
                       <ion-list lines="none">
                         <ion-radio-group [(ngModel)]="registro.danio_cajas" required formControlName="danio_cajas">
-                          <ion-list-header  class="bandeja_center">
+                          <ion-list-header class="bandeja_center">
                             <ion-label class="bandeja_center ion-text-wrap">
-                               ¿Hubo algún daño en las cajas?
+                              ¿Hubo algún daño en las cajas?
                             </ion-label>
                           </ion-list-header>
 
@@ -297,7 +297,8 @@
                 <ion-col size="6" class="text-center">
                   <ion-list>
                     <ion-item mode="md">
-                      <ion-label position="floating" mode="ios" class="hielo ion-text-wrap">Temperatura (°C) de las ovas al llegar
+                      <ion-label position="floating" mode="ios" class="hielo ion-text-wrap">Temperatura (°C) de las ovas
+                        al llegar
                       </ion-label>
 
                       <ion-select class="selectNuevo" mode="ios" required formControlName="temLlegada"
@@ -396,7 +397,8 @@
                 <ion-col size="6" class="text-center">
                   <ion-list>
                     <ion-item mode="md">
-                      <ion-label position="floating" mode="ios" class="hielo ion-text-wrap"> Sistema de circulación del agua
+                      <ion-label position="floating" mode="ios" class="hielo ion-text-wrap"> Sistema de circulación del
+                        agua
                       </ion-label>
 
                       <ion-select class="selectNuevo" mode="ios" required formControlName="UsoAgua"
@@ -535,7 +537,7 @@
                         monthShortNames="Ene,Feb,Mar,Abr,May,Jun,Jul,Ago,Sept,Oct,Nov,Dic" display-timezone="utc"
                         displayFormat="MMM DD, YYYY HH:mm" [min]="minDate" [max]="maxDate" mode="ios"></ion-datetime>
                     </ion-item>
-                
+
                     <ion-item mode="md">
                       <ion-icon class="centrarIcon" slot="start" color="primary" name="calendar-outline"></ion-icon>
                       <ion-label position="floating" mode="ios" class="hielo ion-text-wrap">Apertura de las cajas
@@ -608,7 +610,7 @@
                     </ion-item>
                   </ion-list>
                 </ion-col>
-            
+
 
               </ion-row>
             </form>
@@ -696,7 +698,7 @@
                         </ion-radio-group>
                       </ion-list>
                     </ion-item>
-                    <ion-item >
+                    <ion-item>
                       <ion-list lines="none">
                         <ion-radio-group [(ngModel)]="registro.similar" required formControlName="similar">
                           <ion-list-header>
@@ -705,7 +707,7 @@
                             </ion-label>
                           </ion-list-header>
 
-                          <ion-item mode="md"> 
+                          <ion-item mode="md">
                             <ion-label mode="ios" class="hielo ion-text-wrap">Si</ion-label>
                             <ion-radio mode="ios" slot="end" value="true"></ion-radio>
                           </ion-item>
@@ -747,28 +749,109 @@
       </ion-card>
     </ion-slide>
     <ion-slide>
-      <ion-card>
+
+      <ion-card >
         <ion-card-header>
-          <ion-card-title>Guardar</ion-card-title>
+          <ion-card-title class="bandejaexitoso">Es momento de Guardar!</ion-card-title>
+          <ion-grid cols="1" rowHeight="1:1" fixed>
+            <ion-row style="text-align: center">
+              <ion-col>
+
+              </ion-col>
+              <ion-col>
+                <img src="./assets/avatars/av-6.png">
+
+              </ion-col>
+              <ion-col>
+
+              </ion-col>
+            </ion-row>
+            <ion-row>
+              <ion-col>
+                <p class="exitoso">
+                  Guardaremos Tus respuestas, solo pulsa en el boton de abajo!
+                </p>
+
+              </ion-col>
+            </ion-row>
+          </ion-grid>
         </ion-card-header>
         <ion-card-content>
-          <ion-grid>
-            <ion-col>
-              <ion-tab-button (click)="Guardar()">
-                <ion-icon name="camera"></ion-icon>
-                <ion-label>Photo</ion-label>
-              </ion-tab-button>
-            </ion-col>
+          <ion-grid cols="1" rowHeight="1:1" fixed>
+            <ion-row style="text-align: center">
+              <ion-col>
+
+              </ion-col>
+              <ion-col>
+                <ion-button (click)="Guardar()" ion-button shape="round" color="primary">
+
+                  <ion-icon name="bag-check-outline"></ion-icon>
+                </ion-button>
+              </ion-col>
+              <ion-col>
+
+              </ion-col>
+            </ion-row>
           </ion-grid>
         </ion-card-content>
       </ion-card>
-
     </ion-slide>
 
 
   </ion-slides>
 
 
+
+  <ion-card *ngIf="Guardo==true">
+    <ion-card-header>
+      <ion-card-title class="bandejaexitoso">Registro Exitoso</ion-card-title>
+      <ion-grid cols="1" rowHeight="1:1" fixed>
+        <ion-row style="text-align: center">
+          <ion-col>
+
+          </ion-col>
+          <ion-col>
+            <img src="./assets/avatars/av-3.png">
+
+          </ion-col>
+          <ion-col>
+
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col>
+            <p class="exitoso">
+              Excelente, Hemos registrado la informacion correctamente, ahora continuaremos con el Registro diario
+            </p>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-card-header>
+    <ion-card-content>
+
+
+
+
+      <ion-grid cols="1" rowHeight="1:1" fixed>
+        <ion-row style="text-align: center">
+          <ion-col>
+
+          </ion-col>
+          <ion-col>
+            <ion-button [routerLink]="'/RegistrarMortalidadDiaria/'+idMortalidad" ion-button shape="round"
+              color="primary">
+              <ion-icon name="arrow-forward-outline"></ion-icon>
+            </ion-button>
+          </ion-col>
+          <ion-col>
+
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+
+
+    </ion-card-content>
+  </ion-card>
 
 
 

@@ -11,6 +11,7 @@ export class Pedido {
     constructor(){
         this.id =0;
     }
+    mortalidad:     number;
     id:             number;
     pedido:         number;
     porcentaje:     number;

@@ -19,6 +19,8 @@ import { Pedido } from '../../../models/pedidos/pedidos.response';
 })
 export class RegistromortalidadPage implements OnInit {
   @ViewChild(IonContent) ionContent: IonContent;
+  Guardo = false;
+  idMortalidad =0;
   idPedido = 0;
   pedido: Pedido;
   minDate: any;
@@ -69,7 +71,10 @@ export class RegistromortalidadPage implements OnInit {
 
 
 
-  ) { }
+  ) { 
+
+    this.presentToast("Lamentamos que hayas tenido que llegar hasta aca!")
+  }
 
   cargar(): void {
     this.route.params.subscribe(
@@ -272,9 +277,13 @@ export class RegistromortalidadPage implements OnInit {
     }
 
   Guardar() {
-      console.log("Datos", this.registro)
+    
       this.servicio.registrarMortalidadInicial(this.registro).subscribe(
-            OK => {console.log(OK)},
+            OK => {
+              this.Guardo = true;
+              this.idMortalidad = OK.id
+              console.log(this.idMortalidad)
+            },
             ERROR => {console.log(ERROR)},
           )
     }
@@ -282,7 +291,7 @@ export class RegistromortalidadPage implements OnInit {
   traerPedido() {
       this.servicio.obtenerPedidoMoralidad(this.idPedido).subscribe(
         OK => {
-          console.log(OK)
+    
           this.pedido = new Pedido();
           this.pedido = OK.pedidos[0];
           this.minDate = this.pedido.fecha_salida
@@ -298,10 +307,9 @@ export class RegistromortalidadPage implements OnInit {
       this.registro.id_pedido = this.idPedido;
       this.cargarPoliticas();
       this.formGroupTemperatura = new FormGroup({
-        inferior: new FormControl('', [Validators.min(0), Validators.max(40)]),
-        mitad: new FormControl('', [Validators.min(0), Validators.max(40)]),
-        superior: new FormControl('', [Validators.min(0), Validators.max(40)]),
-        // inferior2: new FormControl('', [Validators.min(0), Validators.max(40)]),
+        inferior: new FormControl('', [Validators.min(0), Validators.max(10)]),
+        mitad: new FormControl('', [Validators.min(0), Validators.max(10)]),
+        superior: new FormControl('', [Validators.min(0), Validators.max(10)]),
 
         inferior2: new FormControl('', Validators.required),
         mitad2: new FormControl('', Validators.required),

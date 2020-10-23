@@ -10,7 +10,9 @@
 
   </ion-buttons>
 </ion-buttons>
-<ion-card *ngFor="let pedido of pedidos" [routerLink]="'/RegistroMortalidad/'+pedido.id">
+<ion-card *ngFor="let pedido of pedidos" [routerLink]="pedido.mortalidad==null? '/RegistroMortalidad/'+pedido.id: '/RegistrarMortalidadDiaria/' + pedido.mortalidad">
+<!-- <ion-card *ngFor="let pedido of pedidos" [routerLink]="'/RegistroMortalidad/'+pedido.id"> -->
+
   <ion-card-header>
     <ion-card-title class="ovasTitulo">
       <ion-icon name="cart-outline"></ion-icon>{{pedido.fecha_salida | date: "MMM/dd/yyyy" | uppercase}}
@@ -56,8 +58,15 @@
 
     <ion-toolbar>
      
-      <ion-buttons slot="primary">
-        <ion-button color="primary"  slot="icon-only"[routerLink]="'/RegistroMortalidad/'+pedido.id">
+      <ion-label class="center" *ngIf="pedido.mortalidad!=null">
+        Continuar Registrando la mortalidad diaria
+      </ion-label>
+      <ion-buttons slot="primary" >
+        <ion-button *ngIf="pedido.mortalidad==null" color="primary"  slot="icon-only"[routerLink]="'/RegistroMortalidad/'+pedido.id">
+          <ion-icon  name="skull-outline"></ion-icon>
+        </ion-button>
+
+        <ion-button *ngIf="pedido.mortalidad!=null" color="primary"  slot="icon-only"[routerLink]="'/mortalidaddiaria/'+pedido.mortalidad">
           <ion-icon  name="skull-outline"></ion-icon>
         </ion-button>
       </ion-buttons>

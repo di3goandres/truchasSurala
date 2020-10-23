@@ -157,10 +157,11 @@ Route::get('/api/fincas/avatar/{id}/{filename}', 'FincasController@getImage') ;
 
 ///mortalidad movil y web/
 Route::resource('/api/datos/mortalidad', 'MortalidadController');
+Route::get('/api/datos/mortalidad/reportediario/{id}', 'MortalidadController@obtenerDiarioDisponible');
+Route::post('/api/datos/mortalidad/reportediario/update', 'MortalidadController@ActualizarDiario');
 
 
 //informes tecnicos
-
 Route::resource('/api/informestecnicos', 'InformesTecnicosController');
 
 

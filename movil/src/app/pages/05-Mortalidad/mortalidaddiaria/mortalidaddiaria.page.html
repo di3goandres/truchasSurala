@@ -1,0 +1,134 @@
+<app-header titulo="Registro Mortalidad Diaria" icon="heart-dislike-circle-outline"></app-header>
+
+
+<ion-content>
+  <ion-card *ngIf="pedido!=null">
+  
+    <ion-card-header>
+      <ion-card-title class="bandeja_center">
+        <ion-icon name="cart-outline"></ion-icon>{{pedido.fecha_salida | date: "MMM/dd/yyyy" | uppercase}}
+      </ion-card-title>
+      <ion-card-subtitle></ion-card-subtitle>
+
+    </ion-card-header>
+    <ion-card-content>
+      <div class="row">
+        <div class="col-4">
+          <ion-label class="hielo">
+            Finca: {{pedido.departamento +" - "+ pedido.municipio+" - "+ pedido.nombre}}
+          </ion-label>
+        </div>
+        <div class="col-4">
+          <ion-label class="hielo">
+            Total: {{pedido.total| number}}
+          </ion-label>
+        </div>
+        <div class="col-4">
+          <ion-label class="hielo">
+            Pedido: {{pedido.pedido| number}}
+          </ion-label>
+        </div>
+        <div class="col-4">
+          <ion-label class="hielo">
+            Adicional: {{pedido.adicional| number}}
+          </ion-label>
+        </div>
+        <div class="col-4">
+          <ion-label class="hielo">
+            Porcentaje adicional: {{pedido.porcentaje}}%
+          </ion-label>
+        </div>
+        <div class="col-4">
+          <ion-label class="hielo">
+            Reposición: {{pedido.reposicion| number}}
+          </ion-label>
+        </div>
+
+      </div>
+
+      <ion-toolbar>
+
+        <ion-label class="center" *ngIf="pedido.mortalidad!=null">
+          Continuar Registrando la mortalidad diaria
+        </ion-label>
+        <ion-buttons slot="primary">
+          <ion-button *ngIf="pedido.mortalidad==null" color="primary" slot="icon-only"
+            [routerLink]="'/RegistroMortalidad/'+pedido.id">
+            <ion-icon name="skull-outline"></ion-icon>
+          </ion-button>
+
+          <ion-button *ngIf="pedido.mortalidad!=null" color="primary" slot="icon-only"
+            [routerLink]="'/mortalidaddiaria/'+pedido.mortalidad">
+            <ion-icon name="skull-outline"></ion-icon>
+          </ion-button>
+        </ion-buttons>
+      </ion-toolbar>
+
+
+    </ion-card-content>
+  </ion-card>
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title class="bandeja_center">REGISTRO MORTALIDAD DIARIA</ion-card-title>
+      <ion-card-subtitle class="blue_center">Unidades de Ova</ion-card-subtitle>
+    </ion-card-header>
+    <ion-card-content>
+
+
+      <ion-grid cols="1" rowHeight="1:1" fixed>
+        <ion-row>
+          <ion-col size="12">
+            <form #diasForm>
+              <ion-list>
+                <ion-item mode="md" *ngFor="let item of reporteDias">
+                  <ion-icon class="centrarIcon" slot="start" color="primary" name="bar-chart-outline"></ion-icon>
+                  <ion-label position="floating" mode="ios" class="hielo ion-text-wrap">Dia {{item.dia}}
+                  </ion-label>
+                  <ion-input (focusout)="onBlur(item)" class="hielo" [name]="'cantidad' + item.dia" type="tel" required
+                    [(ngModel)]="item.cantidad" [disabled]="item.desactivar "></ion-input>
+                </ion-item>
+
+              </ion-list>
+            </form>
+
+          </ion-col>
+
+
+        </ion-row>
+
+        
+        <ion-row *ngIf="SinReportar==true">
+          
+          <ion-col>
+            <ion-card-title class="bandeja_center" >Ya no te quedan mas Ovas que reportar</ion-card-title>
+          </ion-col>
+          
+        </ion-row>
+        <ion-row *ngIf="bloqueado==true">
+          
+          <ion-col>
+            <ion-card-title class="bandeja_center" >Por favor revisa tus datos ingresados, no puedes superar el pedido</ion-card-title>
+          </ion-col>
+          
+        </ion-row>
+        <ion-row style="text-align: center">
+          <ion-col>
+           
+          </ion-col>
+          <ion-col *ngIf="SinReportar==false">
+            <ion-button [disabled]="diasForm.valid || bloqueado" (click)="onGuardar()" ion-button shape="round" color="primary">
+              <ion-icon name="arrow-forward-outline"></ion-icon>
+            </ion-button>
+          </ion-col>
+          <ion-col>
+
+          </ion-col>
+        </ion-row>
+        <!-- </ion-grid> -->
+      </ion-grid>
+
+
+
+    </ion-card-content>
+  </ion-card>
+</ion-content>

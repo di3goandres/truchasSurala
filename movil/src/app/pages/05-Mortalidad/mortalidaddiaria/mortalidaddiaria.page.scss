@@ -27,23 +27,8 @@ ion-label {
 .hielo{
     color: rgb(14, 105, 179);
     // font-weight: bold;
-    font-size: 14px;
-
-
-  }
-
-  .exitoso{
-    color: rgb(14, 105, 179);
-    // font-weight: bold;
-    font-size: 14px;
-    text-align: center;
-  }
-  .bandejaexitoso{
-  
-    color: #f33d01;
-    // font-weight: bold;
     font-size: 16px;
-    text-align: center;
+
 
   }
   .centrarIcon{
@@ -55,9 +40,9 @@ ion-label {
 
 
   }
-  .hielo_v3{
+  .blue_center{
     color: rgb(14, 105, 179);
-    font-size: 18px;
+    font-size: 17px;
     text-align: center;
 
 
@@ -73,7 +58,7 @@ ion-label {
   
     color: #f33d01;
     // font-weight: bold;
-    font-size: 16px;
+    font-size: 18px;
     text-align: center;
   }
 
@@ -87,16 +72,20 @@ ion-label {
   .center{
   
     color: #f33d01;
-    font-weight: bold;
+   
     font-size: 14px;
     text-align: center;
 
   }
 
-  .ajuste{
-    height: 100%;
-  
-    ion-row {
-      height: 11.11%;
-    }
+
+ 
+
+  .blueJustify{
+    color: rgb(14, 105, 179);
+    font-size: 15px;
+    margin-top: 0px;
+
+
   }
+
