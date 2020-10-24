@@ -3,7 +3,7 @@
 
 <ion-content>
   <ion-card *ngIf="pedido!=null">
-  
+
     <ion-card-header>
       <ion-card-title class="bandeja_center">
         <ion-icon name="cart-outline"></ion-icon>{{pedido.fecha_salida | date: "MMM/dd/yyyy" | uppercase}}
@@ -67,66 +67,191 @@
 
     </ion-card-content>
   </ion-card>
-  <ion-card>
+
+  <ion-slides #slides [options]="slideOpts" *ngIf="Guardo==false" (ionSlideDidChange)="slideChanged()">
+
+
+    <ion-slide>
+
+      <ion-card>
+        <ion-card-header>
+         
+          <ion-card-title class="ova">Recomendaciones</ion-card-title>
+        </ion-card-header>
+        <ion-card-content>
+          <ion-grid fixed>
+            <ion-row>
+              <ion-col >
+                <ion-list lines="none">
+                  <ion-item *ngFor="let recomendacion of recomendaciones">
+                    <ion-avatar slot="start" >
+                      <img src="./assets/avatars/av-2.png">
+                    </ion-avatar>
+                      <div class="ion-text-left blueJustifyV3">
+                        <p>{{recomendacion}}</p>
+                      </div>
+                  </ion-item>
+                </ion-list> 
+              </ion-col>
+            
+            </ion-row>
+          
+            <ion-row>
+              <ion-col class="center">
+               
+              </ion-col>
+              <ion-col>
+              </ion-col>
+              <ion-col class="center">
+                <ion-button  float-center ion-button
+                  shape="round" color="primary" class="btnNext" (click)="next()">
+                  <ion-icon name="arrow-forward-outline"></ion-icon>
+        
+                </ion-button>
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+        
+          
+        </ion-card-content>
+      </ion-card>
+     
+      
+    </ion-slide>
+
+    <ion-slide>
+      <ion-card>
+        <ion-card-header>
+          <ion-card-title class="bandeja_center">REGISTRO MORTALIDAD DIARIA</ion-card-title>
+          <ion-card-subtitle class="blue_center">Unidades de Ova</ion-card-subtitle>
+        </ion-card-header>
+        <ion-card-content>
+
+
+          <ion-grid cols="1" rowHeight="1:1" fixed>
+            <ion-row>
+              <ion-col size="12">
+                <form #diasForm>
+                  <ion-list>
+                    <ion-item mode="md" *ngFor="let item of reporteDias">
+                      <ion-icon class="centrarIcon" slot="start" color="primary" name="bar-chart-outline"></ion-icon>
+                      <ion-label position="floating" mode="ios" class="hielo ion-text-wrap">Dia {{item.dia}}
+                      </ion-label>
+                      <ion-input (focusout)="onBlur(item)" class="hielo" [name]="'cantidad' + item.dia" type="tel"
+                        required [(ngModel)]="item.cantidad" [disabled]="item.desactivar "></ion-input>
+                    </ion-item>
+
+                  </ion-list>
+                </form>
+
+              </ion-col>
+
+
+            </ion-row>
+
+
+
+            <ion-row *ngIf="SinReportar==true">
+
+              <ion-col>
+                <ion-card-title class="bandeja_center">Ya no te quedan mas Ovas que reportar</ion-card-title>
+              </ion-col>
+
+            </ion-row>
+            <ion-row *ngIf="bloqueado==true">
+
+              <ion-col>
+                <ion-card-title class="bandeja_center">Por favor revisa tus datos ingresados, no puedes superar el
+                  pedido
+                </ion-card-title>
+              </ion-col>
+
+            </ion-row>
+            <ion-row style="text-align: center">
+              <ion-col>
+
+              </ion-col>
+              <ion-col *ngIf="SinReportar==false">
+                <ion-button [disabled]="diasForm.valid || bloqueado" (click)="onGuardar()" ion-button shape="round"
+                  color="primary">
+                  <ion-icon name="arrow-forward-outline"></ion-icon>
+                </ion-button>
+              </ion-col>
+              <ion-col>
+
+              </ion-col>
+            </ion-row>
+            
+            <ion-row>
+              <ion-col class="center">
+                <ion-button float-center ion-button  shape="round" color="primary" class="btnPrev"
+                  (click)="prev()">
+                  <ion-icon name="arrow-back-outline"></ion-icon>
+                </ion-button>
+              </ion-col>
+              <ion-col>
+              </ion-col>
+              <ion-col class="center">
+               
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+
+
+
+        </ion-card-content>
+      </ion-card>
+    </ion-slide>
+
+ 
+  </ion-slides>
+ 
+  <ion-card *ngIf="Guardo==true">
     <ion-card-header>
-      <ion-card-title class="bandeja_center">REGISTRO MORTALIDAD DIARIA</ion-card-title>
-      <ion-card-subtitle class="blue_center">Unidades de Ova</ion-card-subtitle>
+      <ion-card-title class="bandejaexitoso">Registro Exitoso</ion-card-title>
+      <ion-grid cols="1" rowHeight="1:1" fixed>
+        <ion-row style="text-align: center">
+          <ion-col>
+
+          </ion-col>
+          <ion-col>
+            <img src="./assets/avatars/av-3.png">
+
+          </ion-col>
+          <ion-col>
+
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col>
+            <p class="exitoso">
+              Excelente, Hemos registrado la informacion correctamente, Recuerda seguir realizando el registro diariamente
+            </p>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
     </ion-card-header>
     <ion-card-content>
 
 
+
+
       <ion-grid cols="1" rowHeight="1:1" fixed>
-        <ion-row>
-          <ion-col size="12">
-            <form #diasForm>
-              <ion-list>
-                <ion-item mode="md" *ngFor="let item of reporteDias">
-                  <ion-icon class="centrarIcon" slot="start" color="primary" name="bar-chart-outline"></ion-icon>
-                  <ion-label position="floating" mode="ios" class="hielo ion-text-wrap">Dia {{item.dia}}
-                  </ion-label>
-                  <ion-input (focusout)="onBlur(item)" class="hielo" [name]="'cantidad' + item.dia" type="tel" required
-                    [(ngModel)]="item.cantidad" [disabled]="item.desactivar "></ion-input>
-                </ion-item>
-
-              </ion-list>
-            </form>
-
-          </ion-col>
-
-
-        </ion-row>
-
-        
-        <ion-row *ngIf="SinReportar==true">
-          
-          <ion-col>
-            <ion-card-title class="bandeja_center" >Ya no te quedan mas Ovas que reportar</ion-card-title>
-          </ion-col>
-          
-        </ion-row>
-        <ion-row *ngIf="bloqueado==true">
-          
-          <ion-col>
-            <ion-card-title class="bandeja_center" >Por favor revisa tus datos ingresados, no puedes superar el pedido</ion-card-title>
-          </ion-col>
-          
-        </ion-row>
         <ion-row style="text-align: center">
           <ion-col>
-           
+
           </ion-col>
-          <ion-col *ngIf="SinReportar==false">
-            <ion-button [disabled]="diasForm.valid || bloqueado" (click)="onGuardar()" ion-button shape="round" color="primary">
-              <ion-icon name="arrow-forward-outline"></ion-icon>
+          <ion-col>
+            <ion-button (click)="Reset()" ion-button shape="round"
+              color="primary">
+              <ion-icon name="checkmark-done-outline"></ion-icon>
             </ion-button>
           </ion-col>
           <ion-col>
 
           </ion-col>
         </ion-row>
-        <!-- </ion-grid> -->
       </ion-grid>
-
 
 
     </ion-card-content>

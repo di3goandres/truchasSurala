@@ -73,17 +73,20 @@ export class VerfacturaComponent implements OnInit {
 
     } else {
       this.mostrar = true;
+
     }
+    this.modalService.cerrarModal()
+
   }
 
- async dowloadAndOpenPdf() {
+  async dowloadAndOpenPdf() {
 
     let downloadUrl = this.service.getURl() + this.pdfSrc;
 
 
 
     let path = this.file.dataDirectory;
-    console.log("ruta  archivo ->", path)
+
     let exist = false;
     this.file.checkFile(`${path}`, this.nombreFactura).then(entry => {
       exist = entry;
@@ -92,7 +95,7 @@ export class VerfacturaComponent implements OnInit {
 
     await this.platform.ready().then(() => {
       this.file.listDir(path, '').then((result) => {
-       
+
 
         for (let file of result) {
           if (file.isDirectory == true && file.name != '.' && file.name != '..') {
@@ -100,37 +103,37 @@ export class VerfacturaComponent implements OnInit {
           } else if (file.isFile == true) {
             // Code if its a file
             let name = file.name // File name
-            console.log("archivo ->", name)
+
 
             if (name == this.nombreFactura) {
-              exist=true;
+              exist = true;
             }
           }
         }
 
         if (exist) {
-          console.log("existe archivo")
+
           this.openlocalPdf(this.nombreFactura)
         } else {
-          console.log("No existe archivo")
+
           const transfer = this.fileTransfer.create();
           transfer.download(downloadUrl, `${path}` + this.nombreFactura).then(entry => {
             let url = entry.toURL();
             if (this.platform.is('ios')) {
               this.document.viewDocument(url, 'application/pdf', this.options)
-    
+
               this.cerrar()
             } else {
               this.fileOpener.open(url, 'application/pdf');
               this.cerrar()
-    
+
             }
           });
-    
+
         }
       })
     });
-  
+
 
 
 
