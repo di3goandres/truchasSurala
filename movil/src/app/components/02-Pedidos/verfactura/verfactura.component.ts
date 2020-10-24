@@ -5,6 +5,7 @@ import { FileTransfer } from '@ionic-native/file-transfer/ngx';
 import { FileOpener } from '@ionic-native/file-opener/ngx';
 import { File } from '@ionic-native/file/ngx';
 import { UserService } from '../../../services/user.service';
+import { LogoutService } from '../../../services/users/logout.service';
 @Component({
   selector: 'app-verfactura',
   templateUrl: './verfactura.component.html',
@@ -16,10 +17,19 @@ export class VerfacturaComponent implements OnInit {
   @Input() pdfSrc = "";
   mostrar = false;
 
-  tipo ='';
-
+  tipo = '';
+  enabled: true
   options: DocumentViewerOptions = {
-    title: 'Mi Factura'
+    email: {
+      enabled: true
+    },
+    print: {
+      enabled: true
+    },
+    openWith: {
+      enabled: true
+
+    }
   }
   constructor(
     public modalCtrl: ModalController,
@@ -28,35 +38,37 @@ export class VerfacturaComponent implements OnInit {
     private fileTransfer: FileTransfer,
     private fileOpener: FileOpener,
     private document: DocumentViewer,
-    private service: UserService
+    private service: UserService,
+    private modalService: LogoutService,
+
 
   ) { }
 
   ngOnInit() {
 
-    var filter =  ['pwa','desktop', 'mobileweb'];
-    var platformfilter =[]
+    this.modalService.openModal()
+    var filter = ['pwa', 'desktop', 'mobileweb'];
+    var platformfilter = []
 
     this.platform.platforms().forEach(element => {
-      
+
       this.tipo = this.tipo + '-' + element
     });
-    let platforms= this.platform.platforms().filter(function(item) {
+    let platforms = this.platform.platforms().filter(function (item) {
       for (var key in filter) {
 
-       
-
         if (item == filter[key])
-           platformfilter.push(item); 
+          platformfilter.push(item);
       }
-    
+
     });
-  
+
 
 
     this.pdfSrc = this.pdfSrc + this.idPedido + "/" + this.nombreFactura;
 
-    if (platformfilter.length==0) {
+
+    if (platformfilter.length == 0) {
       this.dowloadAndOpenPdf();
 
     } else {
@@ -64,32 +76,62 @@ export class VerfacturaComponent implements OnInit {
     }
   }
 
-  dowloadAndOpenPdf() {
+ async dowloadAndOpenPdf() {
 
     let downloadUrl = this.service.getURl() + this.pdfSrc;
 
 
+
     let path = this.file.dataDirectory;
-    // if (this.file.checkFile(`${path}`, this.nombreFactura)) {
-    //   console.log("Existe archivo")
-    //   this.openlocalPdf(this.nombreFactura)
-    // }
-    // else {
-    //   console.log("No Existe archivo")
-
-    const transfer = this.fileTransfer.create();
-    transfer.download(downloadUrl, `${path}` + this.nombreFactura).then(entry => {
-      let url = entry.toURL();
-      if (this.platform.is('ios')) {
-        this.document.viewDocument(url, 'application/pdf', {})
-
-
-      } else {
-        this.fileOpener.open(url, 'application/pdf');
-
-      }
+    console.log("ruta  archivo ->", path)
+    let exist = false;
+    this.file.checkFile(`${path}`, this.nombreFactura).then(entry => {
+      exist = entry;
     });
-    // }
+
+
+    await this.platform.ready().then(() => {
+      this.file.listDir(path, '').then((result) => {
+       
+
+        for (let file of result) {
+          if (file.isDirectory == true && file.name != '.' && file.name != '..') {
+            // Code if its a folder
+          } else if (file.isFile == true) {
+            // Code if its a file
+            let name = file.name // File name
+            console.log("archivo ->", name)
+
+            if (name == this.nombreFactura) {
+              exist=true;
+            }
+          }
+        }
+
+        if (exist) {
+          console.log("existe archivo")
+          this.openlocalPdf(this.nombreFactura)
+        } else {
+          console.log("No existe archivo")
+          const transfer = this.fileTransfer.create();
+          transfer.download(downloadUrl, `${path}` + this.nombreFactura).then(entry => {
+            let url = entry.toURL();
+            if (this.platform.is('ios')) {
+              this.document.viewDocument(url, 'application/pdf', this.options)
+    
+              this.cerrar()
+            } else {
+              this.fileOpener.open(url, 'application/pdf');
+              this.cerrar()
+    
+            }
+          });
+    
+        }
+      })
+    });
+  
+
 
 
 
@@ -102,18 +144,22 @@ export class VerfacturaComponent implements OnInit {
       this.file.copyFile(filePath, nombre, this.file.dataDirectory, `${fakeName}.pdf`).then(
         result => {
           this.fileOpener.open(result.nativeURL, 'application/pdf');
+          this.cerrar()
+
         }
       )
 
     } else {
-      const options: DocumentViewerOptions = {
-        title: 'Mi Factura'
-      }
-      this.document.viewDocument(`${filePath}` + nombre, 'application/pdf', options)
+
+      this.document.viewDocument(`${filePath}/` + nombre, 'application/pdf', this.options)
+      this.cerrar()
+
     }
   }
   cerrar() {
     this.modalCtrl.dismiss("OK");
+    this.modalService.cerrarModal()
+
   }
 
 }

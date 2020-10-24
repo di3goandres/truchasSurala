@@ -26,7 +26,8 @@
       <p>Temperatura de llegada: 3°C</p>
 
       <ion-buttons>
-        <ion-button color="primary" *ngIf="despacho.certificado!='pendiente'" [routerLink]="'/certificados/'+despacho.id+'/'+despacho.certificado+'/certificado'">
+        <ion-button color="primary" *ngIf="despacho.certificado!='pendiente'" (click)="presentModal(despacho)">
+          <!-- <ion-button color="primary" *ngIf="despacho.certificado!='pendiente'" [routerLink]="'/certificados/'+despacho.id+'/'+despacho.certificado+'/certificado'"> -->
           <ion-icon slot="icon-only" name="cash-outline"></ion-icon>
         </ion-button>
       

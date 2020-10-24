@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { Despacho } from 'src/app/models/despacho/despacho.response';
 import { PedidosService } from 'src/app/services/pedidos/pedidos.service';
 import { Storage } from '@ionic/storage';
+import { VerfacturaComponent } from '../verfactura/verfactura.component';
+import { ModalController } from '@ionic/angular';
 
 
 @Component({
@@ -17,6 +19,8 @@ export class VerdespachosComponent implements OnInit {
   constructor(
     private servicio: PedidosService,
     private storage: Storage,
+    public modalCtrl: ModalController,
+
 
   ) { }
 
@@ -29,6 +33,19 @@ export class VerdespachosComponent implements OnInit {
   }
 
 
+  async presentModal(dato: Despacho) {
+    const modal = await this.modalCtrl.create({
+      component: VerfacturaComponent,
+      cssClass: 'update-profile-modal',
+      componentProps: {
+        'nombreFactura': dato.certificado,
+        'idPedido': dato.id,
+        'pdfSrc': '/api/despacho/certificado/'
+
+      }
+    });
+    return await modal.present();
+  }
   async conteo() {
     let total = await this.storage.get('despachos') || []
     this.total = total.length;

@@ -18,6 +18,7 @@ export class ListapedidosComponent implements OnInit {
     private servicio: PedidosService,
     public modalCtrl: ModalController,
     private storage: Storage,
+    
   ) { }
 
   ngOnInit() {
@@ -51,7 +52,10 @@ export class ListapedidosComponent implements OnInit {
       component: VerfacturaComponent,
       cssClass: 'update-profile-modal',
       componentProps: {
-        'nombreFactura': pedido.nombre_factura
+        'nombreFactura': pedido.nombre_factura,
+        'idPedido': pedido.id,
+        'pdfSrc': '/api/pedido/factura/'
+
       }
     });
     return await modal.present();

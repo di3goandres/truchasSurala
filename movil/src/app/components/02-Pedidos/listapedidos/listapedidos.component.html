@@ -59,7 +59,8 @@
 
     <ion-toolbar>
       <ion-buttons slot="secondary">
-        <ion-button color="primary" *ngIf="pedido.nombre_factura!='pendiente'" [routerLink]="'/pedidofactura/'+pedido.id+'/'+pedido.nombre_factura">
+        <ion-button color="primary" *ngIf="pedido.nombre_factura!='pendiente'" (click)="presentModal(pedido)">
+          <!-- <ion-button color="primary" *ngIf="pedido.nombre_factura!='pendiente'" [routerLink]="'/pedidofactura/'+pedido.id+'/'+pedido.nombre_factura"> -->
           <ion-icon slot="icon-only" name="cash-outline"></ion-icon>
         </ion-button>
         <ion-button  color="primary" [routerLink]="'/trazabilidad/'+pedido.id">
