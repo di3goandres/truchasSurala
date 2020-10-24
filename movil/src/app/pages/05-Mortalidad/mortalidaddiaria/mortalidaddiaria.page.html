@@ -1,7 +1,7 @@
 <app-header titulo="Registro Mortalidad Diaria" icon="heart-dislike-circle-outline"></app-header>
 
 
-<ion-content>
+<ion-content *ngIf="cargando==false">
   <ion-card *ngIf="pedido!=null">
 
     <ion-card-header>
@@ -75,52 +75,109 @@
 
       <ion-card>
         <ion-card-header>
-         
+
           <ion-card-title class="ova">Recomendaciones</ion-card-title>
         </ion-card-header>
         <ion-card-content>
           <ion-grid fixed>
             <ion-row>
-              <ion-col >
+              <ion-col>
                 <ion-list lines="none">
                   <ion-item *ngFor="let recomendacion of recomendaciones">
-                    <ion-avatar slot="start" >
+                    <ion-avatar slot="start">
                       <img src="./assets/avatars/av-2.png">
                     </ion-avatar>
-                      <div class="ion-text-left blueJustifyV3">
-                        <p>{{recomendacion}}</p>
-                      </div>
+                    <div class="ion-text-left blueJustifyV3">
+                      <p>{{recomendacion}}</p>
+                    </div>
                   </ion-item>
-                </ion-list> 
+                </ion-list>
               </ion-col>
-            
+
             </ion-row>
-          
+
             <ion-row>
               <ion-col class="center">
-               
+
               </ion-col>
               <ion-col>
               </ion-col>
               <ion-col class="center">
-                <ion-button  float-center ion-button
-                  shape="round" color="primary" class="btnNext" (click)="next()">
+                <ion-button float-center ion-button shape="round" color="primary" class="btnNext" (click)="next()">
                   <ion-icon name="arrow-forward-outline"></ion-icon>
-        
+
                 </ion-button>
               </ion-col>
             </ion-row>
           </ion-grid>
-        
-          
+
+
         </ion-card-content>
       </ion-card>
-     
-      
+
+
     </ion-slide>
 
     <ion-slide>
+
       <ion-card>
+        <ion-row *ngIf="SinReportarGuardar==true">
+
+          <ion-card>
+            <ion-card-header>
+              <ion-card-title class="bandejaexitoso">OH NO!!</ion-card-title>
+              <ion-grid cols="1" rowHeight="1:1" fixed>
+                <ion-row style="text-align: center">
+                  <ion-col>
+
+                  </ion-col>
+                  <ion-col>
+                    <img src="./assets/avatars/av-3.png">
+
+                  </ion-col>
+                  <ion-col>
+
+                  </ion-col>
+                </ion-row>
+                <ion-row>
+                  <ion-col>
+                    <p class="exitoso">
+                      Ya no te quedan mas Ovas que reportar
+                    </p>
+                  </ion-col>
+                </ion-row>
+              </ion-grid>
+            </ion-card-header>
+            <ion-card-content>
+
+
+
+
+              <ion-grid cols="1" rowHeight="1:1" fixed>
+                <ion-row style="text-align: center">
+                  <ion-col>
+
+                  </ion-col>
+                  <ion-col>
+                    <ion-button (click)="Reset()" ion-button shape="round" color="primary">
+                      <ion-icon name="checkmark-done-outline"></ion-icon>
+
+                    </ion-button>
+                  </ion-col>
+                  <ion-col>
+
+                  </ion-col>
+                </ion-row>
+              </ion-grid>
+
+
+            </ion-card-content>
+          </ion-card>
+          <!-- <ion-col>
+            <ion-card-title class="bandeja_center">Ya no te quedan mas Ovas que reportar</ion-card-title>
+          </ion-col> -->
+
+        </ion-row>
         <ion-card-header>
           <ion-card-title class="bandeja_center">REGISTRO MORTALIDAD DIARIA</ion-card-title>
           <ion-card-subtitle class="blue_center">Unidades de Ova</ion-card-subtitle>
@@ -129,6 +186,34 @@
 
 
           <ion-grid cols="1" rowHeight="1:1" fixed>
+            <ion-row>
+              <ion-col size="12">
+                <ion-list lines="none">
+                  <ion-item>
+                    <ion-avatar slot="start">
+                      <img src="./assets/avatars/av-3.png">
+
+                    </ion-avatar>
+
+                    <div class="ion-text-left blueJustifyV3">
+                      <p>Mortalidad Acumulada {{acumulada |number}}</p>
+                    </div>
+
+                  </ion-item>
+                  <ion-item>
+                    <ion-avatar slot="start">
+                      <img src="./assets/avatars/av-4.png">
+
+                    </ion-avatar>
+
+                    <div class="ion-text-left blueJustifyV3">
+                      <p>Sobrevientes {{pedido.total - acumulada |number}}</p>
+                    </div>
+
+                  </ion-item>
+                </ion-list>
+              </ion-col>
+            </ion-row>
             <ion-row>
               <ion-col size="12">
                 <form #diasForm>
@@ -151,13 +236,7 @@
 
 
 
-            <ion-row *ngIf="SinReportar==true">
 
-              <ion-col>
-                <ion-card-title class="bandeja_center">Ya no te quedan mas Ovas que reportar</ion-card-title>
-              </ion-col>
-
-            </ion-row>
             <ion-row *ngIf="bloqueado==true">
 
               <ion-col>
@@ -172,27 +251,26 @@
 
               </ion-col>
               <ion-col *ngIf="SinReportar==false">
-                <ion-button [disabled]="diasForm.valid || bloqueado" (click)="onGuardar()" ion-button shape="round"
-                  color="primary">
-                  <ion-icon name="arrow-forward-outline"></ion-icon>
+                <ion-button [disabled]="bloqueado" (click)="onGuardar()" ion-button shape="round" color="primary">
+                  <ion-icon name="checkmark-done-outline"></ion-icon>
+
                 </ion-button>
               </ion-col>
               <ion-col>
 
               </ion-col>
             </ion-row>
-            
+
             <ion-row>
               <ion-col class="center">
-                <ion-button float-center ion-button  shape="round" color="primary" class="btnPrev"
-                  (click)="prev()">
+                <ion-button float-center ion-button shape="round" color="primary" class="btnPrev" (click)="prev()">
                   <ion-icon name="arrow-back-outline"></ion-icon>
                 </ion-button>
               </ion-col>
               <ion-col>
               </ion-col>
               <ion-col class="center">
-               
+
               </ion-col>
             </ion-row>
           </ion-grid>
@@ -203,9 +281,9 @@
       </ion-card>
     </ion-slide>
 
- 
+
   </ion-slides>
- 
+
   <ion-card *ngIf="Guardo==true">
     <ion-card-header>
       <ion-card-title class="bandejaexitoso">Registro Exitoso</ion-card-title>
@@ -225,7 +303,8 @@
         <ion-row>
           <ion-col>
             <p class="exitoso">
-              Excelente, Hemos registrado la informacion correctamente, Recuerda seguir realizando el registro diariamente
+              Excelente, Hemos registrado la informacion correctamente, Recuerda seguir realizando el registro
+              diariamente
             </p>
           </ion-col>
         </ion-row>
@@ -242,8 +321,7 @@
 
           </ion-col>
           <ion-col>
-            <ion-button (click)="Reset()" ion-button shape="round"
-              color="primary">
+            <ion-button (click)="Reset()" ion-button shape="round" color="primary">
               <ion-icon name="checkmark-done-outline"></ion-icon>
             </ion-button>
           </ion-col>

@@ -14,20 +14,22 @@ import { IonContent, IonSlides } from '@ionic/angular';
 export class MortalidaddiariaPage implements OnInit {
   @ViewChild(IonContent) ionContent: IonContent;
   @ViewChild('slides') slides: IonSlides;
-
-
+  acumulada =0;
+  cargando = true;
   reporteDias: Diario[] = []
   pedido: Pedido;
   Maximo = 0;
   request = new DiarioRequest();
-  Guardo = true;
+  Guardo = false;
   recomendaciones: any[] = [
     'Tendras habilitados 12 dias, para ingresar la mortalidad diaria de tu incubacion.',
     'Podras registrar la mortalidad dia tras dia, o en el dia 12',
-    'Una vez registrada y guardada la mortalida de un dia, ya no podra editarla'
+    'Una vez registrada y guardada la mortalida de un dia, ya no podras editarla'
   ]
   bloqueado = false;
   SinReportar = false;
+  SinReportarGuardar = false;
+
 
   slideOpts = {
     initialSlide: 0,
@@ -47,6 +49,7 @@ export class MortalidaddiariaPage implements OnInit {
     this.Informacion()
   }
 
+
   calcularSuma() {
     let sum = 0
     this.reporteDias.forEach(dato => {
@@ -55,14 +58,21 @@ export class MortalidaddiariaPage implements OnInit {
 
     )
 
-    if (sum > this.Maximo) {
-      this.bloqueado = true;
-
-    } if (sum == this.Maximo) {
-      this.SinReportar = true;
-
-    } else {
+    if (sum==this.Maximo) {
+      console.log('iguales')
+      // this.SinReportar = true;
       this.bloqueado = false;
+
+    } if (sum > this.Maximo) {
+
+      this.bloqueado = true;
+      console.log('mayores')
+
+
+    } else  if (sum < this.Maximo){
+      this.bloqueado = false;
+      console.log('menores')
+
 
     }
   }
@@ -93,21 +103,46 @@ export class MortalidaddiariaPage implements OnInit {
 
     await this.servicio.getReporteDiario(this.idMortaliadad).subscribe(
       OK => {
-        console.log(OK)
+        this.cargando = false
+
+     
         this.reporteDias = [];
         this.reporteDias.push(...OK.diario)
         this.pedido = new Pedido();
         this.pedido = OK.pedido
         this.Maximo = this.pedido.total
-        this.calcularSuma()
+        this.reporteDias.forEach(dato => {
+          this.acumulada = this.acumulada + dato.cantidad
+         
+        })
 
+        this.calcularNuevamente()
+       
+        this.calcularSuma()
       },
-      ERROR => { console.log(ERROR) },
+      ERROR => { console.log(ERROR)
+        this.cargando = false
+       },
     )
   }
 
+  calcularNuevamente(){
+    if(this.Maximo==this.acumulada){
+      console.log('llegue al maximo')
+      this. SinReportarGuardar =true;
+      this.SinReportar = true;
+      this.bloqueado = true;
+    }else{
+      this. SinReportarGuardar =false;
+      console.log('llegue al maximo2')
+
+
+    }
+  }
   doRefresh(event) {
-    this.cargar()
+    this.cargando = true
+
+    this.Informacion()
   }
 
   onGuardar() {
@@ -125,6 +160,7 @@ export class MortalidaddiariaPage implements OnInit {
       this.servicio.updateReportDiario(this.request).subscribe(
         OK => {
           this.Informacion()
+
           this.Guardo = true;
         },
         ERROR => { console.log(ERROR) },
@@ -149,5 +185,7 @@ export class MortalidaddiariaPage implements OnInit {
     this.Guardo=false;
 
     this.slides.slideTo(1);
+
+    this.calcularNuevamente();
   }
 }
