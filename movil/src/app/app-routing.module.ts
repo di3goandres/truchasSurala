@@ -115,6 +115,10 @@ const routes: Routes = [
   {
     path: 'RegistrarMortalidadDiaria/:id',
     loadChildren: () => import('./pages/05-Mortalidad/mortalidaddiaria/mortalidaddiaria.module').then( m => m.MortalidaddiariaPageModule)
+  },
+  {
+    path: 'changepassword',
+    loadChildren: () => import('./pages/00-usuario/changepassword/changepassword.module').then( m => m.ChangepasswordPageModule)
   }
 ];
 
