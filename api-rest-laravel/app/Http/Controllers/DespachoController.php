@@ -443,7 +443,7 @@ class DespachoController extends Controller
                             $sufijo = explode("/", $archivo['type']);
 
                       
-                            $name = time() .'_'.rand(0, 100) . '_.' . $sufijo[1];
+                            $name = time() .'_'.rand(0, 999) . '_.' . $sufijo[1];
 
                             $data->archivo = $name;
                             $data->tipo = $id;
