@@ -434,6 +434,8 @@ class DespachoController extends Controller
                     $despacho->Observaciones = $params_array['Observaciones'];
                     $despacho->save();
                     $archivos = $params_array['fotos'];
+
+                    $deletedRows = DespachosImagenes::where('id_despacho', $despacho->id)->delete();
                     if (count($archivos) != 0) {
                         foreach ($archivos as $archivo) {
                             $data = new DespachosImagenes();
