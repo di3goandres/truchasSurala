@@ -2,16 +2,18 @@
 
 namespace App\Http\Controllers;
 
+use App\Despacho;
 use App\Fincas;
 use App\InformesTecnicos;
 use App\User;
+use Illuminate\Http\Response;
 use Illuminate\Http\Request;
 
 class InformesTecnicosController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('api.auth');
+        $this->middleware('api.auth', ['except' => ['getpdf']]);
     }
 
     public function index()
@@ -30,7 +32,7 @@ class InformesTecnicosController extends Controller
         $data = InformesTecnicos::find($id);
         if (is_object($data)) {
 
-            t();
+
 
             $data = [
                 'code' => 200,
@@ -78,9 +80,9 @@ class InformesTecnicosController extends Controller
                     'data' => $params_array
                 );
             } else {
-            
+
                 $usuario = \DB::table('users')
-                 
+
                     ->where('users.numero_identificacion', '=',  intval($params_array['cedula']))
                     ->select('users.id', 'users.numero_identificacion')
                     ->get();
@@ -89,10 +91,10 @@ class InformesTecnicosController extends Controller
                 if (is_object($usuario) &&  is_object($finca)) {
 
                     $fecha = str_replace('T05:00:00.000Z', ' 00:00:00', $params_array['fecha']);
-                    
+
                     $fechaUbicacions = str_replace(' 00:00:00', '', $fecha);
 
-                   
+
 
                     $data =  new InformesTecnicos();
                     $data->user_id = $usuario[0]->id;
@@ -102,7 +104,7 @@ class InformesTecnicosController extends Controller
                     $data->observaciones = $params_array['observaciones'];
 
                     $archivos = $params_array['informes'];
-                   
+
 
                     foreach ($archivos as $archivo) {
 
@@ -117,17 +119,22 @@ class InformesTecnicosController extends Controller
 
                                 break;
                             case 2:
-                                $name = time() . "_LaboratorioPSR.pdf";
-                                $data->archivo_psr = $name;
+                                $name = time() . "_LaboratorioPCR.pdf";
+                                $data->archivo_pcr = $name;
                                 break;
                             case 3:
                                 $name = time() . "_Histopatologia.pdf";
                                 $data->histopatologia = $name;
                                 break;
+
+                            case 4:
+                                $name = time() . "_LaboratorioNutricional.pdf";
+                                $data->laboratorioNutricional = $name;
+                                break;
                         }
-                      
+
                         \Storage::disk('users')
-                            ->put($usuario[0]->numero_identificacion . '\\InformesTecnicos\\' . $fechaUbicacions. '\\' . $name, base64_decode($file));
+                            ->put($usuario[0]->numero_identificacion . '\\InformesTecnicos\\' . $fechaUbicacions . '\\' . $name, base64_decode($file));
                         $data->save();
                     }
                     $data = array(
@@ -155,6 +162,79 @@ class InformesTecnicosController extends Controller
         }
         // guardar los datos
         // devolver el resutlado
+        return response()->json($data, $data['code']);
+    }
+
+
+    public function getpdf($id, $filename)
+    {
+
+        $headers = array(
+            'Content-Type: application/pdf',
+        );
+
+        $informe = InformesTecnicos::find($id);
+
+        if (is_object($informe)) {
+
+            $usuario = \DB::table('users')
+                ->where('users.id', '=',  $informe->user_id)
+                ->select('users.id', 'users.numero_identificacion')
+                ->get();
+
+            $fechaUbicacions = str_replace(' 00:00:00', '', $informe->fecha_visita);
+   
+            $isset =  \Storage::disk('users')
+            ->exists($usuario[0]->numero_identificacion . '\\InformesTecnicos\\' . $fechaUbicacions. '\\' . $filename);
+            if ($isset) {
+                $file = \Storage::disk('users')->get($usuario[0]->numero_identificacion . '\\InformesTecnicos\\' . $fechaUbicacions. '\\' . $filename);
+                return new Response($file, 200, $headers);
+            } else {
+                $data = array(
+                    'code' => 200,
+                    'status' => 'no existo',
+                    'user' =>  $filename
+                );
+            }
+        } else {
+            $data = array(
+                'code' => 200,
+                'status' => 'no me encuentro ',
+                'user' =>  $filename
+            );
+        }
+
+
+
+        return response()->json($data, $data['code']);
+    }
+    public function informesTecnicosByToken(Request $request)
+    {
+        $token = $request->header('Authorization');
+        //aca
+        $jwtAuth = new \JwtAuth();
+        $checktoken = $jwtAuth->checkToken($token);
+        $json = $request->input('json', null);
+        $params = json_decode($json); //objeto
+        $params_array = json_decode($json, true); // array
+        if ($checktoken) {
+            // recoger los datos por post / get
+            $user = $jwtAuth->checkToken($token, true);
+            $informes = \DB::select('call ObtenerInformesTecnicos(?)', array($user->sub));
+
+            $data = array(
+                'code' => 200,
+                'status' => 'success',
+                'informes' => $informes
+
+            );
+        } else {
+            $data = array(
+                'code' => 200,
+                'status' => 'error',
+                'message' => 'Usuario no identificado'
+            );
+        }
         return response()->json($data, $data['code']);
     }
 }
