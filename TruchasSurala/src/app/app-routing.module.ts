@@ -26,6 +26,7 @@ import { VerdistribucionComponent } from './componentes/07-Distribucion/verdistr
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AuthInterceptor } from './service/interceptor/auth.interceptor';
 import { UserService } from './service/user/user.service';
+import { RegistrollegadaComponent } from './componentes/05-Despacho/registrollegada/registrollegada.component';
 
 
 
@@ -66,6 +67,9 @@ const routes: Routes = [
 
   { // rutas de despacho
     path: 'surala/despacho/caja/create/:id', component: AgregarcajaComponent, canLoad: [UsuarioGuard], canActivate: [UsuarioGuard]
+  },
+  { // rutas de usuarios
+    path: 'surala/despachos/registrarllegada', component: RegistrollegadaComponent, canLoad: [UsuarioGuard], canActivate: [UsuarioGuard]
   },
 
   { // rutas de despacho

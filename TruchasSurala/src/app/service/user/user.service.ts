@@ -77,6 +77,12 @@ export class UserService {
 
   }
 
+  public ejecutarQueryPostRetorno<T>(query: string, params: string) {
+  
+
+    return this.http.post<T>(this.url + query, params);
+
+  }
   public ejecutarQueryPostArchivo(query: string, parametros: FormData) {
    
 

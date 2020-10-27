@@ -4,6 +4,8 @@ import { PedidosService } from 'src/app/services/pedidos/pedidos.service';
 import { Storage } from '@ionic/storage';
 import { VerfacturaComponent } from '../verfactura/verfactura.component';
 import { ModalController } from '@ionic/angular';
+import { ImagenesReporte } from '../../../models/despacho/despacho.response';
+import { ListafotosComponent } from '../../00-Comunes/listafotos/listafotos.component';
 
 
 @Component({
@@ -16,10 +18,12 @@ export class VerdespachosComponent implements OnInit {
   noMostrar = true;
   total = 0;
   despachos: Despacho[] = []
+  imagenes: ImagenesReporte[]=[]
   constructor(
     private servicio: PedidosService,
     private storage: Storage,
     public modalCtrl: ModalController,
+
 
 
   ) { }
@@ -68,10 +72,12 @@ export class VerdespachosComponent implements OnInit {
       OK => {
         this.conteo();
       
-       
+        console.log(OK);
         if (this.total != OK.despachos.length) {
           this.despachos = []
+          this.imagenes = []
           this.despachos.push(...OK.despachos)
+          this.imagenes.push(...OK.imagenes)
           this.guardarDespachos();
         }
 
@@ -100,4 +106,31 @@ export class VerdespachosComponent implements OnInit {
     }, 500);
   }
 
+
+  ValidarFotos(id){
+
+   let value = this.imagenes.filter(item=> {
+      return item.id_despacho == id
+    })
+
+    return value.length>0? true:false;
+
+  }
+
+  async verFotos(id){
+
+    let fotos = this.imagenes.filter(item=> {
+      return item.id_despacho == id
+    })
+
+  
+    const modal = await this.modalCtrl.create({
+      component: ListafotosComponent ,
+  
+      componentProps: {
+        'fotos': fotos
+      }
+    });
+    return await modal.present();
+  }
 }

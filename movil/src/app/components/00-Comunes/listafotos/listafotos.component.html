@@ -1,0 +1,30 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-button color="danger" (click)="dismiss()">
+        <span ion-text color="primary"></span>
+        <ion-icon name="close-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title class="ova">Reporte Llegada</ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+
+  <ion-slides pager="true" [options]="slideOpts">
+
+    <ion-slide *ngFor="let item of fotos">
+      <ion-slide>
+        <ion-card>
+          <ion-card-header>
+            <img [src]="item.imagen">
+
+     
+          </ion-card-header>
+
+        </ion-card>
+      </ion-slide>
+    </ion-slide>
+</ion-slides>
+
+</ion-content>

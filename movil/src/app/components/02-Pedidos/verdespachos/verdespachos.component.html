@@ -19,24 +19,43 @@
 
       <!-- <ion-img src="https://cdn.needish.tools/is-prod-deals/ZTT2WXf38Do4jIh3HLdzGg/scale/900x600.jpg"></ion-img> -->
     </ion-card-header>
-    <ion-card-content>
+    <ion-card-content class="blue">
 
-      <p>Estado de llegada: LLegaron a tiempo</p>
-      <p>Dias Retraso de llegada: 0 días, a tiempo</p>
-      <p>Temperatura de llegada: 3°C</p>
+      <ion-grid fixed>
+        <ion-row>
+          <ion-col size="12">
+            <p>Estado de llegada: {{despacho.estado_llegada}}</p>
+            <p>Dias Retraso de llegada: {{despacho.dias_retraso}}</p>
+      
+            <p>Temperatura de llegada: {{despacho.temperatura}}°C</p>
+            <div *ngIf="despacho.observaciones!= null">
+              <p>
+                Observaciones:
+              </p>
+              <p style="white-space: pre-wrap; padding-left: 70px;">{{despacho.observaciones}}</p>
+      
+            </div>
+          </ion-col>
+         
+        </ion-row>
+      </ion-grid>
+     
 
       <ion-buttons>
+        <ion-button *ngIf="ValidarFotos(despacho.id)==true" (click)="verFotos(despacho.id)" >
+          <ion-icon  slot="icon-only" name="film-outline"></ion-icon>
+         </ion-button>
         <ion-button color="primary" *ngIf="despacho.certificado!='pendiente'" (click)="presentModal(despacho)">
           <!-- <ion-button color="primary" *ngIf="despacho.certificado!='pendiente'" [routerLink]="'/certificados/'+despacho.id+'/'+despacho.certificado+'/certificado'"> -->
           <ion-icon slot="icon-only" name="cash-outline"></ion-icon>
         </ion-button>
-      
 
-      <ion-button color="primary" [routerLink]="'/pedidos/'+despacho.id" expand="block" fill="clear" shape="round">
 
-        <ion-icon slot="icon-only"  name="reorder-three-outline"></ion-icon>
-      </ion-button>
-    </ion-buttons>
+        <ion-button color="primary" [routerLink]="'/pedidos/'+despacho.id" expand="block" fill="clear" shape="round">
+
+          <ion-icon slot="icon-only" name="reorder-three-outline"></ion-icon>
+        </ion-button>
+      </ion-buttons>
 
     </ion-card-content>
   </ion-card>

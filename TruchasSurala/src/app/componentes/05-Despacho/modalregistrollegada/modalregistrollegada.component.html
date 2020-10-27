@@ -1,0 +1,236 @@
+<div class="container alternate-theme">
+    <mat-card>
+        <mat-card-header>
+            <mat-card-title>Edición Pedido</mat-card-title>
+        </mat-card-header>
+
+        <mat-card-content>
+
+            <div class="example-action-buttons">
+                <button mat-button (click)="accordion.openAll()">Expand All</button>
+                <button mat-button (click)="accordion.closeAll()">Collapse All</button>
+            </div>
+            <mat-accordion class="example-headers-align" multi>
+                <mat-expansion-panel>
+                    <mat-expansion-panel-header>
+                        <mat-panel-title>
+                            Estado de llegada
+                        </mat-panel-title>
+                        <mat-panel-description>
+                            Regristro de llegada las ovas
+                            <mat-icon>account_circle</mat-icon>
+                        </mat-panel-description>
+                    </mat-expansion-panel-header>
+                    <form [formGroup]="firstFormGroup" class="registroDespacho" >
+                        <ng-template matStepLabel>Registro del despacho</ng-template>
+                        <br>
+
+
+                        <mat-form-field appearance="fill">
+                            <mat-label>Estado llegada</mat-label>
+                            <input matInput formControlName="EstadoLlegada" [(ngModel)]="despachoupdate.estado_llegada"
+                                required>
+                        </mat-form-field>
+
+                        <mat-form-field appearance="fill">
+                            <mat-label>dias retraso</mat-label>
+
+                            <mat-select formControlName="dias"  [(ngModel)]="despachoupdate.dias_retraso" required>
+                                <mat-option *ngFor="let dia of dias" [value]="dia">
+                                    {{dia}}
+                                </mat-option>
+                            </mat-select>
+
+                        </mat-form-field>
+
+                        <mat-form-field appearance="fill">
+                            <mat-label>Temperatura de Llega</mat-label>
+                            <input type="number" matInput [(ngModel)]="despachoupdate.temperatura"
+                                formControlName="Temperatura" required />
+
+                        </mat-form-field>
+
+                        <mat-form-field appearance="fill">
+                            <mat-label>Observaciones</mat-label>
+                            <textarea matInput type="text" [(ngModel)]="despachoupdate.Observaciones"
+                                formControlName="Observaciones" required >
+                            </textarea>
+                        </mat-form-field>
+
+
+
+
+                    </form>
+
+                </mat-expansion-panel>
+                <mat-expansion-panel>
+                    <mat-expansion-panel-header>
+                        <mat-panel-title>
+                            Fotos
+                        </mat-panel-title>
+                        <mat-panel-description>
+                            Registre al menos dos fotos que veran los clientes
+                            <mat-icon>map</mat-icon>
+                        </mat-panel-description>
+                    </mat-expansion-panel-header>
+
+                    <div class="form-group">
+                        <label for="file">Adjuntar Imagen</label>
+                        <input type="file" id="file" [accept]="contentInclude"
+                            (change)="handleFileInput($event.target.files)">
+                    </div>
+
+                    <mat-grid-list cols="2"  >
+                        <mat-grid-tile *ngFor="let imagen of savefiles" [colspan]="1" [rowspan]="2">
+
+                            <mat-card>
+                            <mat-card-content>
+                                <img mat-card-image [src]="imagen.file">
+
+                                <mat-card-actions>
+                                   
+                                        <button mat-raised-button color="warn" 
+                                (click)="removerImagen(imagen)">Quitar</button>  
+                                </mat-card-actions>
+                            </mat-card-content>
+                             
+                            </mat-card>
+                       
+                        </mat-grid-tile>
+                    </mat-grid-list>
+                </mat-expansion-panel>
+
+                <mat-expansion-panel>
+                    <mat-expansion-panel-header>
+                        <mat-panel-title>
+                            Guardar
+                        </mat-panel-title>
+                        <mat-panel-description>
+                           Guardar
+                            <mat-icon>save</mat-icon>
+                        </mat-panel-description>
+                    </mat-expansion-panel-header>
+                    <button mat-raised-button  color="primary"
+                            [disabled]="!firstFormGroup.valid" (click)="onRegister()">
+                            <mat-icon>refresh</mat-icon>
+                            </button>
+                </mat-expansion-panel>
+
+            </mat-accordion>
+
+            <!-- <form [formGroup]="firstFormGroup" class="registroDespacho" (ngSubmit)="onRegister(firstFormGroup)">
+                <ng-template matStepLabel>Registro del despacho</ng-template>
+                <br>
+                <div class="row">
+                    <div class="col-12 main-blue-text">
+                        <label>{{title}}</label>
+                    </div>
+                </div>
+                <mat-grid-list cols="2" rowHeight="2:1">
+                    <mat-grid-tile>
+                        <mat-form-field appearance="fill">
+                    <mat-label>Estado llegada</mat-label>
+                    <input matInput formControlName="EstadoLlegada" [(ngModel)]="despachoupdate.estado_llegada"
+                        required>
+                </mat-form-field>
+                    </mat-grid-tile>
+                    <mat-grid-tile>
+                        <mat-form-field appearance="fill">
+                            <mat-label>dias retraso</mat-label>
+
+                            <mat-select formControlName="dias" required>
+                                <mat-option *ngFor="let dia of dias" [value]="dia">
+                                    {{dia}}
+                                </mat-option>
+                            </mat-select>
+
+                        </mat-form-field>
+                    </mat-grid-tile>
+                    <mat-grid-tile>
+                        <mat-form-field appearance="fill">
+                            <mat-label>Temperatura de Llega</mat-label>
+                            <input type="number" matInput [(ngModel)]="despachoupdate.temperatura"
+                                formControlName="Temperatura" required />
+
+                        </mat-form-field>
+                    </mat-grid-tile>
+                    <mat-grid-tile>
+                        <mat-form-field appearance="fill">
+                            <mat-label>Observaciones</mat-label>
+                            <input matInput type="number" [(ngModel)]="despachoupdate.Observaciones"
+                                formControlName="Observaciones" required />
+                        </mat-form-field>
+                    </mat-grid-tile>
+                </mat-grid-list>
+
+
+                <div class="row">
+                    <div class="col-2"></div>
+                    <div class="col-4">
+
+
+
+
+                    </div>
+                    <div class="col-4">
+
+
+
+
+                    </div>
+                    <div class="col-2"></div>
+
+                </div>
+
+                <div class="row">
+                    <div class="col-2"></div>
+
+                    <div class="col-4">
+
+
+                    </div>
+                    <div class="col-4">
+
+
+                    </div>
+                    <div class="col-2"></div>
+
+                </div>
+
+
+
+
+
+
+                <div class="row">
+                    <div class="col-3"></div>
+
+
+                    <div class=col-3>
+                        <button mat-raised-button ngbAutofocus (click)="cerrar()">
+                            <mat-icon>cancel_presentation</mat-icon>
+                        </button>
+                    </div>
+
+
+                    <div class=col-3> <button mat-raised-button type="submit" color="primary"
+                            [disabled]="!firstFormGroup.valid">
+                            <mat-icon>refresh</mat-icon>
+                        </button>
+
+                    </div>
+
+                    <div class="col-3"></div>
+
+
+                </div>
+
+
+            </form> -->
+        </mat-card-content>
+
+        <mat-card-actions>
+
+        </mat-card-actions>
+    </mat-card>
+</div>

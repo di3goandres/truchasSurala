@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use App\Despacho;
+use App\DespachosImagenes;
 use App\Lotes;
 use App\Pedidos;
 
@@ -101,7 +102,7 @@ class DespachoController extends Controller
                 $despacho->save();
 
                 \DB::select('call actualizarValorPropio()');
-            
+
                 //devolver array con resultado
 
                 Despacho::where('id', '<>', $despacho->id)
@@ -252,16 +253,47 @@ class DespachoController extends Controller
                     'despachos.id',
                     'despachos.fecha_salida',
                     'despachos.certificado',
+                    'despachos.estado_llegada',
+                    'despachos.dias_retraso',
+                    'despachos.temperatura',
+                    'despachos.observaciones',
+
+
+
+
 
                 )
                 ->distinct('id')
                 ->orderBy('fecha_salida', 'desc')
                 ->get();
 
+            $despachos_imagenes  = \DB::table('despachos_imagenes')
+                ->join('despachos', 'despachos_imagenes.id_despacho', '=', 'despachos.id')
+                ->join('pedidos', 'despachos.id', '=', 'pedidos.id_despacho')
+
+
+                ->join('fincas', 'pedidos.id_finca', '=', 'fincas.id')
+                ->join('users', 'users.id', '=', 'fincas.user_id')
+                ->where('users.id', '=',  $user->sub)
+                ->select(
+                    'despachos_imagenes.id',
+                    'despachos_imagenes.id_despacho',
+
+                    'despachos_imagenes.archivo',
+                    'despachos_imagenes.tipo',
+
+                )
+                ->distinct('id')
+
+
+                ->get();
+
             $data = array(
                 'code' => 200,
                 'status' => 'success',
-                'despachos' => $despachos
+                'despachos' => $despachos,
+                'imagenes' => $despachos_imagenes
+
             );
         } else {
             $data = array(
@@ -364,4 +396,93 @@ class DespachoController extends Controller
 
         return response()->json($data, $data['code']);
     }
+
+
+    public function RegistrarLLegada(Request $request)
+    {
+
+        $json = $request->input('json', null);
+        $params_array = json_decode($json, true);
+        if (!empty($params_array)) {
+            $validate = \Validator::make($params_array, [
+                'id' => 'required',
+                'estado_llegada' => 'required',
+                'dias_retraso' => 'required',
+                'temperatura' => 'required',
+                'Observaciones' => 'required',
+
+            ]);
+            if ($validate->fails()) {
+                $data = array(
+                    'status' => 'error',
+                    'code' => 400,
+                    'message' => 'No se pudo Actualizar',
+                    'errors' => $validate->errors(),
+                    'data' => $params_array
+                );
+            } else {
+
+
+                $despacho = Despacho::find($params_array['id']);
+                if (is_object($despacho)) {
+
+                    $fecha = str_replace(' 00:00:00', '', $despacho->fecha);
+
+                    $despacho->estado_llegada = $params_array['estado_llegada'];
+                    $despacho->dias_retraso = $params_array['dias_retraso'];
+                    $despacho->temperatura = $params_array['temperatura'];
+                    $despacho->Observaciones = $params_array['Observaciones'];
+                    $despacho->save();
+                    $archivos = $params_array['fotos'];
+                    if (count($archivos) != 0) {
+                        foreach ($archivos as $archivo) {
+                            $data = new DespachosImagenes();
+                            $data->id_despacho = $despacho->id;
+                            $file = $archivo['file'];
+                            $id = $archivo['type'];
+                            $sufijo = explode("/", $archivo['type']);
+
+                      
+                            $name = time() .'_'.rand(0, 100) . '_.' . $sufijo[1];
+
+                            $data->archivo = $name;
+                            $data->tipo = $id;
+
+
+                            $file = str_replace('data:' . $id . ';base64,', '', $file);
+                            $file = str_replace(' ', '+', $file);
+                            \Storage::disk('reporteLLegada')
+                                ->put('\\ReporteLlegada\\' . $fecha . '\\' . $name, base64_decode($file));
+
+                            $data->save();
+                            // usleep(700000);
+                        }
+                    }
+
+
+                    $data = array(
+                        'status' => 'success',
+                        'code' => 200,
+                        'message' => 'Se Actualizo correctamente',
+                    );
+                } else {
+                    $data = array(
+                        'status' => 'error',
+                        'code' => 400,
+                        'message' => 'No se pudo Actualizar',
+                    );
+                }
+            }
+        }
+
+
+
+
+
+        // guardar los datos
+        // devolver el resutlado
+        return response()->json($data, $data['code']);
+    }
+
+   
 }

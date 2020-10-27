@@ -99,7 +99,9 @@ import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import { NgxSpinnerModule } from 'ngx-spinner';
 import { RegistroNoexitosoComponent } from './componentes/01-Comunes/registro-noexitoso/registro-noexitoso.component';
 import { BorrarloteComponent } from './componentes/05-Despacho/borrarlote/borrarlote.component';
-
+import { RegistrollegadaComponent } from './componentes/05-Despacho/registrollegada/registrollegada.component';
+import { ModalregistrollegadaComponent } from './componentes/05-Despacho/modalregistrollegada/modalregistrollegada.component';
+import {MatExpansionModule} from '@angular/material/expansion';
 registerLocaleData(localCo);
 @NgModule({
   declarations: [
@@ -140,6 +142,8 @@ registerLocaleData(localCo);
     VerusuarioComponent,
     RegistroNoexitosoComponent,
     BorrarloteComponent,
+    RegistrollegadaComponent,
+    ModalregistrollegadaComponent,
 
 
 
@@ -173,6 +177,7 @@ registerLocaleData(localCo);
     NgxChartsModule,
     PdfViewerModule,
     TecnicosModule,
+    MatExpansionModule,
  
     MatProgressSpinnerModule,
 

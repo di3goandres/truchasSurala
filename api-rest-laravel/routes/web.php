@@ -111,6 +111,11 @@ Route::get('/api/Distribucion/DespachoNuevo/{idDespacho}', 'TrazabilidadControll
 Route::post('/api/despacho/actualizar/', 'DespachoController@actualizar');
 
 Route::get('/api/movil/despachos', 'DespachoController@despachosByToken'); 
+Route::post('/api/movil/despachos/registrarLlegada', 'DespachoController@RegistrarLLegada'); 
+Route::get('/api/despacho/reporte/imagen/{id}/{filename}', 'DespachosImagenesController@getImagenReporte') ;
+
+
+
 
 
 

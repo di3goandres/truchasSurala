@@ -23,6 +23,7 @@ import { PoliticasmortalidadComponent } from './04-Mortalidad/politicasmortalida
 import { CalendarioComponent } from './00-Comunes/01-calendario/calendario/calendario.component';
 // import { CalendarModule } from 'ion2-calendar';
 import { MortalidadpedidosComponent } from './02-Pedidos/mortalidadpedidos/mortalidadpedidos.component';
+import { ListafotosComponent } from './00-Comunes/listafotos/listafotos.component';
 
 
 @NgModule({
@@ -43,7 +44,8 @@ import { MortalidadpedidosComponent } from './02-Pedidos/mortalidadpedidos/morta
     GuiaComponent,
     PoliticasmortalidadComponent,
     CalendarioComponent,
-    MortalidadpedidosComponent
+    MortalidadpedidosComponent,
+    ListafotosComponent
 
 
 
@@ -78,7 +80,8 @@ import { MortalidadpedidosComponent } from './02-Pedidos/mortalidadpedidos/morta
     GuiaComponent,
     PoliticasmortalidadComponent,
     CalendarioComponent,
-    MortalidadpedidosComponent
+    MortalidadpedidosComponent,
+    ListafotosComponent
 
 
   ],
