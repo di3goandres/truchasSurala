@@ -10,6 +10,7 @@ import { Observable } from 'rxjs';
 import { MortalidadDiarioResponse } from '../../models/mortalidad/mortalidad.diario.response';
 import { DiarioRequest } from '../../models/mortalidad/mortalidad.diario.request';
 import { Respuesta } from '../../models/Response';
+import { InformesTecnicosResponse } from '../../models/pedidos/informes.tecnicos.response';
 
 @Injectable({
   providedIn: 'root'
@@ -78,6 +79,13 @@ export class PedidosService {
 
     return this.userService.ejecutarQueryPost<Respuesta>('/api/datos/mortalidad/reportediario/update', params);
     
+  }
+
+
+  ObtenerReportesTecnicos(){
+
+    return this.userService.ejecutarQuery<InformesTecnicosResponse>('/api/movil/despachos/obtenerpropios')
+
   }
   responseError(){
     this.userService.responseError();

@@ -168,6 +168,8 @@ Route::post('/api/datos/mortalidad/reportediario/update', 'MortalidadController@
 
 //informes tecnicos
 Route::resource('/api/informestecnicos', 'InformesTecnicosController');
+Route::get('/api/movil/despachos/obtenerpropios', 'InformesTecnicosController@informesTecnicosByToken'); 
+Route::get('/api/movil/despacho/reporte/pdf/{id}/{filename}', 'InformesTecnicosController@getpdf') ;
 
 
 

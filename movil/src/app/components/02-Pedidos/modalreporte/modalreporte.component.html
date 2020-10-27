@@ -1,0 +1,76 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-button color="danger" (click)="dismiss()">
+        <span ion-text color="primary"></span>
+        <ion-icon name="close-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title class="ova">Reporte Técnico</ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+  <ion-card>
+    <ion-list lines="none">
+      <ion-item>
+        <ion-icon name="book-outline" slot="start" color="primary"></ion-icon>
+
+        <ion-card-header>
+          <ion-card-title text-center class="blue">
+            {{informe.fecha_salida}}
+          </ion-card-title>
+        </ion-card-header>
+      </ion-item>
+    </ion-list>
+    <ion-card-content>
+      <ion-label>Observaciones:</ion-label>
+      <div style="white-space: pre-wrap; " class="ion-text-left blueJustify">
+        <p>{{informe.observaciones}}</p>
+      </div>
+      <ion-list>
+        <ion-list-header class="blueItem">
+          Lista de Archivos
+        </ion-list-header>
+        <ion-item *ngFor="let item of Mostrar"  (click)="verinforme(item)" detail> 
+         <ion-button> <ion-icon name="clipboard-outline"></ion-icon>
+         
+        </ion-button>
+        <ion-label>{{item.titulo}}</ion-label>
+        </ion-item>
+
+       
+      </ion-list>
+
+    </ion-card-content>
+  </ion-card>
+  <!-- <ion-slides pager="true" [options]="slideOpts">
+
+    <ion-slide *ngFor="let item of guia.slides">
+      <ion-slide>
+        <ion-card>
+          <ion-card-header>
+            <img [src]="item.imagen">
+
+            <ion-card-title class="ova">
+              {{item.titulo}}
+            </ion-card-title>
+          </ion-card-header>
+          <ion-card-content>
+            <ion-list lines="none">
+              <ion-item *ngFor="let descripcion of item.descripciones">
+                <ion-avatar slot="start">
+                  <img src="./assets/avatars/av-2.png">
+                </ion-avatar>
+                <div class="ion-text-left blueJustify">
+                  <p>{{descripcion}}</p>
+                </div>
+              </ion-item>
+            </ion-list>
+
+          </ion-card-content>
+        </ion-card>
+      </ion-slide>
+    </ion-slide>
+  </ion-slides> -->
+
+</ion-content>

@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <network-security-config>
-    <domain-config cleartextTrafficPermitted="false">
+    <domain-config cleartextTrafficPermitted="true">
         <domain includeSubdomains="true">localhost</domain>
         <domain includeSubdomains="true">apitruchas.asovagar.com</domain>
 
     </domain-config>
-      <base-config cleartextTrafficPermitted="false"/>
+      <base-config cleartextTrafficPermitted="true"/>
 </network-security-config>

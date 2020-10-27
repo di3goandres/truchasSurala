@@ -119,6 +119,10 @@ const routes: Routes = [
   {
     path: 'changepassword',
     loadChildren: () => import('./pages/00-usuario/changepassword/changepassword.module').then( m => m.ChangepasswordPageModule)
+  },
+  {
+    path: 'ReportesTecnicos',
+    loadChildren: () => import('./pages/02-fincas/reportestecnicos/reportestecnicos.module').then( m => m.ReportestecnicosPageModule)
   }
 ];
 
