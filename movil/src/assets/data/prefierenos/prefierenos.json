@@ -1,0 +1,123 @@
+{
+    "slides": [
+        {
+            "number": 1,
+            "imagen": "assets/logo/logosunidos.png",
+            "imagen2": "assets/data/prefierenos/inicial.jpg",
+            "descripciones": [
+                {
+                    "descripcion": "Troutlodge es una empresa Hendrix Genetics, la compañía más importante y avanzada del mundo en investigación y desarrollo genético multi especie, la trucha y el salmón son especies prioritarias en su Portafolio.",
+                    "avatar": ""
+                },
+                {
+                    "descripcion": "Troutlodge/Hendrix Genetics ha desarrollado el mejor programa genético del mundo; cada generación (cada 2 años) ofrece mejoras genéticas sustanciales. ",
+                    "avatar": ""
+                }
+            ]
+        },
+        {
+            "number": 2,
+            "imagen": "assets/data/prefierenos/preferido01.jpg",
+            "descripciones": [
+                {
+                    "descripcion": "Troutlodge ha desarrollado cepas únicas que se adaptan mejor en la altura y muy aceptadas por el consumidor final en países como Perú donde el sector se ha duplicado por 5 en los últimos 10 años.",
+                    "avatar": ""
+                },
+                {
+                    "descripcion": "Troutlodge es líder indiscutible y supera por más de 5  veces en participación de mercado a sus competidores",
+                    "avatar": ""
+                }
+            ]
+        },
+        {
+            "number": 3,
+            "imagen": "assets/data/prefierenos/preferido02.jpg",
+            "descripciones": [
+                {
+                    "descripcion": "La conformación de los animales es única!!! truchas con buena conformación y un excelente calibre en filete.  NO son largas, delgadas y de bajo peso. ",
+                    "avatar": ""
+                }
+            ]
+        },
+        {
+            "number": 4,
+            "imagen": "assets/data/prefierenos/instalaciones.jpg",
+            "descripciones": [
+                {
+                    "descripcion": "Tiene el mejor estatus sanitario en el mundo y un programa de vigilancia robusto y confiable que se resume en más de 30 años en Colombia sin virus ni enfermedades Infectocontagiosas Sus inversiones en infraestructura para sus planteles de reproducción e incubación, garantizan excelente sanidad y bioseguridad de acuerdo a los mejores estándares internacionales.",
+                    "avatar": ""
+                }
+            ]
+        },
+        {
+            "number": 5,
+            "imagen": "assets/data/prefierenos/preferido03.jpg",
+            "descripciones": [
+                {
+                    "descripcion": "La genética Troutlodge tiene el potencial de crecer hasta un 40% más que otras líneas genéticas, su dispersión en producción es evidentemente inferior, lo que permite mejores cosechas y más uniformidad de lotes.",
+                    "avatar": ""
+                }
+            ]
+        },
+        {
+            "number": 6,
+            "imagen": "assets/data/prefierenos/preferido06.jpg",
+            "descripciones": [
+                {
+                    "descripcion": "Es el productor de ovas con menor tiempo de transporte hacia Colombia 🇨🇴,  24 - 48 horas de granja a granja. Adicionalmente, la agilidad en alistamiento y empaque, gracias a sus herramientas tecnológicas (equipos de selección y conteo de ovas), permite recibir ovas viables y en las cantidades exactas solicitadas",
+                    "avatar": ""
+                }
+            ]
+        },
+        {
+            "number": 7,
+            "imagen": "assets/data/prefierenos/preferido07.jpg",
+            "descripciones": [
+                {
+                    "descripcion": "El empaque de Troutlodge tiene más de 30 años de desarrollo continuo; cajas con aislamiento  de más de 3 cm en Poliuretano (no ICOPOR) que generan una gran eficiencia y confiabilidad térmica en transporte; cada envío llega con sensores de temperatura que son monitoreados y leídos antes de la entrega, y nos permite tomar la mejor decisión, respecto a sus envíos.",
+                    "avatar": ""
+                }
+            ]
+        },
+        {
+            "number": 8,
+            "imagen": "assets/logo/logosunidos.png",
+            "imagen2": "assets/data/prefierenos/farm.jpg",
+            "descripciones": [
+                {
+                    "descripcion": "Los clientes de Troutlodge/Truchas surala no tienen por que preocuparse de recibir ovas en mal estado. Las ovas en mal estado son re incubadas por Truchas surala o destruidas durante el Viaje sin ningún cargo al cliente ni molestias por incubar ovas que generen problemas y muy altas mortalidades. Somos la empresa más eficiente en logística de empaque, distribución y servicio post venta.",
+                    "avatar": ""
+                }
+            ]
+        }
+        ,
+        {
+            "number": 9,
+            "imagen": "assets/logo/logosunidos.png",
+            "imagen2": "assets/data/prefierenos/preferidos09.jpeg",
+            "descripciones": [
+                {
+                    "descripcion": "Importamos ovas casi todas las semanas del año y llegamos a toda la geografía nacional vía aérea o con vehículos climatizados. ",
+                    "avatar": ""
+                },
+                {
+                    "descripcion": "Nuestra comunicación es rápida,  asertiva , clara y transparente . Le damos pronta respuesta a todas sus inquietudes, con soluciones ágiles, eficientes y personalizadas.",
+                    "avatar": ""
+
+                }
+            ]
+        }
+        ,
+        {
+            "number": 10,
+            "imagen": "assets/logo/logosunidos.png",
+            "imagen2": "assets/data/prefierenos/preferidos10.jpg",
+            "descripciones": [
+                {
+                    "descripcion": "Junto con troutlodge/hendrix, hemos formado un equipo de Profesionales con amplia experiencia y habilidad en producción, nutrición y  sanidad que siempre están pendientes de usted, sus inquietudes y preguntas.  ",
+                    "avatar": ""
+                }
+            ]
+        }
+    ]
+}

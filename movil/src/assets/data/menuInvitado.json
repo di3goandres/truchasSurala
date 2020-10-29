@@ -1,4 +1,11 @@
 [
+  
+    {
+     
+      "icon": "accessibility-outline",
+      "name": "Prefierenos",
+      "redirectTo": "/Preferirnos"
+    },
     {
       "icon": "book-outline",
       "name": "Guia de Manejos",

@@ -106,23 +106,38 @@ const routes: Routes = [
   },
   {
     path: 'tipoReporteMortalidad',
-    loadChildren: () => import('./pages/05-Mortalidad/tipomortalidad/tipomortalidad.module').then( m => m.TipomortalidadPageModule)
+    loadChildren: () => import('./pages/05-Mortalidad/tipomortalidad/tipomortalidad.module').then( m => m.TipomortalidadPageModule),
+    canLoad: [UsuarioGuard],
+    canActivate: [UsuarioGuard]
   },
   {
     path: 'mortalidadpedidos/:id',
-    loadChildren: () => import('./pages/05-Mortalidad/mortalidadpedidos/mortalidadpedidos.module').then( m => m.MortalidadpedidosPageModule)
+    loadChildren: () => import('./pages/05-Mortalidad/mortalidadpedidos/mortalidadpedidos.module').then( m => m.MortalidadpedidosPageModule),
+    canLoad: [UsuarioGuard],
+    canActivate: [UsuarioGuard]
   },
   {
     path: 'RegistrarMortalidadDiaria/:id',
-    loadChildren: () => import('./pages/05-Mortalidad/mortalidaddiaria/mortalidaddiaria.module').then( m => m.MortalidaddiariaPageModule)
+    loadChildren: () => import('./pages/05-Mortalidad/mortalidaddiaria/mortalidaddiaria.module').then( m => m.MortalidaddiariaPageModule),
+    canLoad: [UsuarioGuard],
+    canActivate: [UsuarioGuard]
   },
   {
     path: 'changepassword',
-    loadChildren: () => import('./pages/00-usuario/changepassword/changepassword.module').then( m => m.ChangepasswordPageModule)
+    loadChildren: () => import('./pages/00-usuario/changepassword/changepassword.module').then( m => m.ChangepasswordPageModule),
+    canLoad: [UsuarioGuard],
+    canActivate: [UsuarioGuard]
   },
   {
     path: 'ReportesTecnicos',
-    loadChildren: () => import('./pages/02-fincas/reportestecnicos/reportestecnicos.module').then( m => m.ReportestecnicosPageModule)
+    loadChildren: () => import('./pages/02-fincas/reportestecnicos/reportestecnicos.module').then( m => m.ReportestecnicosPageModule),
+    canLoad: [UsuarioGuard],
+    canActivate: [UsuarioGuard]
+  },
+  {
+    path: 'Preferirnos',
+    loadChildren: () => import('./pages/08-Razones/preferirnos/preferirnos.module').then( m => m.PreferirnosPageModule)
+
   }
 ];
 
