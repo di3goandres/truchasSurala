@@ -159,6 +159,21 @@
                         </table>
                         <mat-paginator [pageSizeOptions]="[15, 30, 50]" showFirstLastButtons></mat-paginator>
                     </div>
+
+                    <div *ngIf="informes.length==0">
+                        <mat-card>
+                            <mat-card-header>
+                                <mat-card-title>
+                                    Sin Informes que mostrar
+                                </mat-card-title>
+                             
+                            </mat-card-header>
+                            <mat-card-content>
+                                <img src="assets/sorry.jpeg">
+                            </mat-card-content>
+                        </mat-card>
+
+                    </div>
                 </mat-card-content>
             </mat-card>
 

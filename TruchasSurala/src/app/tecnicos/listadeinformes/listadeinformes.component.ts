@@ -19,13 +19,13 @@ import { MatStepper } from '@angular/material/stepper';
 })
 export class ListadeinformesComponent implements OnInit {
   displayedColumns: string[] = ['position', 'fecha_visita', 'nombre',
-   'observaciones', 'seleccionar'];
+    'observaciones', 'seleccionar'];
   usuario: Usuario;
   firstFormGroup: FormGroup;
   secondFormGroup: FormGroup;
 
   public dataSource = new MatTableDataSource<InformeResp>();
-  @ViewChild('stepper', {static: false}) stepper: MatStepper;
+  @ViewChild('stepper', { static: false }) stepper: MatStepper;
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
   informes: InformeResp[] = []
   seleccionado: InformeResp;
@@ -46,7 +46,7 @@ export class ListadeinformesComponent implements OnInit {
     });
 
     this.secondFormGroup = this._formBuilder.group({
-    
+
       observaciones: ['', Validators.required],
 
 
@@ -64,7 +64,7 @@ export class ListadeinformesComponent implements OnInit {
         this.informes = [];
         this.informes.push(...OK.informe)
         this.dataSource = new MatTableDataSource(OK.informe);
-
+        this.seleccionado = null;
         this.dataSource.paginator = this.paginator
         this.stepper.next()
 
@@ -88,7 +88,7 @@ export class ListadeinformesComponent implements OnInit {
     });
   }
 
-  Ver(informe: InformeResp){
+  Ver(informe: InformeResp) {
     this.seleccionado = informe;
     this.stepper.next()
   }
