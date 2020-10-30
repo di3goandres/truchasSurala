@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { UserService } from '../user/user.service';
 import { InformesTecnicosRequest } from '../../models/tecnicos/informes/informes.tecnicos.request';
+import { InformesResponse } from '../../models/tecnicos/informes/informes.tecnicos.response';
 
 @Injectable({
   providedIn: 'root'
@@ -22,5 +23,10 @@ export class InformeService {
   //Verifica la existencia de un reporte
   verificarExisteInforme(id, fecha){
     return this.service.ejecutarQuery('/api/movil/despacho/reporte/existe/' + id + '/' + fecha);
+  }
+
+
+  traerInformacion(id){
+    return this.service.ejecutarQuery<InformesResponse>('/api/movil/despacho/reporte/informes/' + id);
   }
 }

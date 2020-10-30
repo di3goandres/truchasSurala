@@ -172,6 +172,7 @@ Route::get('/api/movil/despachos/obtenerpropios', 'InformesTecnicosController@in
 Route::get('/api/movil/despacho/reporte/pdf/{id}/{filename}', 'InformesTecnicosController@getpdf') ;
 Route::get('/api/movil/despacho/reporte/existe/{id}/{fecha}', 'InformesTecnicosController@existeinforme') ;
 
+Route::get('/api/movil/despacho/reporte/informes/{id}', 'InformesTecnicosController@informesUsuario') ;
 
 
 

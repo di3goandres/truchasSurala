@@ -6,7 +6,10 @@ export interface UsuariosFincasResponse {
     Usuarios: Usuario[];
 }
 
-export interface Usuario {
+export class Usuario {
+    constructor(){
+        
+    }
     id:                    number;
     id_identificacion:     number;
     numero_identificacion: string;

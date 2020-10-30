@@ -1,18 +1,20 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
-import { SaveFile } from '../../models/pedidos/guardar.pdf.response';
-
+import { SaveFile } from 'src/app/models/pedidos/guardar.pdf.response';
+import { InformeResp } from '../../models/tecnicos/informes/informes.tecnicos.response';
 
 @Component({
-  selector: 'app-asociarinformes',
-  templateUrl: './asociarinformes.component.html',
-  styleUrls: ['./asociarinformes.component.css']
+  selector: 'app-actualizarpdfinforme',
+  templateUrl: './actualizarpdfinforme.component.html',
+  styleUrls: ['./actualizarpdfinforme.component.css']
 })
-export class AsociarinformesComponent implements OnInit {
+export class ActualizarpdfinformeComponent implements OnInit {
 
+  @Input() informe: InformeResp;
   @Input() tipoInforme: number;
-  @Input() file: SaveFile;
+
   NombreInforme = ""
+  nombreArchivo = "";
   savefile: SaveFile = new SaveFile();
   contentInclude = "application/pdf";
   fileToUpload: File = null;
@@ -45,21 +47,37 @@ export class AsociarinformesComponent implements OnInit {
     switch (this.tipoInforme) {
       case 1:
         this.NombreInforme = "Informes Técnicos"
+        this.nombreArchivo = this.informe.informeTecnico
+        this.pdfSrc = this.informe.informeTecnico== null ? "": '/api/movil/despacho/reporte/pdf/' + this.informe.id + "/" + this.nombreArchivo;
+
         break;
       case 2:
-        this.NombreInforme = "Laboratorios PSR"
+        this.NombreInforme = "Laboratorios PCR"
+        this.nombreArchivo = this.informe.archivo_pcr
+        this.pdfSrc = this.informe.archivo_pcr== null ? "": '/api/movil/despacho/reporte/pdf/' + this.informe.id + "/" + this.nombreArchivo;
+
         break;
       case 3:
         this.NombreInforme = "Laboratorios HISTOPATOLOGIA"
+        this.nombreArchivo = this.informe.histopatologia
+        this.pdfSrc = this.informe.histopatologia== null ? "": '/api/movil/despacho/reporte/pdf/' + this.informe.id + "/" + this.nombreArchivo;
+
+
         break;
       case 4:
         this.NombreInforme = "Laboratorios NUTRICIONAL"
+        this.nombreArchivo = this.informe.laboratorioNutricional
+        this.pdfSrc = this.informe.laboratorioNutricional== null ? "": '/api/movil/despacho/reporte/pdf/' + this.informe.id + "/" + this.nombreArchivo;
+
+
         break;
     }
 
-    if (this.file.file.length != 0) {
-      this.pdfSrc = this.file.file;
-    }
+
+
+
+
+
 
   }
   handleFileInput(files: FileList) {
@@ -116,7 +134,7 @@ export class AsociarinformesComponent implements OnInit {
     console.log('onProgress', event);
   }
 
-  cerrar(){
+  cerrar() {
     this.activeModal.dismiss('sin archivo')
 
   }

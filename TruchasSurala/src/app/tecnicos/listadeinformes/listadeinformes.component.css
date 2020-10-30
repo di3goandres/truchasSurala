@@ -1,0 +1,19 @@
+.mat-form-field{
+    width: 100%;
+}
+
+mat-chip {
+    max-width: 100%;
+  }
+
+  .colorCheck{
+    background-color:rgb(14, 105, 179) !important;
+    color: white !important;
+    
+  }
+
+  .colorPendiente{
+    background-color: #f33d01 !important;
+    color: white !important;
+    
+  }

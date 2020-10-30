@@ -37,8 +37,10 @@ import { AsociarinformesComponent } from './asociarinformes/asociarinformes.comp
 import {MatListModule} from '@angular/material/list';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
 import {MatChipsModule} from '@angular/material/chips';
+import { ListadeinformesComponent } from './listadeinformes/listadeinformes.component';
+import { ActualizarpdfinformeComponent } from './actualizarpdfinforme/actualizarpdfinforme.component';
 @NgModule({
-  declarations: [RegistrarinformeComponent, AsociarinformesComponent],
+  declarations: [RegistrarinformeComponent, AsociarinformesComponent, ListadeinformesComponent, ActualizarpdfinformeComponent],
   imports: [
     CommonModule,
     TecnicosRoutingModule,

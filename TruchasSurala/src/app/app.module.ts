@@ -102,6 +102,7 @@ import { BorrarloteComponent } from './componentes/05-Despacho/borrarlote/borrar
 import { RegistrollegadaComponent } from './componentes/05-Despacho/registrollegada/registrollegada.component';
 import { ModalregistrollegadaComponent } from './componentes/05-Despacho/modalregistrollegada/modalregistrollegada.component';
 import {MatExpansionModule} from '@angular/material/expansion';
+import { SeleccionarusuarioComponent } from './componentes/02-Usuario/05-modalusuario/seleccionarusuario/seleccionarusuario.component';
 registerLocaleData(localCo);
 @NgModule({
   declarations: [
@@ -144,6 +145,7 @@ registerLocaleData(localCo);
     BorrarloteComponent,
     RegistrollegadaComponent,
     ModalregistrollegadaComponent,
+    SeleccionarusuarioComponent,
 
 
 

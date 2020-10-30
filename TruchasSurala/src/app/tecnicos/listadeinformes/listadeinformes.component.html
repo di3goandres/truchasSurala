@@ -1,0 +1,214 @@
+<div class="container alternate-theme">
+
+    <mat-horizontal-stepper [linear]="false" #stepper>
+
+        <mat-step [stepControl]="firstFormGroup">
+            <ng-template matStepLabel>Seleccionar Usuario</ng-template>
+
+            <mat-card class="example-card">
+                <mat-card-header>
+                    <div mat-card-avatar class="example-header-image"></div>
+                    <mat-card-title style="text-align: center;">Datos del Usuario</mat-card-title>
+
+                </mat-card-header>
+                <mat-card-content>
+
+                    <div class="row">
+                        <div class="col-xs-12 col-12 form-group">
+                            <label>Seleccione un cliente</label>
+                            <button type="button" mat-mini-fab class="buttton-aldea" aria-label="fecha"
+                                (click)="openUsuarios()">
+                                <mat-icon>person</mat-icon>
+                            </button>
+                        </div>
+                    </div>
+                    <form [formGroup]="firstFormGroup" style="width: 100%;text-align: center;">
+
+
+
+                        <div class="row" *ngIf="usuario!=null">
+
+                            <div class="col-xs-3  col-3 form-group">
+                                <mat-form-field appearance="fill" floatLabel="always">
+                                    <mat-label>Cliente</mat-label>
+                                    <mat-icon matSuffix>sentiment_very_satisfied</mat-icon>
+
+                                    <input matInput placeholder="Cliente" type="text" [disabled]="usuario.id!=0"
+                                        name="finca" [(value)]="usuario.name + ', ' + usuario.surname">
+
+
+                                </mat-form-field>
+
+
+                            </div>
+
+                        </div>
+                        <div class="row" style="text-align: center;">
+
+                            <div class="col-12">
+                                <button type="button" matStepperNext mat-raised-button color="primary"
+                                    [disabled]="usuario==null">Continuar</button>
+
+                            </div>
+
+
+                        </div>
+
+                    </form>
+
+
+                </mat-card-content>
+            </mat-card>
+
+        </mat-step>
+
+        <mat-step [stepControl]="firstFormGroup">
+            <ng-template matStepLabel>Informes Relacionados</ng-template>
+            <mat-card class="example-card">
+                <mat-card-header>
+                    <div mat-card-avatar class="example-header-image"></div>
+                    <mat-card-title style="text-align: center;">Informes Relacionados</mat-card-title>
+
+                </mat-card-header>
+                <mat-card-content>
+                    <div class="table-responsive" *ngIf="informes.length>0">
+                        <table id="customers" matTableExporter #exporter="matTableExporter" mat-table
+                            [dataSource]="dataSource" class="mat-elevation-z8">
+                            <ng-container matColumnDef="position">
+                                <th mat-header-cell *matHeaderCellDef> No. </th>
+                                <td mat-cell *matCellDef="let element; let i = index"> {{i + 1}} </td>
+                            </ng-container>
+
+
+
+                            <ng-container matColumnDef="fecha_visita">
+                                <th mat-header-cell *matHeaderCellDef> Fecha Visita </th>
+                                <td mat-cell *matCellDef="let element">
+                                    {{ element.fecha_visita.replace(' 00:00:00', 'T00:00:00') |date :"MMM/dd/yyyy" | uppercase }}
+                                </td>
+                            </ng-container>
+
+
+                            <ng-container matColumnDef="nombre">
+                                <th mat-header-cell *matHeaderCellDef> Nombre</th>
+                                <td mat-cell *matCellDef="let element"> {{element.nombre | uppercase}} </td>
+                            </ng-container>
+
+                            <ng-container matColumnDef="observaciones">
+                                <th mat-header-cell *matHeaderCellDef> observaciones</th>
+                                <td mat-cell *matCellDef="let element"> {{element.observaciones | uppercase}} </td>
+                            </ng-container>
+
+                            <ng-container matColumnDef="seleccionar">
+                                <th mat-header-cell *matHeaderCellDef> Informe Técnico</th>
+                                <td mat-cell *matCellDef="let element">
+                                    <button mat-raised-button color="secondary" id="logout-button"
+                                        class="btn btn-primary btn-block" style="width:50%"
+                                        (click)="Ver(element)">Ver</button></td>
+                            </ng-container>
+
+                            <!-- <ng-container matColumnDef="NumeroOvas"> VerInforme
+                            <th mat-header-cell *matHeaderCellDef> Numero de Ovas </th>
+                            <td mat-cell *matCellDef="let element"> {{element.numero_ovas | number}} </td>
+                          </ng-container>
+                          <ng-container matColumnDef="Porcentaje">
+                            <th mat-header-cell *matHeaderCellDef> % Adicional</th>
+                            <td mat-cell *matCellDef="let element"> {{element.porcentaje}}% </td>
+                          </ng-container>
+                          <ng-container matColumnDef="Editar">
+                            <th mat-header-cell *matHeaderCellDef> Editar</th>
+                            <td mat-cell mat-cell *matCellDef="let element">
+                              <button mat-raised-button id="logout-button" class="btn btn-primary btn-block" style="width:50%"
+                                color="primary" (click)="OpenEditar(element)"
+                                [disabled]="element.Activo!=1"
+                                >
+                                <mat-icon>edit_attributes</mat-icon>
+                              </button>
+                            </td>
+            
+                          </ng-container>
+                          <ng-container matColumnDef="VerDespacho">
+                            <th mat-header-cell *matHeaderCellDef> Ver Despacho</th>
+                            <td mat-cell mat-cell *matCellDef="let element">
+                              <button mat-raised-button id="logout-button" class="btn btn-primary btn-block" style="width:50%"
+                                color="primary" [routerLink]="['/surala/despacho/', element.id]">
+                                <mat-icon>search</mat-icon>
+                              </button>
+                            </td>
+            
+                          </ng-container>
+                          <ng-container matColumnDef="VerPedidos">
+                            <th mat-header-cell *matHeaderCellDef> Ver Pedidos </th>
+                            <td mat-cell *matCellDef="let element">
+                              <button mat-raised-button color="secondary" id="logout-button" class="btn btn-primary btn-block"
+                                style="width:50%" [routerLink]="['/surala/pedidos/', element.id]">Ver</button>
+            
+                            </td>
+                          </ng-container>
+            
+                          <ng-container matColumnDef="VerDistribucion">
+                            <th mat-header-cell *matHeaderCellDef> Ver Distribucion </th>
+                            <td mat-cell *matCellDef="let element">
+                              <button mat-raised-button color="secondary" id="logout-button" class="btn btn-primary btn-block"
+                                style="width:50%" (click)="openDistribucion(element.id)">Ver</button>
+            
+                            </td>
+                          </ng-container> -->
+                            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                        </table>
+                        <mat-paginator [pageSizeOptions]="[15, 30, 50]" showFirstLastButtons></mat-paginator>
+                    </div>
+                </mat-card-content>
+            </mat-card>
+
+        </mat-step>
+
+        <mat-step>
+            <ng-template matStepLabel>Detalle Informes</ng-template>
+            <div *ngIf="seleccionado!=null">
+
+                <form [formGroup]="secondFormGroup" style="width: 100%;">
+
+
+                    
+                        <mat-label>Fecha del informe   {{ seleccionado.fecha_visita.replace(' 00:00:00', 'T00:00:00') |date :"MMM/dd/yyyy" | uppercase }}</mat-label>
+
+                      
+
+
+
+                    <mat-form-field [style.fontSize]="'15px'">
+                        <mat-label>OBSERVACIONES</mat-label>
+                        <textarea matInput cdkTextareaAutosize #autosize="cdkTextareaAutosize" cdkAutosizeMinRows="1"
+                            cdkAutosizeMaxRows="10" [(ngModel)]="seleccionado.observaciones"
+                            formControlName="observaciones"></textarea>
+                    </mat-form-field>
+
+                </form>
+                <mat-chip-list class="mat-chip-list-stacked centrarObjetos" aria-label="Color selection">
+
+                    <mat-chip (click)="VerInforme(1, seleccionado)"
+                        [class]="seleccionado.informeTecnico==null? 'colorCheck':'colorPendiente'"> Informes Técnicos
+                    </mat-chip>
+                    <mat-chip (click)="VerInforme(2, seleccionado)"
+                        [class]="seleccionado.archivo_pcr==null?  'colorCheck':'colorPendiente'"> Laboratorio PSR
+                    </mat-chip>
+                    <mat-chip (click)="VerInforme(3, seleccionado)"
+                        [class]="seleccionado.histopatologia == null ?  'colorCheck':'colorPendiente'">Laboratorio
+                        Histopatologia</mat-chip>
+                    <mat-chip (click)="VerInforme(4, seleccionado)"
+                        [class]="seleccionado.laboratorioNutricional== null? 'colorCheck':'colorPendiente'">Laboratorio
+                        Nutricional</mat-chip>
+
+                </mat-chip-list>
+            </div>
+
+        </mat-step>
+
+
+
+
+    </mat-horizontal-stepper>
+
+</div>

@@ -13,7 +13,7 @@ class InformesTecnicosController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('api.auth', ['except' => ['getpdf', 'existeinforme']]);
+        $this->middleware('api.auth', ['except' => ['getpdf', 'informesUsuario']]);
     }
 
     public function index()
@@ -258,7 +258,7 @@ class InformesTecnicosController extends Controller
                     'status' => 'Existe',
 
                 );
-            }else{
+            } else {
                 $data = array(
                     'code' => 400,
                     'status' => 'No Existe',
@@ -269,6 +269,44 @@ class InformesTecnicosController extends Controller
             $data = array(
                 'code' => 400,
                 'status' => 'No',
+
+            );
+        }
+
+
+
+        return response()->json($data, $data['code']);
+    }
+
+    public function informesUsuario($id)
+    {
+
+
+        $informe = \DB::table('informes_tecnicos')
+            ->join('fincas', 'fincas.id', '=',  'informes_tecnicos.finca_id')
+            ->where('informes_tecnicos.user_id', '=',  $id)
+
+
+            ->select(
+                'informes_tecnicos.*',
+                'fincas.nombre',
+                'fincas.municipio',
+                'fincas.departamento',
+            )
+            ->get();
+
+        if (is_object($informe)) {
+
+            $data = array(
+                'code' => 200,
+                'status' => 'success',
+                'informe' => $informe
+
+            );
+        } else {
+            $data = array(
+                'code' => 400,
+                'status' => 'sin datos',
 
             );
         }
