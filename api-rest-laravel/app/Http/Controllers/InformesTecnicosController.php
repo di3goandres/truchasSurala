@@ -13,7 +13,7 @@ class InformesTecnicosController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('api.auth', ['except' => ['getpdf']]);
+        $this->middleware('api.auth', ['except' => ['getpdf', 'existeinforme']]);
     }
 
     public function index()
@@ -183,11 +183,11 @@ class InformesTecnicosController extends Controller
                 ->get();
 
             $fechaUbicacions = str_replace(' 00:00:00', '', $informe->fecha_visita);
-   
+
             $isset =  \Storage::disk('users')
-            ->exists($usuario[0]->numero_identificacion . '\\InformesTecnicos\\' . $fechaUbicacions. '\\' . $filename);
+                ->exists($usuario[0]->numero_identificacion . '\\InformesTecnicos\\' . $fechaUbicacions . '\\' . $filename);
             if ($isset) {
-                $file = \Storage::disk('users')->get($usuario[0]->numero_identificacion . '\\InformesTecnicos\\' . $fechaUbicacions. '\\' . $filename);
+                $file = \Storage::disk('users')->get($usuario[0]->numero_identificacion . '\\InformesTecnicos\\' . $fechaUbicacions . '\\' . $filename);
                 return new Response($file, 200, $headers);
             } else {
                 $data = array(
@@ -235,6 +235,46 @@ class InformesTecnicosController extends Controller
                 'message' => 'Usuario no identificado'
             );
         }
+        return response()->json($data, $data['code']);
+    }
+
+
+    public function existeinforme($id, $fecha)
+    {
+
+
+        $informe = \DB::table('informes_tecnicos')
+
+            ->where('informes_tecnicos.finca_id', '=',  $id)
+            ->where('informes_tecnicos.fecha_visita', '=',  $fecha)
+
+            ->select('informes_tecnicos.id')
+            ->get();
+
+        if (is_object($informe)) {
+            if (count($informe) > 0) {
+                $data = array(
+                    'code' => 200,
+                    'status' => 'Existe',
+
+                );
+            }else{
+                $data = array(
+                    'code' => 400,
+                    'status' => 'No Existe',
+
+                );
+            }
+        } else {
+            $data = array(
+                'code' => 400,
+                'status' => 'No',
+
+            );
+        }
+
+
+
         return response()->json($data, $data['code']);
     }
 }

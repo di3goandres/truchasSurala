@@ -116,7 +116,7 @@
                             <mat-label>Fecha del informe</mat-label>
                             <input matInput formControlName="fecha" [matDatepicker]="pickerentrada"
                                 ng-keydown="$event.preventDefault();" [min]="minDate" [max]="maxDate"
-                                [(ngModel)]="informe.fecha" required>
+                                [(ngModel)]="informe.fecha" required (ngModelChange)="verificarFecha(informe.fecha)">
                             <mat-datepicker-toggle matSuffix [for]="pickerentrada">
                             </mat-datepicker-toggle>
                             <mat-datepicker touchUi #pickerentrada></mat-datepicker>
@@ -139,7 +139,7 @@
                         <div class="col-12">
                             <button type="button" matStepperPrevious mat-raised-button color="primary">Atras</button>
                             <button type="button" matStepperNext mat-raised-button color="secondary"
-                                [disabled]="secondFormGroup.invalid">Continuar</button>
+                                [disabled]="secondFormGroup.invalid || informeExiste">Continuar</button>
 
                         </div>
 
@@ -168,20 +168,15 @@
         </form>
         <ng-template matStepLabel>Asociar Informes</ng-template>
         <div  class="centrarObjetos">
-        <mat-action-list>
-            <mat-chip (click)="AsociarInforme(1)" [class]="fileInformeTecnico.file.length==0? 'colorCheck':'colorPendiente'"> Informes Técnicos </mat-chip>
-            <mat-chip (click)="AsociarInforme(2)" [class]="filePsr.file.length==0? 'colorCheck':'colorPendiente'">  Laboratorio PSR  </mat-chip>
-            <mat-chip (click)="AsociarInforme(3)" [class]="fileHistopatologia.file.length==0? 'colorCheck':'colorPendiente'">Laboratorio Histopatologia</mat-chip>
-
-
-        </mat-action-list>
+      
       
         <mat-chip-list class="mat-chip-list-stacked centrarObjetos" aria-label="Color selection">
             
             <mat-chip (click)="AsociarInforme(1)" [class]="fileInformeTecnico.file.length==0? 'colorCheck':'colorPendiente'"> Informes Técnicos </mat-chip> 
             <mat-chip (click)="AsociarInforme(2)" [class]="filePsr.file.length==0? 'colorCheck':'colorPendiente'">  Laboratorio PSR  </mat-chip>
             <mat-chip (click)="AsociarInforme(3)" [class]="fileHistopatologia.file.length==0? 'colorCheck':'colorPendiente'">Laboratorio Histopatologia</mat-chip>
-
+            <mat-chip (click)="AsociarInforme(4)" [class]="fileNutricional.file.length==0? 'colorCheck':'colorPendiente'">Laboratorio Nutricional</mat-chip>
+            
         </mat-chip-list>
 
         <div class="row" style="text-align: center;">

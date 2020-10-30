@@ -16,8 +16,8 @@
     },
     
     {
-      "icon": "fish-outline",
-      "name": "Reportes Técnicos",
+      "icon": "document-attach-outline",
+      "name": "informes Técnicos",
       "redirectTo": "/ReportesTecnicos"
     },
     {

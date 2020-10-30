@@ -8,7 +8,7 @@
       <ion-card-subtitle class="blueCenter"> Troutlodge /Suralá </ion-card-subtitle>
     </ion-card-header>
     <ion-card-content>
-      <ion-slides mode="ios" scrollbar="ios">
+      <ion-slides mode="ios" scrollbar="ios" (ionSlideDidChange)="subir()">
         <ion-slide *ngFor="let slide of slides; let index = i">
           
           <ion-card>

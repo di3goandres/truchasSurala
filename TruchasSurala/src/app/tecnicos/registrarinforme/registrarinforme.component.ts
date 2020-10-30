@@ -12,6 +12,8 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { InformeService } from '../../service/informe/informe.service';
 import { MatStepper } from '@angular/material/stepper';
 import { RegistroExitosoComponent } from '../../componentes/01-Comunes/registro-exitoso/registro-exitoso.component';
+import { DatePipe } from '@angular/common';
+import { RegistroNoexitosoComponent } from '../../componentes/01-Comunes/registro-noexitoso/registro-noexitoso.component';
 
 @Component({
   selector: 'app-registrarinforme',
@@ -34,14 +36,18 @@ export class RegistrarinformeComponent implements OnInit {
   fileInformeTecnico = new SaveFile();
   filePsr = new SaveFile();
   fileHistopatologia = new SaveFile();
-  continuarGuardar = false;
+  fileNutricional = new SaveFile();
 
+  continuarGuardar = false;
+  informeExiste = false;
 
   constructor(
     private modalService: NgbModal,
     private _formBuilder: FormBuilder,
     private _snackBar: MatSnackBar,
-    private service: InformeService
+    private service: InformeService,
+    public datepipe: DatePipe,
+
 
 
   ) {
@@ -99,7 +105,30 @@ export class RegistrarinformeComponent implements OnInit {
 
     })
   }
+  verificarFecha(fecha) {
+    if (fecha != null) {
 
+
+
+      let fechaNueva = this.datepipe.transform(fecha, 'yyyy-MM-dd');
+
+      this.service.verificarExisteInforme(this.informe.finca_id, fechaNueva).subscribe(
+        OK => { 
+          console.log(OK) 
+          this.informeExiste =true;
+          this.registroNoExitoso("Un momento", "Ya existe un informe para esta fecha")
+
+        },
+        ERROR => { 
+          this.informeExiste =false;
+
+        },
+      )
+    }
+
+
+
+  }
   openUsuarios() {
     const modalRef = this.modalService.open(ListausuariosComponent, { size: 'lg' });
 
@@ -125,7 +154,22 @@ export class RegistrarinformeComponent implements OnInit {
     const modalRef = this.modalService.open(RegistroExitosoComponent, { size: 'md' });
 
     modalRef.result.then((result) => {
-     this.reiniciarForumulario()
+      this.reiniciarForumulario()
+    }, (reason) => {
+
+      if (reason === 'OK') {
+
+
+      }
+    });
+  }
+
+  registroNoExitoso(Titulo, Mensaje) {
+    const modalRef = this.modalService.open(RegistroNoexitosoComponent, { size: 'md' });
+    modalRef.componentInstance.Titulo = Titulo;
+    modalRef.componentInstance.mensaje = Mensaje
+    modalRef.result.then((result) => {
+      
     }, (reason) => {
 
       if (reason === 'OK') {
@@ -166,6 +210,9 @@ export class RegistrarinformeComponent implements OnInit {
       case 3:
         modalRef.componentInstance.file = this.fileHistopatologia
         break;
+      case 4:
+        modalRef.componentInstance.file = this.fileNutricional
+        break;
 
     }
 
@@ -185,6 +232,9 @@ export class RegistrarinformeComponent implements OnInit {
           break;
         case 3:
           this.fileHistopatologia = result;
+          break;
+        case 4:
+          this.fileNutricional = result;
           break;
 
       }
@@ -208,19 +258,26 @@ export class RegistrarinformeComponent implements OnInit {
     if (this.fileHistopatologia.file.length != 0) {
       this.informe.informes.push(this.fileHistopatologia);
     }
+    if (this.fileNutricional.file.length != 0) {
+      this.informe.informes.push(this.fileNutricional);
+    }
 
     this.service.guardar(this.informe).subscribe(
       OK => {
-    
+
         this.reiniciarForumulario()
 
         this.registroExitoso();
 
       },
-      ERROR => { console.log(ERROR) },
+      ERROR => { console.log(ERROR)
+       this.registroNoExitoso("Lo sentimos", "No Hemos podido guardar el informe, intentalo nuevamente")
+      },
     )
 
   }
+
+
 
   reiniciarForumulario() {
     this.informe = new InformesTecnicosRequest();

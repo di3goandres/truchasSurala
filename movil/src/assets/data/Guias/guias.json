@@ -6,33 +6,11 @@
         "slides": [
             {
                 "imagen": "assets/guias/apertura.jpg",
-                "titulo": "APERTURA DE LA NEVERA",
+                "titulo": "TRANSPORTE",
                 "descripciones": [
-                    "Verificar que las neveras no presenten daños externos",
-                    "Al abrir las cajas, verificar la cantidad (%) de hielo",
-                    "Retirar las bandejas y tomar la temperatura de cada una",
-                    "Verificar estado de las ovas: color, conformación, estado, turgencia etc."
-                ]
-            },
-            {
-                "imagen": "assets/guias/datosrelevantes.jpg",
-                "titulo": "DATOS RELEVANTES",
-                "descripciones": [
-                    "% de hielo por bandeja: la cantidad de hielo que queda en las bandejas,  nos indica que durante su viaje se hidrataron, esto garantizara el grado de humedad y la temperatura durante el transporte.",
-                    "Temperatura de la ova: Hacer varias medidas en diferentes bandejas teniendo en cuenta que la temperatura puede variar dependiendo de la proximidad con el hielo, pudiendo generar dentro de una misma nevera, varios grupos de temperaturas."
-                ]
-            },
-            {
-                "imagen": "assets/guias/aclimatacion.jpg",
-
-                "titulo": "ACLIMATACIÓN",
-                "descripciones": [
-                    "Medir la temperatura de todas las bandejas de ovas.",
-                    "Aclimatar a todo el grupo de ovas, a partir de su temperatura de llegada.",
-                    "Si hay un rango muy amplio de temperatura entre bandejas (+2ºC), realizar la aclimatación por grupos de rangos de temperatura.",
-                    "Monitorear la temperatura continuamente con termómetro",
-                    "La aclimatación debe ir acompañada de una hidratación continua",
-                    "Aclimatar durante máximo 2 horas."
+                    "Transportar en el menor tiempo posible. No olvide que son seres vivos, próximos a su nacimiento",
+                    "Transportar las ovas en vehículos cubiertos del sol o preferiblemente refrigerados, manteniendo una temperatura promedio menor a 10ºC",
+                    "NO transportar en Motos"
                 ]
             }
         ]
@@ -62,7 +40,6 @@
             },
             {
                 "imagen": "assets/guias/aclimatacion.jpg",
-
                 "titulo": "ACLIMATACIÓN",
                 "descripciones": [
                     "Medir la temperatura de todas las bandejas de ovas.",
@@ -71,6 +48,22 @@
                     "Monitorear la temperatura continuamente con termómetro",
                     "La aclimatación debe ir acompañada de una hidratación continua",
                     "Aclimatar durante máximo 2 horas."
+                ]
+            }
+        ]
+    },
+    {
+        "nombre": "TRANSPORTE DE OVAS DE TRUCHA",
+        "descripcion": "El tiempo de viaje de las ovas, es un factor determinante en el buen desarrollo y evolución de la incubación.",
+        "icon": "bus-outline",
+        "slides": [
+            {
+                "imagen": "assets/guias/apertura.jpg",
+                "titulo": "TRANSPORTE",
+                "descripciones": [
+                    "Transportar en el menor tiempo posible. No olvide que son seres vivos, próximos a su nacimiento",
+                    "Transportar las ovas en vehículos cubiertos del sol o preferiblemente refrigerados, manteniendo una temperatura promedio menor a 10ºC",
+                    "NO transportar en Motos"
                 ]
             }
         ]

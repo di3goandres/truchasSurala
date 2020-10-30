@@ -18,4 +18,9 @@ export class InformeService {
 
     return this.service.ejecutarQueryPost('/api/informestecnicos', params);
   }
+
+  //Verifica la existencia de un reporte
+  verificarExisteInforme(id, fecha){
+    return this.service.ejecutarQuery('/api/movil/despacho/reporte/existe/' + id + '/' + fecha);
+  }
 }
