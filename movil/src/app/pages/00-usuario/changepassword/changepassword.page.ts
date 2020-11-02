@@ -18,13 +18,10 @@ export class ChangepasswordPage implements OnInit {
     formBuilder: FormBuilder,
     private userService: UserService,
     public toastController: ToastController,
-
-
   ) {
     this.passwordUpdateForm = formBuilder.group({
       old_password: ['', Validators.required],
       password: ['', Validators.required],
-
       password_confirm: [''],
     },
       {
@@ -55,12 +52,9 @@ export class ChangepasswordPage implements OnInit {
   Actualizar() {
     this.userService.updatePassword(this.resetPassword).subscribe(
       OK => {
-        console.log(OK)
         this.Guardo = true;
-
       },
       ERROR => {
-
         this.presentToast("Por favor verifica los datos e intenta nuevamente.")
       },
     )

@@ -1,6 +1,6 @@
 <ion-list lines="none">
   <ion-list-header lines="inset">
-    <ion-label>Informes Técnicos</ion-label>
+    <ion-label class="blue">Informes Técnicos</ion-label>
   </ion-list-header>
 
   <ion-item-sliding *ngFor="let informe of informes">
@@ -15,11 +15,13 @@
       </ion-avatar>
 
       <div style="white-space: pre-wrap; " class="ion-text-left blueJustify">
-        <p>{{informe.observaciones}}</p>
 
         <ion-note slot="end">
           {{informe.fecha_salida}}
         </ion-note>
+        <p>{{informe.observaciones}}</p>
+
+       
       </div>
     </ion-item>
 
@@ -30,5 +32,35 @@
     </ion-item-options>
   </ion-item-sliding>
 
+  
+  <ion-card *ngIf="informes.length==0">
+    <ion-card-header>
+      <ion-card-title class="bandejaexitoso">Sin Reportes</ion-card-title>
+      <ion-grid cols="1" rowHeight="1:1" fixed>
+        <ion-row style="text-align: center">
+          <ion-col>
 
+          </ion-col>
+          <ion-col>
+            <img src="./assets/avatars/av-4.png">
+
+          </ion-col>
+          <ion-col>
+
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col>
+            <p class="exitoso">
+              Aun no tienes Reportes de mortalidad registrados
+            </p>
+            <ion-back-button  defaultHref="/"  color="primary" ></ion-back-button>
+
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-card-header>
+    <ion-card-content>
+    </ion-card-content>
+  </ion-card>
 </ion-list>

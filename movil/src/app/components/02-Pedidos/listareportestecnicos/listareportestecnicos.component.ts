@@ -11,7 +11,7 @@ import { ModalController } from '@ionic/angular';
 })
 export class ListareportestecnicosComponent implements OnInit {
 
-  informes: InformeTecnico[];
+  informes: InformeTecnico[] = [];
 
   constructor(
     private service: PedidosService,
@@ -30,7 +30,7 @@ export class ListareportestecnicosComponent implements OnInit {
       OK => {
         console.log(OK)
         this.informes = [];
-        this.informes.push(...OK.informes)
+         this.informes.push(...OK.informes)
       },
       ERROR => { console.log(ERROR) },
     )
