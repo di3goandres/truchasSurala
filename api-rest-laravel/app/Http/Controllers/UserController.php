@@ -620,4 +620,87 @@ class UserController extends Controller
 
         return response()->json($data, $data['code']);
     }
+
+
+    public function resetPasswordByUser(Request $request)
+    {
+        $token = $request->header('Authorization');
+        $jwtAuth = new \JwtAuth();
+        $checktoken = $jwtAuth->checkToken($token);
+        $json = $request->input('json', null);
+        $params = json_decode($json); //objeto
+        $params_array = json_decode($json, true); // array
+        if ($checktoken && !empty($params) && !empty($params_array)) {
+            // recoger los datos por post
+            $userToken = $jwtAuth->checkToken($token, true);
+
+            if ($userToken->rol === "USUARIO") {
+
+
+                $old_password = $params_array['old_password'];
+
+                $old_password = hash('sha256',    $old_password);
+                $user = User::where([
+                    'email' => $userToken->email,
+                    'password' => $old_password
+                ])->first();
+                //comprobar si son correctas
+                $signup = false;
+                if (is_object($user)) {
+                    $signup = true;
+                }
+
+                if ($signup) {
+
+                    $pwd = hash('sha256', $params->password);
+
+                    //quitar los campos que n quiero actualizar por si los llegan a envir
+                    unset($params_array["id"]);
+                    unset($params_array["role"]);
+                    unset($params_array["name"]);
+                    unset($params_array["telefono"]);
+                    unset($params_array["surname"]);
+                    unset($params_array["numero_identificacion"]);
+                    unset($params_array["tipo_identificacion"]);
+                    unset($params_array["email"]);
+                    unset($params_array["description"]);
+                    unset($params_array["image"]);
+                    unset($params_array["created_at"]);
+                    unset($params_array["updated_at"]);
+                    unset($params_array["old_password"]);
+                    unset($params_array["password_confirm"]);
+
+
+                    //se setea la nueva contraseña encriptada
+                    $params_array['password'] = $pwd;
+                    // actualizar usuario
+                    $user_update = User::where('id', $user->id)->update($params_array);
+                    //devolver array con resultado
+                    $data = array(
+                        'code' => 200,
+                        'status' => 'success',
+                    );
+                } else {
+                    $data = array(
+                        'code' => 400,
+                        'status' => 'error',
+                        'message' => 'Login incorrecto.'
+                    );
+                }
+            } else {
+                $data = array(
+                    'code' => 400,
+                    'status' => 'error',
+                    'message' => 'No autorizado a cambiar'
+                );
+            }
+        } else {
+            $data = array(
+                'code' => 401,
+                'status' => 'error',
+                'message' => 'Usuario no identificado'
+            );
+        }
+        return response()->json($data, $data['code']);
+    }
 }

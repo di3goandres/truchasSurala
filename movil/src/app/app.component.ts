@@ -22,7 +22,7 @@ export class AppComponent implements OnInit, DoCheck {
 
 
   constructor(
-   
+
     private platform: Platform,
     private splashScreen: SplashScreen,
     private statusBar: StatusBar,
@@ -69,10 +69,10 @@ export class AppComponent implements OnInit, DoCheck {
       this.pushService.configuracionInicial();
       this.componentes = this.dataService.getMenuOpts(true);
       this.componentesInvitado = this.dataService.getMenuOpts(false);
-     let activo = this.dataService.enableAuthenticatedMenu();
-     if(activo){
-      this.pushService.tagUsuarioLogeado();
-     }
+      let activo = this.dataService.enableAuthenticatedMenu();
+      if (activo) {
+        this.pushService.tagUsuarioLogeado();
+      }
     });
   }
 

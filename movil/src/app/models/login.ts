@@ -7,3 +7,11 @@ export class Login {
     ) { }
   }
   
+
+  export class ResetPassword{
+    public old_password: string;
+    public password_confirm: string;
+
+    public password: string;
+
+  }

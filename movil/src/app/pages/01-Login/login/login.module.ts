@@ -17,6 +17,7 @@ import { Camera, CameraOptions } from '@ionic-native/camera/ngx';
     FormsModule,
     IonicModule,
     LoginPageRoutingModule
+    
   ],
   declarations: [LoginPage]
 })

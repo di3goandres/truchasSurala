@@ -55,6 +55,10 @@ Route::post('/api/user/upload', 'UserController@upload')->middleware(ApiAuthMidd
 Route::get('/api/user/avatar/{user}/{filename}', 'UserController@getImage') ;
 Route::get('/api/user/detail/{id}', 'UserController@detail');
 Route::get('/api/users/get', 'UserController@GetAllUserFincas');
+Route::post('/api/user/changepassword', 'UserController@resetPasswordByUser');
+
+
+
 
 //Metodo para subir y descargar el pdf de facturas 
 Route::post('/api/pedido/subirarchivo', 'UserController@subirarchivo')->middleware(ApiAuthMiddleware::class) ;

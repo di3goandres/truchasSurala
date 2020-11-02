@@ -76,7 +76,6 @@ registerLocaleData(localCo);
   ],
   providers: [
     FormsModule,
-
     ReactiveFormsModule,
     StatusBar,
     SplashScreen,

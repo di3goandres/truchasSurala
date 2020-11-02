@@ -6,7 +6,8 @@ use Firebase\JWT\JWT;
 use Illuminate\Support\Facades\DB;
 use App\User;
 
-class JwtAuth {
+class JwtAuth
+{
 
     public $key;
 
@@ -20,22 +21,20 @@ class JwtAuth {
         //Buscar si existe un usuario con esas credenciales
 
         $user = User::where([
-                    'email' => $email,
-                    'password' => $password
-                ])->first();
+            'email' => $email,
+            'password' => $password
+        ])->first();
 
 
 
 
         //comprobar si son correctas
         $signup = false;
-        if (is_object($user))
-        {
+        if (is_object($user)) {
             $signup = true;
         }
         //Generar el token con los datos del usuario identificado
-        if ($signup)
-        {
+        if ($signup) {
             $token = array(
                 'sub' => $user->id,
                 'email' => $user->email,
@@ -43,25 +42,20 @@ class JwtAuth {
                 'surname' => $user->surname,
                 'numero_identificacion' => $user->numero_identificacion,
                 'telefono' => $user->telefono,
-
+                'rol' => $user->role,
                 'iat' => time(),
                 'exp' => time() + (180 * 24 * 60 * 60),
             );
 
             $jwt = JWT::encode($token, $this->key, 'HS256'); //key es la que va estar en el bakend
             // devolver el parametro
-            if (is_null($getToken))
-            {
+            if (is_null($getToken)) {
                 $data = $jwt;
-            }
-            else
-            {
+            } else {
                 $decode = JWT::decode($jwt, $this->key, ['HS256']);
                 $data = $decode;
             }
-        }
-        else
-        {
+        } else {
             $data = array(
                 'status' => 'error',
                 'message' => 'Login incorrecto.'
@@ -84,15 +78,12 @@ class JwtAuth {
             $auth = false;
         }
 
-        if (!empty($decoded) && is_object($decoded) && isset($decoded))
-        {
+        if (!empty($decoded) && is_object($decoded) && isset($decoded)) {
             $auth = true;
         }
-        if ($getIdentity)
-        {
+        if ($getIdentity) {
             return $decoded;
         }
         return $auth;
     }
-
 }

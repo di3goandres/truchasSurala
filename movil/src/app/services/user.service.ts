@@ -8,6 +8,7 @@ import { FincasUser } from '../models/fincas.user';
 import { Respuesta } from '../models/Response';
 import { Photo, SavePhoto } from '../models/photos';
 import { delay } from 'rxjs/operators';
+import { ResetPassword } from '../models/login';
 
 
 
@@ -208,5 +209,12 @@ export class UserService {
 
 
 
+  }
+
+  updatePassword(data : ResetPassword){
+    this.json = JSON.stringify(data);
+    this.params = 'json=' + this.json;
+
+    return this.ejecutarQueryPost<Respuesta>('/api/user/changepassword', this.params);
   }
 }
