@@ -96,6 +96,8 @@ Route::resource('/api/Notificaciones', 'NotificacionesController');
 
 Route::post('/api/Notificaciones/personalizado/', 'NotificacionesController@SendUniqueUser');
 Route::post('/api/Notificaciones/borrar/', 'NotificacionesController@borrarToken');
+Route::get('/api/Notificaciones/Actual/{id}', 'NotificacionesController@ObtenerNotificacionActual');
+Route::get('/api/Notificaciones/RutasActual/{id}', 'NotificacionesController@ObtenerNotificacionRutas');
 
 
 

@@ -1,0 +1,44 @@
+<mat-card style="text-align: center;">
+    <mat-card-content class="centrarObjetos">
+        <form [formGroup]="firstFormGroup" (ngSubmit)="Notificar()">
+
+            <div class="row">
+
+
+
+                <div class="col-6">
+                    <mat-form-field appearance="fill">
+                        <mat-label>Titulo Mensaje</mat-label>
+                        <input matInput formControlName="Titulo" [(ngModel)]="notificacion.titulo" />
+                        <!-- <input type="button" value="Agregar Fecha"/> -->
+
+                    </mat-form-field>
+                </div>
+                <div class="col-6">
+                    <mat-form-field appearance="fill">
+                        <mat-icon matSuffix>person</mat-icon>
+                        <mat-label>Escoge Una ruta</mat-label>
+                        <mat-select formControlName="Ruta" [(ngModel)]="notificacion.destino">
+                            <mat-option *ngFor="let ruta of rutas" [value]="ruta.nombre">{{ruta.nombre}}</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+
+                </div>
+            </div>
+            <div class="col-12">
+                <mat-form-field appearance="fill">
+                    <mat-icon matSuffix>email</mat-icon>
+                    <mat-label>Mensaje a enviar</mat-label>
+                    <textarea matInput placeholder="Mensaje Usuario" formControlName="Mensaje"
+                        [(ngModel)]="notificacion.mensaje" cols="10" matAutosizeMinRows=1
+                        matAutosizeMaxRows=5></textarea>
+                </mat-form-field>
+
+            </div>
+                <button mat-raised-button type="submit" class="btn btn-primary btn-block"
+                    [disabled]="!firstFormGroup.valid">
+                    Enviar Notificación
+                </button>
+        </form>
+    </mat-card-content>
+</mat-card>

@@ -28,7 +28,6 @@ export class ListareportestecnicosComponent implements OnInit {
   cargarInformesTecnicos() {
     this.service.ObtenerReportesTecnicos().subscribe(
       OK => {
-        console.log(OK)
         this.informes = [];
          this.informes.push(...OK.informes)
       },
@@ -44,9 +43,6 @@ export class ListareportestecnicosComponent implements OnInit {
       cssClass: 'my-custom-class',
       componentProps: {
         'informe': item
-
-
-
       }
     });
     return await modal.present();

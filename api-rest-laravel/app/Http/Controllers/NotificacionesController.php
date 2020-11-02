@@ -98,7 +98,7 @@ class NotificacionesController extends Controller
                     'status' => 'error',
                     'code' => 400,
                     'message' => 'no se elimino el token del dispositivo'
-                   
+
                 );
             } else {
                 $usuario = User::find($user->sub);
@@ -140,30 +140,102 @@ class NotificacionesController extends Controller
     public function SendUniqueUser(Request $request)
     {
 
+        // Se envia un Json recibimos un json 
+        // recoger los datos del usuario por post
+        $json = $request->input('json', null);
+        $params = json_decode($json); //objeto
+        $params_array = json_decode($json, true); // array
+
+        if (!empty($params) && !empty($params_array)) {
+
+            $validate = \Validator::make($params_array, [
+                'titulo' => 'required',
+                'mensaje' => 'required',
+                'destino' => 'required'
+            ]);
+            if ($validate->fails()) {
+                $data = array(
+                    'status' => 'error',
+                    'code' => 400,
+                    'message' => 'No se ha enviado',
+                    'errors' => $validate->errors()
+                );
+            } else {    
+                
+                // Para Todos los usuarios
+                if($params_array['destino']=="TODOS"){
+                    $usuarios= \DB::select('call UsuariosNotificarDespacho()');
+
+                }else{
+                    $usuarios= \DB::select('call UsuariosNotificarDespachoRuta(?)', array($params_array['destino']));
+                }
 
 
-        $userId = ["ed41dced-1eeb-473c-98c1-364c11b44bfd", "e0dd170b-e011-4f37-8775-7ada2008435d"];
-        $params = [];
-        $params['include_player_ids'] = $userId;
-        $contents = [
-            "en" => "Algun Mensaje",
-            "tr" => "Some Turkish Message"
-        ];
-        $params['contents'] = $contents;
-        $headings = [
-            "en" => "Algn titulo  :)",
-            "es" => "Titulo en español2"
-        ];
-        $params['headings'] = $headings;
+                //Para la ruta seleccionada
+              
+                $userId =[];
+                $conteo = 0;
+                foreach($usuarios as $usuario){
+                        $userId[$conteo] = $usuario->token;
+                        $conteo++;
+                }
+                
+                // var_dump($userId);
+                // die();
+                // $userId = ["ed41dced-1eeb-473c-98c1-364c11b44bfd", "edb5a98e-574c-4422-9fab-64b8d693173c", "edb5a98e-574c-4422-9fab-64b8d693173c"];
+                $params = [];
+                $params['include_player_ids'] = $userId;
+                $contents = [
+                    "en" => $params_array['mensaje'],
+                    "tr" =>$params_array['mensaje'],
+                ];
+                $params['contents'] = $contents;
+                $headings = [
+                    "en" => $params_array['titulo'],
+                    "es" => $params_array['titulo']
+                ];
+                $params['headings'] = $headings;
+                OneSignal::sendNotificationCustom($params);
+
+                $data = array(
+                    'status' => 'success',
+                    'code' => 200,
+
+                );
+            }
+        } else {
+            $data = array(
+                'status' => 'error',
+                'code' => 400,
+                'message' => 'No se ha enviado',
+            );
+        }
+
+        return response()->json($data, $data['code']);
+    }
 
 
-        OneSignal::sendNotificationCustom($params);
-
-
+    public function ObtenerNotificacionActual($id)
+    {
+        $usuarioActuales =  \DB::select('call UsuariosNotificarDespacho(?)', array($id));
 
         $data = array(
-            'status' => 'success',
+            'status' => 'sucess',
             'code' => 200,
+            'notificaciones' => $usuarioActuales,
+
+        );
+        return response()->json($data, $data['code']);
+    }
+
+    public function ObtenerNotificacionRutas($id)
+    {
+        $rutas =  \DB::select('call obteneRutasDisponibles(?)', array($id));
+
+        $data = array(
+            'status' => 'sucess',
+            'code' => 200,
+            'rutas' => $rutas,
 
         );
         return response()->json($data, $data['code']);

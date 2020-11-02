@@ -27,6 +27,7 @@ import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AuthInterceptor } from './service/interceptor/auth.interceptor';
 import { UserService } from './service/user/user.service';
 import { RegistrollegadaComponent } from './componentes/05-Despacho/registrollegada/registrollegada.component';
+import { EnvionotificacionesComponent } from './componentes/09-Notificaciones/envionotificaciones/envionotificaciones.component';
 
 
 
@@ -92,6 +93,11 @@ const routes: Routes = [
   },
   { // rutas de usuarios
     path: 'surala/usuarios', component: ListausuarioComponent, canLoad: [UsuarioGuard], canActivate: [UsuarioGuard]
+  },
+
+  
+  { // rutas de usuarios
+    path: 'surala/despachos/notificaciones', component: EnvionotificacionesComponent, canLoad: [UsuarioGuard], canActivate: [UsuarioGuard]
   },
   /** informes tecnicos */
   
