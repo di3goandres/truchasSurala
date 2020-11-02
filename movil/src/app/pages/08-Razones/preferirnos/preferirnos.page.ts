@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { GuiasService } from '../../../services/guias/guias.service';
 import { Prefierenos, SlidesPrefierenos } from '../../../models/prefierenos/prefierenos';
-import { IonContent } from '@ionic/angular';
+import { IonContent, IonSlides } from '@ionic/angular';
 
 @Component({
   selector: 'app-preferirnos',
@@ -10,11 +10,15 @@ import { IonContent } from '@ionic/angular';
 })
 export class PreferirnosPage implements OnInit {
   @ViewChild(IonContent) ionContent: IonContent;
-    
+
+  @ViewChild(IonSlides, {static: false}) slidesUpdate: IonSlides;
 
   preferidos: Prefierenos[] = []
   slides: SlidesPrefierenos[] = []
 
+  ionViewDidEnter(){
+    this.slidesUpdate.update();
+  }
   constructor(
     private service: GuiasService
   ) { }
