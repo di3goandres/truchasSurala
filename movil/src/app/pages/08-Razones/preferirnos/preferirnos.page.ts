@@ -10,6 +10,7 @@ import { IonContent } from '@ionic/angular';
 })
 export class PreferirnosPage implements OnInit {
   @ViewChild(IonContent) ionContent: IonContent;
+    
 
   preferidos: Prefierenos[] = []
   slides: SlidesPrefierenos[] = []
