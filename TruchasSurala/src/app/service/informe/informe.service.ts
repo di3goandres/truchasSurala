@@ -29,4 +29,12 @@ export class InformeService {
   traerInformacion(id){
     return this.service.ejecutarQuery<InformesResponse>('/api/movil/despacho/reporte/informes/' + id);
   }
+
+  ActualizarInforme(informe: InformesTecnicosRequest){
+    let json = JSON.stringify(informe);
+    let params = 'json=' + json;
+   
+
+    return this.service.ejecutarQueryPost('/api/informestecnicos/actualizar', params);
+  }
 }

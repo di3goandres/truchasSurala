@@ -171,6 +171,8 @@ Route::resource('/api/informestecnicos', 'InformesTecnicosController');
 Route::get('/api/movil/despachos/obtenerpropios', 'InformesTecnicosController@informesTecnicosByToken'); 
 Route::get('/api/movil/despacho/reporte/pdf/{id}/{filename}', 'InformesTecnicosController@getpdf') ;
 Route::get('/api/movil/despacho/reporte/existe/{id}/{fecha}', 'InformesTecnicosController@existeinforme') ;
+Route::post('/api/informestecnicos/actualizar', 'InformesTecnicosController@actualizarInforme') ;
+
 
 Route::get('/api/movil/despacho/reporte/informes/{id}', 'InformesTecnicosController@informesUsuario') ;
 

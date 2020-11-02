@@ -76,7 +76,7 @@ export class ActualizarpdfinformeComponent implements OnInit {
 
 
 
-
+  
 
 
   }

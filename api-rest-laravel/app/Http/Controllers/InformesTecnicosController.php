@@ -166,6 +166,107 @@ class InformesTecnicosController extends Controller
     }
 
 
+
+    public function actualizarInforme(Request $request)
+    {
+        //recoger los datos por post 
+        $json = $request->input('json', null);
+
+        $params_array = json_decode($json, true); // array
+        // validar los datos
+
+
+        if (!empty($params_array)) {
+            $validate = \Validator::make($params_array, [
+                'user_id' => 'required',
+                'id' => 'required',
+                'finca_id' => 'required',
+                'observaciones' => 'required',
+                "informes" => "array|min:0",
+                "informes.*.tipo" => "numeric|min:0",
+                "informes.*.file" => "min:0",
+            ]);
+            if ($validate->fails()) {
+                $data = array(
+                    'status' => 'error',
+                    'code' => 400,
+                    'message' => 'Informe, no se pudo actualizar',
+                    'errors' => $validate->errors(),
+                    'data' => $params_array
+                );
+            } else {
+
+                $usuario = \DB::table('users')
+                    ->where('users.id', '=',  intval($params_array['user_id']))
+                    ->select('users.id', 'users.numero_identificacion')
+                    ->get();
+                $finca = Fincas::find($params_array['finca_id']);
+                $informe = InformesTecnicos::find($params_array['id']);
+
+                if (is_object($usuario) &&  is_object($finca) && is_object($informe)) {
+             
+                    $fechaUbicacions = str_replace(' 00:00:00', '', $informe->fecha_visita);
+                    $informe->observaciones = $params_array['observaciones'];
+                    $archivos = $params_array['informes'];
+                    foreach ($archivos as $archivo) {
+
+                        $file = $archivo['file'];
+                        $id = $archivo['tipo'];
+                        $file = str_replace('data:application/pdf;base64,', '', $file);
+                        $file = str_replace(' ', '+', $file);
+                        switch ($id) {
+                            case 1:
+                                $name = time() . "_InformeTecnico.pdf";
+                                $informe->InformeTecnico = $name;
+
+                                break;
+                            case 2:
+                                $name = time() . "_LaboratorioPCR.pdf";
+                                $informe->archivo_pcr = $name;
+                                break;
+                            case 3:
+                                $name = time() . "_Histopatologia.pdf";
+                                $informe->histopatologia = $name;
+                                break;
+
+                            case 4:
+                                $name = time() . "_LaboratorioNutricional.pdf";
+                                $informe->laboratorioNutricional = $name;
+                                break;
+                        }
+
+                        \Storage::disk('users')
+                            ->put($usuario[0]->numero_identificacion . '\\InformesTecnicos\\' . $fechaUbicacions . '\\' . $name, base64_decode($file));
+                        $informe->save();
+                    }
+                    $data = array(
+                        'status' => 'success',
+                        'code' => 200,
+                        'message' => 'Informe creado'
+
+                    );
+                } else {
+                    $data = array(
+                        'status' => 'error',
+                        'code' => 400,
+                        'message' => 'Informe no creado'
+
+                    );
+                }
+            }
+        } else {
+            $data = array(
+                'status' => 'error',
+                'code' => 400,
+                'dato' => $params_array,
+                'message' => 'Sin datos que procesar',
+            );
+        }
+        // guardar los datos
+        // devolver el resutlado
+        return response()->json($data, $data['code']);
+    }
+
     public function getpdf($id, $filename)
     {
 

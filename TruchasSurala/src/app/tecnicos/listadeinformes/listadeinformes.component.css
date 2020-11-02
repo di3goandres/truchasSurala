@@ -17,3 +17,42 @@ mat-chip {
     color: white !important;
     
   }
+
+
+  .colorUpdate{
+    background-color: #9ad3bc !important;
+    color: white !important;
+    
+  }
+
+  table {
+    width: 100%;
+  }
+
+
+  .mat-form-field{
+      width:  100%;
+  }
+
+
+.row{
+    text-align: center;
+}
+
+.centrarObjetos {
+    margin: auto;
+   
+    width: 80%;
+
+    /* border: 3px solid green; */
+    padding: 10px;
+  }
+
+  mat-chip {
+    max-width: 100%;
+  }
+
+  
+  ::ng-deep .mat-horizontal-stepper-header{
+    pointer-events: none !important;
+}

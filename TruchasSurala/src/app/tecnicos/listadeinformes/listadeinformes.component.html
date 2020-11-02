@@ -107,53 +107,7 @@
                                         (click)="Ver(element)">Ver</button></td>
                             </ng-container>
 
-                            <!-- <ng-container matColumnDef="NumeroOvas"> VerInforme
-                            <th mat-header-cell *matHeaderCellDef> Numero de Ovas </th>
-                            <td mat-cell *matCellDef="let element"> {{element.numero_ovas | number}} </td>
-                          </ng-container>
-                          <ng-container matColumnDef="Porcentaje">
-                            <th mat-header-cell *matHeaderCellDef> % Adicional</th>
-                            <td mat-cell *matCellDef="let element"> {{element.porcentaje}}% </td>
-                          </ng-container>
-                          <ng-container matColumnDef="Editar">
-                            <th mat-header-cell *matHeaderCellDef> Editar</th>
-                            <td mat-cell mat-cell *matCellDef="let element">
-                              <button mat-raised-button id="logout-button" class="btn btn-primary btn-block" style="width:50%"
-                                color="primary" (click)="OpenEditar(element)"
-                                [disabled]="element.Activo!=1"
-                                >
-                                <mat-icon>edit_attributes</mat-icon>
-                              </button>
-                            </td>
-            
-                          </ng-container>
-                          <ng-container matColumnDef="VerDespacho">
-                            <th mat-header-cell *matHeaderCellDef> Ver Despacho</th>
-                            <td mat-cell mat-cell *matCellDef="let element">
-                              <button mat-raised-button id="logout-button" class="btn btn-primary btn-block" style="width:50%"
-                                color="primary" [routerLink]="['/surala/despacho/', element.id]">
-                                <mat-icon>search</mat-icon>
-                              </button>
-                            </td>
-            
-                          </ng-container>
-                          <ng-container matColumnDef="VerPedidos">
-                            <th mat-header-cell *matHeaderCellDef> Ver Pedidos </th>
-                            <td mat-cell *matCellDef="let element">
-                              <button mat-raised-button color="secondary" id="logout-button" class="btn btn-primary btn-block"
-                                style="width:50%" [routerLink]="['/surala/pedidos/', element.id]">Ver</button>
-            
-                            </td>
-                          </ng-container>
-            
-                          <ng-container matColumnDef="VerDistribucion">
-                            <th mat-header-cell *matHeaderCellDef> Ver Distribucion </th>
-                            <td mat-cell *matCellDef="let element">
-                              <button mat-raised-button color="secondary" id="logout-button" class="btn btn-primary btn-block"
-                                style="width:50%" (click)="openDistribucion(element.id)">Ver</button>
-            
-                            </td>
-                          </ng-container> -->
+                         
                             <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
                             <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
                         </table>
@@ -163,20 +117,29 @@
                     <div *ngIf="informes.length==0">
                         <mat-card>
                             <mat-card-header>
-                                <mat-card-title>
+                                <mat-card-title style="text-align: center;">
                                     Sin Informes que mostrar
                                 </mat-card-title>
                              
                             </mat-card-header>
                             <mat-card-content>
+                                <div class="row">
+                                    <div class="col-xs-12 col-12 form-group">
                                 <img src="assets/sorry.jpeg">
+                                </div>
+                                </div>
                             </mat-card-content>
                         </mat-card>
 
                     </div>
+                    <div class="col-12">
+                        <button type="button" matStepperPrevious mat-raised-button color="primary"
+                            >Atras</button>
+        
+                    </div>
                 </mat-card-content>
             </mat-card>
-
+            
         </mat-step>
 
         <mat-step>
@@ -185,18 +148,12 @@
 
                 <form [formGroup]="secondFormGroup" style="width: 100%;">
 
-
-                    
                         <mat-label>Fecha del informe   {{ seleccionado.fecha_visita.replace(' 00:00:00', 'T00:00:00') |date :"MMM/dd/yyyy" | uppercase }}</mat-label>
-
-                      
-
-
 
                     <mat-form-field [style.fontSize]="'15px'">
                         <mat-label>OBSERVACIONES</mat-label>
                         <textarea matInput cdkTextareaAutosize #autosize="cdkTextareaAutosize" cdkAutosizeMinRows="1"
-                            cdkAutosizeMaxRows="10" [(ngModel)]="seleccionado.observaciones"
+                            cdkAutosizeMaxRows="10" [(ngModel)]="ObservacionesNuevas" (blur)="ActivarActualizar()"
                             formControlName="observaciones"></textarea>
                     </mat-form-field>
 
@@ -218,6 +175,21 @@
 
                 </mat-chip-list>
             </div>
+
+            
+            <div class="row" style="text-align: center;"  >
+                <div class="col-6">
+                    <button type="button" matStepperPrevious mat-raised-button color="primary"
+                        >Atras</button>
+    
+                </div>
+                <div class="col-6">
+                  <button matStepperNext mat-raised-button color="secondary" (click)="actualizarInforme()" [disabled]="!Actualizar">Guardar</button>
+                </div>
+          
+               
+          
+              </div>
 
         </mat-step>
 

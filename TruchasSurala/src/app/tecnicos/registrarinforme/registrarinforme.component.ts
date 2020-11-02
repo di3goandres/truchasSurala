@@ -107,21 +107,16 @@ export class RegistrarinformeComponent implements OnInit {
   }
   verificarFecha(fecha) {
     if (fecha != null) {
-
-
-
       let fechaNueva = this.datepipe.transform(fecha, 'yyyy-MM-dd');
-
       this.service.verificarExisteInforme(this.informe.finca_id, fechaNueva).subscribe(
         OK => { 
-          console.log(OK) 
+          
           this.informeExiste =true;
           this.registroNoExitoso("Un momento", "Ya existe un informe para esta fecha")
 
         },
         ERROR => { 
           this.informeExiste =false;
-
         },
       )
     }
@@ -192,7 +187,7 @@ export class RegistrarinformeComponent implements OnInit {
       this.openSnackBar("Recuerda Asociar el Informe Técnico", 'De Acuerdo!');
 
     } else {
-      this.openSnackBar("Los informes de PSR e Histologia son Opcionales", 'wooo!');
+      this.openSnackBar("Los informes de PCR e Histologia son Opcionales", 'wooo!');
 
     }
 
@@ -285,6 +280,8 @@ export class RegistrarinformeComponent implements OnInit {
     this.fileInformeTecnico = new SaveFile();
     this.filePsr = new SaveFile();
     this.fileHistopatologia = new SaveFile();
+    this.fileNutricional = new SaveFile();
+
     this.continuarGuardar = false;
     this.myStepper.reset();
     this.activarFormulario()
