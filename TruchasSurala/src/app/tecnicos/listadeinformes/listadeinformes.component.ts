@@ -68,7 +68,6 @@ export class ListadeinformesComponent implements OnInit {
         this.dataSource = new MatTableDataSource(OK.informe);
         this.seleccionado = null;
         this.dataSource.paginator = this.paginator
-        this.stepper.next()
       },
       ERROR => { console.log(ERROR) },
     )
@@ -77,6 +76,8 @@ export class ListadeinformesComponent implements OnInit {
     const modalRef = this.modalService.open(SeleccionarusuarioComponent, { size: 'xl' });
     modalRef.result.then((result: Usuario) => {
       this.usuario = result;
+      this.stepper.next()
+
       this.traerInformacion()
     }, (reason) => {
       if (reason === 'OK') {
@@ -130,7 +131,7 @@ export class ListadeinformesComponent implements OnInit {
 
   }
 
-  actualizarInforme() {
+   actualizarInforme() {
     this.informeUpdate.id = this.seleccionado.id;
     this.informeUpdate.finca_id = this.seleccionado.finca_id;
     this.informeUpdate.observaciones = this.ObservacionesNuevas;
@@ -158,12 +159,13 @@ export class ListadeinformesComponent implements OnInit {
       this.informeUpdate.informes.push(this.fileNutricional);
     }
 
+    console.log(this.informeUpdate)
 
-    this.service.ActualizarInforme(this.informeUpdate).subscribe(
+   this.service.ActualizarInforme(this.informeUpdate).subscribe(
       OK => {
         this.reiniciarForumulario();
         this.registroExitoso();
-
+        console.log(OK)
       },
       ERROR => {
 
@@ -194,9 +196,10 @@ export class ListadeinformesComponent implements OnInit {
     this.fileNutricional = new SaveFile();
 
     this.Actualizar = false;
-    this.stepper.reset();
 
 
+    this.traerInformacion()
+    this.stepper.previous();
   }
 
 
@@ -204,7 +207,7 @@ export class ListadeinformesComponent implements OnInit {
     const modalRef = this.modalService.open(RegistroExitosoComponent, { size: 'md' });
 
     modalRef.result.then((result) => {
-      this.reiniciarForumulario()
+     
     }, (reason) => {
 
       if (reason === 'OK') {

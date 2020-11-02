@@ -207,6 +207,9 @@ class InformesTecnicosController extends Controller
              
                     $fechaUbicacions = str_replace(' 00:00:00', '', $informe->fecha_visita);
                     $informe->observaciones = $params_array['observaciones'];
+                    $informe->save();
+
+                  
                     $archivos = $params_array['informes'];
                     foreach ($archivos as $archivo) {
 
