@@ -45,7 +45,7 @@ export class CrearpedidosComponent implements OnInit {
     this.usuario = new UserFinca()
     this.urlPeticion = this.router.url + '/' + this.idDespacho;
     console.log(this.router.url);
-    this.pedidoMinimo = 5000;
+    this.pedidoMinimo = 0;
     this.show = false;
     this.title = 'Agregar Pedido';
     this.pedido = new PedidoClass(this.idDespacho, this.porcentaje);
@@ -53,8 +53,8 @@ export class CrearpedidosComponent implements OnInit {
 
 
     this.firstFormGroup = this._formBuilder.group({
-      pedidoMinimo: ['', [Validators.min(500), Validators.max(this.pendiente)]],
-      Pedido: ['', [Validators.min(500), Validators.max(this.pendiente)]],
+      pedidoMinimo: ['', [Validators.min(0), Validators.max(this.pendiente)]],
+      Pedido: ['', [Validators.min(0), Validators.max(this.pendiente)]],
       porcentaje: ['', [Validators.min(0), Validators.max(100)]],
       reposicion: ['', [Validators.min(0)]],
       adicional: ['', [Validators.min(0)]],
