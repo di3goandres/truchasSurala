@@ -281,7 +281,7 @@ class UserController extends Controller
 
             $despacho = Despacho::find($pedido->id_despacho);
             $fechaUbicacions = str_replace(' 00:00:00', '', $despacho->fecha);
-            $porFecha = \Storage::disk('users')->put($usuario[0]->numero_identificacion . '\\Facturas\\' . $fechaUbicacions . '\\' . $filename);
+            $porFecha = \Storage::disk('users')->exists($usuario[0]->numero_identificacion . '\\Facturas\\' . $fechaUbicacions . '\\' . $filename);
 
             if ($isset) {
                 $file = \Storage::disk('users')->get($usuario[0]->numero_identificacion . '\\Facturas\\' . $pedido->id . '\\' . $filename);
