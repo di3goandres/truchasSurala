@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Despacho;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use App\User;
@@ -277,8 +278,16 @@ class UserController extends Controller
                 ->select('users.numero_identificacion')
                 ->get();
             $isset = \Storage::disk('users')->exists($usuario[0]->numero_identificacion . '\\Facturas\\' . $pedido->id . '\\' . $filename);
+
+            $despacho = Despacho::find($pedido->id_despacho);
+            $fechaUbicacions = str_replace(' 00:00:00', '', $despacho->fecha);
+            $porFecha = \Storage::disk('users')->put($usuario[0]->numero_identificacion . '\\Facturas\\' . $fechaUbicacions . '\\' . $filename);
+
             if ($isset) {
                 $file = \Storage::disk('users')->get($usuario[0]->numero_identificacion . '\\Facturas\\' . $pedido->id . '\\' . $filename);
+                return new Response($file, 200, $headers);
+            } else  if ($porFecha) {
+                $file = \Storage::disk('users')->get($usuario[0]->numero_identificacion . '\\Facturas\\' . $fechaUbicacions . '\\' . $filename);
                 return new Response($file, 200, $headers);
             } else {
                 $data = array(
@@ -322,13 +331,15 @@ class UserController extends Controller
 
             if (is_object($pedido)) {
 
+
+                $despacho = Despacho::find($pedido->id_despacho);
                 $usuario = \DB::table('users')
                     ->join('fincas', 'fincas.user_id', '=', 'users.id')
                     ->where('fincas.id', '=',  $pedido->id_finca)
                     ->select('users.numero_identificacion', 'users.id')
                     ->get();
-
-                \Storage::disk('users')->put($usuario[0]->numero_identificacion . '\\Facturas\\' . $pedido->id . '\\' . $name, base64_decode($file));
+                $fechaUbicacions = str_replace(' 00:00:00', '', $despacho->fecha);
+                \Storage::disk('users')->put($usuario[0]->numero_identificacion . '\\Facturas\\' . $fechaUbicacions . '\\' . $name, base64_decode($file));
 
                 $pedido->nombre_factura = $name;
                 $pedido->save();
