@@ -68,8 +68,8 @@ export class VerfacturaComponent implements OnInit {
     this.pdfSrc = this.pdfSrc + this.idPedido + "/" + this.nombreFactura;
 
 
-    if (platformfilter.length == 0) {
-      this.dowloadAndOpenPdf();
+     if (platformfilter.length == 0) {
+    this.dowloadAndOpenPdf();
 
     } else {
       this.mostrar = true;
@@ -112,18 +112,22 @@ export class VerfacturaComponent implements OnInit {
         }
 
         if (exist) {
+          console.log("existe")
 
           this.openlocalPdf(this.nombreFactura)
         } else {
 
+          console.log("No existe")
           const transfer = this.fileTransfer.create();
           transfer.download(downloadUrl, `${path}` + this.nombreFactura).then(entry => {
             let url = entry.toURL();
             if (this.platform.is('ios')) {
+              this.cerrar()
               this.document.viewDocument(url, 'application/pdf', this.options)
 
               this.cerrar()
             } else {
+              this.cerrar()
               this.fileOpener.open(url, 'application/pdf');
               this.cerrar()
 
