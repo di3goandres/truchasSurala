@@ -59,3 +59,14 @@ CONSTRAINT pk_mdiario PRIMARY KEY(id),
 CONSTRAINT fk_mortalidad_diario_mortalidad FOREIGN KEY (id_mortalidad) REFERENCES mortalidad(id)
 )ENGINE=InnoDb;
 
+
+CREATE TABLE mortalidad_fotos(
+id                      int(255) auto_increment not null, 
+id_mortalidad           int(255) not null, 
+archivo          varchar(1000) not null,
+created_at       datetime DEFAULT NULL,    
+updated_at       datetime DEFAULT NULL,
+CONSTRAINT pk_mfoto PRIMARY KEY(id),
+CONSTRAINT fk_mortalidad_foto_mortalidad FOREIGN KEY (id_mortalidad) REFERENCES mortalidad(id)
+
+)ENGINE=InnoDb;

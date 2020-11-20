@@ -23,6 +23,9 @@ Route::get('/welcome', function () {
     return view('welcome');
 });
 
+Route::resource('/Certificados', 'CertificadosController');
+
+
 Route::get('/pruebas/{nombre?}', function ($nombre = null) {
     $texto = '<p><h2>texto desde una route</h2></p>';
     $texto .= 'Nombre: ' . $nombre;

@@ -65,6 +65,12 @@ return [
             'url' => env('APP_URL') . '/storage',
             'visibility' => 'public',
         ],
+        'mortalidad' => [
+            'driver' => 'local',
+            'root' => storage_path('app/public/Mortalidad'),
+            'url' => env('APP_URL') . '/storage',
+            'visibility' => 'public',
+        ],
         'images' => [
             'driver' => 'local',
             'root' => storage_path('app/images'),

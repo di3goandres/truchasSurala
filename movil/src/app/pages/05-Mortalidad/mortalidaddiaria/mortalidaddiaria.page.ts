@@ -105,6 +105,7 @@ export class MortalidaddiariaPage implements OnInit {
       OK => {
         this.cargando = false
 
+        console.log(OK)
      
         this.reporteDias = [];
         this.reporteDias.push(...OK.diario)

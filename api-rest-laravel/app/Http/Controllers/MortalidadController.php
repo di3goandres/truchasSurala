@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Mortalidad;
 use App\MortalidadDiario;
+use App\MortalidadFotos;
 use App\MortalidadPreguntas;
 use App\Parametros;
 use App\Pedidos;
@@ -241,6 +242,14 @@ class MortalidadController extends Controller
                 ]
             )->get();
 
+
+
+            $fotos = MortalidadFotos::where(
+                [
+                    ['id_mortalidad', '=', $id]
+                ]
+            )->get();
+
             $pedidos = \DB::select('call PedidoMortatalidad(?)', array($dias[0]->id));
 
             $columna = 0;
@@ -260,7 +269,8 @@ class MortalidadController extends Controller
                 'code' => 200,
 
                 'diario' => $infoMortalidad,
-                'pedido' => $pedidos[0]
+                'pedido' => $pedidos[0],
+                'fotos' => $fotos
             );
         } else {
             $data = array(
@@ -285,6 +295,7 @@ class MortalidadController extends Controller
                 "diario.*.id" => "required|min:1",
 
 
+
             ]);
             if ($validate->fails()) {
                 $data = array(
@@ -298,12 +309,44 @@ class MortalidadController extends Controller
 
                 $diario = $params_array['diario'];
 
+                $idMortalidad = 0;
                 foreach ($diario as $dia) {
 
                     $update = MortalidadDiario::find($dia['id']);
+                    $idMortalidad = $update->id_mortalidad;
                     if ($update->cantidad != $dia['cantidad']) {
                         $update->cantidad = $dia['cantidad'];
                         $update->save();
+                    }
+                }
+
+                $datosUsuario = \DB::select('SELECT distinct u.numero_identificacion,
+                DATE_FORMAT(d.fecha, "%Y-%m-%d") fecha  FROM mortalidad_diario md
+                left join mortalidad  m on md.id_mortalidad = m.id
+                left join pedidos p on m.id_pedido = p.id
+                left join despachos d on d.id = p.id_despacho
+                left join fincas f on f.id = m.id_finca
+                left join users u on u.id = f.user_id 
+                where m.id  = ?', array($idMortalidad));
+
+                $archivos = $params_array['fotos'];
+                if (count($archivos) != 0) {
+                    foreach ($archivos as $archivo) {
+
+                        $data = new MortalidadFotos();
+                        $data->id_mortalidad = $idMortalidad;
+                        $file = $archivo['file'];
+                        $id = $archivo['type'];
+                        $sufijo = explode("/", $archivo['type']);
+                        $name = time() . '_' . rand(0, 999) . '_.' . $sufijo[1];
+                        $data->archivo = $name;
+                        $data->tipo = $id;
+                        $file = str_replace('data:' . $id . ';base64,', '', $file);
+                        $file = str_replace(' ', '+', $file);
+                        \Storage::disk('Mortalidad')
+                            ->put('\\Mortalidad\\' . $datosUsuario[0]->numero_identificacion . '\\' . $datosUsuario[0]->fecha . '\\' . $name, base64_decode($file));
+
+                        $data->save();
                     }
                 }
                 $data = array(
