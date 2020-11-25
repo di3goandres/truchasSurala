@@ -19,7 +19,7 @@
         "sass-loader": "^8.0.0"
     },
     "dependencies": {
-        "npm": "^6.14.5",
+        "npm": "^6.14.6",
         "puppeteer": "^5.5.0"
     }
 }
