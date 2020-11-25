@@ -1,3 +1,13 @@
-::ng-deep .mat-horizontal-stepper-header{
+/* ::ng-deep .mat-horizontal-stepper-header{
     pointer-events: none !important;
+} */
+
+.example-header-image {
+    /* background-image: url('assets/avatars/av-1.png'); */
+    background-size: cover;
+  }
+
+
+  .my-grid-tile {
+    padding-top: 24px !important;
 }

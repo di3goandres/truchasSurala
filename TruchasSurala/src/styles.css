@@ -99,6 +99,16 @@ table {
 }
 
 
+.descripcion{
+  font-weight: bold;
+  color: #f33d01
+}
+
+.descripcionTexto{
+ color: rgb(14, 105, 179);
+ padding-left: 1px;
+
+}
 
 
 .table-responsive {
