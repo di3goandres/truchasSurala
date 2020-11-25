@@ -166,339 +166,451 @@
           <div mat-card-avatar class="example-header-image" style="background-image: url('assets/avatars/av-1.png')">
           </div>
           <mat-card-title class="main-blue-text">Detalle Mortalidad </mat-card-title>
+          <mat-card-title class="main-blue-text">
+            Nombre: {{usuario.nombre |uppercase}}
+          </mat-card-title>
 
         </mat-card-header>
         <mat-card-content>
-          <mat-grid-list cols="4" rowHeight="100px">
+      
+            <mat-card-content>
+              <mat-grid-list cols="4" rowHeight="170px">
 
-            <mat-grid-tile colspan="2">
-              <mat-card-header>
-                <div mat-card-avatar class="example-header-image"></div>
+                <mat-grid-tile colspan="2">
+                  <mat-card-header>
+                    
+                    <mat-card-subtitle>
+                      Finca: {{usuario.finca |uppercase}}
+                    </mat-card-subtitle>
+                    <mat-card-subtitle>
+                      Fecha: {{usuario.fecha  |date :"MMM/dd/yyyy" | uppercase }}
+                    </mat-card-subtitle>
+                    <mat-card-subtitle>
+                      Cantidad del Pedido: {{usuario.total | number }}%
+                    </mat-card-subtitle>
+                    <mat-card-subtitle>
+                      Porcentaje: {{usuario.porcentaje | number }}%
+                    </mat-card-subtitle>
+                    <mat-card-subtitle>
+                      Cantidad: {{usuario.cantidad | number }}%
+                    </mat-card-subtitle>
 
-                <mat-card-title class="main-blue-text">
-                  Nombre: {{usuario.nombre |uppercase}}
-                </mat-card-title>
-                <mat-card-subtitle>
-                  Finca: {{usuario.finca |uppercase}}
-                </mat-card-subtitle>
-                <mat-card-subtitle>
-                  Fecha: {{usuario.fecha  |date :"MMM/dd/yyyy" | uppercase }}
-                </mat-card-subtitle>
-              </mat-card-header>
-            </mat-grid-tile>
-            <mat-grid-tile rowspan="6" colspan="2">
-              <div class="row" >
-                <div class="table-responsive" stlye="width:70% !important"> 
-                  <table id="customers" #Integrantes mat-table [dataSource]="RegistroDiario"
-                    class="mat-elevation-z8 participantes">
-    
-    
-    
-                    <ng-container matColumnDef="dia">
-                      <th mat-header-cell *matHeaderCellDef> Dia. </th>
-                      <td mat-cell *matCellDef="let element"> {{element.dia }} </td>
-                    </ng-container>
-    
-    
-                    <ng-container matColumnDef="cantidad">
-                      <th mat-header-cell *matHeaderCellDef>Cantidad</th>
-                      <td mat-cell *matCellDef="let element; let i  = index">
-                        <mat-label>{{element.cantidad |number}}</mat-label>
-                      </td>
-                    </ng-container>
-    
-                    <ng-container matColumnDef="registrado">
-                      <th mat-header-cell *matHeaderCellDef>Registro</th>
-                      <td mat-cell *matCellDef="let element; let i  = index">
-                        <mat-label *ngIf="element.created_at!=element.updated_at">
-                          {{ element.updated_at |date :"MMM/dd/yyyy HH:mm" | uppercase }}</mat-label>
-    
-                        <mat-label *ngIf="element.created_at==element.updated_at">
-                          SIN REGISTRO</mat-label>
-                      </td>
-                    </ng-container>
-    
-    
-                    <tr mat-header-row *matHeaderRowDef="displayedColumnsDias"></tr>
-                    <tr mat-row *matRowDef="let row; columns: displayedColumnsDias;"></tr>
-                  </table>
-    
-    
-                </div>
-              </div>
-            </mat-grid-tile>
-            <mat-grid-tile  rowspan="6" colspan="2" class="my-grid-tile">
-              <table width="100%" border="0">
-                <tr>
-                  <td>
-                    <mat-label class="descripcion">
-                      Bandeja Superior
-                    </mat-label>
-                  </td>
-                  <td>
-                    <mat-label class="descripcionTexto">
-                      {{Respuestas.temp_bandeja_superior | number}}
-                    </mat-label>
-                  </td>
-                </tr>
-                <tr>
-                  <td>
-                    <mat-label class="descripcion">
-                      Bandeja Intermedia
-                    </mat-label>
-                  </td>
-                  <td>
-                    <mat-label class="descripcionTexto">
-                      {{Respuestas.temp_bandeja_intermedia | number}}
-                    </mat-label>
-                  </td>
-                </tr>
-                <tr>
-                  <td>
-                    <mat-label class="descripcion">
-                      Bandeja Inferior
-                    </mat-label>
-                  </td>
-                  <td>
-                    <mat-label class="descripcionTexto">
-                      {{Respuestas.temp_bandeja_inferior | number}}
-                    </mat-label>
-                  </td>
-                </tr>
-                <tr>
-                  <td>
-                    <mat-label class="descripcion">
-                      Hielo Superior
-                    </mat-label>
-                  </td>
-                  <td>
-                    <mat-label class="descripcionTexto">
-                      {{Respuestas.hielo_bandeja_superior }}
-                    </mat-label>
-                  </td>
-                </tr>
-                <tr>
-                  <td>
-                    <mat-label class="descripcion">
-                      Hielo Intermedio
-                    </mat-label>
-                  </td>
-                  <td>
-                    <mat-label class="descripcionTexto">
-                      {{Respuestas.hielo_bandeja_intermedia }}
-                    </mat-label>
-                  </td>
-                </tr>
-                <tr>
-                  <td>
-                    <mat-label class="descripcion">
-                      Hielo Inferior
-                    </mat-label>
-                  </td>
-                  <td>
-                    <mat-label class="descripcionTexto">
-                      {{Respuestas.hielo_bandeja_inferior }}
-                    </mat-label>
-                  </td>
-                </tr>
-
-          
-                <tr>
-                  <td>
-                    <mat-label class="descripcion">
-                      Utilizo transporte con refrigeración?
-                    </mat-label>
-                  </td>
-                  <td>
-                    <mat-label class="descripcionTexto">
-                      {{Respuestas.utilizo_transporte == true? "SI": "NO" }}
-                    </mat-label>
-                  </td>
-                </tr>
-                <tr>
-                  <td>
-                    <mat-label class="descripcion">
-                      Demora en la llegada?
-                    </mat-label>
-                  </td>
-                  <td>
-                    <mat-label class="descripcionTexto">
-                      {{Respuestas.demora_llegada == true? "SI": "NO" }}
-                    </mat-label>
-                  </td>
-                </tr>
-                <tr>
-                  <td>
-                    <mat-label class="descripcion">
-                      Hubo daño en las cajas?
-                    </mat-label>
-                  </td>
-                  <td>
-                    <mat-label class="descripcionTexto">
-                      {{Respuestas.danio_cajas == true? "SI": "NO" }}
-                    </mat-label>
-                  </td>
-                </tr>
-
-                <tr>
-                  <td>
-                    <mat-label class="descripcion">
-                      Ha hecho algún cambio reciente en la granja?
-                    </mat-label>
-                  </td>
-                  <td>
-                    <mat-label class="descripcionTexto">
-                      {{Respuestas.cambioGranja == true? "SI": "NO" }}
-                    </mat-label>
-                  </td>
-                </tr>
-                <tr>
-                  <td>
-                    <mat-label class="descripcion">
-                      Obtuvo resultados distintos o eclosionan de manera distita?
-                    </mat-label>
-                  </td>
-                  <td>
-                    <mat-label class="descripcionTexto">
-                      {{Respuestas.distintas == true? "SI": "NO" }}
-                    </mat-label>
-                  </td>
-                </tr>
-                <tr>
-                  <td>
-                    <mat-label class="descripcion">
-                      ha observado un problema similar anteriormente?
-                    </mat-label>
-                  </td>
-                  <td>
-                    <mat-label class="descripcionTexto">
-                      {{Respuestas.similar == true? "SI": "NO" }}
-                    </mat-label>
-                  </td>
-                </tr>
-         
+                  </mat-card-header>
+                </mat-grid-tile>
        
-                <tr>
-                  <td>
-                    <mat-label class="descripcion">
-                      Llegada de las Ovas
-                    </mat-label>
-                  </td>
-                  <td>
-                    <mat-label class="descripcionTexto">
-                      {{Respuestas.llegada_ovas   |date :"MMM/dd/yyyy HH:mm" | uppercase }}
-                    </mat-label>
-                  </td>
-                </tr>
-
-                <tr>
-                  <td>
-                    <mat-label class="descripcion">
-                      Llegada de las Ovas a la finca
-                    </mat-label>
-                  </td>
-                  <td>
-                    <mat-label class="descripcionTexto">
-                      {{Respuestas.llegada_ovas_finca   |date :"MMM/dd/yyyy HH:mm" | uppercase }}
-                    </mat-label>
-                  </td>
-                </tr>
-
-                <tr>
-                  <td>
-                    <mat-label class="descripcion">
-                     Apertura de las cajas
-                    </mat-label>
-                  </td>
-                  <td>
-                    <mat-label class="descripcionTexto">
-                      {{Respuestas.apertura_cajas   |date :"MMM/dd/yyyy HH:mm" | uppercase }}
-                    </mat-label>
-                  </td>
-                </tr>
-                <tr>
-                  <td>
-                    <mat-label class="descripcion">
-                     Inicio de Hidratación
-                    </mat-label>
-                  </td>
-                  <td>
-                    <mat-label class="descripcionTexto">
-                      {{Respuestas.inicio_hidratacion   |date :"MMM/dd/yyyy HH:mm" | uppercase }}
-                    </mat-label>
-                  </td>
-                </tr>
-                <tr>
-                  <td>
-                    <mat-label class="descripcion">
-                     Inicio Siembra
-                    </mat-label>
-                  </td>
-                  <td>
-                    <mat-label class="descripcionTexto">
-                      {{Respuestas.inicio_siembra   |date :"MMM/dd/yyyy HH:mm" | uppercase }}
-                    </mat-label>
-                  </td>
-                </tr>
-                <tr>
-                  <td>
-                    <mat-label class="descripcion">
-                     Finalización Siembra
-                    </mat-label>
-                  </td>
-                  <td>
-                    <mat-label class="descripcionTexto">
-                      {{Respuestas.finalizacion_siembra   |date :"MMM/dd/yyyy HH:mm" | uppercase }}
-                    </mat-label>
-                  </td>
-                </tr>
-                <tr>
-                  <td>
-                    <mat-label class="descripcion">
-                     Inicio Eclosión
-                    </mat-label>
-                  </td>
-                  <td>
-                    <mat-label class="descripcionTexto">
-                      {{Respuestas.inicio_eclosion   |date :"MMM/dd/yyyy HH:mm" | uppercase }}
-                    </mat-label>
-                  </td>
-                </tr>
-                <tr>
-                  <td>
-                    <mat-label class="descripcion">
-                     Fin Eclosión
-                    </mat-label>
-                  </td>
-                  <td>
-                    <mat-label class="descripcionTexto">
-                      {{Respuestas.inicio_eclosion   |date :"MMM/dd/yyyy HH:mm" | uppercase }}
-                    </mat-label>
-                  </td>
-                </tr>
-                <tr>
-                  <td>
-                    <mat-label class="descripcion">
-                    Fecha Inicio Problema
-                    </mat-label>
-                  </td>
-                  <td>
-                    <mat-label class="descripcionTexto">
-                      {{Respuestas.fecha_inicioProblema   |date :"MMM/dd/yyyy HH:mm" | uppercase }}
-                    </mat-label>
-                  </td>
-                </tr>
-              </table>
-            </mat-grid-tile>
-         
+                <mat-grid-tile rowspan="6" colspan="2">
+                  <div class="row">
+                    <div class="table-responsive" stlye="width:70% !important">
+                      <table id="customers" #Integrantes mat-table [dataSource]="RegistroDiario"
+                        class="mat-elevation-z8 participantes">
 
 
-          </mat-grid-list>
 
-        
+                        <ng-container matColumnDef="dia">
+                          <th mat-header-cell *matHeaderCellDef> Dia. </th>
+                          <td mat-cell *matCellDef="let element"> {{element.dia }} </td>
+                        </ng-container>
 
+
+                        <ng-container matColumnDef="cantidad">
+                          <th mat-header-cell *matHeaderCellDef>Cantidad</th>
+                          <td mat-cell *matCellDef="let element; let i  = index">
+                            <mat-label>{{element.cantidad |number}}</mat-label>
+                          </td>
+                        </ng-container>
+
+                        <ng-container matColumnDef="registrado">
+                          <th mat-header-cell *matHeaderCellDef>Registro</th>
+                          <td mat-cell *matCellDef="let element; let i  = index">
+                            <mat-label *ngIf="element.created_at!=element.updated_at">
+                              {{ element.updated_at |date :"MMM/dd/yyyy HH:mm" | uppercase }}</mat-label>
+
+                            <mat-label *ngIf="element.created_at==element.updated_at">
+                              SIN REGISTRO</mat-label>
+                          </td>
+                        </ng-container>
+
+
+                        <tr mat-header-row *matHeaderRowDef="displayedColumnsDias"></tr>
+                        <tr mat-row *matRowDef="let row; columns: displayedColumnsDias;"></tr>
+                      </table>
+
+
+                    </div>
+                  </div>
+                </mat-grid-tile>
+              
+                <mat-grid-tile rowspan="4" colspan="2" class="my-grid-tile">
+                  <table width="100%" border="0">
+                    <tr>
+                      <td>
+                        <mat-label class="descripcion">
+                          Fuente de agua de la incubación  
+                        </mat-label>
+                      </td>
+                      <td>
+                        <mat-label class="descripcionTexto">
+                          {{Respuestas.fuente_agua_incubacion | uppercase}}
+                        </mat-label>
+                      </td>
+                    <tr>
+                    <tr>
+                      <td>
+                        <mat-label class="descripcion">
+                          Origen del agua de la incubación:  
+                        </mat-label>
+                      </td>
+                      <td>
+                        <mat-label class="descripcionTexto">
+                          {{Respuestas.origen_agua_incubacion | uppercase}}
+                        </mat-label>
+                      </td>
+                    <tr>
+                      <tr>
+                        <td>
+                          <mat-label class="descripcion">
+                            Metodo de Aclimatación:
+                          </mat-label>
+                        </td>
+                        <td>
+                          <mat-label class="descripcionTexto">
+                            {{Respuestas.uso_agua_incubacion | uppercase}}
+                          </mat-label>
+                        </td>
+                      <tr>
+                    <tr>
+                      <td>
+                        <mat-label class="descripcion">
+                          Uso del agua de la incubación: 
+                        </mat-label>
+                      </td>
+                      <td>
+                        <mat-label class="descripcionTexto">
+                          {{Respuestas.uso_agua_incubacion | uppercase}}
+                        </mat-label>
+                      </td>
+                    <tr>
+                    <tr>
+                      <td>
+                        <mat-label class="descripcion">
+                          Nivel de Oxigeno: 
+                        </mat-label>
+                      </td>
+                      <td>
+                        <mat-label class="descripcionTexto">
+                          {{Respuestas.nivel_oxigeno | number}}
+                        </mat-label>
+                      </td>
+                    <tr>
+                    <tr>
+                      <td>
+                        <mat-label class="descripcion">
+                          Aclimatación
+                        </mat-label>
+                      </td>
+                      <td>
+                        <mat-label class="descripcionTexto">
+                          {{'Horas: ' + Respuestas.hora_aclimatacion +'Min: '+Respuestas.minutos_aclimatacion | uppercase}}
+                        </mat-label>
+                      </td>
+                    <tr>
+                   
+                      <td>
+                        <mat-label class="descripcion">
+                          Temperatura Ovas al Llegar
+                        </mat-label>
+                      </td>
+                      <td>
+                        <mat-label class="descripcionTexto">
+                          {{Respuestas.temp_ovas_llegar | number}}
+                        </mat-label>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>
+                        <mat-label class="descripcion">
+                          Temperatura agua al incubar
+                        </mat-label>
+                      </td>
+                      <td>
+                        <mat-label class="descripcionTexto">
+                          {{Respuestas.temp_agua_incubacion | number}}
+                        </mat-label>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>
+                        <mat-label class="descripcion">
+                          Bandeja Superior
+                        </mat-label>
+                      </td>
+                      <td>
+                        <mat-label class="descripcionTexto">
+                          {{Respuestas.temp_bandeja_superior | number}}
+                        </mat-label>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>
+                        <mat-label class="descripcion">
+                          Bandeja Intermedia
+                        </mat-label>
+                      </td>
+                      <td>
+                        <mat-label class="descripcionTexto">
+                          {{Respuestas.temp_bandeja_intermedia | number}}
+                        </mat-label>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>
+                        <mat-label class="descripcion">
+                          Bandeja Inferior
+                        </mat-label>
+                      </td>
+                      <td>
+                        <mat-label class="descripcionTexto">
+                          {{Respuestas.temp_bandeja_inferior | number}}
+                        </mat-label>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>
+                        <mat-label class="descripcion">
+                          Hielo Superior
+                        </mat-label>
+                      </td>
+                      <td>
+                        <mat-label class="descripcionTexto">
+                          {{Respuestas.hielo_bandeja_superior }}
+                        </mat-label>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>
+                        <mat-label class="descripcion">
+                          Hielo Intermedio
+                        </mat-label>
+                      </td>
+                      <td>
+                        <mat-label class="descripcionTexto">
+                          {{Respuestas.hielo_bandeja_intermedia }}
+                        </mat-label>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>
+                        <mat-label class="descripcion">
+                          Hielo Inferior
+                        </mat-label>
+                      </td>
+                      <td>
+                        <mat-label class="descripcionTexto">
+                          {{Respuestas.hielo_bandeja_inferior }}
+                        </mat-label>
+                      </td>
+                    </tr>
+
+
+                    <tr>
+                      <td>
+                        <mat-label class="descripcion">
+                          Utilizo transporte con refrigeración?
+                        </mat-label>
+                      </td>
+                      <td>
+                        <mat-label class="descripcionTexto">
+                          {{Respuestas.utilizo_transporte == true? "SI": "NO" }}
+                        </mat-label>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>
+                        <mat-label class="descripcion">
+                          Demora en la llegada?
+                        </mat-label>
+                      </td>
+                      <td>
+                        <mat-label class="descripcionTexto">
+                          {{Respuestas.demora_llegada == true? "SI": "NO" }}
+                        </mat-label>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>
+                        <mat-label class="descripcion">
+                          Hubo daño en las cajas?
+                        </mat-label>
+                      </td>
+                      <td>
+                        <mat-label class="descripcionTexto">
+                          {{Respuestas.danio_cajas == true? "SI": "NO" }}
+                        </mat-label>
+                      </td>
+                    </tr>
+
+                    <tr>
+                      <td>
+                        <mat-label class="descripcion">
+                          Ha hecho algún cambio reciente en la granja?
+                        </mat-label>
+                      </td>
+                      <td>
+                        <mat-label class="descripcionTexto">
+                          {{Respuestas.cambioGranja == true? "SI": "NO" }}
+                        </mat-label>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>
+                        <mat-label class="descripcion">
+                          Obtuvo resultados distintos o eclosionan de manera distinta?
+                        </mat-label>
+                      </td>
+                      <td>
+                        <mat-label class="descripcionTexto">
+                          {{Respuestas.distintas == true? "SI": "NO" }}
+                        </mat-label>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>
+                        <mat-label class="descripcion">
+                          ha observado un problema similar anteriormente?
+                        </mat-label>
+                      </td>
+                      <td>
+                        <mat-label class="descripcionTexto">
+                          {{Respuestas.similar == true? "SI": "NO" }}
+                        </mat-label>
+                      </td>
+                    </tr>
+
+
+                    <tr>
+                      <td>
+                        <mat-label class="descripcion">
+                          Llegada de las Ovas
+                        </mat-label>
+                      </td>
+                      <td>
+                        <mat-label class="descripcionTexto">
+                          {{Respuestas.llegada_ovas   |date :"MMM/dd/yyyy HH:mm" | uppercase }}
+                        </mat-label>
+                      </td>
+                    </tr>
+
+                    <tr>
+                      <td>
+                        <mat-label class="descripcion">
+                          Llegada de las Ovas a la finca
+                        </mat-label>
+                      </td>
+                      <td>
+                        <mat-label class="descripcionTexto">
+                          {{Respuestas.llegada_ovas_finca   |date :"MMM/dd/yyyy HH:mm" | uppercase }}
+                        </mat-label>
+                      </td>
+                    </tr>
+
+                    <tr>
+                      <td>
+                        <mat-label class="descripcion">
+                          Apertura de las cajas
+                        </mat-label>
+                      </td>
+                      <td>
+                        <mat-label class="descripcionTexto">
+                          {{Respuestas.apertura_cajas   |date :"MMM/dd/yyyy HH:mm" | uppercase }}
+                        </mat-label>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>
+                        <mat-label class="descripcion">
+                          Inicio de Hidratación
+                        </mat-label>
+                      </td>
+                      <td>
+                        <mat-label class="descripcionTexto">
+                          {{Respuestas.inicio_hidratacion   |date :"MMM/dd/yyyy HH:mm" | uppercase }}
+                        </mat-label>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>
+                        <mat-label class="descripcion">
+                          Inicio Siembra
+                        </mat-label>
+                      </td>
+                      <td>
+                        <mat-label class="descripcionTexto">
+                          {{Respuestas.inicio_siembra   |date :"MMM/dd/yyyy HH:mm" | uppercase }}
+                        </mat-label>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>
+                        <mat-label class="descripcion">
+                          Finalización Siembra
+                        </mat-label>
+                      </td>
+                      <td>
+                        <mat-label class="descripcionTexto">
+                          {{Respuestas.finalizacion_siembra   |date :"MMM/dd/yyyy HH:mm" | uppercase }}
+                        </mat-label>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>
+                        <mat-label class="descripcion">
+                          Inicio Eclosión
+                        </mat-label>
+                      </td>
+                      <td>
+                        <mat-label class="descripcionTexto">
+                          {{Respuestas.inicio_eclosion   |date :"MMM/dd/yyyy HH:mm" | uppercase }}
+                        </mat-label>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>
+                        <mat-label class="descripcion">
+                          Fin Eclosión
+                        </mat-label>
+                      </td>
+                      <td>
+                        <mat-label class="descripcionTexto">
+                          {{Respuestas.inicio_eclosion   |date :"MMM/dd/yyyy HH:mm" | uppercase }}
+                        </mat-label>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>
+                        <mat-label class="descripcion">
+                          Fecha Inicio Problema
+                        </mat-label>
+                      </td>
+                      <td>
+                        <mat-label class="descripcionTexto">
+                          {{Respuestas.fecha_inicioProblema   |date :"MMM/dd/yyyy HH:mm" | uppercase }}
+                        </mat-label>
+                      </td>
+                    </tr>
+                  </table>
+                </mat-grid-tile>
+
+
+
+              </mat-grid-list>
+            </mat-card-content>
+       
         </mat-card-content>
       </mat-card>
+      <div class="col-12">
+        <button type="button" matStepperPrevious mat-raised-button color="primary">Volver</button>
+
+      </div>
     </mat-step>
   </mat-horizontal-stepper>
 </div>
