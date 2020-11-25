@@ -436,6 +436,12 @@ class MortalidadController extends Controller
     }
 
 
+    public function CambiarFecha($fecha)
+    {
+        $date = substr($fecha, 0, -9);
+        $hours = substr($fecha, 11, 9);
+        return $date . 'T' . $hours;
+    }
     public function ObtenerDiarioeUsuariosMortalidades($id)
     {
         $mortalidad = Mortalidad::find($id);
@@ -451,6 +457,20 @@ class MortalidadController extends Controller
                 ['id_mortalidad', '=', $id]
             ]
         )->get();
+        $nuevo = $mortalidad;
+        $mortalidad['llegada_ovas'] = $this->CambiarFecha($mortalidad['llegada_ovas']);
+        $mortalidad['llegada_ovas_finca'] = $this->CambiarFecha($mortalidad['llegada_ovas_finca']);
+        $mortalidad['apertura_cajas'] = $this->CambiarFecha($mortalidad['apertura_cajas']);
+        $mortalidad['inicio_hidratacion'] = $this->CambiarFecha($mortalidad['inicio_hidratacion']);
+        $mortalidad['inicio_siembra'] = $this->CambiarFecha($mortalidad['inicio_siembra']);
+        $mortalidad['finalizacion_siembra'] = $this->CambiarFecha($mortalidad['finalizacion_siembra']);
+        $mortalidad['inicio_eclosion'] = $this->CambiarFecha($mortalidad['inicio_eclosion']);
+        $mortalidad['fin_eclosion'] = $this->CambiarFecha($mortalidad['fin_eclosion']);
+        $mortalidad['fecha_inicioProblema'] = $this->CambiarFecha($mortalidad['fecha_inicioProblema']);
+
+
+
+
         if (is_object($mortalidad) && is_object($mortalidadDiario)) {
             $data = array(
                 'status' => 'sucess',
