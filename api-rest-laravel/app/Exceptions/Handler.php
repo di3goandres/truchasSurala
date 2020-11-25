@@ -72,9 +72,9 @@ class Handler extends ExceptionHandler
         }
         else
         {
-            return redirect()->guest('welcome');
+            // return redirect()->guest('welcome');
 
-                // return parent::render($request, null);
+             return parent::render($request, $exception);
         }
         // return parent::render($request, $exception);
     }

@@ -7,7 +7,6 @@ use Illuminate\Http\Request;
 use PDF;
 
 
-
 class CertificadosController extends Controller
 {
     //
@@ -44,7 +43,8 @@ class CertificadosController extends Controller
             position: absolute;
             bottom: 0;
             width: 100%;
-            height: 2.5rem; 
+          
+            
         }
         .text_footer{
             color: rgb(14, 105, 179);
@@ -61,12 +61,9 @@ class CertificadosController extends Controller
             <td>
                 <table width="100%" border="0">
                     <tr>
-                        <td width="80%" align="center">
+                        <td width="100%" align="center">
                             <h2>TRUCHAS SURALA S.A.S</h2>
                             <h2>NIT. 800.190.239 – 9</h2>
-                        </td>
-                        <td width="20%" align="right">
-                            <img src="img/logosuralaNorma.png" width="300px">
                         </td>
                     </tr>
                 </table>
@@ -74,17 +71,20 @@ class CertificadosController extends Controller
         </tr>
         <tr>
             <td align="center">
-                <br><br><br>
+            <br>
+            <br>
+            <br><br>
                 <h1>CERTIFICA</h1>
                 <br><br>
             </td>
         </tr>
         <tr>
             <td>
-                <p align="center">Somos proveedores de OVAS EMBRIONADAS DE TRUCHA ARCOIRIS, del señor
-                    $nombre_beneficiario , identificado con $identificacion
-                    desde hace más de 2 años.<br>
-                    Se suministra un promedio de $promedio_ovas ovas mensuales, equivalentes a $precio<br>
+                <p align="justify">
+                    Somos proveedores de OVAS EMBRIONADAS DE TRUCHA ARCOIRIS, del señor
+                    $nombre_beneficiario, identificado con $identificacion
+                    desde hace más de 2 años.<br><br>
+                    Se suministra un promedio de $promedio_ovas ovas mensuales, equivalentes a $precio.<br><br>
                     Somos distribuidores autorizados para Colombia, de la compañía TROUTLODGE INC. de Estados
                     Unidos.<br>
                     PERMISO DE COMERCIALIZACIÓN RES No. 0934 AUNAP / 22 de Mayo de 2020<br><br><br>
@@ -95,27 +95,23 @@ class CertificadosController extends Controller
         </tr>
        
         <tr>
-        <td>
-        </td>
-        </tr>
-        <tr>
-        <td>
-        <br>
-        </td>
-        </tr>
+            <td>
+               
+            </td>
+       </tr>
+       
         <tr>
             <td>
-            <p style="font-weight: bold;">
-            <br><br><br>
-            <br><br><br>
-
-            Cordialmente,<br><br>
-            Adriana del Pilar Sastre Hernandez.<br>
-            c.c. 53.161.633<br>
-            GERENTE DE VENTAS<br>
-            TRUCHAS SURALA S.A.S<br>
-            <br>
-        </p>
+                <p style="font-weight: bold;">
+                    <br><br><br>
+                    <br><br><br>
+                    Cordialmente,<br><br>
+                    Adriana del Pilar Sastre Hernandez.<br>
+                    C.C. 53.161.633<br>
+                    GERENTE DE VENTAS TRUCHAS SURALA S.A.S<br>
+                    <br>
+              
+                </p>
             </td>
         </tr>
         
@@ -124,94 +120,96 @@ class CertificadosController extends Controller
     </table>
     <br>
     <br>
- 
 
     <footer id="footer">
-    <table>
-    <tr>
-            <td>
-                <hr>
-            </td>
-        </tr>
-    <tr width="100%">
-    <td width="100%">
-        <table width="100%" border="0">
+        <table>
             <tr>
-                <td width="25%">
-                    <table  width="100%">
+                <td>
+                    <hr>
+                </td>
+            </tr>
+            <tr width="100%">
+                <td width="100%">
+                    <table width="100%" border="0">
                         <tr>
-                        <td align="right" width="30%" >
-                                <img src="img/llamada-de-telefono-inteligente.png" height="40px">
+                            <td width="25%">
+                                <table  width="100%">
+                                    <tr>
+                                    <td align="right" width="30%" >
+                                            <img src="img/llamada-de-telefono-inteligente.png" height="40px">
+                                        </td>
+                                        <td align="left"  width="70%">
+                                            <label class="text_footer">
+                                                Celular:<br>
+                                                320 854 1588
+                                            </label>
+                                        </td>
+                                    </tr>
+                                </table>
                             </td>
-                            <td align="left"  width="70%">
-                                <label class="text_footer">
-                                    Celular:<br>
-                                    320 854 1588
-                                </label>
-                            </td>
+                            <td width="25%">
+                                <table  width="100%">
+                                    <tr>
+                                    <td align="right" width="30%" >
+                                            <img src="img/email.png" height="40px">
+                                        </td>
+                                        <td align="left"  width="70%">
+                                            <label class="text_footer">
+                                                Correo Electrónico :<br>
+                                                comercial@truchasurala.com
+                                            </label>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </td>        
+                            <td width="25%">
+                                <table  width="100%">
+                                    <tr>
+                                    <td align="right" width="30%" style=" align-items: center; justify-content: center;" >
+                                            <img src="img/fax.png" height="40px">
+                                        </td>
+                                        <td align="left"  width="70%">
+                                            <label class="text_footer"> 
+                                                Fax:<br>
+                                                1- 856 2126
+                                            </label>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </td>                
+                            <td width="25%">
+                                <table  width="100%">
+                                    <tr>
+                                        <td align="right" width="30%" >
+                                            <img src="img/marcador-de-posicion.png" height="40px" >
+                                        </td>
+                                        <td align="left"  width="70%">
+                                            <label class="text_footer">
+                                                Carrera 8. No 1 - 22<br>
+                                                Chocontá - Cundinamarca
+                                            </label>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </td>                    
                         </tr>
                     </table>
                 </td>
-                <td width="25%">
-                    <table  width="100%">
-                        <tr>
-                        <td align="right" width="30%" >
-                                <img src="img/email.png" height="40px">
-                            </td>
-                            <td align="left"  width="70%">
-                                <label class="text_footer">
-                                    Correo Electrónico :<br>
-                                    comercial@truchasurala.com
-                                </label>
-                            </td>
-                        </tr>
-                    </table>
-                </td>        
-                <td width="25%">
-                    <table  width="100%">
-                        <tr>
-                        <td align="right" width="30%" style=" align-items: center; justify-content: center;" >
-                                <img src="img/fax.png" height="40px">
-                            </td>
-                            <td align="left"  width="70%">
-                                <label class="text_footer"> 
-                                    Fax:<br>
-                                    1- 856 2126
-                                </label>
-                            </td>
-                        </tr>
-                    </table>
-                </td>                
-                <td width="25%">
-                    <table  width="100%">
-                        <tr>
-                            <td align="right" width="30%" >
-                                <img src="img/marcador-de-posicion.png" height="40px" >
-                            </td>
-                            <td align="left"  width="70%">
-                                <label class="text_footer">
-                                    Carrera 8. No 1 - 22<br>
-                                    Chocontá - Cundinamarca
-                                </label>
-                            </td>
-                        </tr>
-                    </table>
-                </td>                    
+            </tr>
+            <tr>
+                <td class="footer" align="center">
+                    <label class="text_blank_footer">
+                        <img src="img/global.png" width="20px">
+                        www.truchasurala.com
+                    </label>
+                </td>
             </tr>
         </table>
-    </td>
-</tr>
-    <tr>
-            <td class="footer" align="center">
-                <label class="text_blank_footer">
-                    <img src="img/global.png" width="20px">
-                    www.truchasurala.com
-                </label>
-            </td>
-        </tr>
-        </table>
     </footer>
-    </div>
+
+  
+</div>
+
 </body>
 
 </html>
@@ -239,8 +237,8 @@ EOD;
 
         // set default monospaced font
         PDF::SetDefaultMonospacedFont(PDF_FONT_MONOSPACED);
-    
-       
+
+
 
         // set margins
         PDF::SetMargins(5, 18, 5);
@@ -259,6 +257,10 @@ EOD;
             PDF::setLanguageArray($l);
         }
 
+  ;
+
+      
+     
         // ---------------------------------------------------------
         // add a page
         PDF::AddPage();
@@ -266,20 +268,12 @@ EOD;
         PDF::setCellHeightRatio(1.98);
         // -----------------------------------------------------------------------------
 
+        PDF::Image('img/logosuralaNorma.png', 150, 20, 0, 30, '', 'http://www.truchasurala.com', '', true, 1000);
+
         PDF::Image('img/Logo_Surala2.png', 0, 50, 200, 170, '', 'http://www.truchasurala.com', '', true, 300);
-       
-        
+
+
         PDF::writeHTML($html, true, false, false, false, '');
-
-        // PDF::Image('img/logosurala.png', 50, 50, 100, 100, '', 'http://www.tcpdf.org', '', true, 72);
-
-        // $mask = PDF::Image('img/logosurala.png', 50, 140, 100, '', '', '', '', false, 300, '', true);
-
-        // embed image, masked with previously embedded mask
-        // PDF::Image('img/logosurala.png', 50, 140, 100, '', '', 'http://www.tcpdf.org', '', false, 300, '', false, $mask);
-
-
-
         // -----------------------------------------------------------------------------
 
         //Close and output PDF document

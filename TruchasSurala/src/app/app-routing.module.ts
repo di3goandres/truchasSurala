@@ -28,6 +28,7 @@ import { AuthInterceptor } from './service/interceptor/auth.interceptor';
 import { UserService } from './service/user/user.service';
 import { RegistrollegadaComponent } from './componentes/05-Despacho/registrollegada/registrollegada.component';
 import { EnvionotificacionesComponent } from './componentes/09-Notificaciones/envionotificaciones/envionotificaciones.component';
+import { RegistromortalidadComponent } from './componentes/10-Mortalidad/registromortalidad/registromortalidad.component';
 
 
 
@@ -105,6 +106,9 @@ const routes: Routes = [
     path: 'surala/informestecnicos', 
     loadChildren: './tecnicos/tecnicos.module#TecnicosModule',
    
+  },
+  { // rutas de usuarios
+    path: 'surala/mortalidad', component: RegistromortalidadComponent, canLoad: [UsuarioGuard], canActivate: [UsuarioGuard]
   },
   //
   {

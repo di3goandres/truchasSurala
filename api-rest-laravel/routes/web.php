@@ -153,6 +153,9 @@ Route::post('/api/movil/pedidosMortalidad', 'PedidosController@pedidosByTokenMor
 
 
 
+
+
+
 /**datos estadistica */
 Route::get('/api/estadistica/mensual/', 'DatosGeneralesController@EstadisticaMes');
 Route::get('/api/estadistica/usuario/', 'PedidosController@EstadisticaByToken');
@@ -173,6 +176,9 @@ Route::get('/api/fincas/avatar/{id}/{filename}', 'FincasController@getImage') ;
 Route::resource('/api/datos/mortalidad', 'MortalidadController');
 Route::get('/api/datos/mortalidad/reportediario/{id}', 'MortalidadController@obtenerDiarioDisponible');
 Route::post('/api/datos/mortalidad/reportediario/update', 'MortalidadController@ActualizarDiario');
+Route::get('/api/mortalidad/registrosMortalidad', 'MortalidadController@ObtenerMortalidadesRegistradas');
+Route::get('/api/mortalidad/UsuarioregistrosMortalidad/{id}', 'MortalidadController@ObtenerDetalleUsuariosMortalidades');
+Route::get('/api/mortalidad/getregistrosDiarioMortalidad/{id}', 'MortalidadController@ObtenerDiarioeUsuariosMortalidades');
 
 
 //informes tecnicos

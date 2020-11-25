@@ -364,4 +364,110 @@ class MortalidadController extends Controller
         }
         return response()->json($data, $data['code']);
     }
+
+
+    public function ObtenerMortalidadesRegistradas()
+    {
+        $mortalidad = \DB::select('SELECT  d.id,
+                                        DATE_FORMAT(d.fecha, "%Y-%m-%d") fecha,
+                                        (d.numero_ovas + d.ovas_regalo + d.ovas_adicionales + d.ovas_reposicion) total_ovas,
+                                        d.numero_ovas, d.ovas_regalo , d.ovas_adicionales , d.ovas_reposicion
+                                        ,sum(md.cantidad) cantidad,
+                                        (sum(md.cantidad)/   (d.numero_ovas + d.ovas_regalo + d.ovas_adicionales + d.ovas_reposicion))*100  porcentaje
+                                FROM mortalidad_diario md
+                                left join mortalidad  m on md.id_mortalidad = m.id
+                                left join pedidos p on m.id_pedido = p.id
+                                left join despachos d on d.id = p.id_despacho
+                                left join fincas f on f.id = m.id_finca
+                                left join users u on u.id = f.user_id 
+                                group by d.id,d.fecha,   d.numero_ovas, d.ovas_regalo , d.ovas_adicionales , d.ovas_reposicion');
+        if (count($mortalidad) != 0) {
+            $data = array(
+                'status' => 'sucess',
+                'code' => 200,
+                'registros' => $mortalidad,
+
+            );
+        } else {
+            $data = array(
+                'status' => 'sin data',
+                'code' => 400,
+            );
+        }
+
+        return response()->json($data, $data['code']);
+    }
+
+    public function ObtenerDetalleUsuariosMortalidades($id)
+    {
+        $mortalidad = \DB::select("SELECT 
+                                        m.id id_mortalidad,
+                                        f.id id_finca,
+                                        d.id id_despacho,
+                                        concat (u.name, ', ', u.surname) nombre,
+                                        concat( f.municipio, ', ', f.departamento , ' - ',f.nombre) finca, 
+                                        DATE_FORMAT(m.created_at, '%Y-%m-%d') fecha,
+                                        p.total
+                                        ,sum(md.cantidad) cantidad,
+                                        (sum(md.cantidad)/   (p.total))*100  porcentaje
+                                    FROM mortalidad_diario md
+                                    left join mortalidad  m on md.id_mortalidad = m.id
+                                    left join pedidos p on m.id_pedido = p.id
+                                    left join despachos d on d.id = p.id_despacho
+                                    left join fincas f on f.id = m.id_finca
+                                    left join users u on u.id = f.user_id 
+                                    where d.id = ?
+                                group by f.departamento,f.nombre, m.id, f.id ,  d.id, m.created_at, p.total, u.name, u.surname, f.municipio", array($id));
+        if (count($mortalidad) != 0) {
+            $data = array(
+                'status' => 'sucess',
+                'code' => 200,
+                'detalleUsuarios' => $mortalidad,
+
+            );
+        } else {
+            $data = array(
+                'status' => 'sin data',
+                'code' => 400,
+            );
+        }
+
+        return response()->json($data, $data['code']);
+    }
+
+
+    public function ObtenerDiarioeUsuariosMortalidades($id)
+    {
+        $mortalidad = Mortalidad::find($id);
+
+        $mortalidadDiario = MortalidadDiario::where(
+            [
+                ['id_mortalidad', '=', $id]
+            ]
+        )->get();
+
+        $fotos = MortalidadFotos::where(
+            [
+                ['id_mortalidad', '=', $id]
+            ]
+        )->get();
+        if (is_object($mortalidad) && is_object($mortalidadDiario)) {
+            $data = array(
+                'status' => 'sucess',
+                'code' => 200,
+                'Respuestas' => $mortalidad,
+                'RegistroDiario' => $mortalidadDiario,
+                'fotos' => $fotos
+
+
+            );
+        } else {
+            $data = array(
+                'status' => 'sin data',
+                'code' => 400,
+            );
+        }
+
+        return response()->json($data, $data['code']);
+    }
 }

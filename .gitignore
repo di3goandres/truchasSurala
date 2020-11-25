@@ -1,2 +1,3 @@
 api-rest-laravel/.env
 api-rest-laravel/config/onesignal.php
+api-rest-laravel/storage/*
