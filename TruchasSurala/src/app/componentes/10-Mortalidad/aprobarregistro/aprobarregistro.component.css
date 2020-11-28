@@ -1,0 +1,14 @@
+.mat-form-field{
+    width: 100%;
+}
+
+.example-header-image {
+    /* background-image: url('assets/avatars/av-1.png'); */
+    background-size: cover;
+  }
+  mat-card-actions  {
+    display: flex;
+    flex-flow: column;
+    align-items: center;
+
+  }

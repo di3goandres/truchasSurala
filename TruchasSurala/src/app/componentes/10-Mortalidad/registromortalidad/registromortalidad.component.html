@@ -169,11 +169,14 @@
           <mat-card-title class="main-blue-text">
             Nombre: {{usuario.nombre |uppercase}}
           </mat-card-title>
-
+        
         </mat-card-header>
         <mat-card-content>
       
-            <mat-card-content>
+          <div class="col-12">
+            <button type="button" (click)="abrirAprobacion()" mat-raised-button color="primary">Aprobar</button>
+  
+          </div>
               <mat-grid-list cols="4" rowHeight="170px">
 
                 <mat-grid-tile colspan="2">
@@ -186,13 +189,13 @@
                       Fecha: {{usuario.fecha  |date :"MMM/dd/yyyy" | uppercase }}
                     </mat-card-subtitle>
                     <mat-card-subtitle>
-                      Cantidad del Pedido: {{usuario.total | number }}%
+                      Cantidad del Pedido: {{usuario.total | number }}
                     </mat-card-subtitle>
                     <mat-card-subtitle>
                       Porcentaje: {{usuario.porcentaje | number }}%
                     </mat-card-subtitle>
                     <mat-card-subtitle>
-                      Cantidad: {{usuario.cantidad | number }}%
+                      Cantidad: {{usuario.cantidad | number }}
                     </mat-card-subtitle>
 
                   </mat-card-header>
@@ -603,7 +606,7 @@
 
 
               </mat-grid-list>
-            </mat-card-content>
+           
        
         </mat-card-content>
       </mat-card>

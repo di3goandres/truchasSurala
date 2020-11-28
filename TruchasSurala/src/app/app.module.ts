@@ -105,6 +105,7 @@ import {MatExpansionModule} from '@angular/material/expansion';
 import { SeleccionarusuarioComponent } from './componentes/02-Usuario/05-modalusuario/seleccionarusuario/seleccionarusuario.component';
 import { EnvionotificacionesComponent } from './componentes/09-Notificaciones/envionotificaciones/envionotificaciones.component';
 import { RegistromortalidadComponent } from './componentes/10-Mortalidad/registromortalidad/registromortalidad.component';
+import { AprobarregistroComponent } from './componentes/10-Mortalidad/aprobarregistro/aprobarregistro.component';
 registerLocaleData(localCo);
 @NgModule({
   declarations: [
@@ -150,6 +151,7 @@ registerLocaleData(localCo);
     SeleccionarusuarioComponent,
     EnvionotificacionesComponent,
     RegistromortalidadComponent,
+    AprobarregistroComponent,
 
 
 

@@ -116,9 +116,7 @@ export class MortalidaddiariaPage implements OnInit {
           this.acumulada = this.acumulada + dato.cantidad
          
         })
-
         this.calcularNuevamente()
-       
         this.calcularSuma()
       },
       ERROR => { console.log(ERROR)
@@ -129,20 +127,15 @@ export class MortalidaddiariaPage implements OnInit {
 
   calcularNuevamente(){
     if(this.Maximo==this.acumulada){
-      console.log('llegue al maximo')
       this. SinReportarGuardar =true;
       this.SinReportar = true;
       this.bloqueado = true;
     }else{
       this. SinReportarGuardar =false;
-      console.log('llegue al maximo2')
-
-
     }
   }
   doRefresh(event) {
     this.cargando = true
-
     this.Informacion()
   }
 

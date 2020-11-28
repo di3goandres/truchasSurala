@@ -12,10 +12,10 @@ use Illuminate\Http\Request;
 
 class MortalidadController extends Controller
 {
-    // public function __construct()
-    // {
-    //     $this->middleware('api.auth');
-    // }
+    public function __construct()
+    {
+        $this->middleware('api.auth');
+    }
 
 
     public function show($id)
@@ -488,6 +488,69 @@ class MortalidadController extends Controller
             );
         }
 
+        return response()->json($data, $data['code']);
+    }
+
+
+    public function GuardarAprobacion(Request $request)
+    {
+
+        $json = $request->input('json', null);
+
+        $params_array = json_decode($json, true); // array
+
+
+
+        if (!empty($params_array)) {
+            $validate = \Validator::make($params_array, [
+                'id_mortalidad' => 'required|numeric',
+                'aprobado_Troutlodge' => 'required|numeric',
+                'aprobado_Surala' => 'required|numeric',
+                'Estado' => 'required',
+                'Observaciones' => 'required',
+            ]);
+
+
+            if ($validate->fails()) {
+                $data = array(
+                    'status' => 'error',
+                    'code' => 400,
+                    'message' => 'Mortalidad, no se ha actualizado',
+                    'errors' => $validate->errors(),
+                    'data' => $params_array
+                );
+            } else {
+
+
+                $Mortalidad = Mortalidad::find($params_array['id_mortalidad']);
+                if (is_object($Mortalidad)) {
+                    $Mortalidad->aprobado_Troutlodge = $params_array['aprobado_Troutlodge'];
+                    $Mortalidad->aprobado_Surala = $params_array['aprobado_Surala'];
+                    $Mortalidad->Estado = $params_array['Estado'];
+                    $Mortalidad->Observaciones = $params_array['Observaciones'];
+                    $Mortalidad->save();
+                    $data = array(
+                        'status' => 'OK',
+                        'code' => 200,
+                      
+                    );
+                } else {
+                    $data = array(
+                        'code' => 400,
+                        'status' => 'No existe el pedido',
+
+                    );
+                }
+            }
+        } else {
+            $data = array(
+                'status' => 'error',
+                'code' => 400,
+                'dato' => $params_array,
+                'message' => 'Sin datos que procesar',
+            );
+        }
+      
         return response()->json($data, $data['code']);
     }
 }

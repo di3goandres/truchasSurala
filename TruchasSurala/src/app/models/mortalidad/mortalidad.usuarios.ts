@@ -14,6 +14,6 @@ export interface DetalleMortalidadUsuario {
     finca:         string;
     fecha:         string;
     total:         number;
-    cantidad:      string;
-    porcentaje:    string;
+    cantidad:      number;
+    porcentaje:    number;
 }

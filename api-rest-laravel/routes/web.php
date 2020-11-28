@@ -179,6 +179,7 @@ Route::post('/api/datos/mortalidad/reportediario/update', 'MortalidadController@
 Route::get('/api/mortalidad/registrosMortalidad', 'MortalidadController@ObtenerMortalidadesRegistradas');
 Route::get('/api/mortalidad/UsuarioregistrosMortalidad/{id}', 'MortalidadController@ObtenerDetalleUsuariosMortalidades');
 Route::get('/api/mortalidad/getregistrosDiarioMortalidad/{id}', 'MortalidadController@ObtenerDiarioeUsuariosMortalidades');
+Route::post('/api/mortalidad/aprobar', 'MortalidadController@GuardarAprobacion');
 
 
 //informes tecnicos

@@ -2,10 +2,14 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatStepper } from '@angular/material/stepper';
 import { MatTableDataSource } from '@angular/material/table';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Respuestas, RegistroDiario } from 'src/app/models/mortalidad/mortalidad.detalle';
 import { Registro } from 'src/app/models/mortalidad/mortalidad.response';
 import { DetalleMortalidadUsuario } from 'src/app/models/mortalidad/mortalidad.usuarios';
 import { MortalidadService } from '../../../service/mortalidad/mortalidad.service';
+import { RegistroExitosoComponent } from '../../01-Comunes/registro-exitoso/registro-exitoso.component';
+import { AprobarregistroComponent } from '../aprobarregistro/aprobarregistro.component';
+import { RegistroNoexitosoComponent } from '../../01-Comunes/registro-noexitoso/registro-noexitoso.component';
 
 @Component({
   selector: 'app-registromortalidad',
@@ -35,11 +39,14 @@ export class RegistromortalidadComponent implements OnInit {
   fotos: any[];
   displayedColumnsDias: string[] = ['dia', 'cantidad', 'registrado']
   constructor(
-    private service: MortalidadService
+    private service: MortalidadService,
+    private modalService: NgbModal,
+
   ) { }
 
   ngOnInit(): void {
     this.cargainicial();
+  
   }
 
   cargainicial() {
@@ -86,4 +93,45 @@ export class RegistromortalidadComponent implements OnInit {
     )
   }
 
+
+  abrirAprobacion(){
+    this.usuario
+    const modalRef = this.modalService.open(AprobarregistroComponent, { size: 'md' });
+    modalRef.componentInstance.Mortalidad = this.usuario;
+
+    modalRef.result.then((result) => {
+      
+    }, (reason) => {
+
+      if (reason === 'OK') {
+
+
+      }
+    });
+  }
+  registroExitoso() {
+   
+    const modalRef = this.modalService.open(RegistroExitosoComponent, { size: 'md' });
+
+    modalRef.result.then((result) => {
+    
+    }, (reason) => {
+
+    });
+  }
+
+  registroNoExitoso(Titulo, Mensaje) {
+    const modalRef = this.modalService.open(RegistroNoexitosoComponent, { size: 'md' });
+    modalRef.componentInstance.Titulo = Titulo;
+    modalRef.componentInstance.mensaje = Mensaje
+    modalRef.result.then((result) => {
+
+    }, (reason) => {
+
+      if (reason === 'OK') {
+
+
+      }
+    });
+  }
 }

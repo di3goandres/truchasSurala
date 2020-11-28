@@ -1,0 +1,99 @@
+<div class="container alternate-theme ">
+    <mat-card class="example-card">
+        <mat-card-header>
+            <div mat-card-avatar class="example-header-image" style="background-image: url('assets/avatars/av-3.png')"></div>
+            <mat-card-title class="main-blue-text">Aprobación Ovas por Mortalidad</mat-card-title>
+            <mat-card-subtitle>
+                Finca: {{Mortalidad.finca |uppercase}}
+            </mat-card-subtitle>
+            <mat-card-subtitle>
+                Fecha: {{Mortalidad.fecha  |date :"MMM/dd/yyyy" | uppercase }}
+            </mat-card-subtitle>
+            <mat-card-subtitle>
+                Cantidad del Pedido: {{Mortalidad.total | number }}
+            </mat-card-subtitle>
+            <mat-card-subtitle>
+                Porcentaje: {{Mortalidad.porcentaje | number }}%
+            </mat-card-subtitle>
+            <mat-card-subtitle>
+                Cantidad: {{Mortalidad.cantidad | number }}
+            </mat-card-subtitle>
+            <mat-card-subtitle>
+                <p>
+                    <mat-icon color="primary">check_circle</mat-icon>
+                </p>
+            </mat-card-subtitle>
+        </mat-card-header>
+
+        <mat-card-content>
+            <form [formGroup]="firstFormGroup">
+
+                <div class="row">
+                    <div class="col-xs-12 col-6  form-group">
+
+                        <mat-form-field appearance="fill">
+                            <mat-icon matSuffix>add_task</mat-icon>
+                            <mat-label>Aprobado por Troutlodge</mat-label>
+                            <input type="number" placeholder="Numero de Ovas" formControlName="aprobado_Troutlodge"
+                                matInput class="form-control"
+                                [disabled]="Mortalidad.cantidad==0" [(ngModel)]="request.aprobado_Troutlodge" required
+                                [min]="0" [max]="Mortalidad.total" />
+
+                        </mat-form-field>
+
+                    </div>
+                    <div class="col-xs-12 col-6  form-group">
+
+                        <mat-form-field appearance="fill">
+                            <mat-icon matSuffix>add_task</mat-icon>
+                            <mat-label>Aprobado por Truchas Surala</mat-label>
+                            <input type="number" 
+                            [disabled]="Mortalidad.cantidad==0" placeholder="Numero de Ovas" formControlName="aprobado_Surala" matInput
+                                class="form-control" [(ngModel)]="request.aprobado_Surala" required [min]="0"
+                                [max]="Mortalidad.total" />
+
+                        </mat-form-field>
+
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-12 col-12  form-group">
+
+                        <mat-form-field appearance="fill">
+                            <mat-icon matSuffix>bug_report</mat-icon>
+                            <mat-label>Aprobación</mat-label>
+                            <mat-select formControlName="estado"    [disabled]="Mortalidad.cantidad==0" (selectionChange)="Cambio($event.value)"
+                            [(ngModel)]="request.Estado" required>
+                                <mat-option *ngFor="let estado of aprobacion" [value]="estado.value">
+                                    {{estado.viewValue}}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-12 col-12  form-group">
+
+                        <mat-form-field appearance="fill">
+                            <mat-icon matSuffix>bug_report</mat-icon>
+                            <mat-label>Observaciones</mat-label>
+                            <textarea type="text" placeholder="Observaciones" 
+                            [disabled]="Mortalidad.cantidad==0"
+                            formControlName="Observaciones" matInput
+                                class="form-control" [(ngModel)]="request.Observaciones" required ></textarea>
+
+                        </mat-form-field>
+
+                    </div>
+                </div>
+            </form>
+        </mat-card-content>
+        <mat-card-actions>
+            <div class="row">
+                <div class="col-xs-12 col-6  form-group"><button mat-raised-button color="primary"  ngbAutofocus (click)="close()"><mat-icon>cancel</mat-icon></button></div>  
+                <div class="col-xs-12 col-6  form-group"><button mat-raised-button color="primary" [disabled]="!firstFormGroup.valid || Mortalidad.cantidad ==0"  (click)="Aprobar()"><mat-icon>check_circle_outline</mat-icon></button></div>
+            </div>
+        </mat-card-actions>
+    </mat-card>
+</div>
