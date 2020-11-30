@@ -17,7 +17,7 @@ export class MortalidadService {
   ) { }
 
   traerInformacion(){
-    return this.service.ejecutarQuery<MortalidadResponse>('/api/mortalidad/registrosMortalidad/');
+    return this.service.ejecutarQuery<MortalidadResponse>('/api/mortalidad/registrosMortalidad');
   }
   traerRegistros(id){
     return this.service.ejecutarQuery<MortalidadUsuariosRespose>('/api/mortalidad/UsuarioregistrosMortalidad/' + id);
