@@ -37,7 +37,7 @@ class UserController extends Controller
                 'tipo_usuario' => 'required',
 
                 'numero_identificacion' => 'required|numeric|unique:users', //comprueba que el numero de identificacion sea unico
-                'email' => 'required|email|unique:users', //comprueba si el usuario esta duplicaod
+                'email' => 'required|unique:users', //comprueba si el usuario esta duplicaod
                 'telefono' => 'numeric',
                 'Fincas' => 'required|array|min:1'
 
