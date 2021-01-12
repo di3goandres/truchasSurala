@@ -108,6 +108,75 @@ class UserController extends Controller
         return response()->json($data, $data['code']);
     }
 
+
+    public function registerAPP(Request $request)
+    {
+        // Se envia un Json recibimos un json 
+        // recoger los datos del usuario por post
+        $json = $request->input('json', null);
+
+        $params = json_decode($json); //objeto
+        $params_array = json_decode($json, true); // array
+
+        if (!empty($params) && !empty($params_array)) {
+            //limpiar datos
+            // $params_array = array_map('trim', $params_array);
+            // validar datos
+            $validate = \Validator::make($params_array, [
+                'name' => 'required',
+                // 'surname' => 'required',
+                'role' => 'required',
+                'numero_identificacion' => 'required|numeric|unique:users', //comprueba que el numero de identificacion sea unico
+                'email' => 'required|unique:users', //comprueba si el usuario esta duplicado
+            ]);
+
+            if ($validate->fails()) {
+                $data = array(
+                    'status' => 'error',
+                    'code' => 200,
+                    'message' => 'El usuario no se ha creado',
+                    'errors' => $validate->errors(),
+                );
+            } else {
+
+                // Cifrar la contraseña
+                // $pwd = password_hash($params->password, PASSWORD_BCRYPT, ['cost' => 4]);
+                $pwd = hash('sha256', $params->numero_identificacion);
+                // Comprobar si el usuario ya existe(duplicado)
+                // Crear usuario
+                $user = new User();
+                $user->name = $params_array['name'];
+                $user->surname = $params_array['surname'];
+                $user->email = $params_array['email'];
+                $user->id_identificacion = $params_array['tipo_identificacion'];
+                $user->numero_identificacion = $params_array['numero_identificacion'];
+                $user->telefono = '0';
+                $user->tipo_usuario = 'SURALA';
+                $user->role = $params_array['role'];
+
+                $user->password = $pwd;
+           
+                //Guardar el Usuario
+                $user->save();
+
+                $data = array(
+                    'status' => 'success',
+                    'code' => 200,
+                    'message' => 'El usuario se creo correctamente',
+                );
+            }
+        } else {
+            $data = array(
+                'status' => 'error',
+                'code' => 200,
+                'message' => 'Los datos enviados no son correctos',
+
+            );
+        }
+
+        return response()->json($data, $data['code']);
+    }
+
     public function login(Request $request)
     {
         $jwtAuth = new \JwtAuth();
@@ -492,6 +561,17 @@ class UserController extends Controller
     public function GetAllUserFincas()
     {
         $usuarios = User::where('role', '=', 'USUARIO')->get();
+
+        return response()->json([
+            'code' => 200,
+            'status' => 'success',
+            'Usuarios' => $usuarios
+        ]);
+    }
+
+    public function GetAllUserSurala()
+    {
+        $usuarios = User::where('role', '!=', 'USUARIO')->get();
 
         return response()->json([
             'code' => 200,

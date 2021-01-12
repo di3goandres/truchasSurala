@@ -106,6 +106,8 @@ import { SeleccionarusuarioComponent } from './componentes/02-Usuario/05-modalus
 import { EnvionotificacionesComponent } from './componentes/09-Notificaciones/envionotificaciones/envionotificaciones.component';
 import { RegistromortalidadComponent } from './componentes/10-Mortalidad/registromortalidad/registromortalidad.component';
 import { AprobarregistroComponent } from './componentes/10-Mortalidad/aprobarregistro/aprobarregistro.component';
+import { AlevinosModule } from './alevinos/alevinos.module';
+import { AusuariosappModule } from './ausuariosapp/ausuariosapp.module';
 registerLocaleData(localCo);
 @NgModule({
   declarations: [
@@ -185,6 +187,8 @@ registerLocaleData(localCo);
     NgxChartsModule,
     PdfViewerModule,
     TecnicosModule,
+    AlevinosModule,
+    AusuariosappModule,
     MatExpansionModule,
  
     MatProgressSpinnerModule,

@@ -102,9 +102,19 @@ const routes: Routes = [
   },
   /** informes tecnicos */
   
-  { // rutas de usuarios
+  { // rutas de Tecnicos
     path: 'surala/informestecnicos', 
     loadChildren: './tecnicos/tecnicos.module#TecnicosModule',
+   
+  },
+  { // rutas de Alevinos
+    path: 'surala/alevinos', 
+    loadChildren: './alevinos/alevinos.module#AlevinosModule',
+   
+  },
+  { // rutas de Alevinos
+    path: 'surala/usuariosSurala', 
+    loadChildren: './ausuariosapp/ausuariosapp.module#AusuariosappModule',
    
   },
   { // rutas de usuarios
@@ -123,7 +133,7 @@ const routes: Routes = [
   imports: [
     CommonModule,
     RouterModule.forRoot(routes, { useHash: true }),
-    // RouterModule.forChild(routes, { useHash: true }),
+ 
 
 
   ],

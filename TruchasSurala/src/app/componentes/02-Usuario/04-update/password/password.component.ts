@@ -34,7 +34,7 @@ export class PasswordComponent implements OnInit {
     this.usuario.id = this.idUsuario;
     this.usuario.password = '';
 
-    this.mostrar = true;
+   
   }
 
   cambiarPassword(){
@@ -52,7 +52,7 @@ export class PasswordComponent implements OnInit {
   }
 
   Cerrar(){
-    this.activeModal.close('OK')
+    this.activeModal.close('NOK')
   }
 
   

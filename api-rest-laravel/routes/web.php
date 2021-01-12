@@ -52,12 +52,16 @@ Route::get('/test-orm', 'PruebasController@testOrm');
 
 // RUTAS DEL CONTROLADOR DEL USUARIO
 Route::post('/api/register', 'UserController@register');
+Route::post('/api/user/surala/add', 'UserController@registerAPP');
+
 Route::post('/api/login', 'UserController@login');
 Route::put('/api/user/update', 'UserController@update');
 Route::post('/api/user/upload', 'UserController@upload')->middleware(ApiAuthMiddleware::class);
 Route::get('/api/user/avatar/{user}/{filename}', 'UserController@getImage') ;
 Route::get('/api/user/detail/{id}', 'UserController@detail');
 Route::get('/api/users/get', 'UserController@GetAllUserFincas');
+Route::get('/api/users/surala/get', 'UserController@GetAllUserSurala');
+
 Route::post('/api/user/changepassword', 'UserController@resetPasswordByUser');
 
 

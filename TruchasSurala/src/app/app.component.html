@@ -7,8 +7,10 @@
       <mat-icon>home</mat-icon>
       <span>Inicio</span>
     </button>
-    <button mat-menu-item [matMenuTriggerFor]="usuarios"> <mat-icon>contacts</mat-icon> <span>Usuarios</span></button>
+    <button mat-menu-item [matMenuTriggerFor]="adminUsuarios"> <mat-icon>admin_panel_settings</mat-icon> <span>Administración Usuarios</span></button>
+ 
     <button mat-menu-item [matMenuTriggerFor]="ovas"> <mat-icon>fiber_manual_record</mat-icon> <span>Ovas</span></button>
+    <button mat-menu-item [matMenuTriggerFor]="Alevinos"> <mat-icon>set_meal</mat-icon> <span>Alevinos</span></button>
     <button mat-menu-item [matMenuTriggerFor]="informesTecnicos"> <mat-icon>insert_chart</mat-icon> <span>Informes Técnicos</span></button>
    
     <button mat-menu-item [matMenuTriggerFor]="appmovil"> <mat-icon>smartphone</mat-icon> <span>Aplicación Movil</span></button>
@@ -16,6 +18,28 @@
   
   </mat-menu>
 
+  <mat-menu #adminUsuarios="matMenu">
+    <button mat-menu-item [matMenuTriggerFor]="usuarioSurala"> <mat-icon>verified_user</mat-icon> <span>Usuarios Surala</span></button>
+    <button mat-menu-item [matMenuTriggerFor]="usuarios"> <mat-icon>face</mat-icon> <span>Usuarios Fincas</span></button>
+  </mat-menu>
+  <mat-menu  #usuarioSurala="matMenu">
+    <button mat-menu-item routerLink='surala/usuariosSurala/registrar' >
+      <mat-icon>verified_user</mat-icon>
+      <span>Registro de Usuarios/ Surala</span>
+    </button>
+
+    <button mat-menu-item routerLink='surala/usuariosSurala/ListaUsuarios'>
+      <mat-icon>list_alt</mat-icon>
+      <span>Administrar Usuarios /Surala</span>
+    </button>
+  </mat-menu>
+  <mat-menu  #Alevinos="matMenu">
+    <button mat-menu-item routerLink='/surala/alevinos/MontajePedidos'>
+      <mat-icon>addchart</mat-icon>
+      <span>Montaje de Pedidos</span>
+    </button>
+ 
+  </mat-menu>
 
   <mat-menu  #informesTecnicos="matMenu">
     <button mat-menu-item routerLink='/surala/informestecnicos/registrar'>

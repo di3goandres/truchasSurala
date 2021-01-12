@@ -75,7 +75,8 @@ export class LoginComponent implements OnInit {
       
         localStorage.setItem('identity', JSON.stringify(this.identity));
         this.userService.getToken();
-        this.router.navigate(['/surala/home']);
+        window.location.reload();
+        // this.router.navigate(['/surala/home']);
 
       },
       error => {

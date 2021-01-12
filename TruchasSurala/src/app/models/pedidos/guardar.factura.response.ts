@@ -4,5 +4,6 @@ export interface Respuesta{
     status:  string;
     message: string;
     image: string;
+    errors: any
 
 }

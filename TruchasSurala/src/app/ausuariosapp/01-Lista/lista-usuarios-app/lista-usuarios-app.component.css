@@ -1,0 +1,23 @@
+modal-content{
+    align-items: center!important;
+}
+
+body > ngb-modal-window > div > div {
+    align-items: center!important;
+
+}
+
+.modal-open .modal {
+    display: flex !important;
+    align-items: center !important;
+    
+  
+  }
+
+  .modal-dialog {
+    flex-grow: 1;
+  }
+
+  th.mat-sort-header-sorted {
+    color: black;
+  }

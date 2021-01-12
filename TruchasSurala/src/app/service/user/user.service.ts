@@ -6,7 +6,7 @@ import { BandejasCajaObject } from './../../models/bandejasCajas';
 import { DespachoRootObject } from './../../models/despacho';
 import { Injectable } from '@angular/core';
 import { HttpHeaders, HttpClientModule, HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { User } from '../../models/users';
 import { environment } from '../../../environments/environment';
 import { Despachosroot } from '../../models/despacho';
@@ -21,6 +21,10 @@ import { DespachoResponseActual } from '../../models/despacho.response';
 import { MatDialogConfig } from '@angular/material/dialog';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { NgxSpinnerService } from 'ngx-spinner';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { UserLogin } from 'src/app/models/login';
+import { RegistroNoexitosoComponent } from '../../componentes/01-Comunes/registro-noexitoso/registro-noexitoso.component';
+import { RegistroExitosoComponent } from '../../componentes/01-Comunes/registro-exitoso/registro-exitoso.component';
  
 @Injectable({
   providedIn: 'root'
@@ -29,6 +33,8 @@ export class UserService {
   public url: string;
   public json: string;
   public params: string;
+  public currentUser: Observable<UserLogin>;
+  public currentUserSubject: BehaviorSubject<UserLogin>;
 
 
   public identity;
@@ -43,8 +49,9 @@ export class UserService {
   constructor(public http: HttpClient,
     private router: Router,
     private route: ActivatedRoute,
-    private spinner: NgxSpinnerService
-
+    private spinner: NgxSpinnerService,
+    private modalService: NgbModal,
+    private _snackBar: MatSnackBar,
   
 
   ) {
@@ -53,7 +60,8 @@ export class UserService {
     this.getIdentity();
     this.getToken();
 
-
+    this.currentUserSubject = new BehaviorSubject<UserLogin>(JSON.parse(localStorage.getItem('identity')));
+    this.currentUser = this.currentUserSubject.asObservable();
   }
 
 
@@ -306,10 +314,80 @@ export class UserService {
   }
 
 
+ // Nuevas funcionalidades
+  openSnackBar(message: string, action: string) {
+    this._snackBar.open(message, action, {
+      duration: 6000,
+      horizontalPosition: 'end',
+      verticalPosition: 'top',
+    });
+  }
 
-   
+  public ejecutarQueryPostNuevo<T>(query: string, data: any) {
+    let json = JSON.stringify(data);
+    let params = 'json=' + json;
+
+    return this.http.post<T>(this.url  + query, params);
+
+
+  }
+  public get currenUserValue(): UserLogin {
+    return this.currentUserSubject.value;
+  }
+
+  isAdmin(): Promise<boolean> {
+
+
+    let user = this.currenUserValue;
+
+    return new Promise(resolve => {
+
+      if (user.rol == 'ADMIN') {
+
+        resolve(true);
+      } else {
+        this.router.navigate(['surala/usuariosSurala/SinPermisos']);
+        resolve(false);
   
+      }
+    })
+  
+    
+    ;   
 
+  }
+  registroExitoso() {
+    const modalRef = this.modalService.open(RegistroExitosoComponent, { size: 'md' });
+
+    modalRef.result.then((result) => {
+     
+    }, (reason) => {
+
+      if (reason === 'OK') {
+
+
+      }
+    });
+  }
+
+  registroNoExitosoComun(){
+    this.registroNoExitoso("Error", "Ha ocurrido un error inesperado, por favor intentelo nuevamente.");
+  }
+
+  registroNoExitoso(Titulo, Mensaje) {
+    const modalRef = this.modalService.open(RegistroNoexitosoComponent, { size: 'md' });
+    modalRef.componentInstance.Titulo = Titulo;
+    modalRef.componentInstance.mensaje = Mensaje
+    modalRef.result.then((result) => {
+
+    }, (reason) => {
+
+      if (reason === 'OK') {
+
+
+      }
+    });
+  }
 }
 
 

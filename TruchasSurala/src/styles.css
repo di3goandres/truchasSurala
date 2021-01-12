@@ -159,3 +159,14 @@ table {
   text-align: left;
   vertical-align: middle;
 }
+
+
+/**para que la imagen aparezce en el div de card  */
+.example-header-image {
+  /* background-image: url('assets/avatars/av-1.png'); */
+  background-size: cover;
+}
+
+.main-surala-text{
+ color: #f33d01
+}

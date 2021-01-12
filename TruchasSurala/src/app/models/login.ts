@@ -6,3 +6,10 @@ export class Login {
 
   ) { }
 }
+
+export class UserLogin{
+  public email: string;
+  public name: string;
+  public surname: string;
+  public rol : string;
+}

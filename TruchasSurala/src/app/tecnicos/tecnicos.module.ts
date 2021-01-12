@@ -44,7 +44,7 @@ import { ActualizarpdfinformeComponent } from './actualizarpdfinforme/actualizar
   imports: [
     CommonModule,
     TecnicosRoutingModule,
-     FormsModule, HttpClientModule, ReactiveFormsModule,
+    FormsModule, HttpClientModule, ReactiveFormsModule,
    
 
     MatDialogModule,
