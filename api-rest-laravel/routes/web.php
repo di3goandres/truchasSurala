@@ -146,6 +146,8 @@ Route::get('/api/Lotes/prueba/{id}', 'LoteController@prueba');
 Route::get('/api/Lotes/borrar/{id}', 'LoteController@BorrarLote');
 
 Route::get('/api/usuarios/fincas', 'FincasController@getUserFincas');
+Route::get('/api/usuarios/fincasAlevinos', 'FincasController@getUserFincasFiltrado');
+
 Route::get('/api/usuarios/fincas/{id}', 'FincasController@getFincasUser');
 Route::get('/api/datos/departamentos/', 'DatosGeneralesController@index');
 Route::post('/api/movil/pedidosusuario', 'PedidosController@pedidosByToken');

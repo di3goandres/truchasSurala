@@ -156,6 +156,45 @@ class FincasController extends Controller
         ]);
     }
 
+    public function getUserFincasFiltrado()
+    {
+        
+      
+        $duenios = User::where([
+            ['role', '=',  'USUARIO'],
+            ['tipo_usuario', '!=',  'OVAS'],
+
+        ])->get();
+        $pos = 0;
+        $retorno = [];
+        $retorno[$pos]['numeroIdentificacion'] = '';
+
+        $retorno[$pos]['nombre'] = strtoupper('Seleccione una Opcion');
+        $retorno[$pos]['id'] = 0;
+        foreach ($duenios as $value) {
+
+            foreach ($value->fincas as $finca) {
+                $retorno[$pos]['numeroIdentificacion'] = $value->numero_identificacion;
+                $retorno[$pos]['nombre'] = strtoupper($value->name . ' ' . $value->surname);
+                $retorno[$pos]['propia'] = $finca->propia;
+                $retorno[$pos]['id'] = $finca->id;
+                $retorno[$pos]['nombreFinca'] = $finca->nombre;
+                $retorno[$pos]['Ubicacion'] = strtoupper($finca->departamento . ' - ' . $finca->municipio);
+                $pos += 1;
+            }
+
+           
+        }
+
+
+
+        return response()->json([
+            'code' => 200,
+            'status' => 'success',
+            'userFincas' => $retorno
+        ]);
+    }
+
 
     public function getFincasByUser($id)
     {

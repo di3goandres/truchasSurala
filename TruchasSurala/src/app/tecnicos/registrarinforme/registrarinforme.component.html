@@ -1,209 +1,243 @@
 <div class="container alternate-theme">
 
-<mat-horizontal-stepper [linear]="true" #stepper>
+    <mat-horizontal-stepper [linear]="true" #stepper>
 
-    <mat-step [stepControl]="firstFormGroup">
-        <ng-template matStepLabel>Seleccionar Usuario y Finca</ng-template>
+        <mat-step [stepControl]="firstFormGroup">
+            <ng-template matStepLabel>Seleccionar Usuario y Finca</ng-template>
 
-        <mat-card class="example-card">
-            <mat-card-header>
-                <div mat-card-avatar class="example-header-image"></div>
-                <mat-card-title style="text-align: center;">Datos del Usuario</mat-card-title>
+            <mat-card class="example-card">
+                <mat-card-header>
+                    <div mat-card-avatar class="example-header-image"
+                        style="background-image: url('assets/avatars/av-2.png')"></div>
+                    <mat-card-title class="main-surala-text">Registros Técnicos</mat-card-title>
+                    <mat-card-subtitle>Truchas Surala</mat-card-subtitle>
+                    <mat-card-subtitle class="surala-azul-text">Datos del Usuario</mat-card-subtitle>
 
-            </mat-card-header>
-            <mat-card-content>
+                </mat-card-header>
 
-                <div class="row">
-                    <div class="col-xs-12 col-12 form-group">
-                        <label>Seleccione un cliente</label>
-                        <button type="button" mat-mini-fab class="buttton-aldea" aria-label="fecha"
-                            (click)="openUsuarios()">
-                            <mat-icon>person</mat-icon>
-                        </button>
-                    </div>
-                </div>
-                <form [formGroup]="firstFormGroup" style="width: 100%;text-align: center;">
+                <mat-card-content>
 
-
-
-                    <div class="row" *ngIf="usuario.id!=0">
-
-                        <div class="col-xs-3  col-3 form-group">
-                            <mat-form-field appearance="fill" floatLabel="always">
-                                <mat-label>Cliente</mat-label>
-                                <mat-icon matSuffix>sentiment_very_satisfied</mat-icon>
-
-                                <input matInput placeholder="Cliente" type="text" [disabled]="usuario.id!=0"
-                                    name="finca" [(value)]="usuario.nombreFinca">
-
-
-                            </mat-form-field>
-
-
-                        </div>
-                        <div class="col-xs-3  col-3 form-group" *ngIf="usuario.id!=0">
-                            <mat-form-field appearance="fill" floatLabel="always">
-                                <mat-label>Finca</mat-label>
-                                <mat-icon matSuffix>sentiment_very_satisfied</mat-icon>
-
-                                <input matInput placeholder="Cliente" type="text" [disabled]="usuario.id!=0"
-                                    [(value)]="usuario.nombreFinca">
-
-
-                            </mat-form-field>
-
-                        </div>
-                        <div class="col-xs-3  col-3 form-group" *ngIf="usuario.id!=0">
-                            <mat-form-field appearance="fill" floatLabel="always">
-                                <mat-label>Ubicación</mat-label>
-                                <mat-icon matSuffix>sentiment_very_satisfied</mat-icon>
-
-                                <input matInput placeholder="Cliente" type="text" [disabled]="usuario.id!=0"
-                                    [(value)]=" usuario.Ubicacion">
-
-
-                            </mat-form-field>
-
-                        </div>
-                        <div class="col-xs-3  col-3 form-group" *ngIf="usuario.id!=0">
-                            <mat-form-field appearance="fill" floatLabel="always">
-                                <mat-label>Número de Identificación</mat-label>
-                                <mat-icon matSuffix>sentiment_very_satisfied</mat-icon>
-
-                                <input matInput placeholder="Cliente" type="text" [disabled]="usuario.id!=0"
-                                    [(value)]=" usuario.numeroIdentificacion">
-
-
-                            </mat-form-field>
-
+                    <div class="row">
+                        <div class="col-xs-12 col-12 form-group">
+                            <label>Seleccione un cliente</label>
+                            <button type="button" mat-mini-fab class="buttton-aldea" aria-label="fecha"
+                                (click)="openUsuarios()">
+                                <mat-icon>person</mat-icon>
+                            </button>
                         </div>
                     </div>
-                    <div class="row" style="text-align: center;">
+                    <form [formGroup]="firstFormGroup" style="width: 100%;text-align: center;">
 
-                        <div class="col-12">
-                            <button type="button" matStepperNext mat-raised-button color="primary"
-                                [disabled]="usuario.id==0">Continuar</button>
+
+
+                        <div class="row" *ngIf="usuario.id!=0">
+
+                            <div class="col-xs-3  col-3 form-group">
+                                <mat-form-field appearance="fill" floatLabel="always">
+                                    <mat-label>Cliente</mat-label>
+                                    <mat-icon matSuffix>sentiment_very_satisfied</mat-icon>
+
+                                    <input matInput placeholder="Cliente" type="text" [disabled]="usuario.id!=0"
+                                        name="finca" [(value)]="usuario.nombreFinca">
+
+
+                                </mat-form-field>
+
+
+                            </div>
+                            <div class="col-xs-3  col-3 form-group" *ngIf="usuario.id!=0">
+                                <mat-form-field appearance="fill" floatLabel="always">
+                                    <mat-label>Finca</mat-label>
+                                    <mat-icon matSuffix>sentiment_very_satisfied</mat-icon>
+
+                                    <input matInput placeholder="Cliente" type="text" [disabled]="usuario.id!=0"
+                                        [(value)]="usuario.nombreFinca">
+
+
+                                </mat-form-field>
+
+                            </div>
+                            <div class="col-xs-3  col-3 form-group" *ngIf="usuario.id!=0">
+                                <mat-form-field appearance="fill" floatLabel="always">
+                                    <mat-label>Ubicación</mat-label>
+                                    <mat-icon matSuffix>sentiment_very_satisfied</mat-icon>
+
+                                    <input matInput placeholder="Cliente" type="text" [disabled]="usuario.id!=0"
+                                        [(value)]=" usuario.Ubicacion">
+
+
+                                </mat-form-field>
+
+                            </div>
+                            <div class="col-xs-3  col-3 form-group" *ngIf="usuario.id!=0">
+                                <mat-form-field appearance="fill" floatLabel="always">
+                                    <mat-label>Número de Identificación</mat-label>
+                                    <mat-icon matSuffix>sentiment_very_satisfied</mat-icon>
+
+                                    <input matInput placeholder="Cliente" type="text" [disabled]="usuario.id!=0"
+                                        [(value)]=" usuario.numeroIdentificacion">
+
+
+                                </mat-form-field>
+
+                            </div>
+                        </div>
+                        <div class="row" style="text-align: center;">
+
+                            <div class="col-12">
+                                <button type="button" matStepperNext mat-raised-button color="primary"
+                                    [disabled]="usuario.id==0">Continuar</button>
+
+                            </div>
+
 
                         </div>
-
-
-                    </div>
-
-                </form>
-
-
-            </mat-card-content>
-        </mat-card>
-
-    </mat-step>
-
-    <mat-step [stepControl]="secondFormGroup">
-        <ng-template matStepLabel>Observaciones</ng-template>
-        <mat-card>
-
-            <mat-card-header>
-                <mat-card-title>
-                    Observaciones
-                </mat-card-title>
-            </mat-card-header>
-            <mat-card-content>
-
-                <div class="centrarObjetos">
-                    <form [formGroup]="secondFormGroup" style="width: 100%;">
-
-
-                        <mat-form-field appearance="fill">
-                            <mat-label>Fecha del informe</mat-label>
-                            <input matInput formControlName="fecha" [matDatepicker]="pickerentrada"
-                                ng-keydown="$event.preventDefault();" [min]="minDate" [max]="maxDate"
-                                [(ngModel)]="informe.fecha" required (ngModelChange)="verificarFecha(informe.fecha)">
-                            <mat-datepicker-toggle matSuffix [for]="pickerentrada">
-                            </mat-datepicker-toggle>
-                            <mat-datepicker touchUi #pickerentrada></mat-datepicker>
-                            <!-- <input type="button" value="Agregar Fecha"/> -->
-
-                        </mat-form-field>
-
-
-                        <mat-form-field [style.fontSize]="'15px'">
-                            <mat-label>OBSERVACIONES</mat-label>
-                            <textarea matInput cdkTextareaAutosize #autosize="cdkTextareaAutosize"
-                                cdkAutosizeMinRows="1" cdkAutosizeMaxRows="10" [(ngModel)]="informe.observaciones"
-                                formControlName="observaciones"></textarea>
-                        </mat-form-field>
 
                     </form>
 
-                    <div class="row" style="text-align: center;">
 
-                        <div class="col-12">
-                            <button type="button" matStepperPrevious mat-raised-button color="primary">Atras</button>
-                            <button type="button" matStepperNext mat-raised-button color="secondary"
-                                [disabled]="secondFormGroup.invalid || informeExiste">Continuar</button>
+                </mat-card-content>
+            </mat-card>
+
+        </mat-step>
+
+        <mat-step [stepControl]="secondFormGroup">
+            <ng-template matStepLabel>Observaciones</ng-template>
+            <mat-card>
+
+                <mat-card-header>
+                    <div mat-card-avatar class="example-header-image"
+                        style="background-image: url('assets/avatars/av-3.png')"></div>
+                    <mat-card-title class="main-surala-text">Registros Técnicos</mat-card-title>
+                    <mat-card-subtitle>Truchas Surala</mat-card-subtitle>
+                    <mat-card-subtitle class="surala-azul-text">Observaciones</mat-card-subtitle>
+
+                </mat-card-header>
+
+                <mat-card-content>
+
+                    <div class="centrarObjetos">
+                        <form [formGroup]="secondFormGroup" style="width: 100%;">
+
+
+                            <mat-form-field appearance="fill">
+                                <mat-label>Fecha del informe</mat-label>
+                                <input matInput formControlName="fecha" [matDatepicker]="pickerentrada"
+                                    ng-keydown="$event.preventDefault();" [min]="minDate" [max]="maxDate"
+                                    [(ngModel)]="informe.fecha" required
+                                    (ngModelChange)="verificarFecha(informe.fecha)">
+                                <mat-datepicker-toggle matSuffix [for]="pickerentrada">
+                                </mat-datepicker-toggle>
+                                <mat-datepicker touchUi #pickerentrada></mat-datepicker>
+                                <!-- <input type="button" value="Agregar Fecha"/> -->
+
+                            </mat-form-field>
+
+
+                            <mat-form-field [style.fontSize]="'15px'">
+                                <mat-label>OBSERVACIONES</mat-label>
+                                <textarea matInput cdkTextareaAutosize #autosize="cdkTextareaAutosize"
+                                    cdkAutosizeMinRows="1" cdkAutosizeMaxRows="10" [(ngModel)]="informe.observaciones"
+                                    formControlName="observaciones"></textarea>
+                            </mat-form-field>
+
+                        </form>
+
+                        <div class="row" style="text-align: center;">
+
+                            <div class="col-12">
+                                <button type="button" matStepperPrevious mat-raised-button
+                                    color="primary">Atras</button>
+                                <button type="button" matStepperNext mat-raised-button color="secondary"
+                                    [disabled]="secondFormGroup.invalid || informeExiste">Continuar</button>
+
+                            </div>
+
 
                         </div>
 
-
                     </div>
 
+                </mat-card-content>
+
+
+            </mat-card>
+        </mat-step>
+        <mat-step [stepControl]="thirdFormGroup">
+
+            <mat-card>
+                <mat-card-header>
+                    <div mat-card-avatar class="example-header-image"
+                        style="background-image: url('assets/avatars/av-3.png')"></div>
+                    <mat-card-title class="main-surala-text">Registros Técnicos</mat-card-title>
+                    <mat-card-subtitle>Truchas Surala</mat-card-subtitle>
+                    <mat-card-subtitle class="surala-azul-text">Asociar Informes</mat-card-subtitle>
+
+                </mat-card-header>
+                <mat-card-content>
+                    <form [formGroup]="thirdFormGroup" style="width: 100%;">
+                        <mat-form-field appearance="fill" floatLabel="always">
+                            <mat-label>Cliente</mat-label>
+                            <mat-icon matSuffix>sentiment_very_satisfied</mat-icon>
+
+                            <input matInput placeholder="Cliente" type="text" [disabled]="usuario.id!=0" name="finca"
+                                [(value)]="usuario.nombreFinca">
+
+
+                        </mat-form-field>
+                    </form>
+                    <ng-template matStepLabel>Asociar Informes</ng-template>
+                    <div class="centrarObjetos">
+
+
+                        <mat-chip-list class="mat-chip-list-stacked centrarObjetos" aria-label="Color selection">
+
+                            <mat-chip (click)="AsociarInforme(1)"
+                                [class]="fileInformeTecnico.file.length==0? 'colorCheck':'colorPendiente'"> Informes
+                                Técnicos
+                            </mat-chip>
+                            <mat-chip (click)="AsociarInforme(2)"
+                                [class]="filePsr.file.length==0? 'colorCheck':'colorPendiente'"> Laboratorio PCR
+                            </mat-chip>
+                            <mat-chip (click)="AsociarInforme(3)"
+                                [class]="fileHistopatologia.file.length==0? 'colorCheck':'colorPendiente'">Laboratorio
+                                Histopatologia</mat-chip>
+                            <mat-chip (click)="AsociarInforme(4)"
+                                [class]="fileNutricional.file.length==0? 'colorCheck':'colorPendiente'">Laboratorio
+                                Nutricional
+                            </mat-chip>
+
+                        </mat-chip-list>
+
+                        <div class="row" style="text-align: center;">
+
+                            <div class="col-12">
+                                <button type="button" matStepperPrevious mat-raised-button
+                                    color="primary">Atras</button>
+                                <button type="button" matStepperNext mat-raised-button color="secondary"
+                                    (click)="openSnackBar('Listos Para guardar', 'Genial!')"
+                                    [disabled]="!continuarGuardar">Continuar</button>
+
+                            </div>
+
+
+                        </div>
+                    </div>
+                </mat-card-content>
+            </mat-card>
+
+
+        </mat-step>
+        <mat-step>
+            <div clas="row" style="text-align: center;">
+                <div class="col-12">
+                    <button matStepperNext mat-raised-button color="secondary" (click)="Guardar()">Guardar</button>
                 </div>
 
-            </mat-card-content>
 
-
-        </mat-card>
-    </mat-step>
-    <mat-step [stepControl]="thirdFormGroup">
-
-        <form [formGroup]="thirdFormGroup" style="width: 100%;">
-            <mat-form-field appearance="fill" floatLabel="always">
-                <mat-label>Cliente</mat-label>
-                <mat-icon matSuffix>sentiment_very_satisfied</mat-icon>
-
-                <input matInput placeholder="Cliente" type="text" [disabled]="usuario.id!=0"
-                    name="finca" [(value)]="usuario.nombreFinca">
-
-
-            </mat-form-field>
-        </form>
-        <ng-template matStepLabel>Asociar Informes</ng-template>
-        <div  class="centrarObjetos">
-      
-      
-        <mat-chip-list class="mat-chip-list-stacked centrarObjetos" aria-label="Color selection">
-            
-            <mat-chip (click)="AsociarInforme(1)" [class]="fileInformeTecnico.file.length==0? 'colorCheck':'colorPendiente'"> Informes Técnicos </mat-chip> 
-            <mat-chip (click)="AsociarInforme(2)" [class]="filePsr.file.length==0? 'colorCheck':'colorPendiente'">  Laboratorio PCR  </mat-chip>
-            <mat-chip (click)="AsociarInforme(3)" [class]="fileHistopatologia.file.length==0? 'colorCheck':'colorPendiente'">Laboratorio Histopatologia</mat-chip>
-            <mat-chip (click)="AsociarInforme(4)" [class]="fileNutricional.file.length==0? 'colorCheck':'colorPendiente'">Laboratorio Nutricional</mat-chip>
-            
-        </mat-chip-list>
-
-        <div class="row" style="text-align: center;">
-
-            <div class="col-12">
-                <button type="button" matStepperPrevious mat-raised-button color="primary">Atras</button>
-                <button type="button" matStepperNext mat-raised-button color="secondary"
-                (click)="openSnackBar('Listos Para guardar', 'Genial!')"
-                    [disabled]="!continuarGuardar">Continuar</button>
 
             </div>
-
-
-        </div>
-    </div>
-
-    </mat-step>
-    <mat-step>
-        <div clas="row" style="text-align: center;" >
-            <div class="col-12">
-              <button matStepperNext mat-raised-button color="secondary" (click)="Guardar()">Guardar</button>
-            </div>
-      
-           
-      
-          </div>
-    </mat-step>
-</mat-horizontal-stepper>
+        </mat-step>
+    </mat-horizontal-stepper>
 
 </div>

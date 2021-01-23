@@ -1,34 +1,33 @@
-<mat-card>
+<div class="container alternate-theme">
+    <mat-card>
 
-    <mat-card-title>
-        {{title}}
-    </mat-card-title>
-    <mat-card-content>
-        <mat-grid-list cols="1" rowHeight="3:1">
-            <!-- <mat-grid-tile></mat-grid-tile> -->
+        <mat-card-header>
+            <div mat-card-avatar class="example-header-image" style="background-image: url('assets/avatars/av-4.png')">
+            </div>
+            <mat-card-title class="main-surala-text">
+                   {{title}}
+            </mat-card-title>
+        </mat-card-header>
 
-            <mat-grid-tile>
-            <div class="table-responsive">
-                    <div class="row">
-                        <div class="col-3"></div>
-        
-                        <div class="col-6"> 
-                            <mat-label> Ovas por Despacho</mat-label>
-                            <app-cantidaddespachado></app-cantidaddespachado>
-        
+        <mat-card-content>
+     
+                    <div class="table-responsive">
+                        <div class="row">
+                            <div class="col-3"></div>
+
+                            <div class="col-6">
+
+                                <app-cantidaddespachado></app-cantidaddespachado>
+
+                            </div>
+
+                            <div class="col-2"></div>
+
                         </div>
-        
-                        <div class="col-2"></div>
-        
                     </div>
-                </div> 
-              
-            </mat-grid-tile>
-            <!-- <mat-grid-tile></mat-grid-tile> -->
 
+          
 
-
-        </mat-grid-list>
-        
-    </mat-card-content>
-</mat-card>
+        </mat-card-content>
+    </mat-card>
+</div>

@@ -7,13 +7,13 @@
       <mat-icon>home</mat-icon>
       <span>Inicio</span>
     </button>
-    <button mat-menu-item [matMenuTriggerFor]="adminUsuarios"> <mat-icon>admin_panel_settings</mat-icon> <span>Administración Usuarios</span></button>
+    <button mat-menu-item [matMenuTriggerFor]="adminUsuarios" *ngIf="role=='ADMIN'"> <mat-icon>admin_panel_settings</mat-icon> <span>Administración Usuarios</span></button>
  
-    <button mat-menu-item [matMenuTriggerFor]="ovas"> <mat-icon>fiber_manual_record</mat-icon> <span>Ovas</span></button>
-    <button mat-menu-item [matMenuTriggerFor]="Alevinos"> <mat-icon>set_meal</mat-icon> <span>Alevinos</span></button>
-    <button mat-menu-item [matMenuTriggerFor]="informesTecnicos"> <mat-icon>insert_chart</mat-icon> <span>Informes Técnicos</span></button>
+    <button mat-menu-item [matMenuTriggerFor]="ovas"  *ngIf="role=='OVAS'"> <mat-icon>fiber_manual_record</mat-icon> <span>Ovas</span></button>
+    <button mat-menu-item [matMenuTriggerFor]="Alevinos"  *ngIf="role=='ALEVINOS'"> <mat-icon>set_meal</mat-icon> <span>Alevinos</span></button>
+    <button mat-menu-item [matMenuTriggerFor]="informesTecnicos"  *ngIf="role=='TECNICO'"> <mat-icon>insert_chart</mat-icon> <span>Informes Técnicos</span></button>
    
-    <button mat-menu-item [matMenuTriggerFor]="appmovil"> <mat-icon>smartphone</mat-icon> <span>Aplicación Movil</span></button>
+    <button mat-menu-item [matMenuTriggerFor]="appmovil" *ngIf="permitirEnviarMensajes==true"> <mat-icon>smartphone</mat-icon> <span>Aplicación Movil</span></button>
 
   
   </mat-menu>

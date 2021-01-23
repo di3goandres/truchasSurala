@@ -1,1 +1,250 @@
-<p>montaje-pedido works!</p>
+<div class="container alternate-theme">
+  <mat-horizontal-stepper [linear]="false" #stepper>
+    <mat-step [stepControl]="firstFormGroup">
+      <ng-template matStepLabel>Seleccionar Usuario</ng-template>
+
+      <mat-card class="example-card">
+        <mat-card-header>
+          <div mat-card-avatar class="example-header-image" style="background-image: url('assets/avatars/av-8.png')">
+          </div>
+          <mat-card-title class="main-surala-text">Montaje de un Pedido</mat-card-title>
+          <mat-card-subtitle>Truchas Surala</mat-card-subtitle>
+        </mat-card-header>
+
+        <mat-card-content>
+
+          <div class="row">
+            <div class="col-xs-12 col-12 form-group">
+              <label class="surala-azul-text">Seleccione un cliente</label>
+              <button type="button" mat-mini-fab class="buttton-aldea" aria-label="fecha" (click)="openUsuarios()">
+                <mat-icon>person</mat-icon>
+              </button>
+            </div>
+          </div>
+          <form [formGroup]="firstFormGroup" style="width: 100%;text-align: center;">
+
+
+
+            <div class="row" *ngIf="usuario.id!=0">
+
+              <div class="col-xs-3  col-3 form-group">
+                <mat-form-field appearance="fill" floatLabel="always">
+                  <mat-label>Cliente</mat-label>
+                  <mat-icon matSuffix>sentiment_very_satisfied</mat-icon>
+
+                  <input matInput placeholder="Cliente" type="text" [disabled]="usuario.id!=0" name="finca"
+                    [(value)]="usuario.nombre">
+
+
+                </mat-form-field>
+
+              </div>
+              <div class="col-xs-3  col-3 form-group" *ngIf="usuario.id!=0">
+                <mat-form-field appearance="fill" floatLabel="always">
+                  <mat-label>Finca</mat-label>
+                  <mat-icon matSuffix>sentiment_very_satisfied</mat-icon>
+
+                  <input matInput placeholder="Cliente" type="text" [disabled]="usuario.id!=0"
+                    [(value)]="usuario.nombreFinca">
+
+
+                </mat-form-field>
+
+              </div>
+              <div class="col-xs-3  col-3 form-group" *ngIf="usuario.id!=0">
+                <mat-form-field appearance="fill" floatLabel="always">
+                  <mat-label>Ubicación</mat-label>
+                  <mat-icon matSuffix>sentiment_very_satisfied</mat-icon>
+
+                  <input matInput placeholder="Cliente" type="text" [disabled]="usuario.id!=0"
+                    [(value)]=" usuario.Ubicacion">
+
+
+                </mat-form-field>
+
+              </div>
+              <div class="col-xs-3  col-3 form-group" *ngIf="usuario.id!=0">
+                <mat-form-field appearance="fill" floatLabel="always">
+                  <mat-label>Número de Identificación</mat-label>
+                  <mat-icon matSuffix>sentiment_very_satisfied</mat-icon>
+
+                  <input matInput placeholder="Cliente" type="text" [disabled]="usuario.id!=0"
+                    [(value)]=" usuario.numeroIdentificacion">
+
+
+                </mat-form-field>
+
+              </div>
+            </div>
+
+
+          </form>
+
+        </mat-card-content>
+        <mat-card-actions>
+
+          <button mat-raised-button matStepperNext [disabled]="usuario.id==0" color="primary" id="logout-button"
+            class="btn btn-primary btn-block">
+            <mat-icon>arrow_forward</mat-icon>
+          </button>
+        </mat-card-actions>
+      </mat-card>
+    </mat-step>
+    <mat-step [stepControl]="secondFormGroup">
+      <ng-template matStepLabel>Generar Pedido</ng-template>
+      <mat-card class="example-card" *ngIf="usuario.id!=0">
+
+        <mat-card-header>
+          <div mat-card-avatar class="example-header-image" style="background-image: url('assets/avatars/av-2.png')">
+          </div>
+          <mat-card-title class="main-surala-text">Montaje de un pedido</mat-card-title>
+          <mat-card-subtitle>Truchas Surala</mat-card-subtitle>
+
+
+
+
+        </mat-card-header>
+
+        <mat-card-content>
+          <mat-grid-list cols="2" rowHeight="2:1">
+            <mat-grid-tile>
+              <table width="100%" border="0">
+                <tr>
+                  <td>
+                    <mat-label class="descripcion">
+                      Finca:
+                    </mat-label>
+                  </td>
+                  <td>
+                    <mat-label class="descripcionTexto">
+                      {{usuario.nombreFinca}}
+                    </mat-label>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <mat-label class="descripcion">
+                      Ubicación:
+                    </mat-label>
+                  </td>
+                  <td>
+                    <mat-label class="descripcionTexto">
+                      {{usuario.Ubicacion}}
+                    </mat-label>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <mat-label class="descripcion">
+                      Cliente
+                    </mat-label>
+                  </td>
+                  <td>
+                    <mat-label class="descripcionTexto">
+                      {{usuario.nombre}}
+                    </mat-label>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <mat-label class="descripcion">
+                      Identificación
+                    </mat-label>
+                  </td>
+                  <td>
+                    <mat-label class="descripcionTexto">
+                      {{usuario.numeroIdentificacion | number}}
+                    </mat-label>
+                  </td>
+                </tr>
+
+
+
+              </table>
+
+            </mat-grid-tile>
+
+            <mat-grid-tile>
+              <form [formGroup]="secondFormGroup"> 
+
+              <div class="row">
+
+                <div class="col-12 form-group">
+
+
+                  <mat-form-field appearance="fill" floatLabel="always">
+                    <mat-label>Fecha de Probable</mat-label>
+                  
+                    <input matInput formControlName="fecha" [matDatepicker]="pickerentrada"
+                       [min]="minDate" [max]="maxDate"
+                        [(ngModel)]="pedido.fechaProbable" required>
+                    <mat-datepicker-toggle matSuffix [for]="pickerentrada">
+                    </mat-datepicker-toggle>
+                    <mat-datepicker touchUi #pickerentrada></mat-datepicker>
+                    <!-- <input type="button" value="Agregar Fecha"/> -->
+
+                </mat-form-field>
+
+            
+
+                </div>
+            
+
+                <div class="col-6 form-group">
+                  <mat-form-field appearance="fill" floatLabel="always">
+                    <mat-label>Cantidad Alevinos</mat-label>
+                    <mat-icon matSuffix>exposure_plus_1</mat-icon>
+
+                    <input matInput placeholder="Cantidad" type="number" min="200" name="cantidad"
+                      [(ngModel)]="pedido.cantidad" formControlName="cantidad">
+
+
+                  </mat-form-field>
+
+                </div>
+                <div class="col-6 form-group">
+                  <mat-form-field appearance="fill" floatLabel="always">
+                    <mat-label>Peso Alevinos</mat-label>
+                    <mat-icon matSuffix>fitness_center</mat-icon>
+
+                    <input matInput placeholder="Talla gramos" 
+                    formControlName="talla"
+                    type="number" name="talla" [(ngModel)]="pedido.talla">
+
+
+                  </mat-form-field>
+
+                </div>
+              </div>
+            </form>
+
+            </mat-grid-tile>
+
+
+          </mat-grid-list>
+        </mat-card-content>
+        <mat-card-actions>
+          <div class="row">
+            <div class="col-6 centerlabel font-weight-bold" style="text-align: center;">
+          <button mat-raised-button matStepperPrevious 
+           color="primary" id="logout-button"
+          class="btn btn-primary btn-block">
+
+          <mat-icon>keyboard_backspace</mat-icon>
+        </button>
+        </div>
+    
+          <div class="col-6 centerlabel font-weight-bold" style="text-align: center;">
+
+          <button mat-raised-button matStepperNext [disabled]="secondFormGroup.invalid" color="primary" id="logout-button"
+            class="btn btn-primary btn-block">
+            <mat-icon>arrow_forward</mat-icon>
+          </button>
+          </div>
+          </div>
+        </mat-card-actions>
+      </mat-card>
+    </mat-step>
+  </mat-horizontal-stepper>
+
+</div>

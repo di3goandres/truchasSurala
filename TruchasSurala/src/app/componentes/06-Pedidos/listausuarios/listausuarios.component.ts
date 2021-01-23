@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, Input, OnInit, ViewChild } from '@angular/core';
 
 
 import { FincasService } from '../../../service/fincas/fincas.service';
@@ -14,6 +14,7 @@ import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 })
 export class ListausuariosComponent implements OnInit {
 
+  @Input() alevinos: any;
   datasourceusuarios: UserFinca[] = [];
 
   pedidoMinimo: number;
@@ -38,22 +39,43 @@ export class ListausuariosComponent implements OnInit {
 
   consultar() {
 
-    this.service.getFincasUser().subscribe(resp => {
+    if (this.alevinos != null) {
+      this.service.getFincasUserAlevinos().subscribe(
+        OK => {
+          if (OK.status !== 'error') {
 
-      if (resp.status !== 'error') {
+            this.datasourceusuarios = [];
+            this.datasourceusuarios.push(...OK.userFincas);
+            this.show = true;
+            this.dataSource = new MatTableDataSource(this.datasourceusuarios);
+            this.dataSource.paginator = this.paginator;
 
-        this.datasourceusuarios = [];
-        this.datasourceusuarios.push(...resp.userFincas);
-        this.show = true;
-        this.dataSource = new MatTableDataSource(this.datasourceusuarios);
-        this.dataSource.paginator = this.paginator;
+          }
+
+        },
+        ERROR => { this.service.NoExitosoComun() },
+      )
+    } else {
+      this.service.getFincasUser().subscribe(
+        OK => {
+          if (OK.status !== 'error') {
+            console.log(OK.userFincas);
+            this.datasourceusuarios = [];
+            this.datasourceusuarios.push(...OK.userFincas);
+            this.show = true;
+            this.dataSource = new MatTableDataSource(this.datasourceusuarios);
+            this.dataSource.paginator = this.paginator;
 
 
-      }
+          }
+
+        },
+        ERROR => { this.service.NoExitosoComun() },
+      )
+    }
 
 
 
-    });
   }
 
   Cerrar() {

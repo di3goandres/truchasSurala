@@ -15,7 +15,7 @@ import { PasswordComponent } from '../../../componentes/02-Usuario/04-update/pas
 })
 export class ListaUsuariosAPPComponent implements OnInit {
   usuario: Usuario[] = [];
-  tipo: string = 'OVAS';
+  tipo: string = 'ADMIN';
   tipos: Select[] = [
     { value: 'ADMIN', viewValue: 'ADMINISTRADOR' },
     { value: 'ALEVINOS', viewValue: 'ALEVINOS' },

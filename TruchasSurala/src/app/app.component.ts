@@ -13,6 +13,8 @@ import { AgregarcajaComponent } from './componentes/despacho/agregarcaja/agregar
 export class AppComponent implements OnInit, DoCheck {
   public identity;
   public token;
+  public role;
+  permitirEnviarMensajes = false;
 
   title = 'Truchas Surala';
   constructor(
@@ -32,7 +34,15 @@ export class AppComponent implements OnInit, DoCheck {
   loadUser(): void {
     this.identity = this.userService.getIdentity();
     this.token = this.userService.getToken();
+    this.role = this.userService.getRole();
+    this.validarEnvioMensajes();
   }
+
+ validarEnvioMensajes(){
+   if(this.role =="ADMIN" || this.role =="OVAS"){
+      this.permitirEnviarMensajes =true;
+   }
+ }
 
   openModal(): void {
     const dialogConfig = new MatDialogConfig();

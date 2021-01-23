@@ -113,6 +113,8 @@ export class UserService {
 
 
 
+ 
+
 
   // tslint:disable-next-line: typedef
   storeDespacho(despacho: any): Observable<any> {
@@ -356,6 +358,25 @@ export class UserService {
     ;   
 
   }
+
+  isAlevinos(): Promise<boolean> {
+
+    let user = this.currenUserValue;
+    return new Promise(resolve => {
+      console.log(user.rol)  
+      if (user.rol == 'ALEVINOS') {
+        resolve(true);
+      } else {
+        this.router.navigate(['surala/usuariosSurala/SinPermisos']);
+        resolve(false);
+  
+      }
+    })
+  
+    
+    ;   
+
+  }
   registroExitoso() {
     const modalRef = this.modalService.open(RegistroExitosoComponent, { size: 'md' });
 
@@ -388,6 +409,14 @@ export class UserService {
       }
     });
   }
+  
+  getRole(){
+    let user = this.currenUserValue;
+    return user.rol;
+
+  }
+
+  
 }
 
 

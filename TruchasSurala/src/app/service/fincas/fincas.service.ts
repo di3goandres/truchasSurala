@@ -15,6 +15,11 @@ export class FincasService {
     return this.userService.ejecutarQuery<FincaUserResponse>('/api/usuarios/fincas');
   }
 
+  getFincasUserAlevinos(): Observable<any> {
+    return this.userService.ejecutarQuery<FincaUserResponse>('/api/usuarios/fincasAlevinos');
+  }
+
+
   // this.json = JSON.stringify(user);
   // console.log(this.json);
 
@@ -30,4 +35,23 @@ export class FincasService {
     let params = 'json=' + json;
     return this.userService.ejecutarQueryPost('/api/user/addfincas', params);
   }
+
+
+  Exitoso() {
+    this.userService.registroExitoso();
+  }
+
+  NoExitoso(Titulo: string, Mensaje: string) {
+    this.userService.registroNoExitoso(Titulo, Mensaje);
+  }
+
+  NoExitosoComun() {
+    this.userService.registroNoExitosoComun();
+  }
+
+
+  MostrarSnack(Mensaje: string) {
+    this.userService.openSnackBar(Mensaje, "");
+  }
+
 }

@@ -13,10 +13,11 @@ export class UserFinca {
         this.Ubicacion = ""
 
     }
-  numeroIdentificacion: string;
-  nombre: string;
-  id: number;
-  nombreFinca: string;
-  Ubicacion: string;
-  propia: boolean;
+  numeroIdentificacion:  string;
+  nombre:                string;
+  id:                    number;
+  nombreFinca:           string;
+  Ubicacion:             string;
+  propia:                boolean;
+
 }

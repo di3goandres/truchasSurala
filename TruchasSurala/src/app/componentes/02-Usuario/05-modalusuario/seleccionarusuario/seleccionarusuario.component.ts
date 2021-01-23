@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import { Usuario } from '../../../../models/usuarios.fincas';
 import { Select } from '../../../../models/Datos.generales';
 import { UserService } from '../../../../service/user/user.service';
@@ -13,6 +13,7 @@ import { MatSort } from '@angular/material/sort';
   styleUrls: ['./seleccionarusuario.component.css']
 })
 export class SeleccionarusuarioComponent implements OnInit {
+  @Input() Todos: any;
   usuario: Usuario[] = [];
   tipo: string = 'OVAS';
   tipos: Select[] = [
@@ -23,7 +24,7 @@ export class SeleccionarusuarioComponent implements OnInit {
   constructor(
     private userService: UserService,
     private activeModal: NgbActiveModal,
-    
+
   ) {
 
 
@@ -59,6 +60,18 @@ export class SeleccionarusuarioComponent implements OnInit {
 
           this.dataSource.sort = this.sort;
           console.log(this.dataSource)
+
+          if (this.Todos != null) {
+
+            this.tipos = this.tipos.filter(item => {
+              return item.value != 'OVAS'
+            }
+      
+      
+            );
+            this.tipo = 'ALEVINOS'
+            this.Cambiar();
+          }
           // this.changeDetectorRefs.detectChanges();
         }
 
@@ -71,8 +84,13 @@ export class SeleccionarusuarioComponent implements OnInit {
     this.dataSource.sort = this.sort;
     this.dataSource.paginator = this.paginator;
 
-
     this.refresh();
+
+   
+
+   
+
+
   }
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
@@ -86,10 +104,10 @@ export class SeleccionarusuarioComponent implements OnInit {
     this.activeModal.close(element)
   }
 
-  
 
 
- 
+
+
 
 
 }
