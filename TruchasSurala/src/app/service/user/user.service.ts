@@ -25,7 +25,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { UserLogin } from 'src/app/models/login';
 import { RegistroNoexitosoComponent } from '../../componentes/01-Comunes/registro-noexitoso/registro-noexitoso.component';
 import { RegistroExitosoComponent } from '../../componentes/01-Comunes/registro-exitoso/registro-exitoso.component';
- 
+
 @Injectable({
   providedIn: 'root'
 })
@@ -52,7 +52,7 @@ export class UserService {
     private spinner: NgxSpinnerService,
     private modalService: NgbModal,
     private _snackBar: MatSnackBar,
-  
+
 
   ) {
     this.url = environment.apiUrl;
@@ -68,7 +68,7 @@ export class UserService {
 
   // tslint:disable-next-line: typedef
   public ejecutarQuery<T>(query: string) {
-  
+
     if (this.token === null) {
       this.getToken();
     }
@@ -79,24 +79,24 @@ export class UserService {
 
   // tslint:disable-next-line: typedef
   public ejecutarQueryPost(query: string, params: string) {
-  
+
 
     return this.http.post(this.url + query, params);
 
   }
 
   public ejecutarQueryPostRetorno<T>(query: string, params: string) {
-  
+
 
     return this.http.post<T>(this.url + query, params);
 
   }
   public ejecutarQueryPostArchivo(query: string, parametros: FormData) {
-   
+
 
     this.header = new HttpHeaders().set('Authorization', this.token)
-   
-    return this.http.post(this.url + query,parametros);
+
+    return this.http.post(this.url + query, parametros);
 
   }
 
@@ -107,13 +107,13 @@ export class UserService {
       headers: this.header,
     }
 
-    return this.http.delete(this.url + query, options );
+    return this.http.delete(this.url + query, options);
 
   }
 
 
 
- 
+
 
 
   // tslint:disable-next-line: typedef
@@ -211,7 +211,7 @@ export class UserService {
 
     this.params = 'json=' + this.json;
     return this.ejecutarQueryPost('/api/register', this.params)
-   
+
   }
   loginUser(user, getToken = null): Observable<any> {
     if (getToken != null) {
@@ -250,7 +250,7 @@ export class UserService {
     } else {
       this.token = null;
     }
-    
+
     return this.token;
   }
 
@@ -316,7 +316,7 @@ export class UserService {
   }
 
 
- // Nuevas funcionalidades
+  // Nuevas funcionalidades
   openSnackBar(message: string, action: string) {
     this._snackBar.open(message, action, {
       duration: 6000,
@@ -329,7 +329,9 @@ export class UserService {
     let json = JSON.stringify(data);
     let params = 'json=' + json;
 
-    return this.http.post<T>(this.url  + query, params);
+    
+    return this.http.post<T>(this.url + query, params);
+
 
 
   }
@@ -344,18 +346,18 @@ export class UserService {
 
     return new Promise(resolve => {
 
-      if (user.rol == 'ADMIN') {
+      if (user.rol == 'ADMIN' ||user.rol == 'OVAS' ) {
 
         resolve(true);
       } else {
         this.router.navigate(['surala/usuariosSurala/SinPermisos']);
         resolve(false);
-  
+
       }
     })
-  
-    
-    ;   
+
+
+      ;
 
   }
 
@@ -363,25 +365,25 @@ export class UserService {
 
     let user = this.currenUserValue;
     return new Promise(resolve => {
-      console.log(user.rol)  
+      console.log(user.rol)
       if (user.rol == 'ALEVINOS') {
         resolve(true);
       } else {
         this.router.navigate(['surala/usuariosSurala/SinPermisos']);
         resolve(false);
-  
+
       }
     })
-  
-    
-    ;   
+
+
+      ;
 
   }
   registroExitoso() {
     const modalRef = this.modalService.open(RegistroExitosoComponent, { size: 'md' });
 
     modalRef.result.then((result) => {
-     
+
     }, (reason) => {
 
       if (reason === 'OK') {
@@ -391,7 +393,7 @@ export class UserService {
     });
   }
 
-  registroNoExitosoComun(){
+  registroNoExitosoComun() {
     this.registroNoExitoso("Error", "Ha ocurrido un error inesperado, por favor intentelo nuevamente.");
   }
 
@@ -409,14 +411,14 @@ export class UserService {
       }
     });
   }
-  
-  getRole(){
+
+  getRole() {
     let user = this.currenUserValue;
     return user.rol;
 
   }
 
-  
+
 }
 
 

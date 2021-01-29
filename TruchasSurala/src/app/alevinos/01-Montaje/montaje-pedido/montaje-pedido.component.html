@@ -165,58 +165,83 @@
             </mat-grid-tile>
 
             <mat-grid-tile>
-              <form [formGroup]="secondFormGroup"> 
+              <form [formGroup]="secondFormGroup">
 
-              <div class="row">
+                <div class="row">
 
-                <div class="col-12 form-group">
+                  <div class="col-6 form-group">
 
 
-                  <mat-form-field appearance="fill" floatLabel="always">
-                    <mat-label>Fecha de Probable</mat-label>
+                    <mat-form-field appearance="fill" floatLabel="always">
+                      <mat-label>Fecha de Probable</mat-label>
+
+                      <input matInput formControlName="fecha" [matDatepicker]="pickerentrada" [min]="minDate"
+                        [max]="maxDate" [(ngModel)]="pedido.fechaProbable" required>
+                      <mat-datepicker-toggle matSuffix [for]="pickerentrada">
+                      </mat-datepicker-toggle>
+                      <mat-datepicker touchUi #pickerentrada></mat-datepicker>
+                      <!-- <input type="button" value="Agregar Fecha"/> -->
+
+                    </mat-form-field>
+
                   
-                    <input matInput formControlName="fecha" [matDatepicker]="pickerentrada"
-                       [min]="minDate" [max]="maxDate"
-                        [(ngModel)]="pedido.fechaProbable" required>
-                    <mat-datepicker-toggle matSuffix [for]="pickerentrada">
-                    </mat-datepicker-toggle>
-                    <mat-datepicker touchUi #pickerentrada></mat-datepicker>
-                    <!-- <input type="button" value="Agregar Fecha"/> -->
 
-                </mat-form-field>
 
-            
 
+                  </div>
+                  <div class="col-6 form-group">
+                    <mat-form-field appearance="fill">
+                      <mat-label>Tipo Pedido</mat-label>
+
+                      <mat-select (selectionChange)="Cambio($event.value)" [(ngModel)]="pedido.tipo"
+                      formControlName="tipo">
+                        <mat-option *ngFor="let tipo of TipoCompra" [value]="tipo.value">
+                          {{tipo.viewValue}}
+
+                        </mat-option>
+                      </mat-select>
+                    </mat-form-field>
+                  </div>
+
+                  <div class="col-6 form-group">
+                    <mat-form-field appearance="fill" floatLabel="always">
+                      <mat-label>Cantidad Alevinos</mat-label>
+                      <mat-icon matSuffix>exposure_plus_1</mat-icon>
+
+                      <input matInput placeholder="Cantidad" type="number" min="200" name="cantidad"
+                        [(ngModel)]="pedido.cantidad" formControlName="cantidad">
+
+
+                    </mat-form-field>
+
+                  </div>
+                  <div class="col-6 form-group"  *ngIf="pedido.tipo=='TALLA'">
+                    <mat-form-field appearance="fill" floatLabel="always">
+                      <mat-label>Centimetros Alevinos</mat-label>
+                      <mat-icon matSuffix>square_foot</mat-icon>
+
+                      <input matInput placeholder="Talla" formControlName="talla" type="number" name="talla"
+                        [(ngModel)]="pedido.talla" min="1" max="50">
+
+
+                    </mat-form-field>
+
+                  </div>
+
+                  <div class="col-6 form-group" *ngIf="pedido.tipo=='PESO'">
+                    <mat-form-field appearance="fill" floatLabel="always">
+                      <mat-label>Peso Alevinos</mat-label>
+                      <mat-icon matSuffix>fitness_center</mat-icon>
+
+                      <input matInput placeholder="Peso" formControlName="Peso" type="number" name="Peso" min="1" max="10"
+                        [(ngModel)]="pedido.peso">
+
+
+                    </mat-form-field>
+
+                  </div>
                 </div>
-            
-
-                <div class="col-6 form-group">
-                  <mat-form-field appearance="fill" floatLabel="always">
-                    <mat-label>Cantidad Alevinos</mat-label>
-                    <mat-icon matSuffix>exposure_plus_1</mat-icon>
-
-                    <input matInput placeholder="Cantidad" type="number" min="200" name="cantidad"
-                      [(ngModel)]="pedido.cantidad" formControlName="cantidad">
-
-
-                  </mat-form-field>
-
-                </div>
-                <div class="col-6 form-group">
-                  <mat-form-field appearance="fill" floatLabel="always">
-                    <mat-label>Peso Alevinos</mat-label>
-                    <mat-icon matSuffix>fitness_center</mat-icon>
-
-                    <input matInput placeholder="Talla gramos" 
-                    formControlName="talla"
-                    type="number" name="talla" [(ngModel)]="pedido.talla">
-
-
-                  </mat-form-field>
-
-                </div>
-              </div>
-            </form>
+              </form>
 
             </mat-grid-tile>
 
@@ -226,21 +251,20 @@
         <mat-card-actions>
           <div class="row">
             <div class="col-6 centerlabel font-weight-bold" style="text-align: center;">
-          <button mat-raised-button matStepperPrevious 
-           color="primary" id="logout-button"
-          class="btn btn-primary btn-block">
+              <button mat-raised-button matStepperPrevious color="primary" id="logout-button"
+                class="btn btn-primary btn-block">
 
-          <mat-icon>keyboard_backspace</mat-icon>
-        </button>
-        </div>
-    
-          <div class="col-6 centerlabel font-weight-bold" style="text-align: center;">
+                <mat-icon>keyboard_backspace</mat-icon>
+              </button>
+            </div>
 
-          <button mat-raised-button matStepperNext [disabled]="secondFormGroup.invalid" color="primary" id="logout-button"
-            class="btn btn-primary btn-block">
-            <mat-icon>arrow_forward</mat-icon>
-          </button>
-          </div>
+            <div class="col-6 centerlabel font-weight-bold" style="text-align: center;">
+
+              <button mat-raised-button matStepperNext [disabled]="secondFormGroup.invalid" color="primary"
+                id="logout-button" class="btn btn-primary btn-block" (click)="guardar()">
+                <mat-icon>arrow_forward</mat-icon>
+              </button>
+            </div>
           </div>
         </mat-card-actions>
       </mat-card>

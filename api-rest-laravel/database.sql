@@ -8,7 +8,7 @@
  * Created: 22-Jun-2020
  */
 
-drop datbase api_rest_larabel;
+-- drop datbase api_rest_larabel;
 create database  if not EXISTS api_rest_larabel;
 
 use api_rest_larabel;
