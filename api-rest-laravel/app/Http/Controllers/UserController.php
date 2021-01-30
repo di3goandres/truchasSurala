@@ -14,7 +14,7 @@ class UserController extends Controller
 
     public function __construct()
     {
-        $this->middleware('api.auth', ['except' => ['getpdf', 'login']]);
+        $this->middleware('api.auth', ['except' => ['getpdf', 'login', 'UsuariosApp']]);
     }
 
     public function register(Request $request)
@@ -792,6 +792,17 @@ class UserController extends Controller
                 'message' => 'Usuario no identificado'
             );
         }
+        return response()->json($data, $data['code']);
+    }
+
+    public function UsuariosApp(){
+        $usuarios= \DB::select('call 00_UsuariosAPP()');
+        $data = array(
+            'code' => 200,
+            'status' => 'success',
+            'usuarios'=> $usuarios,
+          
+        );
         return response()->json($data, $data['code']);
     }
 }

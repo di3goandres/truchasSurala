@@ -108,6 +108,7 @@ import { RegistromortalidadComponent } from './componentes/10-Mortalidad/registr
 import { AprobarregistroComponent } from './componentes/10-Mortalidad/aprobarregistro/aprobarregistro.component';
 import { AlevinosModule } from './alevinos/alevinos.module';
 import { AusuariosappModule } from './ausuariosapp/ausuariosapp.module';
+import { EnvioGeneralComponent } from './componentes/09-Notificaciones/01-General/envio-general/envio-general.component';
 registerLocaleData(localCo);
 @NgModule({
   declarations: [
@@ -154,6 +155,7 @@ registerLocaleData(localCo);
     EnvionotificacionesComponent,
     RegistromortalidadComponent,
     AprobarregistroComponent,
+    EnvioGeneralComponent,
 
 
 

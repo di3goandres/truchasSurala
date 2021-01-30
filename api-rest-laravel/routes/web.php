@@ -104,6 +104,8 @@ Route::resource('/api/Notificaciones', 'NotificacionesController');
 
 
 Route::post('/api/Notificaciones/personalizado/', 'NotificacionesController@SendUniqueUser');
+Route::post('/api/Notificaciones/unico/personalizado/', 'NotificacionesController@SendPersonal');
+
 Route::post('/api/Notificaciones/borrar/', 'NotificacionesController@borrarToken');
 Route::get('/api/Notificaciones/Actual/{id}', 'NotificacionesController@ObtenerNotificacionActual');
 Route::get('/api/Notificaciones/RutasActual/{id}', 'NotificacionesController@ObtenerNotificacionRutas');
@@ -155,6 +157,7 @@ Route::get('/api/datos/departamentos/', 'DatosGeneralesController@index');
 Route::post('/api/movil/pedidosusuario', 'PedidosController@pedidosByToken');
 Route::get('/api/movil/pedidoMortalidad/{id}', 'PedidosController@pedidosMortalidad');
 Route::post('/api/movil/pedidosMortalidad', 'PedidosController@pedidosByTokenMortalidad');
+Route::get('/api/usuarios/notificaciones/', 'UserController@UsuariosApp');
 
 
 

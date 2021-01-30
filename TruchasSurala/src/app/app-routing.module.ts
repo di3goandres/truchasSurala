@@ -29,6 +29,7 @@ import { UserService } from './service/user/user.service';
 import { RegistrollegadaComponent } from './componentes/05-Despacho/registrollegada/registrollegada.component';
 import { EnvionotificacionesComponent } from './componentes/09-Notificaciones/envionotificaciones/envionotificaciones.component';
 import { RegistromortalidadComponent } from './componentes/10-Mortalidad/registromortalidad/registromortalidad.component';
+import { EnvioGeneralComponent } from './componentes/09-Notificaciones/01-General/envio-general/envio-general.component';
 
 
 
@@ -99,6 +100,9 @@ const routes: Routes = [
   
   { // rutas de usuarios
     path: 'surala/despachos/notificaciones', component: EnvionotificacionesComponent, canLoad: [UsuarioGuard], canActivate: [UsuarioGuard]
+  },
+  { // notificaciones de usuarios general
+    path: 'surala/usuarios/notificaciones', component: EnvioGeneralComponent, canLoad: [UsuarioGuard], canActivate: [UsuarioGuard]
   },
   /** informes tecnicos */
   

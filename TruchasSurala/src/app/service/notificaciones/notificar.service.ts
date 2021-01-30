@@ -3,6 +3,7 @@ import { UserService } from '../user/user.service';
 import { RutasResponse } from '../../models/Notificaciones/rutas.response';
 import { Respuesta } from '../../models/pedidos/guardar.factura.response';
 import { EnvioNotificacion } from '../../models/Notificaciones/Notificacion.request';
+import { UserNotificacion } from '../../models/Notificaciones/user.notificacion';
 
 @Injectable({
   providedIn: 'root'
@@ -26,4 +27,32 @@ export class NotificarService {
 
     
   }
+
+  Exitoso(){
+    this.userService.registroExitoso();
+  }
+
+  NoExitoso(Titulo, Mensaje){
+    this.userService.registroNoExitoso(Titulo, Mensaje);
+  }
+
+  NoExitosoComun(){
+    this.userService.registroNoExitosoComun();
+  }
+  MostrarSnack(Mensaje: string){
+    this.userService.openSnackBar(Mensaje, "");
+  }
+
+  ObtenerUsuariosRegistrados() {
+
+    return this.userService.ejecutarQuery<UserNotificacion>('/api/usuarios/notificaciones/' );
+  }
+
+  enviarNotificacionPersonalizadaUsuario(data: EnvioNotificacion){
+   
+    return this.userService.ejecutarQueryPostNuevo<Respuesta>('/api/Notificaciones/unico/personalizado' , data );
+
+    
+  }
+
 }

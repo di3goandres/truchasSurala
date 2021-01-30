@@ -214,6 +214,78 @@ class NotificacionesController extends Controller
         return response()->json($data, $data['code']);
     }
 
+    public function SendPersonal(Request $request)
+    {
+
+        // Se envia un Json recibimos un json 
+        // recoger los datos del usuario por post
+        $json = $request->input('json', null);
+        $params = json_decode($json); //objeto
+        $params_array = json_decode($json, true); // array
+
+        if (!empty($params) && !empty($params_array)) {
+
+            $validate = \Validator::make($params_array, [
+                'titulo' => 'required',
+                'mensaje' => 'required',
+                'usuario' => 'required'
+            ]);
+            if ($validate->fails()) {
+                $data = array(
+                    'status' => 'error',
+                    'code' => 400,
+                    'message' => 'No se ha enviado',
+                    'errors' => $validate->errors()
+                );
+            } else {    
+                
+                $usuarios = \DB::table('users_movil')
+           
+                ->where('users_movil.user_id', '=',  $params_array['usuario'])
+                ->select(
+                    'users_movil.token',
+                )
+                ->get();
+              
+                $userId =[];
+                $conteo = 0;
+                foreach($usuarios as $usuario){
+                        $userId[$conteo] = $usuario->token;
+                        $conteo++;
+                }
+                
+                 $params = [];
+                $params['include_player_ids'] = $userId;
+                $contents = [
+                    "en" => $params_array['mensaje'],
+                    "tr" =>$params_array['mensaje'],
+                ];
+                $params['contents'] = $contents;
+                $headings = [
+                    "en" => $params_array['titulo'],
+                    "es" => $params_array['titulo']
+                ];
+                $params['headings'] = $headings;
+                 OneSignal::sendNotificationCustom($params);
+
+                $data = array(
+                    'status' => 'success',
+                    'code' => 200
+                 
+
+                );
+            }
+        } else {
+            $data = array(
+                'status' => 'error',
+                'code' => 400,
+                'message' => 'No se ha enviado',
+            );
+        }
+
+        return response()->json($data, $data['code']);
+    }
+
 
     public function ObtenerNotificacionActual($id)
     {

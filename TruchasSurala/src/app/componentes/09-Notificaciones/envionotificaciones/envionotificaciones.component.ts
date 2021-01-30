@@ -72,11 +72,10 @@ export class EnvionotificacionesComponent implements OnInit {
     console.log(this.notificacion);
     this.service.enviarNotificacionPersonalizada(this.notificacion).subscribe(
       OK => { 
-        this.registroExitoso()
+        this.service.Exitoso();
       },
       ERROR => { 
-
-        this.registroNoExitoso("Ohhh", "No hemos podido procesar tu solicitud, intentalo nuevamente")
+        this.service.NoExitosoComun();
 
        },
     )
