@@ -35,6 +35,13 @@ class JwtAuth
         }
         //Generar el token con los datos del usuario identificado
         if ($signup) {
+            $EXPIRACION = time();
+            if ($user->role == 'USUARIO') {
+                                        //dias horas minutos segundos.
+                $EXPIRACION = time() +  (180 * 24 * 60 * 60);
+            } else {
+                $EXPIRACION = time() + (1 * 12 * 60 * 60);
+            }
             $token = array(
                 'sub' => $user->id,
                 'email' => $user->email,
@@ -44,7 +51,7 @@ class JwtAuth
                 'telefono' => $user->telefono,
                 'rol' => $user->role,
                 'iat' => time(),
-                'exp' => time() + (180 * 24 * 60 * 60),
+                'exp' => $EXPIRACION,
             );
 
             $jwt = JWT::encode($token, $this->key, 'HS256'); //key es la que va estar en el bakend

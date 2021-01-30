@@ -28,7 +28,16 @@ export class AppComponent implements OnInit, DoCheck {
 
   }
   ngOnInit(): void {
+  let resul= new Date().getDay();
 
+    if(this.role == "ALEVINOS"){
+      if(resul==6){
+         this.userService.openSnackBar("Es día de generar la programación de alevinos", "Gracias")
+      }else{
+       this.userService.openSnackBar("recuerda el día sabado, Generar la programación de alevinos", "de Acuerdo")
+ 
+      }
+    }
   }
 
   loadUser(): void {
@@ -40,8 +49,11 @@ export class AppComponent implements OnInit, DoCheck {
 
  validarEnvioMensajes(){
    if(this.role =="ADMIN" || this.role =="OVAS"){
+   
       this.permitirEnviarMensajes =true;
    }
+
+  
  }
 
   openModal(): void {

@@ -31,10 +31,13 @@ import { TextFieldModule } from '@angular/cdk/text-field';
 import { MatListModule } from '@angular/material/list';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { AlevinosprogramcionComponent } from './02-Programacion/alevinosprogramcion/alevinosprogramcion.component';
 
 
 @NgModule({
-  declarations: [MontajePedidoComponent],
+  declarations: [
+    MontajePedidoComponent,
+    AlevinosprogramcionComponent],
   imports: [
     CommonModule,
     AlevinosRoutingModule,

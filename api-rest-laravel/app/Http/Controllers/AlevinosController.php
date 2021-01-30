@@ -52,6 +52,7 @@ class AlevinosController extends Controller
                     $alevinosPedido = new AlevinosPedidos();
                     $alevinosPedido->user_id = $usuario->user_id;
                     $alevinosPedido->id_finca = $usuario->id;
+                    $alevinosPedido->despachado =  false;
                     $alevinosPedido->es_talla =  $talla;
                     $alevinosPedido->es_peso =   !$talla;
                     $alevinosPedido->cantidad =   $params_array['cantidad'];

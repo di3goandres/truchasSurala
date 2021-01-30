@@ -55,7 +55,7 @@ class UserController extends Controller
                 );
             } else {
 
-
+                
 
                 // Cifrar la contraseña
                 // $pwd = password_hash($params->password, PASSWORD_BCRYPT, ['cost' => 4]);

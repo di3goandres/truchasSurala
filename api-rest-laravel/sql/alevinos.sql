@@ -1,4 +1,9 @@
 use api_rest_truchas;
+
+DROP TABLE IF EXISTS alevinos_pedido_semana;
+DROP TABLE IF EXISTS alevinos_dia_despacho;
+DROP TABLE IF EXISTS alevinos_pedidos;
+
 CREATE TABLE alevinos_pedidos(
 id                   int(255) auto_increment not null, 
 user_id              int(255) not null, 
@@ -9,7 +14,8 @@ cantidad             int(255) NOT NULL,
 centimetros          double(18,2) NOT NULL,
 peso_gramos          double(18,2) NOT NULL,
 fecha_probable       datetime DEFAULT NULL,    
-fecha_real           datetime DEFAULT NULL,    
+fecha_real           datetime DEFAULT NULL, 
+despachado            BIT(1) NOT NULL,
 created_at           datetime DEFAULT NULL,    
 updated_at           datetime DEFAULT NULL,
 CONSTRAINT pk_alevinos_pedidos PRIMARY KEY(id),
@@ -25,6 +31,8 @@ id                      int(255) auto_increment not null,
 fecha_salida            datetime DEFAULT NULL,    
 numero_semana           int(255) NOT NULL,
 dia                     varchar(500) NOT NULL,
+despachado              BIT(1) NOT NULL,
+
 created_at       datetime DEFAULT NULL,    
 updated_at       datetime DEFAULT NULL,
 CONSTRAINT pk_alevino_dia_despacho PRIMARY KEY(id)

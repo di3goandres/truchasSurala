@@ -98,6 +98,7 @@ Route::resource('/api/CajasLotes', 'LoteController');
 Route::resource('/api/Despacho', 'DespachoController');
 Route::resource('/api/Pedidos', 'PedidosController');
 Route::resource('/api/Alevinos', 'AlevinosController');
+Route::resource('/api/Progamacion/Alevinos', 'AlevinosDespachoController');
 
 
 Route::resource('/api/Notificaciones', 'NotificacionesController');
