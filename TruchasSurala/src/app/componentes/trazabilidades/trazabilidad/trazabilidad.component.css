@@ -7,23 +7,7 @@
     max-width: 100%;
   }
 
-  .vacia{
-    color: rgb(14, 105, 179);
-    font-weight: bold;
-
-  }
-  .hielo{
   
-    color: #f33d01;
-    font-weight: bold;
-  }
-  .corner {
-    border-radius: 25px;
-    border: 2px solid #f33d01;
-    /* padding: 20px; 
-    width: 200px;
-    height: 150px;   */
-  }
   .imgSurala {
     /* background-image: url('/assets/logo/Logo_Surala.png'); */
     background-size: cover;

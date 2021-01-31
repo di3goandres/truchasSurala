@@ -8,7 +8,8 @@
 // have to load a single css file for Angular Material in your app.
 // Be sure that you only ever include this mixin once!
 @include mat-core();
-
+$ovas: #f33d01;
+$blue:  rgb(14, 105, 179);
 // Define the palettes for your theme using the Material Design palettes available in palette.scss
 // (imported above). For each palette, you can optionally specify a default, lighter, and darker
 // hue. Available color palettes: https://material.io/design/color/
@@ -33,3 +34,106 @@ $TruchasSurala-theme: mat-light-theme((
 // that you are using.
 @include angular-material-theme($TruchasSurala-theme);
 
+
+#customers {
+  font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+}
+
+#customers td, #customers th {
+  border: 1px solid #ddd;
+  padding: 8px;
+}
+
+#customers tr:nth-child(even){background-color: #f2f2f2;}
+
+#customers tr:hover {background-color: #ddd;}
+
+#customers th {
+  padding-top: 12px;
+  padding-bottom: 12px;
+  text-align: center;
+  background-color: $ovas;
+  color: white;
+}
+
+
+
+
+
+.surala-azul{
+  background-color: $blue ;
+  opacity: 100%;
+  color: white;
+
+ }
+
+ .main-blue-text{
+  color: $blue;
+  font-size: xx-large;
+  filter:opacity(0.8);
+  padding-left: 10px;
+  
+}
+
+
+
+.main-surala-text{
+  color: $ovas
+ }
+ 
+ .surala-azul-text{
+   color: $blue
+ }
+ 
+ 
+ .descripcion{
+
+   color: $ovas;
+ }
+ 
+ .descripcionTexto{
+   color: $blue;
+  padding-left: 1px;
+  font-size: small;
+ 
+ }
+
+
+ .vacia{
+  color: $blue;
+  font-weight: bold;
+
+}
+.hielo{
+
+  color: $ovas;
+  font-weight: bold;
+}
+.corner {
+  border-radius: 25px;
+  border: 2px solid $ovas;
+  /* padding: 20px; 
+  width: 200px;
+  height: 150px;   */
+}
+
+.colorCheck{
+  background-color: $blue !important;
+  color: white !important;
+  
+}
+
+.colorPendiente{
+  background-color:$ovas !important;
+  color: white !important;
+  
+}
+
+
+.colorUpdate{
+  background-color: #9ad3bc !important;
+  color: white !important;
+  
+}

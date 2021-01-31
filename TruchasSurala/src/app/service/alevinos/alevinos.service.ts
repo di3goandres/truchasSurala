@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { UserService } from '../user/user.service';
 import { AlevinosPedidos } from '../../models/alevinos/alevinos.pedidos';
+import { ProgramacionAlevinosResponse } from '../../models/alevinos/programacion.alevinos';
 
 @Injectable({
   providedIn: 'root'
@@ -28,5 +29,10 @@ export class AlevinosService {
 
   guardarPedido(data: AlevinosPedidos){
     return this.userService.ejecutarQueryPostNuevo('/api/Alevinos', data)
+  }
+
+
+  consultarProgramacion(){
+    return this.userService.ejecutarQuery<ProgramacionAlevinosResponse>('/api/Progamacion/Alevinos/')
   }
 }

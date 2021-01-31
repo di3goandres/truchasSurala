@@ -6,24 +6,7 @@ mat-chip {
     max-width: 100%;
   }
 
-  .colorCheck{
-    background-color:rgb(14, 105, 179) !important;
-    color: white !important;
-    
-  }
 
-  .colorPendiente{
-    background-color: #f33d01 !important;
-    color: white !important;
-    
-  }
-
-
-  .colorUpdate{
-    background-color: #9ad3bc !important;
-    color: white !important;
-    
-  }
 
   table {
     width: 100%;

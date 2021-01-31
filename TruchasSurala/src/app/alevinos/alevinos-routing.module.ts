@@ -3,10 +3,16 @@ import { Routes, RouterModule } from '@angular/router';
 import { MontajePedidoComponent } from './01-Montaje/montaje-pedido/montaje-pedido.component';
 import { UsuarioGuard } from '../guards/usuario.guard';
 import { AlevinoGuard } from '../guards/alevino/alevino.guard';
+import { AlevinosprogramcionComponent } from './02-Programacion/alevinosprogramcion/alevinosprogramcion.component';
 
 const routes: Routes = [
-  { // rutas de usuarios
+  { 
     path: 'MontajePedidos', component: MontajePedidoComponent,
+    canLoad: [AlevinoGuard], canActivate: [AlevinoGuard]
+  },
+
+  {
+    path: 'Programacion', component: AlevinosprogramcionComponent,
     canLoad: [AlevinoGuard], canActivate: [AlevinoGuard]
   }
 ];

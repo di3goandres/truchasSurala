@@ -122,11 +122,17 @@ class AlevinosDespachoController extends Controller
     public function index()
     {
         $despachos = AlevinosDespacho::orderby('id', 'DESC')->get();
-
+        $retorno = [];
+        $id = 0;
+        foreach ($despachos as $despacho) {
+            $retorno[$id] = ($despacho);
+            $retorno[$id]['estado'] = $despacho->despachado == true? "DESPACHADO": "SIN DESPACHAR";
+            $id = $id + 1;
+        }
         return response()->json([
             'code' => 200,
             'status' => 'success',
-            'alevinosProgramacion' => $despachos
+            'programacion' => $retorno
         ]);
     }
 }
