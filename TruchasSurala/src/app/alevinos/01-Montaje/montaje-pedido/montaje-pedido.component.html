@@ -168,33 +168,61 @@
               <form [formGroup]="secondFormGroup">
 
                 <div class="row">
+                  <div class="col-4 form-group">
+                    <mat-form-field appearance="fill" floatLabel="always">
+                      <mat-label>Periodicidad</mat-label>
+                      <mat-select (selectionChange)="CambioPeriodicidad($event.value)" [(ngModel)]="pedido.periodicidad"
+                        formControlName="Periodicidad" (ngModelChange)="Calcular()">
+                        <mat-option *ngFor="let tipo of Periodicidad" [value]="tipo.value">
+                          {{tipo.viewValue}}
+                        </mat-option>
+                      </mat-select>
+                    </mat-form-field>
+                  </div>
 
-                  <div class="col-6 form-group">
+                  <div class="col-4 form-group">
+                    <mat-form-field appearance="fill" floatLabel="always">
+                      <mat-label>Repeticiones</mat-label>
+                      <mat-select (selectionChange)="Cambio($event.value)" [(ngModel)]="pedido.repeticiones"
+                        formControlName="Repeticiones" (ngModelChange)="Calcular()">
+                        <mat-option *ngFor="let tipo of repeticiones" [value]="tipo.value">
+                          {{tipo.viewValue}}
+                        </mat-option>
+                      </mat-select>
+                    </mat-form-field>
+                  </div>
+                  <div class="col-4 form-group">
 
 
                     <mat-form-field appearance="fill" floatLabel="always">
                       <mat-label>Fecha de Probable</mat-label>
-
+                    
                       <input matInput formControlName="fecha" [matDatepicker]="pickerentrada" [min]="minDate"
-                        [max]="maxDate" [(ngModel)]="pedido.fechaProbable" required>
-                      <mat-datepicker-toggle matSuffix [for]="pickerentrada">
+                         [(ngModel)]="pedido.fechaProbable" required (ngModelChange)="Calcular()"
+                        [matDatepickerFilter]="myDateFilter" 
+                        >
+
+
+                      <mat-datepicker-toggle matSuffix [for]="pickerentrada"
+                     
+                      >
                       </mat-datepicker-toggle>
-                      <mat-datepicker touchUi #pickerentrada></mat-datepicker>
+                      <mat-datepicker touchUi #pickerentrada
+
+                      ></mat-datepicker>
                       <!-- <input type="button" value="Agregar Fecha"/> -->
 
                     </mat-form-field>
 
-                  
-
 
 
                   </div>
-                  <div class="col-6 form-group">
+                  <div class="col-4 form-group">
                     <mat-form-field appearance="fill">
                       <mat-label>Tipo Pedido</mat-label>
 
                       <mat-select (selectionChange)="Cambio($event.value)" [(ngModel)]="pedido.tipo"
-                      formControlName="tipo">
+                        formControlName="tipo" (ngModelChange)="Calcular()">
                         <mat-option *ngFor="let tipo of TipoCompra" [value]="tipo.value">
                           {{tipo.viewValue}}
 
@@ -203,43 +231,44 @@
                     </mat-form-field>
                   </div>
 
-                  <div class="col-6 form-group">
+                  <div class="col-4 form-group">
                     <mat-form-field appearance="fill" floatLabel="always">
                       <mat-label>Cantidad Alevinos</mat-label>
                       <mat-icon matSuffix>exposure_plus_1</mat-icon>
 
                       <input matInput placeholder="Cantidad" type="number" min="200" name="cantidad"
-                        [(ngModel)]="pedido.cantidad" formControlName="cantidad">
+                        [(ngModel)]="pedido.cantidad" formControlName="cantidad" (ngModelChange)="Calcular()">
 
 
                     </mat-form-field>
 
                   </div>
-                  <div class="col-6 form-group"  *ngIf="pedido.tipo=='TALLA'">
+                  <div class="col-4 form-group" *ngIf="pedido.tipo=='TALLA'">
                     <mat-form-field appearance="fill" floatLabel="always">
                       <mat-label>Centimetros Alevinos</mat-label>
                       <mat-icon matSuffix>square_foot</mat-icon>
 
                       <input matInput placeholder="Talla" formControlName="talla" type="number" name="talla"
-                        [(ngModel)]="pedido.talla" min="1" max="50">
+                        [(ngModel)]="pedido.talla" min="1" max="50" (ngModelChange)="Calcular()">
 
 
                     </mat-form-field>
 
                   </div>
 
-                  <div class="col-6 form-group" *ngIf="pedido.tipo=='PESO'">
+                  <div class="col-4 form-group" *ngIf="pedido.tipo=='PESO'">
                     <mat-form-field appearance="fill" floatLabel="always">
                       <mat-label>Peso Alevinos</mat-label>
                       <mat-icon matSuffix>fitness_center</mat-icon>
 
-                      <input matInput placeholder="Peso" formControlName="Peso" type="number" name="Peso" min="1" max="10"
-                        [(ngModel)]="pedido.peso">
+                      <input matInput placeholder="Peso" formControlName="Peso" type="number" name="Peso" min="10"
+                        max="3000" [(ngModel)]="pedido.peso" (ngModelChange)="Calcular()">
 
 
                     </mat-form-field>
 
                   </div>
+                 
                 </div>
               </form>
 
@@ -247,6 +276,77 @@
 
 
           </mat-grid-list>
+        
+
+      
+          <mat-card class="example-card">
+
+            <mat-card-header>
+                <div mat-card-avatar class="example-header-image"
+                    style="background-image: url('assets/avatars/av-7.png')"></div>
+                <mat-card-title class="main-surala-text">Lista de Posibles Despachos</mat-card-title>
+                <mat-card-subtitle>Truchas Suralá</mat-card-subtitle>
+                <mat-card-subtitle class="surala-azul-text">Datos de Posibles Despachos</mat-card-subtitle>
+
+            </mat-card-header>
+           
+            <mat-card-content>
+                <div class="table-responsive" >
+                    <table id="customers" matTableExporter #exporter="matTableExporter" mat-table
+                        [dataSource]="dataSource" class="mat-elevation-z8">
+                        <ng-container matColumnDef="position">
+                            <th mat-header-cell *matHeaderCellDef> No. </th>
+                            <td mat-cell *matCellDef="let element; let i = index"> {{i + 1}} </td>
+                        </ng-container>
+
+
+
+                        <ng-container matColumnDef="FechaSalida">
+                            <th mat-header-cell *matHeaderCellDef> Fecha Salida </th>
+                            <td mat-cell *matCellDef="let element">
+                                {{ element.fechaProbableS |date :"MMM/dd/yyyy" | uppercase }}
+                            </td>
+                        </ng-container>
+
+
+                        <ng-container matColumnDef="Semana">
+                            <th mat-header-cell *matHeaderCellDef> Semana</th>
+                            <td mat-cell *matCellDef="let element"  style="text-align: center;"> {{element.semana}} </td>
+                        </ng-container>
+
+                        <ng-container matColumnDef="dia">
+                            <th mat-header-cell *matHeaderCellDef> Día</th>
+                            <td mat-cell *matCellDef="let element"  style="text-align: center;"> {{element.dia | uppercase}} </td>
+                        </ng-container>
+
+                        <ng-container matColumnDef="talla">
+                            <th mat-header-cell *matHeaderCellDef> Talla</th>
+                            <td mat-cell *matCellDef="let element"  style="text-align: center;"> {{element.talla | number}} </td>
+                        </ng-container>
+
+                        <ng-container matColumnDef="peso">
+                          <th mat-header-cell *matHeaderCellDef> Peso</th>
+                          <td mat-cell *matCellDef="let element"  style="text-align: center;"> {{element.peso | number}} </td>
+                      </ng-container>
+                      <ng-container matColumnDef="cantidad">
+                        <th mat-header-cell *matHeaderCellDef> Cantidad</th>
+                        <td mat-cell *matCellDef="let element"  style="text-align: center;"> {{element.cantidad | number}} </td>
+                    </ng-container>
+                     
+                        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                    </table>
+                    <mat-paginator [pageSizeOptions]="[15, 30, 50]" showFirstLastButtons></mat-paginator>
+                </div>
+
+          
+                <div class="col-12">
+                    <button type="button" matStepperPrevious mat-raised-button color="primary"
+                        >Atras</button>
+    
+                </div>
+            </mat-card-content>
+        </mat-card>
         </mat-card-content>
         <mat-card-actions>
           <div class="row">
@@ -262,7 +362,7 @@
 
               <button mat-raised-button matStepperNext [disabled]="secondFormGroup.invalid" color="primary"
                 id="logout-button" class="btn btn-primary btn-block" (click)="guardar()">
-                <mat-icon>arrow_forward</mat-icon>
+                <mat-icon>save</mat-icon>
               </button>
             </div>
           </div>

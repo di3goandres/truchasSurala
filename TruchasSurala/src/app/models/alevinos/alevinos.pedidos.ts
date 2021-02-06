@@ -10,6 +10,18 @@ export class AlevinosPedidos{
     talla:          number;
     peso:           number;
     fechaProbable:    Date;
+    fechaProbableS:   string;
+
+    /**
+     * datos solo para mostrar en el front
+     */
+    semana:         number;
+    dia:            string;
+    repeticiones:   number;
+    periodicidad:   string;
+
+
 
 }
+
 

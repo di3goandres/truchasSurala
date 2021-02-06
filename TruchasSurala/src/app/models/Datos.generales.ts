@@ -20,7 +20,7 @@ export interface Municipio {
 
 
 
-export interface Select {
+export class Select {
     value: string;
     viewValue: string;
   }

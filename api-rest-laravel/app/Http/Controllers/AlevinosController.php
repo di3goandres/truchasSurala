@@ -17,12 +17,22 @@ class AlevinosController extends Controller
     public function store(Request $request)
     {
 
+        // peridiocidad tipos
+        /** 
+         * tipo de peridiocidad
+         * unico
+         * quincenal
+         * mensual
+         * bimensual
+         * trimensual
+         * MAXIMO EL AÑO EN CURSO
+        */
         $json = $request->input('json', null);
         $params_array = json_decode($json, true); // array
-
         if (!empty($params_array)) {
             $validate = \Validator::make($params_array, [
                 'idUserFinca' => 'required|numeric',
+                'periodicidad`' => 'required|in:UNICO,QUINCENAL,MENSUAL,BIMENSUAL,TRIMESTRAL', // DEFAULT or SOCIAL values
                 'tipo' => 'required',
                 'cantidad' => 'required|numeric',
                 'talla' => 'required|numeric',

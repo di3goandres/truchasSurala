@@ -9,6 +9,9 @@ import { MatStepper } from '@angular/material/stepper';
 import { AlevinosPedidos } from '../../../models/alevinos/alevinos.pedidos';
 import { AlevinosService } from '../../../service/alevinos/alevinos.service';
 import { Select } from '../../../models/Datos.generales';
+import { MatTableDataSource } from '@angular/material/table';
+import { MatPaginator } from '@angular/material/paginator';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-montaje-pedido',
@@ -16,11 +19,29 @@ import { Select } from '../../../models/Datos.generales';
   styleUrls: ['./montaje-pedido.component.css']
 })
 export class MontajePedidoComponent implements OnInit {
-
+  displayedColumns: string[] = ['position', 'FechaSalida', 'Semana',
+    'dia', 'talla', 'peso', 'cantidad'];
+  public dataSource = new MatTableDataSource<AlevinosPedidos>();
   @ViewChild('stepper', { static: false }) stepper: MatStepper;
+  @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
+
+  pedidosAlevinosPedidos: AlevinosPedidos[] = [];
+  validaciones: AlevinosPedidos[] = [];
+  nuevo = new AlevinosPedidos();
+
+  addDays = 0;
+  repeticiones: Select[];
   TipoCompra: Select[] = [
     { value: 'TALLA', viewValue: 'TALLA' },
     { value: 'PESO', viewValue: 'PESO' }
+
+  ]
+  Periodicidad: Select[] = [
+    { value: 'UNICO', viewValue: 'UNICO' },
+    { value: 'QUINCENAL', viewValue: 'QUINCENAL' },
+    { value: 'MENSUAL', viewValue: 'MENSUAL' },
+    { value: 'BIMENSUAL', viewValue: 'BIMENSUAL' },
+    { value: 'TRIMESTRAL', viewValue: 'TRIMESTRAL' }
 
   ]
   usuario: UserFinca;
@@ -32,7 +53,9 @@ export class MontajePedidoComponent implements OnInit {
   constructor(
     private modalService: NgbModal,
     private _formBuilder: FormBuilder,
-    private serviceAlevino: AlevinosService
+    private serviceAlevino: AlevinosService,
+    public datepipe: DatePipe,
+
 
   ) {
     this.usuario = new UserFinca();
@@ -41,6 +64,20 @@ export class MontajePedidoComponent implements OnInit {
     this.maxDate = new Date();
     this.minDate.setDate(this.minDate.getDate() + 1);
     this.maxDate.setDate(this.maxDate.getDate() + 60);
+
+  }
+  calcularRepeticiones(number) {
+    this.repeticiones = [];
+    let i = 1;
+    if(number!= 1){
+      i = 2
+    }
+    for (i; i <= number; i++) {
+      let nuevo = new Select();
+      nuevo.value = i.toString()
+      nuevo.viewValue = i.toString();
+      this.repeticiones.push(nuevo)
+    }
   }
   Cambio(value) {
     console.log(value);
@@ -66,6 +103,146 @@ export class MontajePedidoComponent implements OnInit {
 
 
   }
+
+  CambioPeriodicidad(value) {
+    switch (this.pedido.periodicidad) {
+      case 'UNICO':
+        this.calcularRepeticiones(1);
+        this.addDays = 0;
+        break;
+      case 'QUINCENAL':
+        this.calcularRepeticiones(27);
+        this.addDays = 15;
+
+        break;
+      case 'MENSUAL':
+        this.calcularRepeticiones(12);
+        this.addDays = 30;
+
+        break;
+      case 'BIMENSUAL':
+        this.calcularRepeticiones(6);
+        this.addDays = 60;
+
+        break;
+      case 'TRIMESTRAL':
+        this.calcularRepeticiones(4);
+        this.addDays = 90;
+
+        break;
+      default:
+        break;
+    }
+  }
+
+   myDateFilter = (d: Date): boolean => {
+     let dstring =  this.datepipe.transform(d, 'yyyy-MM-dd');
+
+    d = new Date(dstring);
+    d.setHours(d.getHours() + 5);
+  
+    const day = d.getDay();
+    // Prevent Saturday and Sunday from being selected.
+    return day !== 0 && day !== 6 ;
+  }
+  Calcular() {
+
+    let fechaActual = "";
+    let fechaItems = new Date()
+    if (this.secondFormGroup.valid) {
+      console.log(this.pedido.fechaProbable);
+      fechaActual = this.datepipe.transform(this.pedido.fechaProbable, 'yyyy-MM-dd');
+
+      fechaItems = new Date(fechaActual);
+      fechaItems.setHours(fechaItems.getHours() + 5);
+
+
+      this.pedidosAlevinosPedidos = [];
+      for (let i = 0; i < this.pedido.repeticiones; i++) {
+        this.nuevo = new AlevinosPedidos();
+        this.nuevo.idUserFinca = 0;
+        this.nuevo.tipo = this.pedido.tipo;
+        this.nuevo.cantidad = this.pedido.cantidad;
+        this.nuevo.cantidad = this.pedido.cantidad;
+        if (this.nuevo.tipo == "TALLA") {
+          this.nuevo.talla = this.pedido.talla;
+          this.nuevo.peso = 0;
+        } else if (this.nuevo.tipo == "PESO") {
+          this.nuevo.peso = this.pedido.peso;
+          this.nuevo.talla = 0;
+        }
+        if (i != 0) {
+          fechaItems.setDate(fechaItems.getDate() + this.addDays)
+
+        }
+        this.nuevo.fechaProbable = fechaItems;
+        this.nuevo.fechaProbableS = this.datepipe.transform(fechaItems, 'yyyy-MM-dd');;
+        this.nuevo.dia = this.calcularDiaSemana(fechaItems);
+
+        if( this.nuevo.dia =="Domingo"){
+          fechaItems.setDate(fechaItems.getDate() + 1)
+          this.nuevo.fechaProbable = fechaItems;
+          this.nuevo.dia = this.calcularDiaSemana(fechaItems);
+          this.nuevo.fechaProbableS = this.datepipe.transform(fechaItems, 'yyyy-MM-dd');;
+
+        }
+    
+        this.nuevo.semana = this.getWeekNumber(fechaItems);
+        this.validaciones.push(this.nuevo)
+      }
+      this.pedidosAlevinosPedidos.push(...this.validaciones)
+      this.validaciones = []
+
+
+
+
+    }
+
+    this.dataSource = new MatTableDataSource(this.pedidosAlevinosPedidos);
+    this.dataSource.paginator = this.paginator
+
+  }
+
+
+ getWeekNumber(d) {
+    // Copy date so don't modify original
+    d = new Date(Date.UTC(d.getFullYear(), d.getMonth(), d.getDate()));
+    // Set to nearest Thursday: current date + 4 - current day number
+    // Make Sunday's day number 7
+    d.setUTCDate(d.getUTCDate() + 4 - (d.getUTCDay()||7));
+    // Get first day of year
+    let yearStart = new Date(Date.UTC(d.getUTCFullYear(),0,1));
+    // Calculate full weeks to nearest Thursday
+    let weekNo = Math.ceil(( ( (d.valueOf() - yearStart.valueOf()) / 86400000) + 1)/7);
+    // Return array of year and week number
+    return weekNo;
+}
+  calcularDiaSemana(date) {
+    let day = "";
+    switch (new Date(date).getDay()) {
+      case 0:
+        day = "Domingo";
+        break;
+      case 1:
+        day = "Lunes";
+        break;
+      case 2:
+        day = "Martes";
+        break;
+      case 3:
+        day = "Miércoles";
+        break;
+      case 4:
+        day = "Jueves";
+        break;
+      case 5:
+        day = "Viernes";
+        break;
+      case 6:
+        day = "Sabado";
+    }
+    return day;
+  }
   ngOnInit(): void {
     this.firstFormGroup = this._formBuilder.group({
       finca: ['', Validators.required],
@@ -75,7 +252,8 @@ export class MontajePedidoComponent implements OnInit {
       cantidad: ['', [Validators.min(200)]],
       Peso: [{ value: '', disabled: true }, [Validators.min(10), Validators.max(3000), Validators.required],], // gramos 
       talla: [{ value: '', disabled: true }, [Validators.min(1), Validators.max(50), Validators.required]], // centimetros 
-
+      Repeticiones: [{ value: '', disabled: false }, [Validators.min(1), Validators.max(55), Validators.required],], // gramos 
+      Periodicidad: ['', Validators.required], // centimetros 
       fecha: ['', Validators.required],
       tipo: ['', Validators.required],
 
@@ -106,16 +284,18 @@ export class MontajePedidoComponent implements OnInit {
     console.log(this.pedido);
 
     this.serviceAlevino.guardarPedido(this.pedido).subscribe(
-      OK => { console.log(OK)
+      OK => {
+        console.log(OK)
 
         this.serviceAlevino.Exitoso();
 
-       },
-      ERROR => { console.log(ERROR)
-      
+      },
+      ERROR => {
+        console.log(ERROR)
+
         this.serviceAlevino.NoExitosoComun();
-      
-      
+
+
       },
     )
   }
