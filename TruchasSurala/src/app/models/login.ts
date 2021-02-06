@@ -8,6 +8,9 @@ export class Login {
 }
 
 export class UserLogin{
+  constructor(){
+    this.rol ="";
+  }
   public email: string;
   public name: string;
   public surname: string;

@@ -329,14 +329,19 @@ export class UserService {
     let json = JSON.stringify(data);
     let params = 'json=' + json;
 
-    
+
     return this.http.post<T>(this.url + query, params);
 
 
 
   }
   public get currenUserValue(): UserLogin {
-    return this.currentUserSubject.value;
+    if(this.currentUserSubject.value==null){
+      return new UserLogin();
+    }else{
+      return this.currentUserSubject.value;
+
+    }
   }
 
   isAdmin(): Promise<boolean> {
@@ -346,7 +351,7 @@ export class UserService {
 
     return new Promise(resolve => {
 
-      if (user.rol == 'ADMIN' ||user.rol == 'OVAS' ) {
+      if (user.rol == 'ADMIN' || user.rol == 'OVAS') {
 
         resolve(true);
       } else {
