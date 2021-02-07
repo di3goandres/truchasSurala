@@ -99,7 +99,7 @@ class AlevinosDespachoController extends Controller
                     );
                 } else {
                     $data = array(
-                        'code' => 300,
+                        'code' => 201,
                         'status' => 'ya existe esta programacion',
 
                     );
@@ -121,7 +121,7 @@ class AlevinosDespachoController extends Controller
     //Metodo par obtner los despachos que se han creado.
     public function index()
     {
-        $despachos = AlevinosDespacho::orderby('id', 'DESC')->get();
+        $despachos = AlevinosDespacho::orderby('fecha_salida', 'ASC')->get();
         $retorno = [];
         $id = 0;
         foreach ($despachos as $despacho) {

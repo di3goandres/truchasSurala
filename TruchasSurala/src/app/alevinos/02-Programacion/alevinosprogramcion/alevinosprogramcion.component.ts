@@ -2,8 +2,10 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatStepper } from '@angular/material/stepper';
 import { MatTableDataSource } from '@angular/material/table';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { AlevinosService } from 'src/app/service/alevinos/alevinos.service';
 import { ProgramacionAlevinos } from '../../../models/alevinos/programacion.alevinos';
+import { DiaDespachoComponent } from '../../04-DiaDespacho/dia-despacho/dia-despacho.component';
 
 @Component({
   selector: 'app-alevinosprogramcion',
@@ -12,15 +14,17 @@ import { ProgramacionAlevinos } from '../../../models/alevinos/programacion.alev
 })
 export class AlevinosprogramcionComponent implements OnInit {
   programacion: ProgramacionAlevinos[];
-  displayedColumns: string[] = ['position', 'FechaSalida', 'Semana', 
-  'dia', 'estado', 'seleccionar'];
+  displayedColumns: string[] = ['position', 'FechaSalida', 'Semana',
+    'dia', 'estado', 'seleccionar'];
   public dataSource = new MatTableDataSource<ProgramacionAlevinos>();
   @ViewChild('stepper', { static: false }) stepper: MatStepper;
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
 
 
   constructor(
-    private service: AlevinosService
+    private service: AlevinosService,
+    private modalService: NgbModal,
+
   ) { }
 
   ngOnInit(): void {
@@ -30,7 +34,7 @@ export class AlevinosprogramcionComponent implements OnInit {
   consultarProgramacion() {
     this.service.consultarProgramacion().subscribe(
       OK => {
-        console.log(OK)
+
 
         this.programacion = [];
         this.programacion.push(...OK.programacion);
@@ -57,5 +61,24 @@ export class AlevinosprogramcionComponent implements OnInit {
       },
     )
 
+
+  }
+
+  Agregar() {
+    const modalRef = this.modalService.open(DiaDespachoComponent, { size: 'md' });
+
+    modalRef.result.then((result) => {
+
+      if (result == "OK") {
+        this.consultarProgramacion();
+
+      }
+    }, (reason) => {
+
+      if (reason === 'OK') {
+
+
+      }
+    });
   }
 }

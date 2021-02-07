@@ -28,4 +28,8 @@ export class AlevinosPedidosRequest{
     alevinosPedidos: AlevinosPedidos[]
 }
 
+export class A_DiaDespachoRequest{
+    fecha_salida: Date;
+}
+
 

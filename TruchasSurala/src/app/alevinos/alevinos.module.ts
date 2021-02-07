@@ -33,13 +33,15 @@ import { MatChipsModule } from '@angular/material/chips';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { AlevinosprogramcionComponent } from './02-Programacion/alevinosprogramcion/alevinosprogramcion.component';
 import { ListaPedidoAlevinosComponent } from './03-Lista/lista-pedido-alevinos/lista-pedido-alevinos.component';
+import { DiaDespachoComponent } from './04-DiaDespacho/dia-despacho/dia-despacho.component';
 
 
 @NgModule({
   declarations: [
     MontajePedidoComponent,
     AlevinosprogramcionComponent,
-    ListaPedidoAlevinosComponent],
+    ListaPedidoAlevinosComponent,
+    DiaDespachoComponent],
   imports: [
     CommonModule,
     AlevinosRoutingModule,

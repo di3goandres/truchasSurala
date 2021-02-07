@@ -15,7 +15,17 @@
                     <mat-card-subtitle class="surala-azul-text">Datos de programacionnes</mat-card-subtitle>
 
                 </mat-card-header>
-               
+                <mat-card-actions>
+                    <div class="row">
+                      
+                        <div class="col-12 centerlabel font-weight-bold" style="text-align: center;">
+                            <button mat-raised-button color="warn" ngbAutofocus (click)="Agregar()">
+                                <mat-icon>add</mat-icon>
+                            </button>
+                        </div>
+                       
+                    </div>
+                </mat-card-actions>
                 <mat-card-content>
                     <div class="table-responsive" >
                         <table id="customers" matTableExporter #exporter="matTableExporter" mat-table
@@ -55,7 +65,7 @@
                                 <td mat-cell *matCellDef="let element" style="text-align: center;">
                                     <button mat-raised-button  color="secondary" id="logout-button"
                                         class="btn btn-primary btn-block" style="width:50%"
-                                        (click)="Ver(element)"><mat-icon>airport_shuttle</mat-icon></button></td>
+                                        ><mat-icon>airport_shuttle</mat-icon></button></td>
                             </ng-container>
 
                          
@@ -72,11 +82,12 @@
         
                     </div>
                 </mat-card-content>
+                
             </mat-card>
             
         </mat-step>
         <mat-step>
-            <ng-template matStepLabel>Programación </ng-template>
+            <ng-template matStepLabel>Programación</ng-template>
         </mat-step>
 
     </mat-horizontal-stepper>

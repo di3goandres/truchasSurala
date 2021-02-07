@@ -1,0 +1,60 @@
+<mat-card class="example-card">
+
+    <mat-card-header>
+        <div mat-card-avatar class="example-header-image"
+            style="background-image: url('assets/avatars/av-5.png')"></div>
+        <mat-card-title class="main-surala-text">Fecha de Salida Alevinos</mat-card-title>
+        <mat-card-subtitle>Truchas Suralá</mat-card-subtitle>
+        <mat-card-subtitle class="surala-azul-text">Fecha</mat-card-subtitle>
+
+    </mat-card-header>
+   
+    <mat-card-content>
+  
+        <form [formGroup]="firstFormGroup" style="width: 100%;text-align: center;">
+
+
+
+            <mat-form-field appearance="fill" floatLabel="always">
+                <mat-label>Fecha de Salida</mat-label>
+              
+                <input matInput formControlName="fecha" [matDatepicker]="pickerentrada" [min]="minDate"
+                   [(ngModel)]="request.fecha_salida" required 
+                  [matDatepickerFilter]="myDateFilter" 
+                  >
+
+
+                <mat-datepicker-toggle matSuffix [for]="pickerentrada"
+               
+                >
+                </mat-datepicker-toggle>
+                <mat-datepicker touchUi #pickerentrada
+
+                ></mat-datepicker>
+                <!-- <input type="button" value="Agregar Fecha"/> -->
+
+              </mat-form-field>
+
+          </form>
+
+  
+      
+    </mat-card-content>
+    <mat-card-actions>
+        <div class="row">
+            <div class="col-6 centerlabel font-weight-bold" style="text-align: center;">
+                <button mat-raised-button color="warn" ngbAutofocus (click)="Cerrar()">
+                    <mat-icon>close</mat-icon>
+                </button>
+            </div>
+            <div class="col-6 centerlabel font-weight-bold" style="text-align: center;">
+                <button mat-raised-button color="warn" [disabled]="this.firstFormGroup.invalid"
+                    (click)="Agregar()">
+                    <mat-icon>save</mat-icon>
+                </button>
+            </div>
+        </div>
+
+    </mat-card-actions>
+    
+</mat-card>
