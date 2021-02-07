@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
 import { UserService } from '../user/user.service';
-import { AlevinosPedidos } from '../../models/alevinos/alevinos.pedidos';
+import { AlevinosPedidos, AlevinosPedidosRequest } from '../../models/alevinos/alevinos.pedidos';
 import { ProgramacionAlevinosResponse } from '../../models/alevinos/programacion.alevinos';
+import { Respuesta } from '../../models/pedidos/guardar.factura.response';
 
 @Injectable({
   providedIn: 'root'
@@ -27,8 +28,8 @@ export class AlevinosService {
     this.userService.openSnackBar(Mensaje, "");
   }
 
-  guardarPedido(data: AlevinosPedidos){
-    return this.userService.ejecutarQueryPostNuevo('/api/Alevinos', data)
+  guardarPedido(data: AlevinosPedidosRequest){
+    return this.userService.ejecutarQueryPostNuevo<Respuesta>('/api/Alevinos', data)
   }
 
 

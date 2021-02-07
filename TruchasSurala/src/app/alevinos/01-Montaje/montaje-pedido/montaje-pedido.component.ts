@@ -6,7 +6,7 @@ import { SeleccionarusuarioComponent } from '../../../componentes/02-Usuario/05-
 import { Usuario } from '../../../models/usuarios.fincas';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatStepper } from '@angular/material/stepper';
-import { AlevinosPedidos } from '../../../models/alevinos/alevinos.pedidos';
+import { AlevinosPedidos, AlevinosPedidosRequest } from '../../../models/alevinos/alevinos.pedidos';
 import { AlevinosService } from '../../../service/alevinos/alevinos.service';
 import { Select } from '../../../models/Datos.generales';
 import { MatTableDataSource } from '@angular/material/table';
@@ -26,6 +26,11 @@ export class MontajePedidoComponent implements OnInit {
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
 
   pedidosAlevinosPedidos: AlevinosPedidos[] = [];
+  Exitosos: AlevinosPedidos[] = [];
+  Errores: AlevinosPedidos[] = [];
+
+
+  requestAlevinos: AlevinosPedidosRequest;
   validaciones: AlevinosPedidos[] = [];
   nuevo = new AlevinosPedidos();
 
@@ -143,7 +148,7 @@ export class MontajePedidoComponent implements OnInit {
   
     const day = d.getDay();
     // Prevent Saturday and Sunday from being selected.
-    return day !== 0 && day !== 6 ;
+    return day !== 0  ;
   }
   Calcular() {
 
@@ -270,7 +275,9 @@ export class MontajePedidoComponent implements OnInit {
         this.pedido = new AlevinosPedidos();
         this.usuario = result;
         this.pedido.idUserFinca = this.usuario.id
-
+        this.requestAlevinos = new AlevinosPedidosRequest()
+        this.requestAlevinos.idUserFinca = this.usuario.id;
+        this.requestAlevinos.alevinosPedidos =[];
 
       }
 
@@ -281,14 +288,31 @@ export class MontajePedidoComponent implements OnInit {
   }
 
   guardar() {
-    console.log(this.pedido);
-
-    this.serviceAlevino.guardarPedido(this.pedido).subscribe(
+    this.Exitosos = [];
+    this.Errores = [];
+  
+    this.requestAlevinos.alevinosPedidos = [];
+    this.requestAlevinos.alevinosPedidos.push(...this.pedidosAlevinosPedidos);
+    this.serviceAlevino.guardarPedido(this.requestAlevinos).subscribe(
       OK => {
         console.log(OK)
+        this.stepper.next();
+        if(OK.code==200){
+          this.serviceAlevino.Exitoso();
+          this.Exitosos = [];
+          this.Exitosos.push(...OK.OK);
+        }else{
+          if(OK.duplicados != null ){
+            this.Exitosos = [];
+            this.Exitosos.push(...OK.OK);
+            this.Errores = [];
+            this.Errores.push(...OK.duplicados);
+            console.log(this.Errores)
+            this.serviceAlevino.MostrarSnack("Existen pedidos registrados previamente")
 
-        this.serviceAlevino.Exitoso();
 
+          }
+        }
       },
       ERROR => {
         console.log(ERROR)

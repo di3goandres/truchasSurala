@@ -26,18 +26,25 @@ class AlevinosController extends Controller
          * bimensual
          * trimensual
          * MAXIMO EL AÑO EN CURSO
-        */
+         */
         $json = $request->input('json', null);
         $params_array = json_decode($json, true); // array
         if (!empty($params_array)) {
+
+
+
             $validate = \Validator::make($params_array, [
                 'idUserFinca' => 'required|numeric',
-                'periodicidad`' => 'required|in:UNICO,QUINCENAL,MENSUAL,BIMENSUAL,TRIMESTRAL', // DEFAULT or SOCIAL values
-                'tipo' => 'required',
-                'cantidad' => 'required|numeric',
-                'talla' => 'required|numeric',
-                'peso' => 'required|numeric',
-                'fechaProbable' => 'required',
+                "alevinosPedidos" => "array|min:1",
+                "alevinosPedidos.*.tipo" => "required",
+                'alevinosPedidos.*.cantidad' => 'required|numeric',
+                'alevinosPedidos.*.talla' => 'required|numeric',
+                'alevinosPedidos.*.peso' => 'required|numeric',
+                'alevinosPedidos.*.fechaProbableS' => 'required',
+
+                // 'periodicidad`' => 'required|in:UNICO,QUINCENAL,MENSUAL,BIMENSUAL,TRIMESTRAL', // DEFAULT or SOCIAL values
+                // 'tipo' => 'required',
+
 
             ]);
 
@@ -52,30 +59,71 @@ class AlevinosController extends Controller
                 );
             } else {
 
-                $talla = false;
-                if( strtoupper($params_array['tipo']) == "TALLA")
-                {
-                    $talla = true;
-                }
+
+                $errores = [];
+                $OK = [];
+
+                $conteoErrores = 0;
+                $conteoOK = 0;
+
                 $usuario = Fincas::find($params_array['idUserFinca']);
                 if (is_object($usuario)) {
-                    $alevinosPedido = new AlevinosPedidos();
-                    $alevinosPedido->user_id = $usuario->user_id;
-                    $alevinosPedido->id_finca = $usuario->id;
-                    $alevinosPedido->despachado =  false;
-                    $alevinosPedido->es_talla =  $talla;
-                    $alevinosPedido->es_peso =   !$talla;
-                    $alevinosPedido->cantidad =   $params_array['cantidad'];
-                    $alevinosPedido->centimetros =   $params_array['talla'];
-                    $alevinosPedido->peso_gramos =   $params_array['peso'];
-                    $alevinosPedido->fecha_probable =  str_replace('T05:00:00.000Z', '', $params_array['fechaProbable']);
-                    $alevinosPedido->save();
-                    $data = array(
-                        'code' => 200,
-                        'status' => 'success',
-                        'id' => $alevinosPedido->id
 
-                    );
+                    $pedidos = $params_array['alevinosPedidos'];
+                    foreach ($pedidos as $pedido) {
+                        $fecha = str_replace('T05:00:00.000Z', '', $pedido['fechaProbableS']);
+
+                        $existe = \DB::table('alevinos_pedidos')
+                            ->where([
+                                ['alevinos_pedidos.fecha_probable', '=',  $fecha],
+                                ['alevinos_pedidos.user_id', '=',  $usuario->user_id]
+                            ])
+                            ->select('alevinos_pedidos.fecha_probable')
+                            ->get();
+
+                        if (count($existe) == 0) {
+                            $talla = false;
+                            if (strtoupper($pedido['tipo']) == "TALLA") {
+                                $talla = true;
+                            }
+                            $alevinosPedido = new AlevinosPedidos();
+                            $alevinosPedido->user_id = $usuario->user_id;
+                            $alevinosPedido->id_finca = $usuario->id;
+                            $alevinosPedido->despachado =  false;
+                            $alevinosPedido->es_talla =  $talla;
+                            $alevinosPedido->es_peso =   !$talla;
+                            $alevinosPedido->cantidad =   $pedido['cantidad'];
+                            $alevinosPedido->centimetros =   $pedido['talla'];
+                            $alevinosPedido->peso_gramos =   $pedido['peso'];
+                            $alevinosPedido->fecha_probable =  str_replace('T05:00:00.000Z', '', $pedido['fechaProbableS']);
+                            $alevinosPedido->save();
+                            $OK[$conteoOK] = $pedido;
+                            $conteoOK += 1;
+                        } else {
+                            $errores[$conteoErrores] = $pedido;
+                            $conteoErrores += 1;
+                        }
+                    }
+
+                    if (count($errores) == 0) {
+                        $data = array(
+                            'code' => 200,
+                            'status' => 'success',
+                            'id' => $alevinosPedido->id,
+                            'OK' => $OK
+
+
+                        );
+                    }else{
+                        $data = array(
+                            'code' => 201,
+                            'status' => 'success',
+                            'duplicados' => $errores,
+                            'OK' => $OK
+
+
+                        );
+                    }
                 } else {
                     $data = array(
                         'code' => 401,
@@ -83,10 +131,6 @@ class AlevinosController extends Controller
 
                     );
                 }
-
-                
-
-
             }
         } else {
             $data = array(

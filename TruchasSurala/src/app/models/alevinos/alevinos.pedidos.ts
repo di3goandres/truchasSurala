@@ -23,5 +23,9 @@ export class AlevinosPedidos{
 
 
 }
+export class AlevinosPedidosRequest{
+    idUserFinca:    number;
+    alevinosPedidos: AlevinosPedidos[]
+}
 
 

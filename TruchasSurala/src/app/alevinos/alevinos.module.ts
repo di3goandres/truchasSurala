@@ -32,12 +32,14 @@ import { MatListModule } from '@angular/material/list';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { AlevinosprogramcionComponent } from './02-Programacion/alevinosprogramcion/alevinosprogramcion.component';
+import { ListaPedidoAlevinosComponent } from './03-Lista/lista-pedido-alevinos/lista-pedido-alevinos.component';
 
 
 @NgModule({
   declarations: [
     MontajePedidoComponent,
-    AlevinosprogramcionComponent],
+    AlevinosprogramcionComponent,
+    ListaPedidoAlevinosComponent],
   imports: [
     CommonModule,
     AlevinosRoutingModule,

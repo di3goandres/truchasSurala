@@ -5,5 +5,8 @@ export interface Respuesta{
     message: string;
     image: string;
     errors: any
+    duplicados: any;
+    OK: any;
+
 
 }
