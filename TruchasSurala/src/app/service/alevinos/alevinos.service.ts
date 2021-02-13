@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { UserService } from '../user/user.service';
-import { AlevinosPedidos, AlevinosPedidosRequest, A_DiaDespachoRequest } from '../../models/alevinos/alevinos.pedidos';
+import { AlevinosPedidos, AlevinosPedidosRequest, AlevinosPedidosResponse, A_DiaDespachoRequest } from '../../models/alevinos/alevinos.pedidos';
 import { ProgramacionAlevinosResponse } from '../../models/alevinos/programacion.alevinos';
 import { Respuesta } from '../../models/pedidos/guardar.factura.response';
 
@@ -43,4 +43,11 @@ export class AlevinosService {
     return this.userService.ejecutarQueryPostNuevo<Respuesta>('/api/Progamacion/Alevinos', data)
   }
 
+  consultarPedidosUsuario(id: number){
+    return this.userService.ejecutarQuery<AlevinosPedidosResponse>('/api/Progamacion/Alevinos/usuario/' + id)
+  }
+
+  borrarPedidosUsuario(id: number){
+    return this.userService.ejecutarQuery<Respuesta>('/api/Progamacion/Alevinos/usuario/delete/' + id)
+  }
 }

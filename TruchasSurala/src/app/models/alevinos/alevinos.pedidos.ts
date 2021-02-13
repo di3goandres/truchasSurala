@@ -21,6 +21,12 @@ export class AlevinosPedidos{
     periodicidad:   string;
 
 
+    /** DATOS DE CONSULTA */
+
+    nombre:            string;
+    municipio:         string;
+    departamento:      string;
+    direccion:         string;
 
 }
 export class AlevinosPedidosRequest{
@@ -31,5 +37,13 @@ export class AlevinosPedidosRequest{
 export class A_DiaDespachoRequest{
     fecha_salida: Date;
 }
+
+export class AlevinosPedidosResponse{
+  code:    number;
+  alevinosPedidos: AlevinosPedidos[];
+  despachados: AlevinosPedidos[];
+}
+
+
 
 

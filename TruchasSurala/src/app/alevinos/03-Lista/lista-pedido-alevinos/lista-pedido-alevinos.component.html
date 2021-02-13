@@ -1,47 +1,71 @@
-<div class="table-responsive" >
-    <table id="customers" matTableExporter #exporter="matTableExporter" mat-table
-        [dataSource]="dataSource" class="mat-elevation-z8">
-        <ng-container matColumnDef="position">
-            <th mat-header-cell *matHeaderCellDef> No. </th>
-            <td mat-cell *matCellDef="let element; let i = index"> {{i + 1}} </td>
-        </ng-container>
-
-
-
-        <ng-container matColumnDef="FechaSalida">
-            <th mat-header-cell *matHeaderCellDef> Fecha Salida </th>
-            <td mat-cell *matCellDef="let element">
-                {{ element.fechaProbableS |date :"MMM/dd/yyyy" | uppercase }}
-            </td>
-        </ng-container>
-
-
-        <ng-container matColumnDef="Semana">
-            <th mat-header-cell *matHeaderCellDef> Semana</th>
-            <td mat-cell *matCellDef="let element"  style="text-align: center;"> {{element.semana}} </td>
-        </ng-container>
-
-        <ng-container matColumnDef="dia">
-            <th mat-header-cell *matHeaderCellDef> Día</th>
-            <td mat-cell *matCellDef="let element"  style="text-align: center;"> {{element.dia | uppercase}} </td>
-        </ng-container>
-
-        <ng-container matColumnDef="talla">
-            <th mat-header-cell *matHeaderCellDef> Talla</th>
-            <td mat-cell *matCellDef="let element"  style="text-align: center;"> {{element.talla | number}} </td>
-        </ng-container>
-
-        <ng-container matColumnDef="peso">
-          <th mat-header-cell *matHeaderCellDef> Peso</th>
-          <td mat-cell *matCellDef="let element"  style="text-align: center;"> {{element.peso | number}} </td>
-      </ng-container>
-      <ng-container matColumnDef="cantidad">
-        <th mat-header-cell *matHeaderCellDef> Cantidad</th>
-        <td mat-cell *matCellDef="let element"  style="text-align: center;"> {{element.cantidad | number}} </td>
+<div class="table-responsive">
+  <table id="customers" matTableExporter #exporter="matTableExporter" mat-table [dataSource]="dataSource"
+    class="mat-elevation-z8">
+    <ng-container matColumnDef="position">
+      <th mat-header-cell *matHeaderCellDef> No. </th>
+      <td mat-cell *matCellDef="let element; let i = index"> {{i + 1}} </td>
     </ng-container>
-     
-        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-    </table>
-    <mat-paginator [pageSizeOptions]="[15, 30, 50]" showFirstLastButtons></mat-paginator>
+
+
+
+    <ng-container matColumnDef="FechaSalida">
+      <th mat-header-cell *matHeaderCellDef> Fecha Salida </th>
+      <td mat-cell *matCellDef="let element">
+        {{ element.fechaProbableS |date :"MMM/dd/yyyy" | uppercase }}
+      </td>
+    </ng-container>
+
+
+    <ng-container matColumnDef="Semana">
+      <th mat-header-cell *matHeaderCellDef> Semana</th>
+      <td mat-cell *matCellDef="let element" style="text-align: center;"> {{element.semana}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="dia">
+      <th mat-header-cell *matHeaderCellDef> Día</th>
+      <td mat-cell *matCellDef="let element" style="text-align: center;"> {{element.dia | uppercase}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="talla">
+      <th mat-header-cell *matHeaderCellDef> Talla</th>
+      <td mat-cell *matCellDef="let element" style="text-align: center;"> {{element.talla | number}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="peso">
+      <th mat-header-cell *matHeaderCellDef> Peso</th>
+      <td mat-cell *matCellDef="let element" style="text-align: center;"> {{element.peso | number}} </td>
+    </ng-container>
+    <ng-container matColumnDef="cantidad">
+      <th mat-header-cell *matHeaderCellDef> Cantidad</th>
+      <td mat-cell *matCellDef="let element" style="text-align: center;"> {{element.cantidad | number}} </td>
+    </ng-container>
+    <ng-container matColumnDef="Nombre" *ngIf="mostrar!=null">
+      <th mat-header-cell *matHeaderCellDef> Finca</th>
+      <td mat-cell *matCellDef="let element" style="text-align: center;"> {{element.nombre | uppercase}} </td>
+    </ng-container>
+    <ng-container matColumnDef="Municipio" *ngIf="mostrar!=null">
+      <th mat-header-cell *matHeaderCellDef> Municipio/Departamento</th>
+      <td mat-cell *matCellDef="let element" style="text-align: center;"> {{element.municipio + '/' +
+        element.departamento | uppercase}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="Direccion" *ngIf="mostrar!=null">
+      <th mat-header-cell *matHeaderCellDef> Dirección</th>
+      <td mat-cell *matCellDef="let element" style="text-align: center;"> {{element.direccion| uppercase}} </td>
+    </ng-container>
+    <ng-container matColumnDef="Borrar" *ngIf="mostrar!=null">
+      <th mat-header-cell *matHeaderCellDef> Borrar</th>
+      <td mat-cell *matCellDef="let element" style="text-align: center;"> <button type="button" mat-mini-fab
+          class="buttton-aldea" aria-label="fecha" (click)="AbrirEliminar(element)">
+          <mat-icon>delete_forever</mat-icon>
+        </button> </td>
+    </ng-container>
+    <ng-container matColumnDef="Editar" *ngIf="mostrar!=null">
+      <th mat-header-cell *matHeaderCellDef> Editar</th>
+      <td mat-cell *matCellDef="let element" style="text-align: center;"> {{element.direccion| uppercase}} </td>
+    </ng-container>
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  </table>
+  <mat-paginator [pageSizeOptions]="[15, 30, 50]" showFirstLastButtons></mat-paginator>
 </div>

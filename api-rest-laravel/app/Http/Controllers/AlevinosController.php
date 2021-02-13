@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\AlevinosPedidos;
 use App\Fincas;
+use App\User;
 use Illuminate\Http\Request;
 
 class AlevinosController extends Controller
@@ -11,14 +12,42 @@ class AlevinosController extends Controller
     //
     public function __construct()
     {
-        $this->middleware('api.auth');
+         $this->middleware('api.auth');
     }
 
+    public function NombreDia($dayNumber)
+    {
+        $nombre = "";
+        switch ($dayNumber) {
+            case 1:
+                $nombre = 'Lunes';
+                break;
+            case 2:
+                $nombre = 'Martes';
+                break;
+            case 3:
+                $nombre = 'Miércoles';
+                break;
+            case 4:
+                $nombre = 'Jueves';
+                break;
+            case 5:
+                $nombre = 'Viernes';
+                break;
+            case 6:
+                $nombre = 'Sabado';
+                break;
+            case 7:
+                $nombre = 'Domingo';
+                break;
+        }
+        return $nombre;
+    }
     public function store(Request $request)
     {
 
         // peridiocidad tipos
-        /** 
+        /**
          * tipo de peridiocidad
          * unico
          * quincenal
@@ -86,6 +115,14 @@ class AlevinosController extends Controller
                             if (strtoupper($pedido['tipo']) == "TALLA") {
                                 $talla = true;
                             }
+
+
+                            $date = new \DateTime($fecha);
+                            $week = $date->format("W");
+
+                            $dayNumber = $date->format("N");
+                            $dayName = $this->NombreDia($dayNumber);
+
                             $alevinosPedido = new AlevinosPedidos();
                             $alevinosPedido->user_id = $usuario->user_id;
                             $alevinosPedido->id_finca = $usuario->id;
@@ -95,6 +132,8 @@ class AlevinosController extends Controller
                             $alevinosPedido->cantidad =   $pedido['cantidad'];
                             $alevinosPedido->centimetros =   $pedido['talla'];
                             $alevinosPedido->peso_gramos =   $pedido['peso'];
+                            $alevinosPedido->numero_semana = $week;
+                            $alevinosPedido->dia =  $dayName;
                             $alevinosPedido->fecha_probable =  str_replace('T05:00:00.000Z', '', $pedido['fechaProbableS']);
                             $alevinosPedido->save();
                             $OK[$conteoOK] = $pedido;
@@ -114,7 +153,7 @@ class AlevinosController extends Controller
 
 
                         );
-                    }else{
+                    } else {
                         $data = array(
                             'code' => 201,
                             'status' => 'success',
@@ -143,5 +182,91 @@ class AlevinosController extends Controller
         // guardar los datos
         // devolver el resutlado
         return response()->json($data, $data['code']);
+    }
+
+
+    public function datosPedido($id, $despachado)
+    {
+        $despachos = \DB::table('alevinos_pedidos')
+            ->join('fincas', 'fincas.id', '=', 'alevinos_pedidos.id_finca')
+            ->join('users', 'users.id', '=', 'fincas.user_id')
+            ->where([['users.id', '=', $id], ['alevinos_pedidos.despachado', '=', $despachado]])
+            ->select(
+                'alevinos_pedidos.id',
+                \DB::raw("(CASE WHEN es_talla = 1  THEN 'TALLA' ELSE 'PESO' END) AS tipo"),
+                'alevinos_pedidos.es_talla',
+                'alevinos_pedidos.es_peso',
+                'alevinos_pedidos.cantidad',
+                'alevinos_pedidos.centimetros AS talla',
+                'alevinos_pedidos.peso_gramos as peso',
+                'alevinos_pedidos.numero_semana as semana',
+                'alevinos_pedidos.dia',
+                'alevinos_pedidos.despachado',
+                'alevinos_pedidos.fecha_probable as fechaProbableS',
+                'fincas.nombre',
+                'fincas.municipio',
+                'fincas.departamento',
+                'fincas.direccion'
+
+            )
+            ->orderBy('fecha_probable', 'asc')
+            ->get();
+
+        return $despachos;
+    }
+    public function GetPedidosUsuario($id)
+    {
+
+        $usuario = User::find($id);
+        if (is_object($usuario)) {
+
+
+
+            $despachosSin = $this->datosPedido($id, false);
+            $despachosOK = $this->datosPedido($id, true);
+
+            // $despachos = AlevinosPedidos::
+            // where(
+            //    [ ['user_id', '=', $id]]
+            // )->get();
+
+            return response()->json([
+                'code' => 200,
+                'status' => 'success',
+                'alevinosPedidos' => $despachosSin,
+                'despachados' => $despachosOK,
+
+
+            ]);
+        } else {
+            return response()->json([
+                'code' => 400,
+                'status' => 'error',
+
+            ]);
+        }
+    }
+
+
+    public function borrarPedido($id)
+    {
+
+        $despachos = \DB::table('alevinos_pedidos')
+
+            ->where([['alevinos_pedidos.id', '=', $id], ['alevinos_pedidos.despachado', '=', false]])
+            ->get();
+        if (count($despachos) > 0) {
+            $deletedRows = AlevinosPedidos::where('id', $id)->delete();
+            return response()->json([
+                'code' => 200,
+                'status' => 'success',
+            ]);
+        } else {
+            return response()->json([
+                'code' => 401,
+                'status' => 'success',
+
+            ]);
+        }
     }
 }

@@ -9,7 +9,7 @@ class AlevinosDespachoController extends Controller
 {
     public function __construct()
     {
-        // $this->middleware('api.auth');
+         $this->middleware('api.auth');
     }
 
 
@@ -76,15 +76,14 @@ class AlevinosDespachoController extends Controller
 
 
 
-                    $time = strtotime($fecha);
-                    $newformat = date('Y-m-d', $time);
+
 
                     $date = new \DateTime($fecha);
                     $week = $date->format("W");
 
                     $dayNumber = $date->format("N");
                     $dayName = $this->NombreDia($dayNumber);
-                  
+
                     $alevinoProgramacion = new AlevinosDespacho();
                     $alevinoProgramacion->fecha_salida =  $fecha;
                     $alevinoProgramacion->despachado =   false;

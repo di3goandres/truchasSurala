@@ -1,0 +1,110 @@
+<div class="container alternate-theme">
+
+  <mat-horizontal-stepper [linear]="false" #stepper>
+
+    <mat-step [stepControl]="firstFormGroup">
+      <ng-template matStepLabel>Seleccionar Usuario</ng-template>
+
+      <mat-card class="example-card">
+
+        <mat-card-header>
+          <div mat-card-avatar class="example-header-image" style="background-image: url('assets/avatars/av-2.png')">
+          </div>
+          <mat-card-title class="main-surala-text">Registros Pedidos de Alevinos</mat-card-title>
+          <mat-card-subtitle>Truchas Surala</mat-card-subtitle>
+          <mat-card-subtitle class="surala-azul-text">Datos del Usuario</mat-card-subtitle>
+
+        </mat-card-header>
+
+        <mat-card-content>
+
+          <div class="row">
+            <div class="col-xs-12 col-12 form-group">
+              <label>Seleccione un cliente</label>
+              <button type="button" mat-mini-fab class="buttton-aldea" aria-label="fecha" (click)="openUsuarios()">
+                <mat-icon>person</mat-icon>
+              </button>
+            </div>
+          </div>
+          <form [formGroup]="firstFormGroup" style="width: 100%;text-align: center;">
+
+
+
+            <div class="row" *ngIf="usuario!=null">
+
+              <div class="col-xs-3  col-3 form-group">
+                <mat-form-field appearance="fill" floatLabel="always">
+                  <mat-label>Cliente</mat-label>
+                  <mat-icon matSuffix>sentiment_very_satisfied</mat-icon>
+
+                  <input matInput placeholder="Cliente" type="text" [disabled]="usuario.id!=0" name="finca"
+                    [(value)]="usuario.name + ', ' + usuario.surname">
+
+
+                </mat-form-field>
+
+
+              </div>
+
+            </div>
+            <div class="row" style="text-align: center;">
+
+              <div class="col-12">
+                <button type="button" matStepperNext mat-raised-button color="primary"
+                  [disabled]="usuario==null">Continuar</button>
+
+              </div>
+
+
+            </div>
+
+          </form>
+
+
+        </mat-card-content>
+      </mat-card>
+
+    </mat-step>
+
+    <mat-step>
+      <ng-template matStepLabel>Informes Relacionados</ng-template>
+      <mat-card>
+
+        <mat-card-header>
+          <div mat-card-avatar class="example-header-image" style="background-image: url('assets/avatars/av-4.png')">
+          </div>
+          <mat-card-title class="main-surala-text">
+            Pedidos Sin despachar
+          </mat-card-title>
+        </mat-card-header>
+      </mat-card>
+      <mat-card-content>
+        <app-lista-pedido-alevinos [id]="DatosPedidos" [mostrar]="true"   (datoSalid)='onNotificar($event)'></app-lista-pedido-alevinos>
+
+      </mat-card-content>
+
+      <mat-card>
+
+        <mat-card-header>
+          <div mat-card-avatar class="example-header-image" style="background-image: url('assets/avatars/av-4.png')">
+          </div>
+          <mat-card-title class="main-surala-text">
+            Pedidos Despachados
+          </mat-card-title>
+        </mat-card-header>
+      </mat-card>
+      <mat-card-content>
+        <app-lista-pedido-alevinos [id]="PedidosOK" ></app-lista-pedido-alevinos>
+
+      </mat-card-content>
+
+
+    </mat-step>
+
+
+
+
+
+  </mat-horizontal-stepper>
+
+</div>

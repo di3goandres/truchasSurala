@@ -67,11 +67,11 @@ Route::post('/api/user/changepassword', 'UserController@resetPasswordByUser');
 
 
 
-//Metodo para subir y descargar el pdf de facturas 
+//Metodo para subir y descargar el pdf de facturas
 Route::post('/api/pedido/subirarchivo', 'UserController@subirarchivo')->middleware(ApiAuthMiddleware::class) ;
 Route::get('/api/pedido/factura/{id}/{filename}', 'UserController@getpdf') ;
 
-//Metodo para subir y descargar el pdf de despachos certificado de origien 
+//Metodo para subir y descargar el pdf de despachos certificado de origien
 Route::post('/api/despacho/subirarchivo', 'DespachoController@subirarchivo')->middleware(ApiAuthMiddleware::class) ;
 Route::get('/api/despacho/certificado/{id}/{filename}', 'DespachoController@getpdf') ;
 
@@ -99,6 +99,11 @@ Route::resource('/api/Despacho', 'DespachoController');
 Route::resource('/api/Pedidos', 'PedidosController');
 Route::resource('/api/Alevinos', 'AlevinosController');
 Route::resource('/api/Progamacion/Alevinos', 'AlevinosDespachoController');
+
+Route::get('/api/Progamacion/Alevinos/usuario/{id}', 'AlevinosController@GetPedidosUsuario');
+Route::get('/api/Progamacion/Alevinos/usuario/delete/{id}', 'AlevinosController@borrarPedido');
+
+
 
 
 Route::resource('/api/Notificaciones', 'NotificacionesController');
@@ -128,8 +133,8 @@ Route::get('/api/Distribucion/DespachoNuevo/{idDespacho}', 'TrazabilidadControll
 
 Route::post('/api/despacho/actualizar/', 'DespachoController@actualizar');
 
-Route::get('/api/movil/despachos', 'DespachoController@despachosByToken'); 
-Route::post('/api/movil/despachos/registrarLlegada', 'DespachoController@RegistrarLLegada'); 
+Route::get('/api/movil/despachos', 'DespachoController@despachosByToken');
+Route::post('/api/movil/despachos/registrarLlegada', 'DespachoController@RegistrarLLegada');
 Route::get('/api/despacho/reporte/imagen/{id}/{filename}', 'DespachosImagenesController@getImagenReporte') ;
 
 
@@ -196,7 +201,7 @@ Route::post('/api/mortalidad/aprobar', 'MortalidadController@GuardarAprobacion')
 
 //informes tecnicos
 Route::resource('/api/informestecnicos', 'InformesTecnicosController');
-Route::get('/api/movil/despachos/obtenerpropios', 'InformesTecnicosController@informesTecnicosByToken'); 
+Route::get('/api/movil/despachos/obtenerpropios', 'InformesTecnicosController@informesTecnicosByToken');
 Route::get('/api/movil/despacho/reporte/pdf/{id}/{filename}', 'InformesTecnicosController@getpdf') ;
 Route::get('/api/movil/despacho/reporte/existe/{id}/{fecha}', 'InformesTecnicosController@existeinforme') ;
 Route::post('/api/informestecnicos/actualizar', 'InformesTecnicosController@actualizarInforme') ;
