@@ -12,16 +12,14 @@
     </div>
     <div class="col-6">
         <mat-form-field appearance="fill">
-            <mat-label>Municipio</mat-label>
+            <mat-label>Municipio</mat-label>›
 
             <mat-select (selectionChange)="cambioMunicipio($event.value)">
-                <mat-option *ngFor="let municipio of MunicipioSeleccionado"
-                 [value]="municipio.id">
+                <mat-option *ngFor="let municipio of MunicipioSeleccionado" [value]="municipio.id">
                     {{municipio.municipio}}
-
                 </mat-option>
             </mat-select>
         </mat-form-field>
     </div>
-  
+
 </div>

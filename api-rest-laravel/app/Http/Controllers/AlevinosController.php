@@ -269,4 +269,50 @@ class AlevinosController extends Controller
             ]);
         }
     }
+
+
+    /**
+     * Metodo para consultar po id del dia del despacho
+     * con esto traemos los pedidos de esta semana y los que estan resagados
+     *
+     * */
+    public function ObtenerPedidosPendientes(Request $request){
+        $json = $request->input('json', null);
+        $params_array = json_decode($json, true); // array
+        if (!empty($params_array)) {
+
+
+
+            $validate = \Validator::make($params_array, [
+                'idUserFinca' => 'required|numeric',
+                "alevinosPedidos" => "array|min:1",
+                "alevinosPedidos.*.tipo" => "required",
+                'alevinosPedidos.*.cantidad' => 'required|numeric',
+                'alevinosPedidos.*.talla' => 'required|numeric',
+                'alevinosPedidos.*.peso' => 'required|numeric',
+                'alevinosPedidos.*.fechaProbableS' => 'required',
+
+                // 'periodicidad`' => 'required|in:UNICO,QUINCENAL,MENSUAL,BIMENSUAL,TRIMESTRAL', // DEFAULT or SOCIAL values
+                // 'tipo' => 'required',
+
+
+            ]);
+
+            $data = array(
+                'status' => 'success',
+                'code' => 200,
+
+            );
+
+        }else{
+            $data = array(
+                'status' => 'error',
+                'code' => 401,
+                'dato' => $params_array,
+                'message' => 'Sin datos que procesar',
+            );
+        }
+           // devolver el resutlado
+        return response()->json($data, $data['code']);
+    }
 }

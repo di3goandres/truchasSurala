@@ -22,7 +22,7 @@ export class AuthInterceptor implements HttpInterceptor {
     private Service: LogoutService,
 
   ) {
-  
+
   }
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     this.Service.openModal();
@@ -41,7 +41,7 @@ export class AuthInterceptor implements HttpInterceptor {
             this.Service.logout();
           }
           this.Service.cerrarModal();
-          
+
           return throwError(Error)
         }));
   }
@@ -52,7 +52,7 @@ export class AuthInterceptor implements HttpInterceptor {
     });
     return request.clone({
       headers,
-    
+
     })
 
   }

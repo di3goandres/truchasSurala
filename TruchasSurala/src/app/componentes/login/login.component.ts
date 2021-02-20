@@ -50,11 +50,13 @@ export class LoginComponent implements OnInit {
           formulario.reset();
          
         } else {
+          this.userService.openSnackBar("Usuario y/o contraseña incorrecta", "!")
           this.status = 'error';
 
         }
       },
       error => {
+        this.userService.openSnackBar("Usuario y/o contraseña incorrecta", "!")
         this.status = 'error';
       }
 

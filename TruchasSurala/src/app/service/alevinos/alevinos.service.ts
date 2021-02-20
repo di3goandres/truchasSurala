@@ -35,7 +35,7 @@ export class AlevinosService {
 
   /// get
   consultarProgramacion(){
-    return this.userService.ejecutarQuery<ProgramacionAlevinosResponse>('/api/Progamacion/Alevinos/')
+    return this.userService.ejecutarQuery<ProgramacionAlevinosResponse>('/api/Progamacion/Alevinos')
   }
 
   ///post

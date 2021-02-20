@@ -205,9 +205,53 @@ class UserController extends Controller
                 $pwd = hash('sha256', $params->password);
 
                 if (!empty($params->gettoken)) {
-                    $signup = $jwtAuth->signup($email, $pwd, true);
+                    $signup = $jwtAuth->signup(false,$email, $pwd, true);
                 } else {
-                    $signup = $jwtAuth->signup($email, $pwd);
+                    $signup = $jwtAuth->signup(false, $email, $pwd);
+                }
+            }
+        } else {
+            $signup = array(
+                'status' => 'error',
+                'code' => 200,
+                'message' => 'Los datos enviados no son correctos'
+            );
+        }
+
+
+        return response()->json($signup, 200);
+    }
+    public function loginsurala(Request $request)
+    {
+        $jwtAuth = new \JwtAuth();
+        $json = $request->input('json', null);
+
+
+        $params = json_decode($json); //objeto
+        $params_array = json_decode($json, true); // array
+        if (!empty($params) && !empty($params_array)) { //
+            $validate = \Validator::make($params_array, [
+                'email' => 'required|email', //comprueba si el usuario esta duplicaod
+                'password' => 'required',
+            ]);
+
+            if ($validate->fails()) {
+                $signup = array(
+                    'status' => 'error',
+                    'code' => 200,
+                    'message' => 'Los datos enviados no son correctos',
+                    'errors' => $validate->errors()
+                );
+            } else {
+                //
+                $email = $params_array['email'];
+                $password = $params_array['password'];
+                $pwd = hash('sha256', $params->password);
+
+                if (!empty($params->gettoken)) {
+                    $signup = $jwtAuth->signup(true,$email, $pwd, true);
+                } else {
+                    $signup = $jwtAuth->signup(true,$email, $pwd);
                 }
             }
         } else {

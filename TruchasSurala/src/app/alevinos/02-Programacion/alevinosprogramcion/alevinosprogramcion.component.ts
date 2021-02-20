@@ -42,7 +42,7 @@ export class AlevinosprogramcionComponent implements OnInit {
           this.service.MostrarSnack("Sin datos de programación");
         } else {
           let sinprogramar = OK.programacion.filter(item => {
-            return item.despachado == 0
+            return item.despachado == 0;
           })
           if (sinprogramar.length > 0) {
             this.service.MostrarSnack("Tienes " + sinprogramar.length + ", Programaciones sin despachar. ")

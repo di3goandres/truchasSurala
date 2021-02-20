@@ -55,6 +55,8 @@ Route::post('/api/register', 'UserController@register');
 Route::post('/api/user/surala/add', 'UserController@registerAPP');
 
 Route::post('/api/login', 'UserController@login');
+Route::post('/api/login/surala', 'UserController@loginsurala');
+
 Route::put('/api/user/update', 'UserController@update');
 Route::post('/api/user/upload', 'UserController@upload')->middleware(ApiAuthMiddleware::class);
 Route::get('/api/user/avatar/{user}/{filename}', 'UserController@getImage') ;

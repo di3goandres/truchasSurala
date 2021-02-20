@@ -16,7 +16,7 @@ class JwtAuth
         $this->key = 'esto_es_una_clave_super_secreta';
     }
 
-    public function signup($email, $password, $getToken = null)
+    public function signup($admin, $email, $password, $getToken = null)
     {
         //Buscar si existe un usuario con esas credenciales
 
@@ -33,11 +33,18 @@ class JwtAuth
         if (is_object($user)) {
             $signup = true;
         }
+
+        if ($admin) {
+            if ($user->role == 'USUARIO') {
+                $signup = false;
+            }
+        }
         //Generar el token con los datos del usuario identificado
         if ($signup) {
+
             $EXPIRACION = time();
             if ($user->role == 'USUARIO') {
-                                        //dias horas minutos segundos.
+                //dias horas minutos segundos.
                 $EXPIRACION = time() +  (180 * 24 * 60 * 60);
             } else {
                 $EXPIRACION = time() + (1 * 12 * 60 * 60);
