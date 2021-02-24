@@ -4,6 +4,9 @@ export class AlevinosPedidos{
         this.talla = 0;
         this.peso = 0;
     }
+    
+    id:             number;
+    
     idUserFinca:    number;
     tipo:           string;
     cantidad:       number;
@@ -36,6 +39,12 @@ export class AlevinosPedidosRequest{
 
 export class A_DiaDespachoRequest{
     fecha_salida: Date;
+}
+
+export class A_ProgramacionDiaRequest{
+    idDiaPedido: number;
+    numeroSemana: number;
+
 }
 
 export class AlevinosPedidosResponse{

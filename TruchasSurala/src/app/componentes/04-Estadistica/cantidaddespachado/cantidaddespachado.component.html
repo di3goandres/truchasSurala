@@ -1,26 +1,18 @@
+<div class="container alternate-theme tilt-in-fwd-tr">
 
-<div class="container alternate-theme">
-  <mat-card>
-    <mat-card-header>
-      <div mat-card-avatar class="example-header-image" style="background-image: url('assets/avatars/av-8.png')">
-      </div>
-      <mat-card-title class="main-surala-text">
-            Ovas por Despacho
-      </mat-card-title>
+  <mat-card-header>
+    <div mat-card-avatar class="example-header-image" style="background-image: url('assets/avatars/av-8.png')">
+    </div>
+    <mat-card-title class="main-surala-text">
+      Ovas por Despacho
+    </mat-card-title>
   </mat-card-header>
-  
-  </mat-card>
-<ngx-charts-bar-vertical 
-  [view]="view"
-  [scheme]="colorScheme"
-  [results]="single"
-  [gradient]="gradient"
-  [xAxis]="showXAxis"
-  [yAxis]="showYAxis"
-  [legend]="showLegend"
-  [showXAxisLabel]="showXAxisLabel"
-  [showYAxisLabel]="showYAxisLabel"
-  [xAxisLabel]="xAxisLabel"
-  [yAxisLabel]="yAxisLabel"
-  (select)="onSelect($event)">
-</ngx-charts-bar-vertical>
+
+  <mat-card-content> 
+    <ngx-charts-bar-vertical [view]="view" [scheme]="colorScheme" [results]="single" [gradient]="gradient"
+      [xAxis]="showXAxis" [yAxis]="showYAxis" [legend]="showLegend" [showXAxisLabel]="showXAxisLabel"
+      [showYAxisLabel]="showYAxisLabel" [xAxisLabel]="xAxisLabel" [yAxisLabel]="yAxisLabel" (select)="onSelect($event)">
+    </ngx-charts-bar-vertical>
+  </mat-card-content>
+
+</div>

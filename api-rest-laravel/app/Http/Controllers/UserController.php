@@ -14,7 +14,7 @@ class UserController extends Controller
 
     public function __construct()
     {
-        $this->middleware('api.auth', ['except' => ['getpdf', 'login', 'UsuariosApp']]);
+        $this->middleware('api.auth', ['except' => ['getpdf', 'login', 'loginsurala', 'UsuariosApp']]);
     }
 
     public function register(Request $request)

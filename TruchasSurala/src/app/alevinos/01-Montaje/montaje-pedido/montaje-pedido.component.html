@@ -196,20 +196,15 @@
 
                     <mat-form-field appearance="fill" floatLabel="always">
                       <mat-label>Fecha de Probable</mat-label>
-                    
+
                       <input matInput formControlName="fecha" [matDatepicker]="pickerentrada" [min]="minDate"
-                         [(ngModel)]="pedido.fechaProbable" required (ngModelChange)="Calcular()"
-                        [matDatepickerFilter]="myDateFilter" 
-                        >
+                        [(ngModel)]="pedido.fechaProbable" required (ngModelChange)="Calcular()"
+                        [matDatepickerFilter]="myDateFilter">
 
 
-                      <mat-datepicker-toggle matSuffix [for]="pickerentrada"
-                     
-                      >
+                      <mat-datepicker-toggle matSuffix [for]="pickerentrada">
                       </mat-datepicker-toggle>
-                      <mat-datepicker touchUi #pickerentrada
-
-                      ></mat-datepicker>
+                      <mat-datepicker touchUi #pickerentrada></mat-datepicker>
                       <!-- <input type="button" value="Agregar Fecha"/> -->
 
                     </mat-form-field>
@@ -268,7 +263,7 @@
                     </mat-form-field>
 
                   </div>
-                 
+
                 </div>
               </form>
 
@@ -276,33 +271,32 @@
 
 
           </mat-grid-list>
-        
 
-      
+
+
           <mat-card class="example-card">
 
             <mat-card-header>
-                <div mat-card-avatar class="example-header-image"
-                    style="background-image: url('assets/avatars/av-7.png')"></div>
-                <mat-card-title class="main-surala-text">Lista de Posibles Despachos</mat-card-title>
-                <mat-card-subtitle>Truchas Suralá</mat-card-subtitle>
-                <mat-card-subtitle class="surala-azul-text">Datos de Posibles Despachos</mat-card-subtitle>
+              <div mat-card-avatar class="example-header-image"
+                style="background-image: url('assets/avatars/av-7.png')"></div>
+              <mat-card-title class="main-surala-text">Lista de Posibles Despachos</mat-card-title>
+              <mat-card-subtitle>Truchas Suralá</mat-card-subtitle>
+              <mat-card-subtitle class="surala-azul-text">Datos de Posibles Despachos</mat-card-subtitle>
 
             </mat-card-header>
-           
+
             <mat-card-content>
 
-               <app-lista-pedido-alevinos [id]="pedidosAlevinosPedidos"></app-lista-pedido-alevinos>
-          
+              <app-lista-pedido-alevinos [id]="pedidosAlevinosPedidos"></app-lista-pedido-alevinos>
 
-          
-                <div class="col-12">
-                    <button type="button" matStepperPrevious mat-raised-button color="primary"
-                        >Atras</button>
-    
-                </div>
+
+
+              <div class="col-12">
+                <button type="button" matStepperPrevious mat-raised-button color="primary">Atras</button>
+
+              </div>
             </mat-card-content>
-        </mat-card>
+          </mat-card>
         </mat-card-content>
         <mat-card-actions>
           <div class="row">
@@ -331,33 +325,32 @@
       <mat-card class="example-card">
 
         <mat-card-header>
-            <div mat-card-avatar class="example-header-image"
-                style="background-image: url('assets/avatars/av-7.png')"></div>
-            <mat-card-title class="main-surala-text">Resultado Registro de Pedidos</mat-card-title>
-            <mat-card-subtitle>Truchas Suralá</mat-card-subtitle>
-            <mat-card-subtitle class="surala-azul-text">Datos de Posibles Despachos</mat-card-subtitle>
+          <div mat-card-avatar class="example-header-image" style="background-image: url('assets/avatars/av-7.png')">
+          </div>
+          <mat-card-title class="main-surala-text">Resultado Registro de Pedidos</mat-card-title>
+          <mat-card-subtitle>Truchas Suralá</mat-card-subtitle>
+          <mat-card-subtitle class="surala-azul-text">Datos de Posibles Despachos</mat-card-subtitle>
 
         </mat-card-header>
-       
+
         <mat-card-content>
           <mat-card-subtitle class="surala-azul-text">Registros Exitosos</mat-card-subtitle>
 
-           <app-lista-pedido-alevinos [id]="Exitosos"></app-lista-pedido-alevinos>
+          <app-lista-pedido-alevinos [id]="Exitosos"></app-lista-pedido-alevinos>
 
 
-           <mat-card-subtitle class="surala-azul-text">Registros Duplicados (No Exitosos)</mat-card-subtitle>
+          <mat-card-subtitle class="surala-azul-text">Registros Duplicados (No Exitosos)</mat-card-subtitle>
 
-           <app-lista-pedido-alevinos [id]="Errores"></app-lista-pedido-alevinos>
-      
+          <app-lista-pedido-alevinos [id]="Errores"></app-lista-pedido-alevinos>
 
-      
-            <div class="col-12">
-                <button type="button" matStepperPrevious mat-raised-button color="primary"
-                    >Atras</button>
 
-            </div>
+
+          <div class="col-12">
+            <button type="button" matStepperPrevious mat-raised-button color="primary">Atras</button>
+
+          </div>
         </mat-card-content>
-    </mat-card>
+      </mat-card>
     </mat-step>
   </mat-horizontal-stepper>
 

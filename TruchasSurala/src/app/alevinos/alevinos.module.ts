@@ -35,6 +35,7 @@ import { AlevinosprogramcionComponent } from './02-Programacion/alevinosprogramc
 import { ListaPedidoAlevinosComponent } from './03-Lista/lista-pedido-alevinos/lista-pedido-alevinos.component';
 import { DiaDespachoComponent } from './04-DiaDespacho/dia-despacho/dia-despacho.component';
 import { PedidosClientesComponent } from './05-Clientes/pedidos-clientes/pedidos-clientes.component';
+import { EditarMontajeComponent } from './01-Montaje/editar-montaje/editar-montaje.component';
 
 
 @NgModule({
@@ -43,7 +44,8 @@ import { PedidosClientesComponent } from './05-Clientes/pedidos-clientes/pedidos
     AlevinosprogramcionComponent,
     ListaPedidoAlevinosComponent,
     DiaDespachoComponent,
-    PedidosClientesComponent],
+    PedidosClientesComponent,
+    EditarMontajeComponent],
   imports: [
     CommonModule,
     AlevinosRoutingModule,

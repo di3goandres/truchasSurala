@@ -6,7 +6,7 @@ export interface ProgramacionAlevinosResponse {
     programacion: ProgramacionAlevinos[];
 }
 
-export interface ProgramacionAlevinos {
+export class ProgramacionAlevinos {
     id:            number;
     fecha_salida:  string;
     numero_semana: number;

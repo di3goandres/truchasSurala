@@ -6,6 +6,7 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { AlevinosPedidos } from 'src/app/models/alevinos/alevinos.pedidos';
 import { AlevinosService } from 'src/app/service/alevinos/alevinos.service';
 import { DeseasContinuarComponent } from '../../../componentes/01-Comunes/deseas-continuar/deseas-continuar.component';
+import { EditarMontajeComponent } from '../../01-Montaje/editar-montaje/editar-montaje.component';
 
 @Component({
   selector: 'app-lista-pedido-alevinos',
@@ -48,7 +49,7 @@ export class ListaPedidoAlevinosComponent implements OnInit {
 
   AbrirEliminar(element) {
 
-    const modalRef = this.modalService.open(DeseasContinuarComponent, { size: 'md' });
+    const modalRef = this.modalService.open(DeseasContinuarComponent, { size: 'md', windowClass: 'vibrate-2'});
     modalRef.componentInstance.Titulo = "Eliminar";
     modalRef.componentInstance.mensaje = "Esta a punto de eliminar un pedido, Desea Continuar?"
     modalRef.result.then((result) => {
@@ -59,6 +60,27 @@ export class ListaPedidoAlevinosComponent implements OnInit {
       console.log('result', result);
     }, (reason) => {
 
+      if (reason === 'OK') {
+
+
+      }
+    });
+  }
+
+  AbrirEditar(element) {
+
+    const modalRef = this.modalService.open(EditarMontajeComponent, { size: 'md', windowClass: 'bounce-top' });
+    modalRef.componentInstance.entrada = element
+  
+    modalRef.result.then((result) => {
+      if (result === "OK") {
+
+      // this.eliminar(element.id);
+      this.datoSalid.emit(true);
+      }
+      console.log('result', result);
+    }, (reason) => {
+ 
       if (reason === 'OK') {
 
 

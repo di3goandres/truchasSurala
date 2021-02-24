@@ -318,6 +318,7 @@ export class UserService {
 
   // Nuevas funcionalidades
   openSnackBar(message: string, action: string) {
+   
     this._snackBar.open(message, action, {
       duration: 6000,
       horizontalPosition: 'end',

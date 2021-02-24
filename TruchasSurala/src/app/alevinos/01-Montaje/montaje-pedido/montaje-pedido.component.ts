@@ -89,13 +89,13 @@ export class MontajePedidoComponent implements OnInit {
     const stakeTalla = this.secondFormGroup.get('talla');
     const stakePeso = this.secondFormGroup.get('Peso');
     if (value == "TALLA") {
-      this.serviceAlevino.MostrarSnack("Mínimo 1, Máximo 50 Centimetros");
+      this.serviceAlevino.MostrarSnack("Mínimo 1, Máximo 50 Centimetros", "Vale");
 
       stakeTalla.enable();
       stakePeso.disable()
 
     } else if (value == "PESO") {
-      this.serviceAlevino.MostrarSnack("Mínimo 10, Máximo 3.000 gramos");
+      this.serviceAlevino.MostrarSnack("Mínimo 10, Máximo 3.000 gramos", "atendido");
 
 
       stakeTalla.disable();
@@ -308,7 +308,7 @@ export class MontajePedidoComponent implements OnInit {
             this.Errores = [];
             this.Errores.push(...OK.duplicados);
             console.log(this.Errores)
-            this.serviceAlevino.MostrarSnack("Existen pedidos registrados previamente")
+            this.serviceAlevino.MostrarSnack("Existen pedidos registrados previamente", "De acuerdo")
 
 
           }

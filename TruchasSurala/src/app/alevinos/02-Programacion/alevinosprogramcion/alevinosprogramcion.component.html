@@ -1,4 +1,4 @@
-<div class="container alternate-theme">
+<div class="container alternate-theme ">
 
   <mat-horizontal-stepper [linear]="false" #stepper>
 
@@ -27,7 +27,7 @@
           </div>
         </mat-card-actions>
         <mat-card-content>
-          <div class="table-responsive">
+          <div class="table-responsive tilt-in-fwd-tr">
             <table id="customers" matTableExporter #exporter="matTableExporter" mat-table [dataSource]="dataSource"
               class="mat-elevation-z8">
               <ng-container matColumnDef="position">
@@ -61,12 +61,15 @@
               </ng-container>
 
               <ng-container matColumnDef="seleccionar">
-                <th mat-header-cell *matHeaderCellDef> Ver pedidos</th>
+                <th mat-header-cell *matHeaderCellDef> Asociar pedidos</th>
                 <td mat-cell *matCellDef="let element" style="text-align: center;">
                   <button mat-raised-button color="secondary" id="logout-button" class="btn btn-primary btn-block"
-                    style="width:50%">
+                    style="width:50%" (click)="verPedidos(element)">
                     <mat-icon>airport_shuttle</mat-icon>
+                    
                   </button>
+
+               
                 </td>
               </ng-container>
 
@@ -78,10 +81,7 @@
           </div>
 
 
-          <div class="col-12">
-            <button type="button" matStepperPrevious mat-raised-button color="primary">Atras</button>
-
-          </div>
+          
         </mat-card-content>
 
       </mat-card>
@@ -89,6 +89,48 @@
     </mat-step>
     <mat-step>
       <ng-template matStepLabel>Programación</ng-template>
+    <mat-card>
+      <mat-card-header>
+        <div mat-card-avatar class="example-header-image" style="background-image: url('assets/avatars/av-4.png')">
+        </div>
+        <mat-card-title class="main-surala-text">
+          Pedidos Sin despachar 
+        </mat-card-title>
+      </mat-card-header>
+   
+    <mat-card-content>
+   
+        <div class="row">
+          <div class="col-4 form-group">
+            <mat-form-field appearance="fill" floatLabel="always">
+              <mat-label>Traer Semanas</mat-label>
+              <mat-select (selectionChange)="CambioSemana($event.value)" [(ngModel)]="data.numeroSemana">
+                <mat-option *ngFor="let tipo of SemanasPedidos" [value]="tipo.value">
+                  {{tipo.viewValue}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+          </div>
+
+      <app-lista-pedido-alevinos  [id]="entrada" [mostrar]="true"   (datoSalid)='onNotificar($event)'></app-lista-pedido-alevinos>
+
+    </mat-card-content>
+
+    <mat-card-actions>
+      <div class="row">
+          <div class="col-6 centerlabel font-weight-bold" style="text-align: center;">
+              <button mat-raised-button color="warn"  matStepperPrevious>
+                  <mat-icon>keyboard_backspace</mat-icon>
+              </button>
+          </div>
+          
+      </div>
+
+  </mat-card-actions>
+   
+  </mat-card>
+
     </mat-step>
 
   </mat-horizontal-stepper>

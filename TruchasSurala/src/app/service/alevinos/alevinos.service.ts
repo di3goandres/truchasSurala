@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { UserService } from '../user/user.service';
-import { AlevinosPedidos, AlevinosPedidosRequest, AlevinosPedidosResponse, A_DiaDespachoRequest } from '../../models/alevinos/alevinos.pedidos';
+import { AlevinosPedidos, AlevinosPedidosRequest, AlevinosPedidosResponse, A_DiaDespachoRequest, A_ProgramacionDiaRequest } from '../../models/alevinos/alevinos.pedidos';
 import { ProgramacionAlevinosResponse } from '../../models/alevinos/programacion.alevinos';
 import { Respuesta } from '../../models/pedidos/guardar.factura.response';
 
@@ -24,8 +24,8 @@ export class AlevinosService {
   NoExitosoComun(){
     this.userService.registroNoExitosoComun();
   }
-  MostrarSnack(Mensaje: string){
-    this.userService.openSnackBar(Mensaje, "");
+  MostrarSnack(Mensaje: string, Action: string ){
+    this.userService.openSnackBar(Mensaje, Action);
   }
 
   guardarPedido(data: AlevinosPedidosRequest){
@@ -47,7 +47,16 @@ export class AlevinosService {
     return this.userService.ejecutarQuery<AlevinosPedidosResponse>('/api/Progamacion/Alevinos/usuario/' + id)
   }
 
+  consultarPedidosPendientes(data: A_ProgramacionDiaRequest){
+    return this.userService.ejecutarQueryPostNuevo<AlevinosPedidosResponse>('/api/Progamacion/Alevinos/usuario/pendientes', data)
+  }
+
   borrarPedidosUsuario(id: number){
     return this.userService.ejecutarQuery<Respuesta>('/api/Progamacion/Alevinos/usuario/delete/' + id)
+  }
+
+  ActualizarPedido(data: AlevinosPedidos){
+    return this.userService.ejecutarQueryPostNuevo<Respuesta>('/api/Progamacion/Alevinos/usuario/pedido/actualizar', data)
+
   }
 }
