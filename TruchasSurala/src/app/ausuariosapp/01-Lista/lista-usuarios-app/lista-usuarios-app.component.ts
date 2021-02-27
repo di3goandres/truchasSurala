@@ -93,7 +93,7 @@ export class ListaUsuariosAPPComponent implements OnInit {
           this.dataSource = new MatTableDataSource(this.usuario);
           this.dataSource.paginator = this.paginator;
           this.dataSource.sort = this.sort;
-          console.log(this.dataSource)
+          
      
         }
 

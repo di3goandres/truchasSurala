@@ -30,6 +30,11 @@ export class AlevinosPedidos{
     municipio:         string;
     departamento:      string;
     direccion:         string;
+/*Datos lote*/
+    numLoteAlevinos:   string;
+    numLoteOvas:       string;
+
+
 
 }
 export class AlevinosPedidosRequest{

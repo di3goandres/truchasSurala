@@ -19,7 +19,7 @@
           <div class="row">
 
             <div class="col-12 centerlabel font-weight-bold" style="text-align: center;">
-              <button mat-raised-button color="warn" ngbAutofocus (click)="Agregar()">
+              <button mat-raised-button color="primary" ngbAutofocus (click)="Agregar()">
                 <mat-icon>add</mat-icon>
               </button>
             </div>
@@ -63,7 +63,7 @@
               <ng-container matColumnDef="seleccionar">
                 <th mat-header-cell *matHeaderCellDef> Asociar pedidos</th>
                 <td mat-cell *matCellDef="let element" style="text-align: center;">
-                  <button mat-raised-button color="secondary" id="logout-button" class="btn btn-primary btn-block"
+                  <button mat-raised-button  id="logout-button" class="btn btn-primary btn-block"
                     style="width:50%" (click)="verPedidos(element)">
                     <mat-icon>airport_shuttle</mat-icon>
                     
@@ -113,20 +113,23 @@
           </div>
           </div>
 
-      <app-lista-pedido-alevinos  [id]="entrada" [mostrar]="true"   (datoSalid)='onNotificar($event)'></app-lista-pedido-alevinos>
+      <app-lista-pedido-alevinos  [id]="entrada" [mostrar]="true" [asociar]="true"   (datoSalid)='onNotificar($event)' (agregar)='onAgregar($event)'></app-lista-pedido-alevinos>
+
+      <app-lista-pedido-alevinos #dos [id]="salida" [mostrar]="false" [asociar]="false"   (datoSalid)='onNotificar($event)' (devolver)='onDevolver($event)'></app-lista-pedido-alevinos>
 
     </mat-card-content>
 
     <mat-card-actions>
       <div class="row">
           <div class="col-6 centerlabel font-weight-bold" style="text-align: center;">
-              <button mat-raised-button color="warn"  matStepperPrevious>
+              <button mat-raised-button color="primary"  matStepperPrevious>
                   <mat-icon>keyboard_backspace</mat-icon>
               </button>
           </div>
           
       </div>
 
+ 
   </mat-card-actions>
    
   </mat-card>

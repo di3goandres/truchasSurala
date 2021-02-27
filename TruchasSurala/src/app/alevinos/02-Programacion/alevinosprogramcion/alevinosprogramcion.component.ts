@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatStepper } from '@angular/material/stepper';
 import { MatTableDataSource } from '@angular/material/table';
@@ -20,6 +20,10 @@ export class AlevinosprogramcionComponent implements OnInit {
   seleccionado: ProgramacionAlevinos;
 
   entrada: AlevinosPedidos[] = [];
+  salida: AlevinosPedidos[] = [];
+  temporal: AlevinosPedidos[] = [];
+
+
 
   displayedColumns: string[] = ['position', 'FechaSalida', 'Semana',
     'dia', 'estado', 'seleccionar'];
@@ -45,14 +49,17 @@ export class AlevinosprogramcionComponent implements OnInit {
   constructor(
     private service: AlevinosService,
     private modalService: NgbModal,
+    private changeDetectorRefs: ChangeDetectorRef
 
   ) { }
+
 
   ngOnInit(): void {
     this.consultarProgramacion();
   }
 
   consultarProgramacion() {
+    this.salida = []
     this.service.consultarProgramacion().subscribe(
       OK => {
 
@@ -85,10 +92,66 @@ export class AlevinosprogramcionComponent implements OnInit {
 
   }
 
+  mostrar(){
+    console.log(this.salida);
+    this.salida =[];
+    this.salida.push(...this.entrada);
+
+    
+  }
   onNotificar(evento){
     if(evento){
       this.ConsultarPendientesSemana();
     }
+
+  }
+  onDevolver(evento: AlevinosPedidos){
+
+    this.temporal = this.entrada.filter(item => {
+      return item.id != evento.id
+    })
+    this.entrada =[];
+    this.temporal.push(evento);
+    this.temporal.sort((a,b) => a.fechaProbableS.localeCompare(b.fechaProbableS));
+
+    this.entrada.push(...this.temporal);
+
+   
+    this.temporal = this.salida.filter(item => {
+      return item.id != evento.id
+    })
+    this.salida = [];
+    this.temporal.sort((a,b) => a.fechaProbableS.localeCompare(b.fechaProbableS));
+    this.salida.push(...this.temporal)
+   
+    this.changeDetectorRefs.detectChanges();
+  }
+  onAgregar(evento: AlevinosPedidos){
+
+    let existe = this.salida.find(item=> {
+      return item.id == evento.id
+    })
+    console.log("existe",existe);
+    this.temporal = this.salida.filter(item => {
+      return item.id != evento.id
+    })
+    this.salida =[];
+    this.temporal.push(evento);
+    this.temporal.sort((a,b) => a.fechaProbableS.localeCompare(b.fechaProbableS));
+
+    this.salida.push(...this.temporal);
+    this.temporal = this.entrada.filter(item => {
+      return item.id != evento.id
+    })
+
+
+    this.entrada = [];
+    this.temporal.sort((a,b) => a.fechaProbableS.localeCompare(b.fechaProbableS));
+
+    this.entrada.push(...this.temporal)
+
+    console.log(this.salida);
+    this.changeDetectorRefs.detectChanges();
 
   }
 
@@ -101,8 +164,11 @@ export class AlevinosprogramcionComponent implements OnInit {
     this.service.consultarPedidosPendientes(this.data).subscribe(
       OK => {
         console.log(OK)
+      
         this.entrada = [];
         this.entrada.push(...OK.despachados)
+  
+
         if(this.entrada.length == 0){
           this.service.MostrarSnack("Para el dia del despacho, en esta semana no hay pedidos, intenta cambiando la semana", "De Acuerdo")
         }
@@ -121,7 +187,10 @@ export class AlevinosprogramcionComponent implements OnInit {
 
   }
   Agregar() {
-    const modalRef = this.modalService.open(DiaDespachoComponent, { size: 'md' });
+    const modalRef = this.modalService.open(DiaDespachoComponent,
+                     { size: 'md',
+                       windowClass: 'bounce-top' 
+                     });
 
     modalRef.result.then((result) => {
 

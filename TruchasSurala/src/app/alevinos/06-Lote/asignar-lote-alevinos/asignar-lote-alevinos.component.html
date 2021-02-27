@@ -1,0 +1,67 @@
+<mat-card>
+    <mat-card-header>
+        <div mat-card-avatar class="example-header-image" style="background-image: url('assets/avatars/av-8.png')">
+        </div>
+        <mat-card-title class="main-surala-text">Asignación # de Lote y # de Ovas</mat-card-title>
+        <mat-card-subtitle>Truchas Surala</mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-content>
+        <form [formGroup]="firstFormGroup">
+
+            <div class="row">
+             
+
+            
+              <div class="col-6 form-group">
+
+
+                <mat-form-field appearance="fill" floatLabel="always">
+                  <mat-label>Lote de Alevinos # </mat-label>
+
+                  <input matInput placeholder="Lote de Alevinos #" type="text"  name="cantidad"
+                  [(ngModel)]="pedido.numLoteAlevinos" formControlName="loteAlevinos" (ngModelChange)="Calcular()">
+
+                  <!-- <input type="button" value="Agregar Fecha"/> -->
+
+                </mat-form-field>
+
+
+
+              </div>
+
+              <div class="col-6 form-group">
+
+
+                <mat-form-field appearance="fill" floatLabel="always">
+                  <mat-label>Lote de Ovas # </mat-label>
+
+                  <input matInput placeholder="Lote de Ovas #" type="number" min="200" name="cantidad"
+                  [(ngModel)]="pedido.numLoteOvas" formControlName="loteOvas" (ngModelChange)="Calcular()">
+
+                  <!-- <input type="button" value="Agregar Fecha"/> -->
+
+                </mat-form-field>
+
+
+
+              </div>
+            </div>
+
+          </form>
+    </mat-card-content>
+    <mat-card-actions>
+        <div class="row">
+            <div class="col-6 centerlabel font-weight-bold" style="text-align: center;">
+                <button mat-raised-button color="warn" ngbAutofocus (click)="closeNOOK()">
+                    <mat-icon>close</mat-icon>
+                </button>
+            </div>
+            <div class="col-6 centerlabel font-weight-bold" style="text-align: center;">
+                <button mat-raised-button color="warn" [disabled]="firstFormGroup.invalid" (click)="Guardar()"  >
+                    <mat-icon>cached</mat-icon>
+                </button>
+            </div>
+        </div>
+
+    </mat-card-actions>
+</mat-card>
