@@ -121,7 +121,7 @@ class LoteController extends Controller
                         $loteNumero->linea_genetica = $params_array['linea_genetica'];
                         $loteNumero->edad_tcu = $params_array['edad'];
                         $loteNumero->tamanio = $params_array['tamanio'];
-                        $loteNumero->total_lote = $params_array['total_lote'];
+                        $loteNumero->total_lote = $params_array['total_lote']*$params_array['repetir'];
                         $loteNumero->ovas_ml = $params_array['ovasml'];
                         $loteNumero->tamanio_usado_alevinos = 0;
                         $loteNumero->save();
