@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use App\Lotes;
 use App\BandejasLotes;
+use App\LoteNumero;
 
 class LoteController extends Controller
 {
@@ -97,6 +98,39 @@ class LoteController extends Controller
                     $lotes =   Lotes::where('id_despacho', '=', $params_array['id_despacho'])->get();
                     $countLotes = count($lotes);
 
+                    $existe = \DB::table('lote_numero')
+                    ->where(
+                        [
+                            ['lote_numero.id_despacho', '=',  $params_array['id_despacho']],
+                            ['lote_numero.fecha_desove', '=',  $params_array['fecha_desove']],
+                            ['lote_numero.linea_genetica', '=', $params_array['linea_genetica']],
+                            ['lote_numero.edad_tcu', '=',  $params_array['edad']],
+                            ['lote_numero.tamanio', '=', $params_array['tamanio']],
+                            ['lote_numero.total_lote', '=',  $params_array['total_lote']]
+
+                        ] 
+                    )
+                    ->select('lote_numero.id')
+                    ->get();
+                    $idLoteNumero = 0;
+                    if (count($existe) == 0) {
+                        $loteNumero = new LoteNumero();
+                        $loteNumero->id_despacho = $params_array['id_despacho'];
+                        $loteNumero->fecha_desove = $params_array['fecha_desove'];
+                        $loteNumero->numero_lote = $params_array['numero_lote'];
+                        $loteNumero->linea_genetica = $params_array['linea_genetica'];
+                        $loteNumero->edad_tcu = $params_array['edad'];
+                        $loteNumero->tamanio = $params_array['tamanio'];
+                        $loteNumero->total_lote = $params_array['total_lote'];
+                        $loteNumero->ovas_ml = $params_array['ovasml'];
+                        $loteNumero->tamanio_usado_alevinos = 0;
+                        $loteNumero->save();
+                        $idLoteNumero = $loteNumero->id;
+
+                    } else {
+                        $idLoteNumero = $existe[0]->id;
+                      
+                    }
                     for ($i = 1; $i <= $params_array['repetir']; $i++) {
                         $countLotes += 1;
                         $lote = new Lotes();
@@ -110,6 +144,7 @@ class LoteController extends Controller
                         $lote->numero_bandejas = $params_array['numero_cajas'];
                         $lote->edad_tcu = $params_array['edad'];
                         $lote->numero_lote = $params_array['numero_lote'];
+                        $lote->id_lote_numero = $idLoteNumero;
 
                         $lote->tamanio_usado = 0;
 

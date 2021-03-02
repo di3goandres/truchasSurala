@@ -111,38 +111,40 @@ class AlevinosController extends Controller
                             ->select('alevinos_pedidos.fecha_probable')
                             ->get();
 
+
+                        $talla = false;
+                        if (strtoupper($pedido['tipo']) == "TALLA") {
+                            $talla = true;
+                        }
+
+
+                        $date = new \DateTime($fecha);
+                        $week = $date->format("W");
+
+                        $dayNumber = $date->format("N");
+                        $dayName = $this->NombreDia($dayNumber);
+
+                        $alevinosPedido = new AlevinosPedidos();
+                        $alevinosPedido->user_id = $usuario->user_id;
+                        $alevinosPedido->id_finca = $usuario->id;
+                        $alevinosPedido->despachado =  false;
+                        $alevinosPedido->es_talla =  $talla;
+                        $alevinosPedido->es_peso =   !$talla;
+
+                        if ($talla) {
+                            $alevinosPedido->centimetros =  $pedido['talla'];
+                            $alevinosPedido->peso_gramos =   0;
+                        } else {
+                            $alevinosPedido->peso_gramos =   $pedido['peso'];
+                            $alevinosPedido->centimetros =   0;
+                        }
+                        $alevinosPedido->cantidad =   $pedido['cantidad'];
+                        $alevinosPedido->numero_semana = $week;
+                        $alevinosPedido->dia =  $dayName;
+                        $alevinosPedido->fecha_probable =  str_replace('T05:00:00.000Z', '', $pedido['fechaProbableS']);
+                        $alevinosPedido->save();
+
                         if (count($existe) == 0) {
-                            $talla = false;
-                            if (strtoupper($pedido['tipo']) == "TALLA") {
-                                $talla = true;
-                            }
-
-
-                            $date = new \DateTime($fecha);
-                            $week = $date->format("W");
-
-                            $dayNumber = $date->format("N");
-                            $dayName = $this->NombreDia($dayNumber);
-
-                            $alevinosPedido = new AlevinosPedidos();
-                            $alevinosPedido->user_id = $usuario->user_id;
-                            $alevinosPedido->id_finca = $usuario->id;
-                            $alevinosPedido->despachado =  false;
-                            $alevinosPedido->es_talla =  $talla;
-                            $alevinosPedido->es_peso =   !$talla;
-
-                            if ($talla) {
-                                $alevinosPedido->centimetros =  $pedido['talla'];
-                                $alevinosPedido->peso_gramos =   0;
-                            } else {
-                                $alevinosPedido->peso_gramos =   $pedido['peso'];
-                                $alevinosPedido->centimetros =   0;
-                            }
-                            $alevinosPedido->cantidad =   $pedido['cantidad'];
-                            $alevinosPedido->numero_semana = $week;
-                            $alevinosPedido->dia =  $dayName;
-                            $alevinosPedido->fecha_probable =  str_replace('T05:00:00.000Z', '', $pedido['fechaProbableS']);
-                            $alevinosPedido->save();
                             $OK[$conteoOK] = $pedido;
                             $conteoOK += 1;
                         } else {
@@ -251,7 +253,7 @@ class AlevinosController extends Controller
                     $dayNumber = $date->format("N");
                     $dayName = $this->NombreDia($dayNumber);
 
-                 
+
                     $pedido->es_talla =  $talla;
                     $pedido->es_peso =   !$talla;
                     if ($talla) {
