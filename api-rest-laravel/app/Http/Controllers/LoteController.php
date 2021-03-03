@@ -99,19 +99,19 @@ class LoteController extends Controller
                     $countLotes = count($lotes);
 
                     $existe = \DB::table('lote_numero')
-                    ->where(
-                        [
-                            ['lote_numero.id_despacho', '=',  $params_array['id_despacho']],
-                            ['lote_numero.fecha_desove', '=',  $params_array['fecha_desove']],
-                            ['lote_numero.linea_genetica', '=', $params_array['linea_genetica']],
-                            ['lote_numero.edad_tcu', '=',  $params_array['edad']],
-                            ['lote_numero.tamanio', '=', $params_array['tamanio']],
-                            ['lote_numero.total_lote', '=',  $params_array['total_lote']]
+                        ->where(
+                            [
+                                ['lote_numero.id_despacho', '=',  $params_array['id_despacho']],
+                                ['lote_numero.fecha_desove', '=',  $params_array['fecha_desove']],
+                                ['lote_numero.linea_genetica', '=', $params_array['linea_genetica']],
+                                ['lote_numero.edad_tcu', '=',  $params_array['edad']],
+                                ['lote_numero.tamanio', '=', $params_array['tamanio']],
+                                ['lote_numero.total_lote', '=',  $params_array['total_lote']]
 
-                        ] 
-                    )
-                    ->select('lote_numero.id')
-                    ->get();
+                            ]
+                        )
+                        ->select('lote_numero.id')
+                        ->get();
                     $idLoteNumero = 0;
                     if (count($existe) == 0) {
                         $loteNumero = new LoteNumero();
@@ -121,15 +121,13 @@ class LoteController extends Controller
                         $loteNumero->linea_genetica = $params_array['linea_genetica'];
                         $loteNumero->edad_tcu = $params_array['edad'];
                         $loteNumero->tamanio = $params_array['tamanio'];
-                        $loteNumero->total_lote = $params_array['total_lote']*$params_array['repetir'];
                         $loteNumero->ovas_ml = $params_array['ovasml'];
+                        $loteNumero->total_lote = 0;
                         $loteNumero->tamanio_usado_alevinos = 0;
                         $loteNumero->save();
                         $idLoteNumero = $loteNumero->id;
-
                     } else {
                         $idLoteNumero = $existe[0]->id;
-                      
                     }
                     for ($i = 1; $i <= $params_array['repetir']; $i++) {
                         $countLotes += 1;
@@ -151,7 +149,8 @@ class LoteController extends Controller
                         //Guardar el Usuario
                         $lote->save();
                     }
-
+                    // actualizar el tamanio del lote en la tabla lote numero
+                    $this->ActualizarDatosLoteNumero($idLoteNumero);
                     //devolver array con resultado
                     $data = array(
                         'code' => 200,
@@ -171,7 +170,11 @@ class LoteController extends Controller
         // devolver el resutlado
         return response()->json($data, $data['code']);
     }
-
+    public function ActualizarDatosLoteNumero($id)
+    {
+        // actualizar el tamanio del lote en la tabla lote numero
+        \DB::select('call 01_ActualizarLoteTamanio(?)', array($id));
+    }
     public function BorrarLote($id)
     {
         $lote = Lotes::find($id);
@@ -185,7 +188,9 @@ class LoteController extends Controller
             foreach ($bandejas as $borrar) {
                 $borrar->delete();
             }
+            $this->ActualizarDatosLoteNumero($lote->id_lote_numero);
             $lote->delete();
+
             $data = array(
                 'status' => 'success',
                 'code' => 200,
@@ -198,7 +203,7 @@ class LoteController extends Controller
                 'message' => 'Sin datos que procesar',
             );
         }
-       
+
         // devolver el resutlado
         return response()->json($data, $data['code']);
     }

@@ -73,6 +73,8 @@ ovas_ml                  double(18,2) NOT NULL ,
 edad_tcu                 int(255) NOT NULL ,
 tamanio                  double(18,2) NOT NULL ,
 total_lote               int(255) NOT NULL,
+total_lote_propios        int(255) NOT NULL,
+
 tamanio_usado_alevinos   int(255)  NULL,
 
 fecha_incubacion         	datetime DEFAULT NULL,  
@@ -145,3 +147,43 @@ where lotnumero.fecha_desove  = lo.fecha_desove
 	and lotnumero.ovas_ml = lo.ovas_ml
     and lotnumero.edad_tcu = lo.edad_tcu
      and lotnumero.tamanio = lo.tamanio
+
+
+
+     ---- consulta de la suma por propio
+
+update 
+  
+ u557099357_api_restrucha.lote_numero l_n
+	inner join (
+    
+		select  l_n.id, sum(tb.cantidad) 'suma'
+
+		FROM u557099357_api_restrucha.lote_numero l_n
+			left join u557099357_api_restrucha.lotes lotes on l_n.id = lotes.id_lote_numero
+			left join u557099357_api_restrucha.bandeja_lote bl on bl.id_lote = lotes.id
+			left join u557099357_api_restrucha.trazabilidad_bandejas tb on tb.id_bandeja_lote = bl.id  
+			left join u557099357_api_restrucha.trazabilidad t on tb.id_trazabilidad =  t.id 
+			left join u557099357_api_restrucha.pedidos p on  t.id_pedido = p.id
+
+			inner join u557099357_api_restrucha.despachos d on d.id = l_n.id_despacho
+			left join   u557099357_api_restrucha.fincas f  on t.id_finca = f.id
+			where f.propia = true
+		group by
+		--  d.fecha_salida,
+		-- d.fecha_salida,
+			lotes.fecha_desove,
+			lotes.id_lote_numero,
+			lotes.linea_genetica,
+			lotes.numero_lote,
+			lotes.edad_tcu,
+			lotes.tamanio,
+			lotes.ovas_ml
+			order by 1
+    ) i on l_n.id = i.id
+    set l_n.total_lote_propios = i.suma
+    where l_n.id = i.id
+
+---- suma total
+
+

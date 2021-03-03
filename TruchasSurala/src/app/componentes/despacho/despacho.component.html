@@ -1,22 +1,27 @@
-<div class="container alternate-theme">
+<div class="container alternate-theme slide-in-top">
   <mat-horizontal-stepper [linear]="false">
     <mat-step>
       <ng-template matStepLabel>Datos Despacho</ng-template>
 
       <mat-card class="example-card">
+
         <mat-card-header>
-          <div mat-card-avatar class="example-header-image"></div>
-          <mat-card-title>Datos del despacho</mat-card-title>
-          <mat-card-subtitle>Agregar las Cajas del despacho con fecha: {{despacho.despacho.fecha|date :"MMM/dd/yyyy"}}
-          </mat-card-subtitle>
+          <div mat-card-avatar class="example-header-image" style="background-image: url('assets/avatars/av-8.png')">
+          </div>
+          <mat-card-title class="main-surala-text">Datos del despacho</mat-card-title>
+          <mat-card-subtitle>Agregar las Cajas del despacho con fecha: {{despacho.despacho.fecha|date :"MMM/dd/yyyy"}}</mat-card-subtitle>
+
+           <mat-card-subtitle>Truchas Surala</mat-card-subtitle>
+
           <button type="button" mat-mini-fab color="secondary" mat-raised-button aria-label="caja" (click)="open()"
-            [disabled]="habilitarAgregar">
-            <mat-icon>plus_one</mat-icon>
-          </button>
-          <span *ngIf="habilitarAgregar" color="primary">
-            Este despacho ya Finalizo
-          </span>
+          [disabled]="habilitarAgregar">
+          <mat-icon>plus_one</mat-icon>
+        </button>
+        <span *ngIf="habilitarAgregar" color="primary">
+          Este despacho ya Finalizo
+        </span>
         </mat-card-header>
+      
 
         <a>
           <main id="logout-button-holder">

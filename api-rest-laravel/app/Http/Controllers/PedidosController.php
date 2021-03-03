@@ -142,6 +142,8 @@ class PedidosController extends Controller
                     'status' => 'success',
                     'finca' => $pedido
                 );
+                $this->ActualizarDatosLoteNumero($params_array['id_despacho']);
+
             }
         } else {
             $data = array(
@@ -381,6 +383,8 @@ class PedidosController extends Controller
                 $pedido->adicional = $params_array['adicional'];
                 $pedido->total = $params_array['total'];
                 $pedido->save();
+                $this->ActualizarDatosLoteNumero($pedido->id_despacho);
+
                 $data = array(
                     'code' => 200,
                     'status' => 'success',
@@ -402,32 +406,7 @@ class PedidosController extends Controller
 
     public function EliminarPedido($id, $borrar)
     {
-        //recoger los datos por post 
-        // $json = $request->input('json', null);
-
-        // $params_array = json_decode($json, true); // array
-        // validar los datos
-
-
-
-        // if (!empty($params_array)) {
-        //     $validate = \Validator::make($params_array, [
-        //         'id' => 'required|numeric',
-        //         'borrarPedido' => 'required',
-
-        //     ]);
-
-
-        // if ($validate->fails()) {
-        //     $data = array(
-        //         'status' => 'error',
-        //         'code' => 200,
-        //         'message' => 'Pedido, no se ha eliminado',
-        //         'errors' => $validate->errors(),
-        //         'data' => $params_array
-        //     );
-        // } else {
-
+      
 
         //Buscar el pedido
         $pedido = Pedidos::find($id);
@@ -475,7 +454,7 @@ class PedidosController extends Controller
             $pedido->genero_trazabilidad = 0;
             $pedido->save();
             //borrar el pedido ya que no tiene trazabilidades
-
+            $this->ActualizarDatosLoteNumero($pedido->id_despacho);
             if ($borrar == "true") {
 
                 $pedido->delete();
@@ -524,6 +503,10 @@ class PedidosController extends Controller
     }
 
 
+    public function ActualizarDatosLoteNumero($id){
+        // actualizar el tamanio del lote en la tabla lote numero
+        \DB::select('call 02_ActualizarPropios(?)', array($id));
+    }
 
     public function pedidosByToken(Request $request)
     {

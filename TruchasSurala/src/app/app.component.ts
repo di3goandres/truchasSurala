@@ -2,6 +2,7 @@ import { Component, OnInit, DoCheck } from '@angular/core';
 import { UserService } from './service/user/user.service';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { AgregarcajaComponent } from './componentes/despacho/agregarcaja/agregarcaja.component';
+import {Location} from '@angular/common';
 
 @Component({
   selector: 'app-root',
@@ -19,7 +20,9 @@ export class AppComponent implements OnInit, DoCheck {
   title = 'Truchas Surala';
   constructor(
     public userService: UserService,
-    public matDialog: MatDialog
+    public matDialog: MatDialog,
+    private _location: Location
+
   ) {
     this.loadUser();
   }
@@ -55,6 +58,10 @@ export class AppComponent implements OnInit, DoCheck {
 
   
  }
+ 
+ backClicked() {
+  this._location.back();
+}
 
   openModal(): void {
     const dialogConfig = new MatDialogConfig();

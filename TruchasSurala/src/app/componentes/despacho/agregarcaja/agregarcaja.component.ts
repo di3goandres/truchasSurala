@@ -77,8 +77,10 @@ export class AgregarcajaComponent implements OnInit {
 
         // tslint:disable-next-line: triple-equals
         if (response.status == 'success') {
-          formulario.reset();
           this.modalService.dismissAll('OK');
+
+          this.userService.registroExitoso();
+          formulario.reset();
 
         } else {
           this.status = 'error';

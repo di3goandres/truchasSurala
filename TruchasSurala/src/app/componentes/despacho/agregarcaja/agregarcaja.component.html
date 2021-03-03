@@ -1,176 +1,189 @@
-
-  <mat-horizontal-stepper [linear]="false" *ngIf="caja">
-    <mat-step>
-      <form [formGroup]="firstFormGroup" class="registroDespacho" (ngSubmit)="registrarCaja(firstFormGroup)">
-        <ng-template matStepLabel>{{title}}</ng-template>
-        <br>
-        <div class="row">
-          <div class="col-12 main-blue-text">
-            <label></label>
-          </div>
+<mat-card class="container alternate-theme">
+    <mat-card-header>
+        <div mat-card-avatar class="example-header-image" style="background-image: url('assets/avatars/av-6.png')">
         </div>
-
-        <div class="row">
-          <div class=col-3>
+        <mat-card-title class="main-surala-text">Agregar Caja</mat-card-title>
+        <mat-card-subtitle>Truchas Surala</mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-content>
+      <mat-horizontal-stepper [linear]="false" *ngIf="caja">
+        <mat-step>
+          <form [formGroup]="firstFormGroup" class="registroDespacho" (ngSubmit)="registrarCaja(firstFormGroup)">
+            <ng-template matStepLabel>{{title}}</ng-template>
+            <br>
+            <div class="row">
+              <div class="col-12 main-blue-text">
+                <label></label>
+              </div>
+            </div>
     
-            <mat-form-field appearance="fill">
-              <mat-label>Numero de cajas iguales</mat-label>
-              <input matInput [(ngModel)]="caja.repetir" 
-              type="number" min="1"
-              formControlName="Iguales" required />
-      
-            </mat-form-field>
-      
-          </div>
-          <div class=col-3>
-    
-            <mat-form-field appearance="fill">
-              <mat-label>Numero de Bandejas </mat-label>
-              <input matInput [(ngModel)]="caja.numero_cajas" 
-              type="number" min="1" (change)="actualizarBandeja()"
-              formControlName="NumeroBandejas" required />
-      
-            </mat-form-field>
-      
-          </div>
+            <div class="row">
+              <div class=col-3>
         
-           <div class="col-3">
-            <mat-form-field appearance="fill">
-              <mat-label>Conteo por Bandeja </mat-label>
-              <input matInput 
-              type="number" min="1"
-              formControlName="Conteo" required
-              [(ngModel)]="total_bandeja" required  (change)="actualizarBandeja()"
-               />
-      
-            </mat-form-field>
+                <mat-form-field appearance="fill">
+                  <mat-label>Número de cajas iguales</mat-label>
+                  <input matInput [(ngModel)]="caja.repetir" 
+                  type="number" min="1"
+                  formControlName="Iguales" required />
           
+                </mat-form-field>
           
-          </div>
-
-       
-          <div class=col-3>
+              </div>
+              <div class=col-3>
+        
+                <mat-form-field appearance="fill">
+                  <mat-label>Numero de Bandejas </mat-label>
+                  <input matInput [(ngModel)]="caja.numero_cajas" 
+                  type="number" min="1" (change)="actualizarBandeja()"
+                  formControlName="NumeroBandejas" required />
+          
+                </mat-form-field>
+          
+              </div>
+            
+               <div class="col-3">
+                <mat-form-field appearance="fill">
+                  <mat-label>Conteo por Bandeja </mat-label>
+                  <input matInput 
+                  type="number" min="1"
+                  formControlName="Conteo" required
+                  [(ngModel)]="total_bandeja" required  (change)="actualizarBandeja()"
+                   />
+          
+                </mat-form-field>
+              
+              
+              </div>
     
-            <mat-form-field appearance="fill" disabled >
-              <mat-label>Total </mat-label>
-              <input matInput [(ngModel)]="caja.total_lote"
-              type="number"  disabled="true"
            
-              formControlName="Total"  />
+              <div class=col-3>
+        
+                <mat-form-field appearance="fill" disabled >
+                  <mat-label>Total </mat-label>
+                  <input matInput [(ngModel)]="caja.total_lote"
+                  type="number"  disabled="true"
+               
+                  formControlName="Total"  />
+          
+                </mat-form-field>
+          
+              </div>
+             
       
-            </mat-form-field>
-      
+            </div>
+    
+            <div class="row">
+             <div class="col-6">
+              <mat-form-field appearance="fill">
+                <mat-label>Fecha desove</mat-label>
+                <input matInput formControlName="FechaDesove" [matDatepicker]="pickerDesembolso"
+                  ng-keydown="$event.preventDefault();" [min]="minDate" [max]="maxDate"
+                   [(ngModel)]="caja.fecha_desove" required>
+                <mat-datepicker-toggle matSuffix [for]="pickerDesembolso">
+                </mat-datepicker-toggle>
+                <mat-datepicker touchUi #pickerDesembolso></mat-datepicker>
+                <!-- <input type="button" value="Agregar Fecha"/> -->
+        
+              </mat-form-field>
+             </div>
+             <div class=col-3>
+        
+              <mat-form-field appearance="fill">
+                <mat-label># de Lote</mat-label>
+                <input matInput [(ngModel)]="caja.numero_lote" 
+              
+                formControlName="NumLote" required />
+        
+              </mat-form-field>
+        
+            </div>
+            <div class=col-3>
+        
+              <mat-form-field appearance="fill">
+                <mat-label>Linea genetica</mat-label>
+                <input matInput [(ngModel)]="caja.linea_genetica" 
+               
+                formControlName="Linea" required />
+        
+              </mat-form-field>
+        
+            </div>
+            </div>
+            <div class="row">
+    
+              <div class=col-3>
+        
+                <mat-form-field appearance="fill">
+                  <mat-label>Size</mat-label>
+                  <input matInput
+                  type="number" min="0"
+                  [(ngModel)]="size" required (change)="actualizar()"
+                  formControlName="Size" required />
+          
+                </mat-form-field>
+          
+              </div>
+              <div class=col-3>
+               
+                <mat-form-field appearance="fill" disabled >
+                  <mat-label>Ovas por ml </mat-label>
+                  <input matInput [(ngModel)]="caja.ovasml"
+                  type="number"  disabled="true"
+               
+                  formControlName="Ovaml"  />
+          
+                </mat-form-field>
+          
+              </div>
+    
+              <div class=col-3>
+               
+                <mat-form-field appearance="fill" disabled >
+                  <mat-label>Tamaño </mat-label>
+                  <input matInput [(ngModel)]="caja.tamanio"
+                  type="number"  disabled="true"
+               
+                  formControlName="Tamanio"  />
+          
+                </mat-form-field>
+          
+              </div>
+    
+    
+              <div class=col-3>
+               
+                <mat-form-field appearance="fill" disabled >
+                  <mat-label>Edad TCU </mat-label>
+                  <input matInput [(ngModel)]="caja.edad"
+                  type="number"  disabled="true"
+               
+                  formControlName="Edad"  />
+          
+                </mat-form-field>
+          
+              </div>
+    
+            </div>
+    
+            <div class="row">
+              <div class="col-3"></div>
+            <div class="col-xs-12 col-6  form-group">
+              <button  mat-raised-button type="submit" class="btn btn-primary btn-block" [disabled]="!firstFormGroup.valid">
+                Agregar caja
+              </button>
+            </div>
+            <div class="col-3"></div>
+    
           </div>
-         
+          </form>
+    
+         </mat-step>
+      </mat-horizontal-stepper> 
+    </mat-card-content>
+    
+</mat-card>
   
-        </div>
+  
 
-        <div class="row">
-         <div class="col-6">
-          <mat-form-field appearance="fill">
-            <mat-label>Fecha desove</mat-label>
-            <input matInput formControlName="FechaDesove" [matDatepicker]="pickerDesembolso"
-              ng-keydown="$event.preventDefault();" [min]="minDate" [max]="maxDate"
-               [(ngModel)]="caja.fecha_desove" required>
-            <mat-datepicker-toggle matSuffix [for]="pickerDesembolso">
-            </mat-datepicker-toggle>
-            <mat-datepicker touchUi #pickerDesembolso></mat-datepicker>
-            <!-- <input type="button" value="Agregar Fecha"/> -->
-    
-          </mat-form-field>
-         </div>
-         <div class=col-3>
-    
-          <mat-form-field appearance="fill">
-            <mat-label># de Lote</mat-label>
-            <input matInput [(ngModel)]="caja.numero_lote" 
-          
-            formControlName="NumLote" required />
-    
-          </mat-form-field>
-    
-        </div>
-        <div class=col-3>
-    
-          <mat-form-field appearance="fill">
-            <mat-label>Linea genetica</mat-label>
-            <input matInput [(ngModel)]="caja.linea_genetica" 
-           
-            formControlName="Linea" required />
-    
-          </mat-form-field>
-    
-        </div>
-        </div>
-        <div class="row">
-
-          <div class=col-3>
-    
-            <mat-form-field appearance="fill">
-              <mat-label>Size</mat-label>
-              <input matInput
-              type="number" min="0"
-              [(ngModel)]="size" required (change)="actualizar()"
-              formControlName="Size" required />
-      
-            </mat-form-field>
-      
-          </div>
-          <div class=col-3>
-           
-            <mat-form-field appearance="fill" disabled >
-              <mat-label>Ovas por ml </mat-label>
-              <input matInput [(ngModel)]="caja.ovasml"
-              type="number"  disabled="true"
-           
-              formControlName="Ovaml"  />
-      
-            </mat-form-field>
-      
-          </div>
-
-          <div class=col-3>
-           
-            <mat-form-field appearance="fill" disabled >
-              <mat-label>Tamaño </mat-label>
-              <input matInput [(ngModel)]="caja.tamanio"
-              type="number"  disabled="true"
-           
-              formControlName="Tamanio"  />
-      
-            </mat-form-field>
-      
-          </div>
-
-
-          <div class=col-3>
-           
-            <mat-form-field appearance="fill" disabled >
-              <mat-label>Edad TCU </mat-label>
-              <input matInput [(ngModel)]="caja.edad"
-              type="number"  disabled="true"
-           
-              formControlName="Edad"  />
-      
-            </mat-form-field>
-      
-          </div>
-
-        </div>
-
-        <div class="row">
-          <div class="col-3"></div>
-        <div class="col-xs-12 col-6  form-group">
-          <button  mat-raised-button type="submit" class="btn btn-primary btn-block" [disabled]="!firstFormGroup.valid">
-            Agregar caja
-          </button>
-        </div>
-        <div class="col-3"></div>
-
-      </div>
-      </form>
-
-     </mat-step>
-  </mat-horizontal-stepper> 
 
 

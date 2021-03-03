@@ -1,18 +1,12 @@
-<!-- 
-<mat-grid-list cols="1" rowHeight="2:1" >    
-    <mat-grid-tile *ngFor="let item of distribucion">
-       <br>
 
-        <mat-divider></mat-divider>
-   
-       <app-trazabilidad [traza]="item" style="width: 400px;"> 
-       </app-trazabilidad>
-       <br>
-       <mat-divider></mat-divider>
-    </mat-grid-tile>
-</mat-grid-list> -->
 
-<mat-card>
+<mat-card class="slide-in-top">
+    <mat-card-header>
+        <div mat-card-avatar class="example-header-image" style="background-image: url('assets/avatars/av-8.png')">
+        </div>
+        <mat-card-title class="main-surala-text">Trazabilidades</mat-card-title>
+         <mat-card-subtitle>Truchas Surala</mat-card-subtitle>
+      </mat-card-header>
     <mat-card-content>
         <mat-tab-group class="center">
             <mat-tab *ngFor="let item of distribucion; let i = index " [label]="item.contacto.Remision">

@@ -1,13 +1,29 @@
-<div class="container-fluid">
-  <div class="card-columns">
-    <article class="card w-100" *ngFor="let bandeja of bandejas; let i = index">
-      <div class="card-header">
-        # {{i +1}}
+<mat-card>
+    <mat-card-header>
+        <div mat-card-avatar class="example-header-image" style="background-image: url('assets/avatars/av-6.png')">
+        </div>
+        <mat-card-title class="main-surala-text">Bandejas</mat-card-title>
+        <mat-card-subtitle>Truchas Surala</mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-content>
+      <div class="container-fluid">
+        <div class="card-columns">
+          <article class="card w-100" *ngFor="let bandeja of bandejas; let i = index">
+            <div class="card-header">
+              # {{i +1}}
+            </div>
+            Ovas Iniciales: {{ bandeja.tamanio_inicial }}
+            <br>
+            Ovas Restantes {{ bandeja.tamanio_final  }}
+          </article>
+      
+        </div>
       </div>
-      Ovas Iniciales: {{ bandeja.tamanio_inicial }}
-      <br>
-      Ovas Restantes {{ bandeja.tamanio_final  }}
-    </article>
+    </mat-card-content>
+    <mat-card-actions>
+     
 
-  </div>
-</div>
+    </mat-card-actions>
+</mat-card>
+
+

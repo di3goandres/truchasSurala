@@ -589,6 +589,7 @@ class TrazabilidadController extends Controller
                     }
                     $pedido->genero_trazabilidad = true;
                     $pedido->save();
+                    $this->ActualizarDatosLoteNumero($pedido->id_despacho);
 
                     $data = array(
                         'code' => 200,
@@ -609,7 +610,10 @@ class TrazabilidadController extends Controller
         return response()->json($data, $data['code']);
     }
 
-
+    public function ActualizarDatosLoteNumero($id){
+        // actualizar el tamanio del lote en la tabla lote numero
+        \DB::select('call 02_ActualizarPropios(?)', array($id));
+    }
 
     //recibimos el id del despacho
     public function showAll($idDespacho)

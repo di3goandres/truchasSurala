@@ -49,5 +49,18 @@ export class DespachoService {
 
   }
 
-  
+  Exitoso(){
+    this.userService.registroExitoso();
+  }
+
+  NoExitoso(Titulo, Mensaje){
+    this.userService.registroNoExitoso(Titulo, Mensaje);
+  }
+
+  NoExitosoComun(){
+    this.userService.registroNoExitosoComun();
+  }
+  MostrarSnack(Mensaje: string){
+    this.userService.openSnackBar(Mensaje, "");
+  }
 }

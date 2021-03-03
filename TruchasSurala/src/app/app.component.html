@@ -184,6 +184,8 @@
     <!-- <main id="logout-button-holder">
     <button mat-raised-button id="logout-button" (click)="openModal()">Logout</button>
 </main> -->
+<button  *ngIf="identity!= null" mat-mini-fab class="btn  buttton-aldea btn-success pull-right"
+      (click)="backClicked()"><mat-icon>keyboard_backspace</mat-icon></button>
   </router-outlet>
 </div>
 

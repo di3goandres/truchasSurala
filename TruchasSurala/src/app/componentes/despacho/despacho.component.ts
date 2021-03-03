@@ -79,17 +79,19 @@ export class DespachoComponent implements OnInit {
     )
   }
   borrarLote(id){
-    const modalRef = this.modalService.open(BorrarloteComponent, {size: 'mg'});
+    const modalRef = this.modalService.open(BorrarloteComponent, {size: 'mg', windowClass: 'vibrate-2'});
    
     modalRef.result.then((result) => {
       if (result === "BORRAR") {
         this.borrarLoteid(id);
+      }else{
       }
       console.log('result', result);
     }, (reason) => {
 
      
        
+      this.servicio.MostrarSnack("Totalmente de acuerdo 😊")
 
 
       this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
@@ -141,7 +143,7 @@ export class DespachoComponent implements OnInit {
 
   openBandejas(id){
 
-    const modalRef = this.modalService.open(BandejascajaComponent, {size: 'lg'});
+    const modalRef = this.modalService.open(BandejascajaComponent, {size: 'lg', windowClass: 'bounce-top' });
     modalRef.componentInstance.idConsulta = id
     modalRef.result.then((result) => {
       this.closeResult = `Closed with: ${result}`;
@@ -162,7 +164,10 @@ export class DespachoComponent implements OnInit {
   }
 
   open(): void {
-    const modalRef = this.modalService.open(AgregarcajaComponent ,  {size: 'lg'});
+    const modalRef = this.modalService.open(AgregarcajaComponent , 
+       {size: 'lg',
+        windowClass: 'bounce-top' 
+      });
     modalRef.componentInstance.idDespacho = this.id;
     modalRef.result.then((result) => {
       this.closeResult = `Closed with: ${result}`;

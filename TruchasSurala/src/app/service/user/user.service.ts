@@ -386,7 +386,10 @@ export class UserService {
 
   }
   registroExitoso() {
-    const modalRef = this.modalService.open(RegistroExitosoComponent, { size: 'md' });
+    const modalRef = this.modalService.open(RegistroExitosoComponent,
+                                     { size: 'md',
+                                      windowClass: 'bounce-top' 
+                                     });
 
     modalRef.result.then((result) => {
 
@@ -404,7 +407,8 @@ export class UserService {
   }
 
   registroNoExitoso(Titulo, Mensaje) {
-    const modalRef = this.modalService.open(RegistroNoexitosoComponent, { size: 'md' });
+    const modalRef = this.modalService.open(RegistroNoexitosoComponent,
+         { size: 'md',windowClass: 'vibrate-2'});
     modalRef.componentInstance.Titulo = Titulo;
     modalRef.componentInstance.mensaje = Mensaje
     modalRef.result.then((result) => {
