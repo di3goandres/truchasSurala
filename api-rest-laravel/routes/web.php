@@ -106,6 +106,9 @@ Route::get('/api/Progamacion/Alevinos/usuario/{id}', 'AlevinosController@GetPedi
 Route::get('/api/Progamacion/Alevinos/usuario/delete/{id}', 'AlevinosController@borrarPedido');
 Route::post('/api/Progamacion/Alevinos/usuario/pendientes', 'AlevinosController@ObtenerPedidosPendientes');
 Route::post('/api/Progamacion/Alevinos/usuario/pedido/actualizar', 'AlevinosController@Actualizar');
+Route::get('/api/Progamacion/lotes/propios/', 'LoteNumeroController@ConsultarLotesPropios');
+Route::post('/api/Progamacion/lotes/propios/update', 'LoteNumeroController@ActualizarLotesPropios');
+
 
 
 

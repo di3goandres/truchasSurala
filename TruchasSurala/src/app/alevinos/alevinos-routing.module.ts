@@ -5,6 +5,7 @@ import { UsuarioGuard } from '../guards/usuario.guard';
 import { AlevinoGuard } from '../guards/alevino/alevino.guard';
 import { AlevinosprogramcionComponent } from './02-Programacion/alevinosprogramcion/alevinosprogramcion.component';
 import { PedidosClientesComponent } from './05-Clientes/pedidos-clientes/pedidos-clientes.component';
+import { VerPropiosComponent } from './06-Lote/ver-propios/ver-propios.component';
 
 const routes: Routes = [
   { 
@@ -18,6 +19,11 @@ const routes: Routes = [
   },
   {
     path: 'PedidosCliente', component: PedidosClientesComponent,
+    canLoad: [AlevinoGuard], canActivate: [AlevinoGuard]
+  }
+  ,
+  {
+    path: 'LotesPropios', component: VerPropiosComponent,
     canLoad: [AlevinoGuard], canActivate: [AlevinoGuard]
   }
 ];

@@ -58,11 +58,16 @@ $TruchasSurala-theme: mat-light-theme(
 #customers th {
   padding-top: 12px;
   padding-bottom: 12px;
-  text-align: center;
+  text-align: center  !important;
   background-color: $ovas;
   color: white;
 }
 
+#customers td {
+ 
+  text-align: center !important;;
+  
+}
 .surala-azul {
   background-color: $blue;
   opacity: 100%;

@@ -1,106 +1,106 @@
 <mat-card>
-    <mat-card-header>
-        <div mat-card-avatar class="example-header-image" style="background-image: url('assets/avatars/av-8.png')">
+  <mat-card-header>
+    <div mat-card-avatar class="example-header-image" style="background-image: url('assets/avatars/av-8.png')">
+    </div>
+    <mat-card-title class="main-surala-text">Editar Pedido</mat-card-title>
+    <mat-card-subtitle>Truchas Surala</mat-card-subtitle>
+  </mat-card-header>
+  <mat-card-content>
+    <form [formGroup]="firstFormGroup">
+
+      <div class="row">
+
+
+
+        <div class="col-6 form-group">
+
+
+          <mat-form-field appearance="fill" floatLabel="always">
+            <mat-label>Fecha de Probable</mat-label>
+
+            <input matInput formControlName="fecha" [matDatepicker]="pickerentrada" [min]="minDate"
+              [(ngModel)]="pedido.fechaProbableS" required (ngModelChange)="Calcular()"
+              [matDatepickerFilter]="myDateFilter">
+
+
+            <mat-datepicker-toggle matSuffix [for]="pickerentrada">
+            </mat-datepicker-toggle>
+            <mat-datepicker touchUi #pickerentrada></mat-datepicker>
+            <!-- <input type="button" value="Agregar Fecha"/> -->
+
+          </mat-form-field>
+
+
+
         </div>
-        <mat-card-title class="main-surala-text">Editar Pedido</mat-card-title>
-        <mat-card-subtitle>Truchas Surala</mat-card-subtitle>
-    </mat-card-header>
-    <mat-card-content>
-        <form [formGroup]="firstFormGroup">
+        <div class="col-6 form-group">
+          <mat-form-field appearance="fill">
+            <mat-label>Tipo Pedido</mat-label>
 
-            <div class="row">
-             
+            <mat-select (selectionChange)="Cambio($event.value)" [(ngModel)]="pedido.tipo" formControlName="tipo"
+              (ngModelChange)="Calcular()">
+              <mat-option *ngFor="let tipo of TipoCompra" [value]="tipo.value">
+                {{tipo.viewValue}}
 
-            
-              <div class="col-6 form-group">
-
-
-                <mat-form-field appearance="fill" floatLabel="always">
-                  <mat-label>Fecha de Probable</mat-label>
-
-                  <input matInput formControlName="fecha" [matDatepicker]="pickerentrada" [min]="minDate"
-                    [(ngModel)]="pedido.fechaProbableS" required (ngModelChange)="Calcular()"
-                    [matDatepickerFilter]="myDateFilter">
-
-
-                  <mat-datepicker-toggle matSuffix [for]="pickerentrada">
-                  </mat-datepicker-toggle>
-                  <mat-datepicker touchUi #pickerentrada></mat-datepicker>
-                  <!-- <input type="button" value="Agregar Fecha"/> -->
-
-                </mat-form-field>
-
-
-
-              </div>
-              <div class="col-6 form-group">
-                <mat-form-field appearance="fill">
-                  <mat-label>Tipo Pedido</mat-label>
-
-                  <mat-select (selectionChange)="Cambio($event.value)" [(ngModel)]="pedido.tipo"
-                    formControlName="tipo" (ngModelChange)="Calcular()">
-                    <mat-option *ngFor="let tipo of TipoCompra" [value]="tipo.value">
-                      {{tipo.viewValue}}
-
-                    </mat-option>
-                  </mat-select>
-                </mat-form-field>
-              </div>
-
-              <div class="col-6 form-group">
-                <mat-form-field appearance="fill" floatLabel="always">
-                  <mat-label>Cantidad Alevinos</mat-label>
-                  <mat-icon matSuffix>exposure_plus_1</mat-icon>
-
-                  <input matInput placeholder="Cantidad" type="number" min="200" name="cantidad"
-                    [(ngModel)]="pedido.cantidad" formControlName="cantidad" (ngModelChange)="Calcular()">
-
-
-                </mat-form-field>
-
-              </div>
-              <div class="col-6 form-group" *ngIf="pedido.tipo=='TALLA'">
-                <mat-form-field appearance="fill" floatLabel="always">
-                  <mat-label>Centimetros Alevinos</mat-label>
-                  <mat-icon matSuffix>square_foot</mat-icon>
-
-                  <input matInput placeholder="Talla" formControlName="talla" type="number" name="talla"
-                    [(ngModel)]="pedido.talla" min="1" max="50" (ngModelChange)="Calcular()">
-
-
-                </mat-form-field>
-
-              </div>
-
-              <div class="col-6 form-group" *ngIf="pedido.tipo=='PESO'">
-                <mat-form-field appearance="fill" floatLabel="always">
-                  <mat-label>Peso Alevinos</mat-label>
-                  <mat-icon matSuffix>fitness_center</mat-icon>
-
-                  <input matInput placeholder="Peso" formControlName="Peso" type="number" name="Peso" min="10"
-                    max="3000" [(ngModel)]="pedido.peso" (ngModelChange)="Calcular()">
-
-
-                </mat-form-field>
-
-              </div>
-
-            </div>
-          </form>
-    </mat-card-content>
-    <mat-card-actions>
-        <div class="row">
-            <div class="col-6 centerlabel font-weight-bold" style="text-align: center;">
-                <button mat-raised-button color="warn" ngbAutofocus (click)="closeNOOK()">
-                    <mat-icon>close</mat-icon>
-                </button>
-            </div>
-            <div class="col-6 centerlabel font-weight-bold" style="text-align: center;">
-                <button mat-raised-button color="warn" [disabled]="firstFormGroup.invalid"  (click)="Guardar()">
-                    <mat-icon>cached</mat-icon>
-                </button>
-            </div>
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
         </div>
 
-    </mat-card-actions>
+        <div class="col-6 form-group">
+          <mat-form-field appearance="fill" floatLabel="always">
+            <mat-label>Cantidad Alevinos</mat-label>
+            <mat-icon matSuffix>exposure_plus_1</mat-icon>
+
+            <input matInput placeholder="Cantidad" type="number" min="200" name="cantidad" [(ngModel)]="pedido.cantidad"
+              formControlName="cantidad" (ngModelChange)="Calcular()">
+
+
+          </mat-form-field>
+
+        </div>
+        <div class="col-6 form-group" *ngIf="pedido.tipo=='TALLA'">
+          <mat-form-field appearance="fill" floatLabel="always">
+            <mat-label>Centimetros Alevinos</mat-label>
+            <mat-icon matSuffix>square_foot</mat-icon>
+
+            <input matInput placeholder="Talla" formControlName="talla" type="number" name="talla"
+              [(ngModel)]="pedido.talla" min="1" max="50" (ngModelChange)="Calcular()">
+
+
+          </mat-form-field>
+
+        </div>
+
+        <div class="col-6 form-group" *ngIf="pedido.tipo=='PESO'">
+          <mat-form-field appearance="fill" floatLabel="always">
+            <mat-label>Peso Alevinos</mat-label>
+            <mat-icon matSuffix>fitness_center</mat-icon>
+
+            <input matInput placeholder="Peso" formControlName="Peso" type="number" name="Peso" min="10" max="3000"
+              [(ngModel)]="pedido.peso" (ngModelChange)="Calcular()">
+
+
+          </mat-form-field>
+
+        </div>
+
+      </div>
+    </form>
+  </mat-card-content>
+  <mat-card-actions>
+    <div class="row">
+      <div class="col-6 centerlabel font-weight-bold" style="text-align: center;">
+        <button mat-raised-button color="warn" ngbAutofocus (click)="closeNOOK()">
+          <mat-icon>close</mat-icon>
+        </button>
+      </div>
+      <div class="col-6 centerlabel font-weight-bold" style="text-align: center;">
+        <button mat-raised-button color="warn" [disabled]="firstFormGroup.invalid" (click)="Guardar()">
+          <mat-icon>cached</mat-icon>
+        </button>
+      </div>
+    </div>
+
+  </mat-card-actions>
 </mat-card>
