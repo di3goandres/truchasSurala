@@ -62,7 +62,7 @@ export class ListaPedidoAlevinosComponent implements OnInit {
   }
 
   AsociarLote(item : AlevinosPedidos){
-    const modalRef = this.modalService.open(AsignarLoteAlevinosComponent, { size: 'md', windowClass: 'bounce-in-top'});
+    const modalRef = this.modalService.open(AsignarLoteAlevinosComponent, { size: 'xl', windowClass: 'bounce-in-top'});
     modalRef.componentInstance.entrada = item;
     modalRef.result.then((result) => {
       if (result === "OK") {

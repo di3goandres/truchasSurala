@@ -25,6 +25,18 @@ class LoteNumeroController extends Controller
         return response()->json($data, $data['code']);
     }
 
+    public function ConsultarLotesPropiosListos()
+    {
+        // recoger los datos por post / get
+        $priopios = \DB::select('call 04_LotesPropiosListos()');
+        $data = array(
+            'code' => 200,
+            'status' => 'success',
+            'lotesPropios' => $priopios
+        );
+        return response()->json($data, $data['code']);
+    }
+
     public function ActualizarLotesPropios(Request $request)
     {
         //recoger los datos por post 

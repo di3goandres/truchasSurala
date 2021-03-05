@@ -108,33 +108,21 @@ Route::post('/api/Progamacion/Alevinos/usuario/pendientes', 'AlevinosController@
 Route::post('/api/Progamacion/Alevinos/usuario/pedido/actualizar', 'AlevinosController@Actualizar');
 Route::get('/api/Progamacion/lotes/propios/', 'LoteNumeroController@ConsultarLotesPropios');
 Route::post('/api/Progamacion/lotes/propios/update', 'LoteNumeroController@ActualizarLotesPropios');
-
-
-
+Route::get('/api/Progamacion/lotes/propios/listos', 'LoteNumeroController@ConsultarLotesPropiosListos');
 
 
 
 Route::resource('/api/Notificaciones', 'NotificacionesController');
-
-
 Route::post('/api/Notificaciones/personalizado/', 'NotificacionesController@SendUniqueUser');
 Route::post('/api/Notificaciones/unico/personalizado/', 'NotificacionesController@SendPersonal');
-
 Route::post('/api/Notificaciones/borrar/', 'NotificacionesController@borrarToken');
 Route::get('/api/Notificaciones/Actual/{id}', 'NotificacionesController@ObtenerNotificacionActual');
 Route::get('/api/Notificaciones/RutasActual/{id}', 'NotificacionesController@ObtenerNotificacionRutas');
 
-
-
 Route::post('/api/pedidos/actualizarpedido', 'PedidosController@ActualizarPedido');
 Route::delete('/api/pedidos/eliminarpedido/{id}/{borrar}', 'PedidosController@EliminarPedido');
 
-
-
-
 Route::get('/api/Pedidos/ObtenerPedido/{id}', 'PedidosController@getPedido');
-
-
 Route::resource('/api/Distribucion', 'TrazabilidadController');
 Route::get('/api/Distribucion/Despacho/{idDespacho}', 'TrazabilidadController@showAll');
 Route::get('/api/Distribucion/DespachoNuevo/{idDespacho}', 'TrazabilidadController@showAllNew');

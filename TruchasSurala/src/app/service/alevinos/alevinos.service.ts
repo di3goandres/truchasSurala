@@ -65,6 +65,9 @@ export class AlevinosService {
     return this.userService.ejecutarQuery<LotesPropiosResponse>('/api/Progamacion/lotes/propios/')
   }
 
+  PropiosListos(){
+    return this.userService.ejecutarQuery<LotesPropiosResponse>('/api/Progamacion/lotes/propios/listos/')
+  }
   UpdatePropios(data: LotesPropio){
     return this.userService.ejecutarQueryPostNuevo<Respuesta>('/api/Progamacion/lotes/propios/update', data)
   }

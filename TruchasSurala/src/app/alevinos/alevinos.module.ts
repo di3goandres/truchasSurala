@@ -38,6 +38,7 @@ import { PedidosClientesComponent } from './05-Clientes/pedidos-clientes/pedidos
 import { EditarMontajeComponent } from './01-Montaje/editar-montaje/editar-montaje.component';
 import { AsignarLoteAlevinosComponent } from './06-Lote/asignar-lote-alevinos/asignar-lote-alevinos.component';
 import { VerPropiosComponent } from './06-Lote/ver-propios/ver-propios.component';
+import { SeleccionarLoteComponent } from './06-Lote/seleccionar-lote/seleccionar-lote.component';
 
 
 @NgModule({
@@ -49,7 +50,8 @@ import { VerPropiosComponent } from './06-Lote/ver-propios/ver-propios.component
     PedidosClientesComponent,
     EditarMontajeComponent,
     AsignarLoteAlevinosComponent,
-    VerPropiosComponent],
+    VerPropiosComponent,
+    SeleccionarLoteComponent],
   imports: [
     CommonModule,
     AlevinosRoutingModule,

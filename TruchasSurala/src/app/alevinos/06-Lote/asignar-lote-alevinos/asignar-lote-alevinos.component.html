@@ -1,67 +1,70 @@
-<mat-card>
-    <mat-card-header>
+<mat-horizontal-stepper [linear]="false" #stepper>
+
+  <mat-step>
+    <ng-template matStepLabel>Seleccionar Lote</ng-template>
+
+    <app-seleccionar-lote (asociarLote)="AsociarLote($event)"> </app-seleccionar-lote>
+  </mat-step>
+  <mat-step>
+    <ng-template matStepLabel>Lista de Programaciones</ng-template>
+    <mat-card>
+      <mat-card-header>
         <div mat-card-avatar class="example-header-image" style="background-image: url('assets/avatars/av-8.png')">
         </div>
         <mat-card-title class="main-surala-text">Asignación # de Lote y # de Ovas</mat-card-title>
         <mat-card-subtitle>Truchas Surala</mat-card-subtitle>
-    </mat-card-header>
-    <mat-card-content>
+      </mat-card-header>
+      <mat-card-content>
         <form [formGroup]="firstFormGroup">
 
-            <div class="row">
-             
+          <div class="row">
+            <div class="col-6 form-group">
+              <mat-form-field appearance="fill" floatLabel="always">
+                <mat-label>Lote de Ovas # </mat-label>
+                <mat-label>{{loteseleccionado.numero_lote}}</mat-label>
+                <input matInput placeholder="Cliente" type="text" [disabled]="true" name="ovasNum"
+                  [(value)]="loteseleccionado.numero_lote">
 
-            
-              <div class="col-6 form-group">
 
-
-                <mat-form-field appearance="fill" floatLabel="always">
-                  <mat-label>Lote de Alevinos # </mat-label>
-
-                  <input matInput placeholder="Lote de Alevinos #" type="text"  name="cantidad"
+              </mat-form-field>
+            </div>
+            <div class="col-6 form-group">
+              <mat-form-field appearance="fill" floatLabel="always">
+                <mat-label>Lote de Alevinos # </mat-label>
+                <input matInput placeholder="Lote de Alevinos #" type="text" name="cantidad"
                   [(ngModel)]="pedido.numLoteAlevinos" formControlName="loteAlevinos" (ngModelChange)="Calcular()">
-
-                  <!-- <input type="button" value="Agregar Fecha"/> -->
-
-                </mat-form-field>
-
-
-
-              </div>
-
-              <div class="col-6 form-group">
-
-
-                <mat-form-field appearance="fill" floatLabel="always">
-                  <mat-label>Lote de Ovas # </mat-label>
-
-                  <input matInput placeholder="Lote de Ovas #" type="number" min="200" name="cantidad"
-                  [(ngModel)]="pedido.numLoteOvas" formControlName="loteOvas" (ngModelChange)="Calcular()">
-
-                  <!-- <input type="button" value="Agregar Fecha"/> -->
-
-                </mat-form-field>
-
-
-
-              </div>
+              </mat-form-field>
             </div>
-
-          </form>
-    </mat-card-content>
-    <mat-card-actions>
-        <div class="row">
-            <div class="col-6 centerlabel font-weight-bold" style="text-align: center;">
-                <button mat-raised-button color="warn" ngbAutofocus (click)="closeNOOK()">
-                    <mat-icon>close</mat-icon>
-                </button>
-            </div>
-            <div class="col-6 centerlabel font-weight-bold" style="text-align: center;">
-                <button mat-raised-button color="warn" [disabled]="firstFormGroup.invalid" (click)="Guardar()"  >
-                    <mat-icon>cached</mat-icon>
-                </button>
-            </div>
+          </div>
+        </form>
+        <div>
         </div>
+        <mat-card-actions>
+          <div class="row">
+            <div class="col-6 centerlabel font-weight-bold" style="text-align: left;">
+              <button mat-raised-button color="primary" matStepperPrevious>
+                <mat-icon>keyboard_backspace</mat-icon>
+              </button>
+            </div>
 
-    </mat-card-actions>
-</mat-card>
+          </div>
+
+
+        </mat-card-actions>
+
+      </mat-card-content>
+      <mat-card-actions>
+        <div class="row">
+          <div class="col-6 centerlabel font-weight-bold" style="text-align: center;">
+            <button mat-raised-button color="warn" ngbAutofocus (click)="closeNOOK()">
+              <mat-icon>close</mat-icon>
+            </button>
+          </div>
+          <div class="col-6 centerlabel font-weight-bold" style="text-align: center;">
+            <button mat-raised-button color="warn" [disabled]="firstFormGroup.invalid" (click)="Guardar()">
+              <mat-icon>cached</mat-icon>
+            </button>
+          </div>
+        </div>
+      </mat-card-actions>
+    </mat-card>

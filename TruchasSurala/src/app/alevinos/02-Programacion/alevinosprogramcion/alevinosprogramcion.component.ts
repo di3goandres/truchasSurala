@@ -9,6 +9,7 @@ import { ProgramacionAlevinos } from '../../../models/alevinos/programacion.alev
 import { DiaDespachoComponent } from '../../04-DiaDespacho/dia-despacho/dia-despacho.component';
 import { A_ProgramacionDiaRequest } from '../../../models/alevinos/alevinos.pedidos';
 import { Select } from 'src/app/models/Datos.generales';
+import { SeleccionarLoteComponent } from '../../06-Lote/seleccionar-lote/seleccionar-lote.component';
 
 @Component({
   selector: 'app-alevinosprogramcion',
@@ -67,7 +68,7 @@ export class AlevinosprogramcionComponent implements OnInit {
         this.programacion = [];
         this.programacion.push(...OK.programacion);
         if (this.programacion == null || this.programacion.length == 0) {
-          this.service.MostrarSnack("Sin datos de programación",  "Ok");
+          this.service.MostrarSnack("Sin datos de programación", "Ok");
         } else {
           let sinprogramar = OK.programacion.filter(item => {
             return item.despachado == 0;
@@ -92,52 +93,52 @@ export class AlevinosprogramcionComponent implements OnInit {
 
   }
 
-  mostrar(){
+  mostrar() {
     console.log(this.salida);
-    this.salida =[];
+    this.salida = [];
     this.salida.push(...this.entrada);
 
-    
+
   }
-  onNotificar(evento){
-    if(evento){
+  onNotificar(evento) {
+    if (evento) {
       this.ConsultarPendientesSemana();
     }
 
   }
-  onDevolver(evento: AlevinosPedidos){
+  onDevolver(evento: AlevinosPedidos) {
 
     this.temporal = this.entrada.filter(item => {
       return item.id != evento.id
     })
-    this.entrada =[];
+    this.entrada = [];
     this.temporal.push(evento);
-    this.temporal.sort((a,b) => a.fechaProbableS.localeCompare(b.fechaProbableS));
+    this.temporal.sort((a, b) => a.fechaProbableS.localeCompare(b.fechaProbableS));
 
     this.entrada.push(...this.temporal);
 
-   
+
     this.temporal = this.salida.filter(item => {
       return item.id != evento.id
     })
     this.salida = [];
-    this.temporal.sort((a,b) => a.fechaProbableS.localeCompare(b.fechaProbableS));
+    this.temporal.sort((a, b) => a.fechaProbableS.localeCompare(b.fechaProbableS));
     this.salida.push(...this.temporal)
-   
+
     this.changeDetectorRefs.detectChanges();
   }
-  onAgregar(evento: AlevinosPedidos){
+  onAgregar(evento: AlevinosPedidos) {
 
-    let existe = this.salida.find(item=> {
+    let existe = this.salida.find(item => {
       return item.id == evento.id
     })
-    console.log("existe",existe);
+    console.log("existe", existe);
     this.temporal = this.salida.filter(item => {
       return item.id != evento.id
     })
-    this.salida =[];
+    this.salida = [];
     this.temporal.push(evento);
-    this.temporal.sort((a,b) => a.fechaProbableS.localeCompare(b.fechaProbableS));
+    this.temporal.sort((a, b) => a.fechaProbableS.localeCompare(b.fechaProbableS));
 
     this.salida.push(...this.temporal);
     this.temporal = this.entrada.filter(item => {
@@ -146,7 +147,7 @@ export class AlevinosprogramcionComponent implements OnInit {
 
 
     this.entrada = [];
-    this.temporal.sort((a,b) => a.fechaProbableS.localeCompare(b.fechaProbableS));
+    this.temporal.sort((a, b) => a.fechaProbableS.localeCompare(b.fechaProbableS));
 
     this.entrada.push(...this.temporal)
 
@@ -155,7 +156,7 @@ export class AlevinosprogramcionComponent implements OnInit {
 
   }
 
-  CambioSemana(s){
+  CambioSemana(s) {
     console.log(this.data);
     this.ConsultarPendientesSemana();
   }
@@ -164,12 +165,12 @@ export class AlevinosprogramcionComponent implements OnInit {
     this.service.consultarPedidosPendientes(this.data).subscribe(
       OK => {
         console.log(OK)
-      
+
         this.entrada = [];
         this.entrada.push(...OK.despachados)
-  
 
-        if(this.entrada.length == 0){
+
+        if (this.entrada.length == 0) {
           this.service.MostrarSnack("Para el dia del despacho, en esta semana no hay pedidos, intenta cambiando la semana", "De Acuerdo")
         }
         this.stepper.next()
@@ -188,9 +189,10 @@ export class AlevinosprogramcionComponent implements OnInit {
   }
   Agregar() {
     const modalRef = this.modalService.open(DiaDespachoComponent,
-                     { size: 'md',
-                       windowClass: 'bounce-top' 
-                     });
+      {
+        size: 'md',
+        windowClass: 'bounce-top'
+      });
 
     modalRef.result.then((result) => {
 
@@ -206,4 +208,5 @@ export class AlevinosprogramcionComponent implements OnInit {
       }
     });
   }
+
 }
