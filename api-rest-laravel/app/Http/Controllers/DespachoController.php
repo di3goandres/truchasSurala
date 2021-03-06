@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\AlevinosSalida;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use App\Despacho;
 use App\DespachosImagenes;
+use App\LoteNumero;
 use App\Lotes;
 use App\Pedidos;
 
@@ -346,9 +348,11 @@ class DespachoController extends Controller
             'Content-Type: application/pdf',
         );
 
-        $despacho = Despacho::find($id);
+        $lote = LoteNumero::find($id);
 
-        if (is_object($despacho)) {
+        if (is_object($lote)) {
+
+            $despacho = Despacho::find($lote->id_despacho);
 
             $isset = \Storage::disk('certificados')->exists('Certificados\\'  . $despacho->id . '-' . $despacho->fecha . '\\' . $$despacho->certificado);
             if ($isset) {

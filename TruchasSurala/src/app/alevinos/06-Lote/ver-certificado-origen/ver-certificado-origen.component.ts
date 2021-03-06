@@ -27,7 +27,7 @@ export class VerCertificadoOrigenComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
-    this.pdfSrc = "/api/despacho/alevinos/certificado" + this.Despacho.id_despacho
+    this.pdfSrc = "/api/despacho/alevinos/certificado/" + this.Despacho.id_lote_numero
   }
 
   zoomIn() {
