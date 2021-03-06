@@ -354,9 +354,9 @@ class DespachoController extends Controller
 
             $despacho = Despacho::find($lote->id_despacho);
 
-            $isset = \Storage::disk('certificados')->exists('Certificados\\'  . $despacho->id . '-' . $despacho->fecha . '\\' . $$despacho->certificado);
+            $isset = \Storage::disk('certificados')->exists('Certificados\\'  . $despacho->id . '-' . $despacho->fecha . '\\' . $despacho->certificado);
             if ($isset) {
-                $file = \Storage::disk('certificados')->get('Certificados\\'  . $despacho->id . '-' . $despacho->fecha . '\\' . $$despacho->certificado);
+                $file = \Storage::disk('certificados')->get('Certificados\\'  . $despacho->id . '-' . $despacho->fecha . '\\' . $despacho->certificado);
                 return new Response($file, 200, $headers);
             } else {
                 $data = array(
