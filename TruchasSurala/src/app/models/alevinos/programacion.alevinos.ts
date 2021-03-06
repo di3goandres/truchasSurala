@@ -7,6 +7,10 @@ export interface ProgramacionAlevinosResponse {
 }
 
 export class ProgramacionAlevinos {
+    constructor()
+    {
+        this.id = 0;
+    }
     id:            number;
     fecha_salida:  string;
     numero_semana: number;

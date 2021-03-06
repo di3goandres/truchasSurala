@@ -113,7 +113,7 @@
             </div>
           </div>
 
-          <app-lista-pedido-alevinos [id]="entrada" [mostrar]="true" [asociar]="true" (datoSalid)='onNotificar($event)'
+          <app-lista-pedido-alevinos [id]="entrada" [despacho]="seleccionado.id" [mostrar]="true" [asociar]="true" (datoSalid)='onNotificar($event)'
             (agregar)='onAgregar($event)'></app-lista-pedido-alevinos>
 
           <app-lista-pedido-alevinos #dos [id]="salida" [mostrar]="false" [asociar]="false"

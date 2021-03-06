@@ -17,7 +17,7 @@ export class SeleccionarLoteComponent implements OnInit {
   lotesPropios: LotesPropio[];
   seleccionado: LotesPropio;
   displayedColumns: string[] = ['position', 'fechaLlegada', 'FechaDesove', 'Linea',
-  'edad', 'numerolote', 'tamanio', 'editar'];
+    'edad', 'numerolote', 'tamanio', 'editar'];
 
   public dataSource: MatTableDataSource<LotesPropio>;
 
@@ -31,7 +31,7 @@ export class SeleccionarLoteComponent implements OnInit {
     private service: AlevinosService,
     // private activeModal: NgbActiveModal,
 
-  
+
   ) { }
 
   ngOnInit(): void {
@@ -46,6 +46,8 @@ export class SeleccionarLoteComponent implements OnInit {
         if (response.code == 200) {
           this.lotesPropios = []
           this.lotesPropios.push(...response.lotesPropios)
+        
+
           this.dataSource = new MatTableDataSource(this.lotesPropios);
           this.dataSource.paginator = this.paginator;
           this.dataSource.sort = this.sort;
@@ -62,10 +64,11 @@ export class SeleccionarLoteComponent implements OnInit {
     this.dataSource.filter = filterValue.trim().toLowerCase();
   }
 
-  Asociar(element: LotesPropio){
+  Asociar(element: LotesPropio) {
     // this.entrada = this.entrada.filter(item => {
     //   return item.id != element.id
     // })
+    console.log(element);
     this.asociarLote.emit(element);
     // this.activeModal.dismiss(element)
   }

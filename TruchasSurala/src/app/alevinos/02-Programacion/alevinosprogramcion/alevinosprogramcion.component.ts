@@ -56,6 +56,8 @@ export class AlevinosprogramcionComponent implements OnInit {
 
 
   ngOnInit(): void {
+    this.seleccionado = new ProgramacionAlevinos();
+
     this.consultarProgramacion();
   }
 
@@ -108,50 +110,53 @@ export class AlevinosprogramcionComponent implements OnInit {
   }
   onDevolver(evento: AlevinosPedidos) {
 
-    this.temporal = this.entrada.filter(item => {
-      return item.id != evento.id
-    })
-    this.entrada = [];
-    this.temporal.push(evento);
-    this.temporal.sort((a, b) => a.fechaProbableS.localeCompare(b.fechaProbableS));
+    this.ConsultarPendientesSemana();
 
-    this.entrada.push(...this.temporal);
+    // this.temporal = this.entrada.filter(item => {
+    //   return item.id != evento.id
+    // })
+    // this.entrada = [];
+    // this.temporal.push(evento);
+    // this.temporal.sort((a, b) => a.fechaProbableS.localeCompare(b.fechaProbableS));
+
+    // this.entrada.push(...this.temporal);
 
 
-    this.temporal = this.salida.filter(item => {
-      return item.id != evento.id
-    })
-    this.salida = [];
-    this.temporal.sort((a, b) => a.fechaProbableS.localeCompare(b.fechaProbableS));
-    this.salida.push(...this.temporal)
+    // this.temporal = this.salida.filter(item => {
+    //   return item.id != evento.id
+    // })
+    // this.salida = [];
+    // this.temporal.sort((a, b) => a.fechaProbableS.localeCompare(b.fechaProbableS));
+    // this.salida.push(...this.temporal)
 
     this.changeDetectorRefs.detectChanges();
   }
   onAgregar(evento: AlevinosPedidos) {
+    this.ConsultarPendientesSemana();
 
-    let existe = this.salida.find(item => {
-      return item.id == evento.id
-    })
-    console.log("existe", existe);
-    this.temporal = this.salida.filter(item => {
-      return item.id != evento.id
-    })
-    this.salida = [];
-    this.temporal.push(evento);
-    this.temporal.sort((a, b) => a.fechaProbableS.localeCompare(b.fechaProbableS));
+    // let existe = this.salida.find(item => {
+    //   return item.id == evento.id
+    // })
+    // console.log("existe", existe);
+    // this.temporal = this.salida.filter(item => {
+    //   return item.id != evento.id
+    // })
+    // this.salida = [];
+    // this.temporal.push(evento);
+    // this.temporal.sort((a, b) => a.fechaProbableS.localeCompare(b.fechaProbableS));
 
-    this.salida.push(...this.temporal);
-    this.temporal = this.entrada.filter(item => {
-      return item.id != evento.id
-    })
+    // this.salida.push(...this.temporal);
+    // this.temporal = this.entrada.filter(item => {
+    //   return item.id != evento.id
+    // })
 
 
-    this.entrada = [];
-    this.temporal.sort((a, b) => a.fechaProbableS.localeCompare(b.fechaProbableS));
+    // this.entrada = [];
+    // this.temporal.sort((a, b) => a.fechaProbableS.localeCompare(b.fechaProbableS));
 
-    this.entrada.push(...this.temporal)
+    // this.entrada.push(...this.temporal)
 
-    console.log(this.salida);
+    // console.log(this.salida);
     this.changeDetectorRefs.detectChanges();
 
   }
@@ -167,7 +172,11 @@ export class AlevinosprogramcionComponent implements OnInit {
         console.log(OK)
 
         this.entrada = [];
+        this.salida = [];
+        
+        
         this.entrada.push(...OK.despachados)
+        this.salida.push(...OK.Asociados)
 
 
         if (this.entrada.length == 0) {
@@ -180,7 +189,11 @@ export class AlevinosprogramcionComponent implements OnInit {
     )
   }
   verPedidos(informe: ProgramacionAlevinos) {
+    this.seleccionado = null;
+
+
     this.seleccionado = new ProgramacionAlevinos();
+
     this.data.idDiaPedido = informe.id;
     this.data.numeroSemana = 0;
     this.seleccionado = informe;

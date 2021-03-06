@@ -4,6 +4,7 @@ import { AlevinosPedidos, AlevinosPedidosRequest, AlevinosPedidosResponse, A_Dia
 import { ProgramacionAlevinosResponse } from '../../models/alevinos/programacion.alevinos';
 import { Respuesta } from '../../models/pedidos/guardar.factura.response';
 import { LotesPropio, LotesPropiosResponse } from '../../models/alevinos/lotes.propio.response';
+import { ComplementoPedido } from 'src/app/models/alevinos/alevinos.agregar';
 
 @Injectable({
   providedIn: 'root'
@@ -70,5 +71,17 @@ export class AlevinosService {
   }
   UpdatePropios(data: LotesPropio){
     return this.userService.ejecutarQueryPostNuevo<Respuesta>('/api/Progamacion/lotes/propios/update', data)
+  }
+
+
+  AsociarPedido(data: ComplementoPedido){
+    return this.userService.ejecutarQueryPostNuevo<Respuesta>('/api/Progamacion/lotes/propios/asociar', data)
+
+  }
+
+
+  desAsociarPedido(data: AlevinosPedidos){
+    return this.userService.ejecutarQueryPostNuevo<Respuesta>('/api/Progamacion/lotes/propios/desasociar', data)
+
   }
 }

@@ -1,70 +1,245 @@
-<mat-horizontal-stepper [linear]="false" #stepper>
+<mat-card>
+  <mat-card-header>
+    <div mat-card-avatar class="example-header-image" style="background-image: url('assets/avatars/av-8.png')">
+    </div>
+    <mat-card-title class="main-surala-text">Asociar</mat-card-title>
+    <mat-card-subtitle>Truchas Surala</mat-card-subtitle>
 
-  <mat-step>
-    <ng-template matStepLabel>Seleccionar Lote</ng-template>
+  </mat-card-header>
+  <mat-card-content>
+    <table width="100%" border="0">
+      <tr>
+        <td>
+          <mat-label class="descripcion">
+            Fecha
+          </mat-label>
+        </td>
+        <td>
+          <mat-label class="descripcionTexto">
+            {{entrada.fechaProbableS |date :"MMM/dd/yyyy" | uppercase }}
+          </mat-label>
+        </td>
+        <td>
+          <mat-label class="descripcion">
+            Cantidad
+          </mat-label>
+        </td>
+        <td>
+          <mat-label class="descripcionTexto">
+            {{entrada.cantidad |number}}
+          </mat-label>
+        </td>
+      <tr>
+      <tr>
+        <td>
+          <mat-label class="descripcion">
+            Peso
+          </mat-label>
+        </td>
+        <td>
+          <mat-label class="descripcionTexto">
+            {{entrada.peso | number }} gr
+          </mat-label>
+        </td>
+        <td>
+          <mat-label class="descripcion">
+            Talla
+          </mat-label>
+        </td>
+        <td>
+          <mat-label class="descripcionTexto">
+            {{entrada.talla | number }} cm
+          </mat-label>
+        </td>
+      <tr>
+      <tr>
+        <td>
+          <mat-label class="descripcion">
+            Finca
+          </mat-label>
+        </td>
+        <td>
+          <mat-label class="descripcionTexto">
+            {{entrada.nombre | uppercase }}
+          </mat-label>
+        </td>
+        <td>
+          <mat-label class="descripcion">
+            Municipio / Departamento
+          </mat-label>
+        </td>
+        <td>
+          <mat-label class="descripcionTexto">
+            {{entrada.municipio + '/' +
+            entrada.departamento | uppercase}}
+          </mat-label>
+        </td>
+      <tr>
+      <tr>
+        <td>
+          <mat-label class="descripcion">
+            Direccion
+          </mat-label>
+        </td>
+        <td>
+          <mat-label class="descripcionTexto">
+            {{entrada.direccion | uppercase }}
+          </mat-label>
+        </td>
+        <td>
+          <mat-label class="descripcion">
 
-    <app-seleccionar-lote (asociarLote)="AsociarLote($event)"> </app-seleccionar-lote>
-  </mat-step>
-  <mat-step>
-    <ng-template matStepLabel>Lista de Programaciones</ng-template>
-    <mat-card>
-      <mat-card-header>
-        <div mat-card-avatar class="example-header-image" style="background-image: url('assets/avatars/av-8.png')">
-        </div>
-        <mat-card-title class="main-surala-text">Asignación # de Lote y # de Ovas</mat-card-title>
-        <mat-card-subtitle>Truchas Surala</mat-card-subtitle>
-      </mat-card-header>
-      <mat-card-content>
-        <form [formGroup]="firstFormGroup">
+          </mat-label>
+        </td>
+        <td>
+          <mat-label class="descripcionTexto">
 
-          <div class="row">
-            <div class="col-6 form-group">
-              <mat-form-field appearance="fill" floatLabel="always">
-                <mat-label>Lote de Ovas # </mat-label>
-                <mat-label>{{loteseleccionado.numero_lote}}</mat-label>
-                <input matInput placeholder="Cliente" type="text" [disabled]="true" name="ovasNum"
-                  [(value)]="loteseleccionado.numero_lote">
+          </mat-label>
+        </td>
+      <tr>
+    </table>
+    <mat-horizontal-stepper [linear]="false" #stepper>
+
+      <mat-step>
+        <ng-template matStepLabel>Seleccionar Lote</ng-template>
+
+        <app-seleccionar-lote (asociarLote)="AsociarLote($event)"> </app-seleccionar-lote>
+      </mat-step>
+      <mat-step>
+        <ng-template matStepLabel>Lista de Programaciones</ng-template>
+        <mat-card>
+
+          <mat-card-content>
+
+            <table width="100%" border="0">
+              <tr>
+                <td>
+                  <mat-label class="descripcion">
+                    Lote de Ovas #
+                  </mat-label>
+                </td>
+                <td>
+                  <mat-label class="descripcionTexto">
+                    {{loteseleccionado.numero_lote}}
+                  </mat-label>
+                </td>
+                <td>
+                  <mat-label class="descripcion">
+                    Edad TCU:
+                  </mat-label>
+                </td>
+                <td>
+                  <mat-label class="descripcionTexto">
+                    {{loteseleccionado.edad_tcu }}
+                  </mat-label>
+                </td>
+                <td>
+                  <mat-label class="descripcion">
+                    Línea Genética:
+                  </mat-label>
+                </td>
+                <td>
+                  <mat-label class="descripcionTexto">
+                    {{loteseleccionado.linea_genetica}}
+                  </mat-label>
+                </td>
+              <tr>
+
+            </table>
 
 
-              </mat-form-field>
+
+            <form [formGroup]="firstFormGroup">
+              <div class="row">
+
+                <div class="col-4 form-group">
+                  <mat-form-field appearance="fill" floatLabel="always">
+                    <mat-label>Lote de Alevinos # </mat-label>
+                    <input matInput placeholder="Lote de Alevinos #" type="text" name="cantidad"
+                      [(ngModel)]="complementoPedido.lote_alevinos" formControlName="loteAlevinos"
+                      (ngModelChange)="Calcular()">
+                  </mat-form-field>
+                </div>
+
+                <div class="col-4 form-group">
+                  <mat-form-field appearance="fill" floatLabel="always">
+                    <mat-label>Tratamientos Veteriniarios</mat-label>
+                    <input matInput placeholder="Tratamientos Veteriniarios" type="text" name="cantidad"
+                      [(ngModel)]="complementoPedido.tratamientos_veterinarios" formControlName="tratamientos"
+                      (ngModelChange)="Calcular()">
+                  </mat-form-field>
+                </div>
+
+
+
+                <div class="col-4 form-group">
+                  <mat-form-field appearance="fill" floatLabel="always">
+                    <mat-label>Duración Tratamiento </mat-label>
+                    <input matInput placeholder="Duración Tratamiento" type="number" name="cantidad"
+                      [(ngModel)]="complementoPedido.duracion_tratamiento" formControlName="duracion"
+                      (ngModelChange)="Calcular()">
+                  </mat-form-field>
+                </div>
+
+                <div class="col-4 form-group">
+                  <mat-form-field appearance="fill" floatLabel="always">
+                    <mat-label>Peso promedio (gr)</mat-label>
+                    <input matInput placeholder="Peso promedio (gr)" type="number" name="cantidad"
+                      [(ngModel)]="complementoPedido.peso_promedio" formControlName="peso" (ngModelChange)="Calcular()">
+                  </mat-form-field>
+                </div>
+                <div class="col-4 form-group">
+                  <mat-form-field appearance="fill" floatLabel="always">
+                    <mat-label>Talla promedio (gr)</mat-label>
+                    <input matInput placeholder="Talla promedio (gr)" type="number" name="cantidad"
+                      [(ngModel)]="complementoPedido.talla_promedio" formControlName="talla"
+                      (ngModelChange)="Calcular()">
+                  </mat-form-field>
+                </div>
+                <div class="col-4 form-group">
+                  <mat-form-field appearance="fill" floatLabel="always">
+                    <mat-label>Cantidad Alevinos</mat-label>
+                    <input matInput placelholder="Cantidad Alevinos" type="number" name="cantidad"
+                      [(ngModel)]="complementoPedido.cantidad_alevinos" formControlName="cantidadAlevinos"
+                      (ngModelChange)="Calcular()">
+                  </mat-form-field>
+                </div>
+              </div>
+
+            </form>
+            <div>
             </div>
-            <div class="col-6 form-group">
-              <mat-form-field appearance="fill" floatLabel="always">
-                <mat-label>Lote de Alevinos # </mat-label>
-                <input matInput placeholder="Lote de Alevinos #" type="text" name="cantidad"
-                  [(ngModel)]="pedido.numLoteAlevinos" formControlName="loteAlevinos" (ngModelChange)="Calcular()">
-              </mat-form-field>
+            <mat-card-actions>
+              <div class="row">
+                <div class="col-6 centerlabel font-weight-bold" style="text-align: left;">
+                  <button mat-raised-button color="primary" matStepperPrevious>
+                    <mat-icon>keyboard_backspace</mat-icon>
+                  </button>
+                </div>
+
+              </div>
+
+
+            </mat-card-actions>
+
+          </mat-card-content>
+          <mat-card-actions>
+            <div class="row">
+              <div class="col-6 centerlabel font-weight-bold" style="text-align: center;">
+                <button mat-raised-button color="warn" ngbAutofocus (click)="closeNOOK()">
+                  <mat-icon>close</mat-icon>
+                </button>
+              </div>
+              <div class="col-6 centerlabel font-weight-bold" style="text-align: center;">
+                <button mat-raised-button color="warn" [disabled]="firstFormGroup.invalid" (click)="Guardar()">
+                  <mat-icon>cached</mat-icon>
+                </button>
+              </div>
             </div>
-          </div>
-        </form>
-        <div>
-        </div>
-        <mat-card-actions>
-          <div class="row">
-            <div class="col-6 centerlabel font-weight-bold" style="text-align: left;">
-              <button mat-raised-button color="primary" matStepperPrevious>
-                <mat-icon>keyboard_backspace</mat-icon>
-              </button>
-            </div>
+          </mat-card-actions>
+        </mat-card>
+      </mat-step>
+    </mat-horizontal-stepper>
+  </mat-card-content>
 
-          </div>
-
-
-        </mat-card-actions>
-
-      </mat-card-content>
-      <mat-card-actions>
-        <div class="row">
-          <div class="col-6 centerlabel font-weight-bold" style="text-align: center;">
-            <button mat-raised-button color="warn" ngbAutofocus (click)="closeNOOK()">
-              <mat-icon>close</mat-icon>
-            </button>
-          </div>
-          <div class="col-6 centerlabel font-weight-bold" style="text-align: center;">
-            <button mat-raised-button color="warn" [disabled]="firstFormGroup.invalid" (click)="Guardar()">
-              <mat-icon>cached</mat-icon>
-            </button>
-          </div>
-        </div>
-      </mat-card-actions>
-    </mat-card>
+</mat-card>

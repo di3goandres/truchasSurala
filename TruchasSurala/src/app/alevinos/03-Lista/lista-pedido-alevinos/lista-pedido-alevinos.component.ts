@@ -18,6 +18,8 @@ export class ListaPedidoAlevinosComponent implements OnInit {
   displayedColumns: string[] = ['position', 'FechaSalida', 'Semana',
     'dia', 'talla', 'peso', 'cantidad'];
   entrada: AlevinosPedidos[] = [];
+  _despacho: number
+
   @Input() mostrar: boolean;
   @Input() asociar: boolean;
 
@@ -25,6 +27,14 @@ export class ListaPedidoAlevinosComponent implements OnInit {
   @Output() agregar = new EventEmitter<AlevinosPedidos>();
   @Output() devolver = new EventEmitter<AlevinosPedidos>();
 
+  @Input() set despacho(value: number) {
+
+    this._despacho = 0
+    this._despacho = value;
+    console.log('entre a despacho', this._despacho)
+
+
+  }
 
   @Input() set id(value: AlevinosPedidos[]) {
 
@@ -47,27 +57,29 @@ export class ListaPedidoAlevinosComponent implements OnInit {
   ) {
 
   }
-  
+
   ngOnInit(): void {
     if (this.mostrar != null && this.mostrar == true) {
       this.displayedColumns.push(...['Nombre', 'Municipio', 'Direccion', 'Borrar', 'Editar']);
     }
     if (this.asociar != null && this.asociar == true) {
       this.displayedColumns.push(...['asociar']);
-    
-    }else if(this.asociar == false){
+
+    } else if (this.asociar == false) {
       this.displayedColumns.push(...['desasociar']);
     }
 
   }
 
-  AsociarLote(item : AlevinosPedidos){
-    const modalRef = this.modalService.open(AsignarLoteAlevinosComponent, { size: 'xl', windowClass: 'bounce-in-top'});
+  AsociarLote(item: AlevinosPedidos) {
+    const modalRef = this.modalService.open(AsignarLoteAlevinosComponent, { size: 'xl', windowClass: 'bounce-in-top' });
     modalRef.componentInstance.entrada = item;
+    modalRef.componentInstance.Despacho = this._despacho;
+
     modalRef.result.then((result) => {
       if (result === "OK") {
         this.Asociar(item)
-     
+
       }
       console.log('result', result);
     }, (reason) => {
@@ -78,7 +90,7 @@ export class ListaPedidoAlevinosComponent implements OnInit {
       }
     });
   }
-  Asociar(element: AlevinosPedidos){
+  Asociar(element: AlevinosPedidos) {
     // this.entrada = this.entrada.filter(item => {
     //   return item.id != element.id
     // })
@@ -87,23 +99,51 @@ export class ListaPedidoAlevinosComponent implements OnInit {
     this.dataSource.paginator = this.paginator;
   }
 
-  Quitar(element: AlevinosPedidos){
-    // this.entrada = this.entrada.filter(item => {
-    //   return item.id != element.id
-    // })
-    this.devolver.emit(element);
-    this.dataSource = new MatTableDataSource(this.entrada);
-    this.dataSource.paginator = this.paginator;
+  Quitar(element: AlevinosPedidos) {
+
+    const modalRef = this.modalService.open(DeseasContinuarComponent, { size: 'md', windowClass: 'vibrate-2' });
+    modalRef.componentInstance.Titulo = "Devolver";
+    modalRef.componentInstance.mensaje = "Esta a punto de devolver un pedido, Desea Continuar?"
+    modalRef.result.then((result) => {
+      if (result === "OK") {
+
+        this.service.desAsociarPedido(element).subscribe(
+          OK => {
+            console.log(OK)
+            this.service.Exitoso();
+            this.devolver.emit(element);
+            this.dataSource = new MatTableDataSource(this.entrada);
+            this.dataSource.paginator = this.paginator;
+          },
+          ERROR => { console.log(ERROR)
+            this.service.NoExitosoComun();
+          
+          },
+        )
+
+
+      }
+      console.log('result', result);
+    }, (reason) => {
+
+      if (reason === 'OK') {
+
+
+      }
+    });
+
+
+
   }
   AbrirEliminar(element) {
 
-    const modalRef = this.modalService.open(DeseasContinuarComponent, { size: 'md', windowClass: 'vibrate-2'});
+    const modalRef = this.modalService.open(DeseasContinuarComponent, { size: 'md', windowClass: 'vibrate-2' });
     modalRef.componentInstance.Titulo = "Eliminar";
     modalRef.componentInstance.mensaje = "Esta a punto de eliminar un pedido, Desea Continuar?"
     modalRef.result.then((result) => {
       if (result === "OK") {
 
-       this.eliminar(element.id);
+        this.eliminar(element.id);
       }
       console.log('result', result);
     }, (reason) => {
@@ -119,16 +159,16 @@ export class ListaPedidoAlevinosComponent implements OnInit {
 
     const modalRef = this.modalService.open(EditarMontajeComponent, { size: 'md', windowClass: 'bounce-top' });
     modalRef.componentInstance.entrada = element
-  
+
     modalRef.result.then((result) => {
       if (result === "OK") {
 
-      // this.eliminar(element.id);
-      this.datoSalid.emit(true);
+        // this.eliminar(element.id);
+        this.datoSalid.emit(true);
       }
       console.log('result', result);
     }, (reason) => {
- 
+
       if (reason === 'OK') {
 
 

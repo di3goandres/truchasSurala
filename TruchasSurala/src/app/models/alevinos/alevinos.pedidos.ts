@@ -6,6 +6,10 @@ export class AlevinosPedidos{
     }
     
     id:             number;
+    id_lote_numero: number;
+    id_despacho: number;
+
+
     
     idUserFinca:    number;
     tipo:           string;
@@ -34,6 +38,11 @@ export class AlevinosPedidos{
     numLoteAlevinos:   string;
     numLoteOvas:       string;
 
+    tratamiento_veterinario:       string;
+
+
+
+
 
 
 }
@@ -56,6 +65,8 @@ export class AlevinosPedidosResponse{
   code:    number;
   alevinosPedidos: AlevinosPedidos[];
   despachados: AlevinosPedidos[];
+  Asociados: AlevinosPedidos[];
+
 }
 
 

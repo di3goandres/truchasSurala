@@ -8,6 +8,8 @@ CREATE TABLE alevinos_pedidos(
 id                   int(255) auto_increment not null, 
 user_id              int(255) not null, 
 id_finca 			 int(255) not null, 
+id_lote_numero       int(255)  null, 
+
 es_talla             BIT(1) NOT NULL,
 es_peso              BIT(1) NOT NULL,
 cantidad             int(255) NOT NULL,
@@ -16,14 +18,25 @@ peso_gramos          double(18,2) NOT NULL,
 fecha_probable       datetime DEFAULT NULL,  
 numero_semana        int(255) NOT NULL,
 dia                  varchar(500) NOT NULL,  
-fecha_real           datetime DEFAULT NULL, 
+
+lote_alevinos        varchar(500) NULL,
+
+referencia_alimento      	  varchar(255) NULL ,
+tratamientos_veterinarios     varchar(255) NULL ,
+duracion_tratamiento          int(255)  NULL ,
+cantidad_alevinos             int(255) DEFAULT 0 ,
+talla_promedio                double(18,2)  DEFAULT 0 ,
+peso_promedio                 double(18,2) DEFAULT 0 ,
+temp_cargue             	  double(18,2)  NULL , 
+
 despachado            BIT(1) NOT NULL,
+
 created_at           datetime DEFAULT NULL,    
 updated_at           datetime DEFAULT NULL,
 CONSTRAINT pk_alevinos_pedidos PRIMARY KEY(id),
 CONSTRAINT fk_pa_usuario FOREIGN KEY (user_id) REFERENCES users(id),
-CONSTRAINT fk_pa_finca FOREIGN KEY (id_finca) REFERENCES fincas(id)
-
+CONSTRAINT fk_pa_finca FOREIGN KEY (id_finca) REFERENCES fincas(id),
+CONSTRAINT fk_aps_alevinossd_lote_numero FOREIGN KEY (id_lote_numero) REFERENCES lote_numero(id)
 )ENGINE=InnoDb;
 
 
@@ -39,56 +52,19 @@ updated_at       datetime DEFAULT NULL,
 CONSTRAINT pk_alevino_dia_despacho PRIMARY KEY(id)
 )ENGINE=InnoDb;
 
-DROP TABLE IF EXISTS alevinos_pedido_semana;
 CREATE TABLE alevinos_pedido_semana(
 id                            int(255) auto_increment not null, 
 id_alevinos_pedidos           int(255) not null, 
 id_alevinos_dia_despacho      int(255) not null, 
-id_despacho                   int(255) not null, 
-id_lote_numero                int(255) not null, 
-referencia_alimento      	  varchar(255) NULL ,
-tratamientos_veterinarios     varchar(255) NULL ,
-duracion_tratamiento          int(255)  NULL ,
-temp_cargue             	  double(18,2)  NULL , 
 
 created_at       datetime DEFAULT NULL,    
 updated_at       datetime DEFAULT NULL,
 CONSTRAINT pk_alevinos_pedido_semana PRIMARY KEY(id),
 CONSTRAINT fk_aps_alevinosPedidos FOREIGN KEY (id_alevinos_pedidos) REFERENCES alevinos_pedidos(id),
-CONSTRAINT fk_aps_alevinos_dia_despacho FOREIGN KEY (id_alevinos_dia_despacho) REFERENCES alevinos_dia_despacho(id),
-CONSTRAINT fk_aps_alevinos_semana_despacho FOREIGN KEY (id_despacho) REFERENCES despachos(id),
-CONSTRAINT fk_aps_alevinossd_lote_numero FOREIGN KEY (id_lote_numero) REFERENCES lote_numero(id)
-)ENGINE=InnoDb;
-
-
-DROP TABLE IF EXISTS lote_numero;
-
-CREATE TABLE lote_numero(
-id                       int(255) auto_increment not null, 
-id_despacho              int(255) not null, 
-numero_lote           varchar(255) NOT NULL ,
-fecha_desove             datetime DEFAULT NULL, 
-linea_genetica       varchar(255) NOT NULL ,
-ovas_ml                  double(18,2) NOT NULL ,
-edad_tcu                 int(255) NOT NULL ,
-tamanio                  double(18,2) NOT NULL ,
-total_lote               int(255) NOT NULL,
-total_lote_propios        int(255) NOT NULL,
-
-tamanio_usado_alevinos   int(255)  NULL,
-
-fecha_incubacion         	datetime DEFAULT NULL,  
-fecha_eclosion           	datetime DEFAULT NULL, 
-fecha_fin_aborcion       	datetime DEFAULT NULL,  
-fecha_primer_alimento    	datetime DEFAULT NULL,  
-temp_eclosion            	double(18,2)  NULL , 
-
-created_at       datetime DEFAULT NULL,    
-updated_at       datetime DEFAULT NULL,
-CONSTRAINT pk_lote_numero PRIMARY KEY(id),
-CONSTRAINT fk_lote_numero_despacho FOREIGN KEY (id_despacho) REFERENCES despachos(id)
+CONSTRAINT fk_aps_alevinos_dia_despacho FOREIGN KEY (id_alevinos_dia_despacho) REFERENCES alevinos_dia_despacho(id)
 
 )ENGINE=InnoDb;
+
 
 
 

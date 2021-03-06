@@ -109,6 +109,12 @@ Route::post('/api/Progamacion/Alevinos/usuario/pedido/actualizar', 'AlevinosCont
 Route::get('/api/Progamacion/lotes/propios/', 'LoteNumeroController@ConsultarLotesPropios');
 Route::post('/api/Progamacion/lotes/propios/update', 'LoteNumeroController@ActualizarLotesPropios');
 Route::get('/api/Progamacion/lotes/propios/listos', 'LoteNumeroController@ConsultarLotesPropiosListos');
+Route::post('/api/Progamacion/lotes/propios/asociar', 'AlevinosController@AsociarPedidoADespachoDia');
+Route::post('/api/Progamacion/lotes/propios/desasociar', 'AlevinosController@desAsociarPedidoADespachoDia');
+
+
+
+
 
 
 
@@ -162,17 +168,9 @@ Route::post('/api/movil/pedidosMortalidad', 'PedidosController@pedidosByTokenMor
 Route::get('/api/usuarios/notificaciones/', 'UserController@UsuariosApp');
 
 
-
-
-
-
-
-
-
 /**datos estadistica */
 Route::get('/api/estadistica/mensual/', 'DatosGeneralesController@EstadisticaMes');
 Route::get('/api/estadistica/usuario/', 'PedidosController@EstadisticaByToken');
-
 
 
 //servicios para elmovil

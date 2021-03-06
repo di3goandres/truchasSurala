@@ -320,7 +320,7 @@ export class UserService {
   openSnackBar(message: string, action: string) {
    
     this._snackBar.open(message, action, {
-      duration: 6000,
+      duration: 2000,
       horizontalPosition: 'end',
       verticalPosition: 'top',
     });

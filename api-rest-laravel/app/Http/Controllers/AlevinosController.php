@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use App\AlevinosDespacho;
 use App\AlevinosPedidos;
+use App\AlevinosSalida;
 use App\Fincas;
+use App\LoteNumero;
 use App\User;
 use Illuminate\Http\Request;
 
@@ -298,6 +300,81 @@ class AlevinosController extends Controller
         // devolver el resutlado
         return response()->json($data, $data['code']);
     }
+
+    public function PedidosASOCIADOS($IdDespacho)
+    {
+        $despachos = \DB::table('alevinos_pedidos')
+            ->join('fincas', 'fincas.id', '=', 'alevinos_pedidos.id_finca')
+            ->join('users', 'users.id', '=', 'fincas.user_id')
+            ->join('alevinos_pedido_semana', 'alevinos_pedido_semana.id_alevinos_pedidos', '=', 'alevinos_pedidos.id')
+            ->join('alevinos_dia_despacho', 'alevinos_dia_despacho.id', '=', 'alevinos_pedido_semana.id_alevinos_dia_despacho')
+
+
+            ->where(
+                [
+                    ['alevinos_dia_despacho.id', '=', $IdDespacho],
+                ]
+            )
+            ->select(
+                'alevinos_pedidos.id',
+                \DB::raw("(CASE WHEN es_talla = 1  THEN 'TALLA' ELSE 'PESO' END) AS tipo"),
+                'alevinos_pedidos.es_talla',
+                'alevinos_pedidos.es_peso',
+                'alevinos_pedidos.cantidad',
+                'alevinos_dia_despacho.id as id_despacho',    
+                'alevinos_pedidos.id_lote_numero',
+                'alevinos_pedidos.centimetros AS talla',
+                'alevinos_pedidos.peso_gramos as peso',
+                'alevinos_pedidos.numero_semana as semana',
+                'alevinos_pedidos.dia',
+                'alevinos_pedidos.despachado',
+                'alevinos_pedidos.fecha_probable as fechaProbable',
+                'alevinos_pedidos.fecha_probable as fechaProbableS',
+                'fincas.nombre',
+                'fincas.municipio',
+                'fincas.departamento',
+                'fincas.direccion'
+            )
+            ->orderBy('alevinos_pedidos.numero_semana', 'asc')
+            ->get();
+        return $despachos;
+    }
+
+    public function Pedidos($numerosemana, $despachado)
+    {
+        $despachos = \DB::table('alevinos_pedidos')
+            ->join('fincas', 'fincas.id', '=', 'alevinos_pedidos.id_finca')
+            ->join('users', 'users.id', '=', 'fincas.user_id')
+            ->where(
+                [
+                    ['alevinos_pedidos.numero_semana', '<=', $numerosemana],
+                    ['alevinos_pedidos.despachado', '=', $despachado],
+                ]
+            )
+            ->select(
+                'alevinos_pedidos.id',
+                \DB::raw("(CASE WHEN es_talla = 1  THEN 'TALLA' ELSE 'PESO' END) AS tipo"),
+                'alevinos_pedidos.es_talla',
+                'alevinos_pedidos.es_peso',
+                'alevinos_pedidos.cantidad',
+                'alevinos_pedidos.centimetros AS talla',
+                'alevinos_pedidos.peso_gramos as peso',
+                'alevinos_pedidos.numero_semana as semana',
+                'alevinos_pedidos.dia',
+                'alevinos_pedidos.despachado',
+                'alevinos_pedidos.fecha_probable as fechaProbable',
+                'alevinos_pedidos.fecha_probable as fechaProbableS',
+                'fincas.nombre',
+                'fincas.municipio',
+                'fincas.departamento',
+                'fincas.direccion'
+
+            )
+            ->orderBy('numero_semana', 'asc')
+            ->get();
+
+        return $despachos;
+    }
     public function datosPedido($id, $despachado)
     {
         $despachos = \DB::table('alevinos_pedidos')
@@ -424,41 +501,239 @@ class AlevinosController extends Controller
                      * 
                      */
                     $numerosemana = $Adespachos->numero_semana +  $params->numeroSemana;
-                    $despachos = \DB::table('alevinos_pedidos')
-                        ->join('fincas', 'fincas.id', '=', 'alevinos_pedidos.id_finca')
-                        ->join('users', 'users.id', '=', 'fincas.user_id')
-                        ->where(
-                            [
-                                ['alevinos_pedidos.numero_semana', '<=', $numerosemana],
-                                ['alevinos_pedidos.despachado', '=', false],
-                            ]
-                        )
-                        ->select(
-                            'alevinos_pedidos.id',
-                            \DB::raw("(CASE WHEN es_talla = 1  THEN 'TALLA' ELSE 'PESO' END) AS tipo"),
-                            'alevinos_pedidos.es_talla',
-                            'alevinos_pedidos.es_peso',
-                            'alevinos_pedidos.cantidad',
-                            'alevinos_pedidos.centimetros AS talla',
-                            'alevinos_pedidos.peso_gramos as peso',
-                            'alevinos_pedidos.numero_semana as semana',
-                            'alevinos_pedidos.dia',
-                            'alevinos_pedidos.despachado',
-                            'alevinos_pedidos.fecha_probable as fechaProbable',
-                            'alevinos_pedidos.fecha_probable as fechaProbableS',
-                            'fincas.nombre',
-                            'fincas.municipio',
-                            'fincas.departamento',
-                            'fincas.direccion'
+                    $despachos = $this->Pedidos($numerosemana, false);
+                    $despachosOK = $this->PedidosASOCIADOS($params->idDiaPedido);
 
-                        )
-                        ->orderBy('numero_semana', 'asc')
-                        ->get();
 
                     $data = array(
                         'status' => 'success',
                         'code' => 200,
                         'despachados' => $despachos,
+                        'Asociados' => $despachosOK,
+
+
+                    );
+                } else {
+                    //no deberia llegar datos que no existan
+                    $data = array(
+                        'status' => 'error',
+                        'code' => 401,
+
+                    );
+                }
+            }
+        } else {
+            $data = array(
+                'status' => 'error',
+                'code' => 400,
+                'dato' => $json,
+                'message' => 'Sin datos que procesar',
+            );
+        }
+        // devolver el resutlado
+        return response()->json($data, $data['code']);
+    }
+
+    /**
+     * ser envia un despacho y un pedido y se asocian
+     * adicional se guarda informacion como
+     *     id_despacho:                     number;  alevinos_pedidos id
+     *     id_lote:                         number;
+     *     id_pedido:                       number;
+     *     lote_alevinos:                   string;
+     *     referencia_alimento:             string;
+     *     tratamientos_veterinarios:       string;
+     *     duracion_tratamiento:            number;
+     *     cantidad_alevinos:               number;
+     *     peso_promedio:                   number;
+     *     talla_promedio:                  number;
+     */
+    public function AsociarPedidoADespachoDia(Request $request)
+    {
+        $json = $request->input('json', null);
+
+        $params_array = json_decode($json, true); // array
+        $params = json_decode($json); //objeto
+
+
+        if (!empty($params)) {
+            $validate = \Validator::make($params_array, [
+                'id_despacho' => 'required|numeric',
+                "id_lote" => 'required|numeric',
+                "id_pedido" => 'required|numeric',
+
+                "lote_alevinos" => 'required',
+                // "referencia_alimento" => 'required',
+                "tratamientos_veterinarios" => 'required',
+                "duracion_tratamiento" => 'required|numeric',
+                "cantidad_alevinos" => 'required',
+                "peso_promedio" => 'required',
+                "talla_promedio" => 'required',
+            ]);
+            if ($validate->fails()) {
+                $data = array(
+                    'status' => 'error',
+                    'code' => 400,
+                    'errors' => $validate->errors(),
+                    'data' => $params_array
+                );
+            } else {
+                $Adespachos = AlevinosDespacho::find($params->id_despacho);
+                $pedido = AlevinosPedidos::find($params->id_pedido);
+                $lote = LoteNumero::find($params->id_lote);
+
+
+                if (is_object($Adespachos) &&  is_object($pedido) && is_object($lote)) {
+                    /**
+                     * Buscar los despachos con el numer de semana del despacho 
+                     * 
+                     */
+
+                    /**
+                     * Guardamos la relacion entre el despacho y el pedido.
+                     */
+                    $alevinoSalida = new AlevinosSalida();
+                    $alevinoSalida->id_alevinos_pedidos = $pedido->id;
+                    $alevinoSalida->id_alevinos_dia_despacho = $Adespachos->id;
+                    $alevinoSalida->save();
+
+                    /**
+                     * actualizamos los datos del pedido del cliente
+                     * 
+                     */
+                    $pedido->despachado = true;
+                    $pedido->lote_alevinos = $params->lote_alevinos;
+                    $pedido->id_lote_numero = $params->id_lote;
+                    // $pedido->referencia_alimento = $params->referencia_alimento;
+                    $pedido->tratamientos_veterinarios = $params->tratamientos_veterinarios;
+                    $pedido->duracion_tratamiento = $params->duracion_tratamiento;
+                    $pedido->cantidad_alevinos = $params->cantidad_alevinos;
+                    $pedido->peso_promedio = $params->peso_promedio;
+                    $pedido->talla_promedio = $params->talla_promedio;
+
+
+                    $pedido->save();
+
+                    /**
+                     * suamamnos la cantidad de alevinos a lo usado.
+                     */
+                    $lote->tamanio_usado_alevinos =  $lote->tamanio_usado_alevinos + $params->cantidad_alevinos;
+                    $lote->save();
+
+
+                    $data = array(
+                        'status' => 'success',
+                        'code' => 200,
+
+
+                    );
+                } else {
+                    //no deberia llegar datos que no existan
+                    $data = array(
+                        'status' => 'error',
+                        'code' => 401,
+
+                    );
+                }
+            }
+        } else {
+            $data = array(
+                'status' => 'error',
+                'code' => 400,
+                'dato' => $json,
+                'message' => 'Sin datos que procesar',
+            );
+        }
+        // devolver el resutlado
+        return response()->json($data, $data['code']);
+    }
+
+    /**
+     * ser envia un despacho y un pedido y se asocian
+     * adicional se guarda informacion como
+     *     id_despacho:                     number;  alevinos_pedidos id
+     *     id_lote:                         number;
+     *     id_pedido:                       number;
+     *     lote_alevinos:                   string;
+     *     referencia_alimento:             string;
+     *     tratamientos_veterinarios:       string;
+     *     duracion_tratamiento:            number;
+     *     cantidad_alevinos:               number;
+     *     peso_promedio:                   number;
+     *     talla_promedio:                  number;
+     */
+    public function desAsociarPedidoADespachoDia(Request $request)
+    {
+        $json = $request->input('json', null);
+
+        $params_array = json_decode($json, true); // array
+        $params = json_decode($json); //objeto
+
+
+        if (!empty($params)) {
+            $validate = \Validator::make($params_array, [
+                'id_despacho' => 'required|numeric',
+                "id_lote_numero" => 'required|numeric',
+                "id" => 'required|numeric',
+
+            ]);
+            if ($validate->fails()) {
+                $data = array(
+                    'status' => 'error',
+                    'code' => 400,
+                    'errors' => $validate->errors(),
+                    'data' => $params_array
+                );
+            } else {
+                $Adespachos = AlevinosDespacho::find($params->id_despacho);
+                $pedido = AlevinosPedidos::find($params->id);
+                $lote = LoteNumero::find($params->id_lote_numero);
+
+
+                if (is_object($Adespachos) &&  is_object($pedido) && is_object($lote)) {
+                    /**
+                     * Buscar los despachos con el numer de semana del despacho 
+                     * 
+                     */
+
+                    /**
+                     * buscamos la relacion entre el despacho y el pedido.
+                     */
+
+                    $borrardatos =  AlevinosSalida::where(
+                        [
+                            ['id_alevinos_pedidos', '=', $pedido->id],
+                            ['id_alevinos_dia_despacho', '=', $Adespachos->id]
+                        ]
+                    )->get();
+
+                    foreach ($borrardatos as $borrar) {
+                        $borrar->delete();
+                    }
+
+
+                    /**
+                     * restamos la cantidad de alevinos a lo usado.
+                     */
+                    $lote->tamanio_usado_alevinos =  $lote->tamanio_usado_alevinos - $pedido->cantidad_alevinos;
+                    $lote->save();
+                    /**
+                     * actualizamos los datos del pedido del cliente
+                     * 
+                     */
+                    $pedido->despachado = false;
+                    $pedido->lote_alevinos = '';
+                    $pedido->id_lote_numero = null;
+                    // $pedido->referencia_alimento = $params->referencia_alimento;
+                    $pedido->tratamientos_veterinarios = '';
+                    $pedido->duracion_tratamiento = 0;
+                    $pedido->peso_promedio = 0;
+                    $pedido->talla_promedio = 0;
+                    $pedido->save();
+                    $data = array(
+                        'status' => 'success',
+                        'code' => 200,
+
 
                     );
                 } else {
