@@ -16,7 +16,7 @@ class DespachoController extends Controller
 
     public function __construct()
     {
-        $this->middleware('api.auth', ['except' => ['index', 'show', 'getpdf']]);
+        $this->middleware('api.auth', ['except' => ['index', 'show', 'getpdf', 'getpdfAlevinos']]);
     }
 
     public function index()
