@@ -8,6 +8,7 @@ import { AlevinosService } from 'src/app/service/alevinos/alevinos.service';
 import { DeseasContinuarComponent } from '../../../componentes/01-Comunes/deseas-continuar/deseas-continuar.component';
 import { EditarMontajeComponent } from '../../01-Montaje/editar-montaje/editar-montaje.component';
 import { AsignarLoteAlevinosComponent } from '../../06-Lote/asignar-lote-alevinos/asignar-lote-alevinos.component';
+import { VerCertificadoOrigenComponent } from '../../06-Lote/ver-certificado-origen/ver-certificado-origen.component';
 
 @Component({
   selector: 'app-lista-pedido-alevinos',
@@ -66,11 +67,28 @@ export class ListaPedidoAlevinosComponent implements OnInit {
       this.displayedColumns.push(...['asociar']);
 
     } else if (this.asociar == false) {
-      this.displayedColumns.push(...['desasociar']);
+      this.displayedColumns.push(...['desasociar', 'verCertificado']);
     }
 
   }
+  VerCertificado(item: AlevinosPedidos) {
+    const modalRef = this.modalService.open(VerCertificadoOrigenComponent, { size: 'xl', windowClass: 'bounce-in-top' });
+    modalRef.componentInstance.Despacho = item
 
+    modalRef.result.then((result) => {
+      if (result === "OK") {
+        this.Asociar(item)
+
+      }
+      console.log('result', result);
+    }, (reason) => {
+
+      if (reason === 'OK') {
+
+
+      }
+    });
+  }
   AsociarLote(item: AlevinosPedidos) {
     const modalRef = this.modalService.open(AsignarLoteAlevinosComponent, { size: 'xl', windowClass: 'bounce-in-top' });
     modalRef.componentInstance.entrada = item;

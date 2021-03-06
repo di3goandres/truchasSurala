@@ -339,6 +339,40 @@ class DespachoController extends Controller
 
         return response()->json($data, $data['code']);
     }
+    public function getpdfAlevinos($id)
+    {
+
+        $headers = array(
+            'Content-Type: application/pdf',
+        );
+
+        $despacho = Despacho::find($id);
+
+        if (is_object($despacho)) {
+
+            $isset = \Storage::disk('certificados')->exists('Certificados\\'  . $despacho->id . '-' . $despacho->fecha . '\\' . $$despacho->certificado);
+            if ($isset) {
+                $file = \Storage::disk('certificados')->get('Certificados\\'  . $despacho->id . '-' . $despacho->fecha . '\\' . $$despacho->certificado);
+                return new Response($file, 200, $headers);
+            } else {
+                $data = array(
+                    'code' => 200,
+                    'status' => 'error',
+                   
+                );
+            }
+        } else {
+            $data = array(
+                'code' => 200,
+                'status' => 'error',
+              
+            );
+        }
+
+
+
+        return response()->json($data, $data['code']);
+    }
 
     public function subirarchivo(Request $request)
     {

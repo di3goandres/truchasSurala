@@ -125,7 +125,7 @@ class UserController extends Controller
             $validate = \Validator::make($params_array, [
                 'name' => 'required',
                 // 'surname' => 'required',
-                'role' => 'required',
+                'role' => 'required|in:ADMIN,OVAS,ALEVINOS,TECNICO,CONDUCTOR',
                 'numero_identificacion' => 'required|numeric|unique:users', //comprueba que el numero de identificacion sea unico
                 'email' => 'required|unique:users', //comprueba si el usuario esta duplicado
             ]);

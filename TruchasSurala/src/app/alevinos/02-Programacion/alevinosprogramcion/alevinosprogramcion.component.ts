@@ -143,7 +143,7 @@ export class AlevinosprogramcionComponent implements OnInit {
     // })
     // this.salida = [];
     // this.temporal.push(evento);
-    // this.temporal.sort((a, b) => a.fechaProbableS.localeCompare(b.fechaProbableS));
+    // this.tempora|l.sort((a, b) => a.fechaProbableS.localeCompare(b.fechaProbableS));
 
     // this.salida.push(...this.temporal);
     // this.temporal = this.entrada.filter(item => {

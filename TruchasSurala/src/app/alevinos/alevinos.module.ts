@@ -39,6 +39,7 @@ import { EditarMontajeComponent } from './01-Montaje/editar-montaje/editar-monta
 import { AsignarLoteAlevinosComponent } from './06-Lote/asignar-lote-alevinos/asignar-lote-alevinos.component';
 import { VerPropiosComponent } from './06-Lote/ver-propios/ver-propios.component';
 import { SeleccionarLoteComponent } from './06-Lote/seleccionar-lote/seleccionar-lote.component';
+import { VerCertificadoOrigenComponent } from './06-Lote/ver-certificado-origen/ver-certificado-origen.component';
 
 
 @NgModule({
@@ -51,7 +52,8 @@ import { SeleccionarLoteComponent } from './06-Lote/seleccionar-lote/seleccionar
     EditarMontajeComponent,
     AsignarLoteAlevinosComponent,
     VerPropiosComponent,
-    SeleccionarLoteComponent],
+    SeleccionarLoteComponent,
+    VerCertificadoOrigenComponent],
   imports: [
     CommonModule,
     AlevinosRoutingModule,

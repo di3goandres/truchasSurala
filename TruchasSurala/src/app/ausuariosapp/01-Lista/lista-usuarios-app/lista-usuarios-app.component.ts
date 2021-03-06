@@ -21,6 +21,8 @@ export class ListaUsuariosAPPComponent implements OnInit {
     { value: 'ALEVINOS', viewValue: 'ALEVINOS' },
     { value: 'OVAS', viewValue: 'OVAS' },
     { value: 'TECNICO', viewValue: 'ASESOR TÉCNICO' },
+    { value: 'CONDUCTOR', viewValue: 'CONDUCTOR' },
+
 
   ]
   displayedColumns: string[] = ['position', 'numero_identificacion', 'name', 'surname',
