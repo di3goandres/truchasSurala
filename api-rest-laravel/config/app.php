@@ -178,7 +178,7 @@ return [
 
         Berkayk\OneSignal\OneSignalServiceProvider::class,
         Elibyy\TCPDF\ServiceProvider::class,
-
+        Maatwebsite\Excel\ExcelServiceProvider::class,
 
     ],
 
@@ -233,7 +233,9 @@ return [
         'View' => Illuminate\Support\Facades\View::class,
         'JwtAuth' => App\Helpers\ JwtAuth ::class,
         'OneSignal' => Berkayk\OneSignal\OneSignalFacade::class,
-        'PDF' => Elibyy\TCPDF\Facades\TCPDF::class
+        'PDF' => Elibyy\TCPDF\Facades\TCPDF::class,
+        'Excel' => Maatwebsite\Excel\Facades\Excel::class,
+
 
 
     ],

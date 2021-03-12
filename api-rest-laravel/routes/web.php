@@ -1,7 +1,9 @@
 <?php
 
+use App\Exports\MortalidadExport;
 use Illuminate\Support\Facades\Route;
 use \App\Http\Middleware\ApiAuthMiddleware;
+use Maatwebsite\Excel\Facades\Excel;
 
 /*
   |--------------------------------------------------------------------------
@@ -213,3 +215,12 @@ Route::get('/api/movil/despacho/reporte/informes/{id}', 'InformesTecnicosControl
 
 
 
+
+
+/***\
+ * export de la aplicaicion
+ */
+
+Route::get('/excel', function () {
+    return Excel::download(new MortalidadExport, 'MortalidadesPendientes'. time() .'.xlsx');
+});

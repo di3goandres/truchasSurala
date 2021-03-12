@@ -362,19 +362,15 @@ class DespachoController extends Controller
                 $data = array(
                     'code' => 200,
                     'status' => 'error',
-                   
+
                 );
             }
         } else {
             $data = array(
                 'code' => 200,
                 'status' => 'error',
-              
             );
         }
-
-
-
         return response()->json($data, $data['code']);
     }
 
@@ -434,8 +430,6 @@ class DespachoController extends Controller
 
         return response()->json($data, $data['code']);
     }
-
-
     public function RegistrarLLegada(Request $request)
     {
 
@@ -482,8 +476,8 @@ class DespachoController extends Controller
                             $id = $archivo['type'];
                             $sufijo = explode("/", $archivo['type']);
 
-                      
-                            $name = time() .'_'.rand(0, 999) . '_.' . $sufijo[1];
+
+                            $name = time() . '_' . rand(0, 999) . '_.' . $sufijo[1];
 
                             $data->archivo = $name;
                             $data->tipo = $id;
@@ -523,6 +517,4 @@ class DespachoController extends Controller
         // devolver el resutlado
         return response()->json($data, $data['code']);
     }
-
-   
 }
