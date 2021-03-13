@@ -20,3 +20,4 @@ class InformesExcelController extends Controller
         return Excel::download(new MortalidadTotalExport, 'MortalidadesPendientes' . time() . '.xlsx');
     }
 }
+

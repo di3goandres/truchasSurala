@@ -11,17 +11,22 @@ use Maatwebsite\Excel\Concerns\WithColumnFormatting;
 use Maatwebsite\Excel\Concerns\WithEvents;
 use Maatwebsite\Excel\Concerns\WithHeadings;
 use Maatwebsite\Excel\Concerns\WithStyles;
+use Maatwebsite\Excel\Concerns\WithTitle;
 use Maatwebsite\Excel\Events\AfterSheet;
 use PhpOffice\PhpSpreadsheet\Cell\Coordinate;
 use PhpOffice\PhpSpreadsheet\Style\NumberFormat;
 use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 
-class MortalidadExport implements FromQuery, WithHeadings, WithEvents, WithColumnFormatting
+class MortalidadExport implements FromQuery, WithHeadings, WithEvents, WithColumnFormatting, WithTitle
 {
     use Exportable;
 
     protected $results;
 
+    public function title(): string
+    {
+        return 'Mortalidad';
+    }
     public function query()
     {
 
@@ -91,7 +96,7 @@ class MortalidadExport implements FromQuery, WithHeadings, WithEvents, WithColum
     public function headings(): array
     {
         return [
-            "id",
+            "ID",
             "Estado",
             "Fecha Salida Despacho",
             "Num Factura despacho",
@@ -104,9 +109,9 @@ class MortalidadExport implements FromQuery, WithHeadings, WithEvents, WithColum
             "Total Adicional",
             "Total Reposicion",
             "Total",
-            'Temperatura Bandeja Superior',
-            'Temperatura Bandeja Intermedia',
-            'Temperatura Bandeja Inferior',
+            'Temp Bandeja Superior',
+            'Temp Bandeja Intermedia',
+            'Temp Bandeja Inferior',
             'Hielo Bandeja Superior',
             'Hielo Bandeja Intermedia',
             'Hielo Bandeja Inferior',
@@ -155,7 +160,7 @@ class MortalidadExport implements FromQuery, WithHeadings, WithEvents, WithColum
                         'font' => [
 
                             'bold' => true,
-                            'size' => 16,             
+                            'size' => 13,             
                         ],
                         'borders' => [
                             'allBorders' => [
@@ -173,7 +178,7 @@ class MortalidadExport implements FromQuery, WithHeadings, WithEvents, WithColum
                         'font' => [
 
                             'bold' => false,
-                            'size' => 15,
+                            'size' => 12,
                         ],
                         'borders' => [
                             'allBorders' => [
