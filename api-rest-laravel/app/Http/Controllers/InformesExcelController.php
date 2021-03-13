@@ -12,7 +12,7 @@ class InformesExcelController extends Controller
     //
     public function __construct()
     {
-        //   $this->middleware('api.auth');
+           $this->middleware('api.auth');
     }
 
     public function Mortalidad(Request $request)
