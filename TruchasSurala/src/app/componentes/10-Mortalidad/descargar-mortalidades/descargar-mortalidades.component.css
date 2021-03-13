@@ -1,0 +1,17 @@
+/* .example-card {
+    max-width: 400px;
+  } */
+  
+  .example-header-image {
+   
+    background-size: cover;
+  }
+
+  mat-card{
+    width: 350px;
+   
+    display: block;
+    margin-left:auto;
+    margin-right:auto;  
+    vertical-align:middle;
+}

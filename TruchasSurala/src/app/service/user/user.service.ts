@@ -318,7 +318,7 @@ export class UserService {
 
   // Nuevas funcionalidades
   openSnackBar(message: string, action: string) {
-   
+
     this._snackBar.open(message, action, {
       duration: 2000,
       horizontalPosition: 'end',
@@ -337,9 +337,9 @@ export class UserService {
 
   }
   public get currenUserValue(): UserLogin {
-    if(this.currentUserSubject.value==null){
+    if (this.currentUserSubject.value == null) {
       return new UserLogin();
-    }else{
+    } else {
       return this.currentUserSubject.value;
 
     }
@@ -387,9 +387,10 @@ export class UserService {
   }
   registroExitoso() {
     const modalRef = this.modalService.open(RegistroExitosoComponent,
-                                     { size: 'md',
-                                      windowClass: 'bounce-top' 
-                                     });
+      {
+        size: 'md',
+        windowClass: 'bounce-top'
+      });
 
     modalRef.result.then((result) => {
 
@@ -408,7 +409,7 @@ export class UserService {
 
   registroNoExitoso(Titulo, Mensaje) {
     const modalRef = this.modalService.open(RegistroNoexitosoComponent,
-         { size: 'md',windowClass: 'vibrate-2'});
+      { size: 'md', windowClass: 'vibrate-2' });
     modalRef.componentInstance.Titulo = Titulo;
     modalRef.componentInstance.mensaje = Mensaje
     modalRef.result.then((result) => {
@@ -429,6 +430,34 @@ export class UserService {
   }
 
 
+  public ejecutarQuerFile(query: string, nombre: string) {
+    return this.http.get(this.url + query, {
+      responseType: 'arraybuffer'
+    })
+      .subscribe(response => {
+        this.downLoadFile(response, "application/octet-stream", nombre)
+        this.registroExitoso();
+      });
+  }
+
+  downLoadFile(data: any, type: string, nombre: string) {
+    
+    let blob = new Blob([data], { type: type });
+    let url = window.URL.createObjectURL(blob);
+    // let pwa = window.open(url);
+
+    var fileLink = document.createElement('a');
+    fileLink.href = url;
+
+    // it forces the name of the downloaded file
+    fileLink.download = nombre + new Date().getTime() + '.xlsx';
+
+    // triggers the click event
+    fileLink.click();
+    // if (!pwa || pwa.closed || typeof pwa.closed == 'undefined') {
+    //     alert( 'Please disable your Pop-up blocker and try again.');
+    // }
+  }
 }
 
 

@@ -30,6 +30,7 @@ import { RegistrollegadaComponent } from './componentes/05-Despacho/registrolleg
 import { EnvionotificacionesComponent } from './componentes/09-Notificaciones/envionotificaciones/envionotificaciones.component';
 import { RegistromortalidadComponent } from './componentes/10-Mortalidad/registromortalidad/registromortalidad.component';
 import { EnvioGeneralComponent } from './componentes/09-Notificaciones/01-General/envio-general/envio-general.component';
+import { DescargarMortalidadesComponent } from './componentes/10-Mortalidad/descargar-mortalidades/descargar-mortalidades.component';
 
 
 
@@ -97,7 +98,7 @@ const routes: Routes = [
     path: 'surala/usuarios', component: ListausuarioComponent, canLoad: [UsuarioGuard], canActivate: [UsuarioGuard]
   },
 
-  
+
   { // rutas de usuarios
     path: 'surala/despachos/notificaciones', component: EnvionotificacionesComponent, canLoad: [UsuarioGuard], canActivate: [UsuarioGuard]
   },
@@ -105,24 +106,27 @@ const routes: Routes = [
     path: 'surala/usuarios/notificaciones', component: EnvioGeneralComponent, canLoad: [UsuarioGuard], canActivate: [UsuarioGuard]
   },
   /** informes tecnicos */
-  
+
   { // rutas de Tecnicos
-    path: 'surala/informestecnicos', 
+    path: 'surala/informestecnicos',
     loadChildren: './tecnicos/tecnicos.module#TecnicosModule',
-   
+
   },
   { // rutas de Alevinos
-    path: 'surala/alevinos', 
+    path: 'surala/alevinos',
     loadChildren: './alevinos/alevinos.module#AlevinosModule',
-   
+
   },
   { // rutas de Alevinos
-    path: 'surala/usuariosSurala', 
+    path: 'surala/usuariosSurala',
     loadChildren: './ausuariosapp/ausuariosapp.module#AusuariosappModule',
-   
+
   },
   { // rutas de usuarios
     path: 'surala/mortalidad', component: RegistromortalidadComponent, canLoad: [UsuarioGuard], canActivate: [UsuarioGuard]
+  },
+  { // rutas de usuarios
+    path: 'surala/mortalidad/informe', component: DescargarMortalidadesComponent, canLoad: [UsuarioGuard], canActivate: [UsuarioGuard]
   },
   //
   {
@@ -137,7 +141,7 @@ const routes: Routes = [
   imports: [
     CommonModule,
     RouterModule.forRoot(routes, { useHash: true }),
- 
+
 
 
   ],

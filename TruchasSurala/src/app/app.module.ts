@@ -110,6 +110,7 @@ import { AlevinosModule } from './alevinos/alevinos.module';
 import { AusuariosappModule } from './ausuariosapp/ausuariosapp.module';
 import { EnvioGeneralComponent } from './componentes/09-Notificaciones/01-General/envio-general/envio-general.component';
 import { DeseasContinuarComponent } from './componentes/01-Comunes/deseas-continuar/deseas-continuar.component';
+import { DescargarMortalidadesComponent } from './componentes/10-Mortalidad/descargar-mortalidades/descargar-mortalidades.component';
 registerLocaleData(localCo);
 @NgModule({
   declarations: [
@@ -158,6 +159,7 @@ registerLocaleData(localCo);
     AprobarregistroComponent,
     EnvioGeneralComponent,
     DeseasContinuarComponent,
+    DescargarMortalidadesComponent,
 
 
 

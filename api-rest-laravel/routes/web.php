@@ -221,6 +221,5 @@ Route::get('/api/movil/despacho/reporte/informes/{id}', 'InformesTecnicosControl
  * export de la aplicaicion
  */
 
-Route::get('/excel', function () {
-    return Excel::download(new MortalidadExport, 'MortalidadesPendientes'. time() .'.xlsx');
-});
+
+Route::get('/api/admin/informes/reporteMortalidad', 'InformesExcelController@Mortalidad') ;

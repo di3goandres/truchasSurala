@@ -32,5 +32,27 @@ export class MortalidadService {
     let params = 'json=' + json;
     return this.service.ejecutarQueryPostRetorno<Respuesta>('/api/mortalidad/aprobar', params);
   }
+
+  descargarMortalidades(nombre: string){
+     this.service.ejecutarQuerFile('/api/admin/informes/reporteMortalidad', nombre);
+
+  }
+
+
+  Exitoso(){
+    this.service.registroExitoso();
+  }
+
+  NoExitoso(Titulo, Mensaje){
+    this.service.registroNoExitoso(Titulo, Mensaje);
+  }
+
+  NoExitosoComun(){
+    this.service.registroNoExitosoComun();
+  }
+  MostrarSnack(Mensaje: string, Action: string ){
+    this.service.openSnackBar(Mensaje, Action);
+  }
+
  
 }
