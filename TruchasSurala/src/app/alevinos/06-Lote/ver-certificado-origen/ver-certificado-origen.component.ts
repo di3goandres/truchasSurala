@@ -1,4 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+import { AlevinosService } from 'src/app/service/alevinos/alevinos.service';
 
 @Component({
   selector: 'app-ver-certificado-origen',
@@ -24,7 +26,11 @@ export class VerCertificadoOrigenComponent implements OnInit {
   pdfQuery = '';
   totalPages: number;
   deshabilitado = true;
-  constructor() { }
+  constructor(
+    private service: AlevinosService,
+    private activeModal: NgbActiveModal
+
+  ) { }
 
   ngOnInit(): void {
     this.pdfSrc = "/api/despacho/alevinos/certificado/" + this.Despacho.id_lote_numero
@@ -57,11 +63,19 @@ export class VerCertificadoOrigenComponent implements OnInit {
     console.log('textLayerRendered', event);
   }
   onError(event) {
+    this.close()
+    // this.service.NoExitosoComun()
+
+    this.service.NoExitoso("Error, Archivo NO existe", "No se ha cargado el archivo que estas intentado acceder");
     console.error('onError', event);
   }
   onProgress(event) {
     console.log('onProgress', event);
   }
 
+
+  close() {
+    this.activeModal.close("OK")
+  }
 
 }

@@ -6,3 +6,11 @@
 .mat-form-field{
     width:  100%;
 }
+.my-grid-tile{
+    padding-top: calc((15% - 0.5px) * 1 + 0px) !important
+
+}
+
+.my-grid-tile-list{
+    padding-bottom: calc(1 * ((15% - 0.5px) * 1) + 0px + 0px) !important
+}
