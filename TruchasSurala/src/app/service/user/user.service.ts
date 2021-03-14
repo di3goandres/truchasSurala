@@ -320,7 +320,7 @@ export class UserService {
   openSnackBar(message: string, action: string) {
 
     this._snackBar.open(message, action, {
-      duration: 2000,
+      duration: 3000,
       horizontalPosition: 'end',
       verticalPosition: 'top',
     });
@@ -457,6 +457,10 @@ export class UserService {
     // if (!pwa || pwa.closed || typeof pwa.closed == 'undefined') {
     //     alert( 'Please disable your Pop-up blocker and try again.');
     // }
+  }
+
+  getConductores() {
+    return this.ejecutarQuery<UsuariosFincasResponse>('/api/users/surala/conductores');
   }
 }
 

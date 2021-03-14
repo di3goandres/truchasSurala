@@ -8,6 +8,10 @@ export class AlevinosPedidos{
     id:             number;
     id_lote_numero: number;
     id_despacho: number;
+    
+    conductor: number;
+    NombreConductor:   string;
+
 
 
     
@@ -36,6 +40,7 @@ export class AlevinosPedidos{
     direccion:         string;
 /*Datos lote*/
     numLoteAlevinos:   string;
+
     numLoteOvas:       string;
 
     tratamiento_veterinario:       string;

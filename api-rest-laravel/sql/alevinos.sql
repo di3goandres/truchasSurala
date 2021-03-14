@@ -7,6 +7,7 @@ DROP TABLE IF EXISTS alevinos_pedidos;
 CREATE TABLE alevinos_pedidos(
 id                   int(255) auto_increment not null, 
 user_id              int(255) not null, 
+conductor_id         int(255) null, 
 id_finca 			 int(255) not null, 
 id_lote_numero       int(255)  null, 
 
@@ -35,6 +36,7 @@ created_at           datetime DEFAULT NULL,
 updated_at           datetime DEFAULT NULL,
 CONSTRAINT pk_alevinos_pedidos PRIMARY KEY(id),
 CONSTRAINT fk_pa_usuario FOREIGN KEY (user_id) REFERENCES users(id),
+CONSTRAINT fk_pa_conductor FOREIGN KEY (conductor_id) REFERENCES users(id),
 CONSTRAINT fk_pa_finca FOREIGN KEY (id_finca) REFERENCES fincas(id),
 CONSTRAINT fk_aps_alevinossd_lote_numero FOREIGN KEY (id_lote_numero) REFERENCES lote_numero(id)
 )ENGINE=InnoDb;
@@ -65,6 +67,11 @@ CONSTRAINT fk_aps_alevinos_dia_despacho FOREIGN KEY (id_alevinos_dia_despacho) R
 
 )ENGINE=InnoDb;
 
+
+
+ALTER TABLE `api_rest_truchas`.`alevinos_pedidos` 
+
+ADD COLUMN `conductor_id` INT(255) NULL DEFAULT 0 AFTER `user_id`,
 
 
 

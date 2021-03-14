@@ -111,6 +111,7 @@ import { AusuariosappModule } from './ausuariosapp/ausuariosapp.module';
 import { EnvioGeneralComponent } from './componentes/09-Notificaciones/01-General/envio-general/envio-general.component';
 import { DeseasContinuarComponent } from './componentes/01-Comunes/deseas-continuar/deseas-continuar.component';
 import { DescargarMortalidadesComponent } from './componentes/10-Mortalidad/descargar-mortalidades/descargar-mortalidades.component';
+import { ListaConductoresComponent } from './componentes/11-Conductores/01-Lista/lista-conductores/lista-conductores.component';
 registerLocaleData(localCo);
 @NgModule({
   declarations: [
@@ -160,6 +161,7 @@ registerLocaleData(localCo);
     EnvioGeneralComponent,
     DeseasContinuarComponent,
     DescargarMortalidadesComponent,
+    ListaConductoresComponent,
 
 
 

@@ -5,6 +5,7 @@ import { ProgramacionAlevinosResponse } from '../../models/alevinos/programacion
 import { Respuesta } from '../../models/pedidos/guardar.factura.response';
 import { LotesPropio, LotesPropiosResponse } from '../../models/alevinos/lotes.propio.response';
 import { ComplementoPedido } from 'src/app/models/alevinos/alevinos.agregar';
+import { UsuariosFincasResponse } from 'src/app/models/usuarios.fincas';
 
 @Injectable({
   providedIn: 'root'
@@ -53,6 +54,10 @@ export class AlevinosService {
     return this.userService.ejecutarQueryPostNuevo<AlevinosPedidosResponse>('/api/Progamacion/Alevinos/usuario/pendientes', data)
   }
 
+  consultarPedidosConductor(data: A_ProgramacionDiaRequest){
+    return this.userService.ejecutarQueryPostNuevo<AlevinosPedidosResponse>('/api/Progamacion/Alevinos/usuario/conductor/pendientes', data)
+  }
+
   borrarPedidosUsuario(id: number){
     return this.userService.ejecutarQuery<Respuesta>('/api/Progamacion/Alevinos/usuario/delete/' + id)
   }
@@ -83,5 +88,9 @@ export class AlevinosService {
   desAsociarPedido(data: AlevinosPedidos){
     return this.userService.ejecutarQueryPostNuevo<Respuesta>('/api/Progamacion/lotes/propios/desasociar', data)
 
+  }
+
+  getConductores() {
+    return this.userService.ejecutarQuery<UsuariosFincasResponse>('/api/users/surala/get');
   }
 }

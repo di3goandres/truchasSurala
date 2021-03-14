@@ -9,6 +9,7 @@ import { DeseasContinuarComponent } from '../../../componentes/01-Comunes/deseas
 import { EditarMontajeComponent } from '../../01-Montaje/editar-montaje/editar-montaje.component';
 import { AsignarLoteAlevinosComponent } from '../../06-Lote/asignar-lote-alevinos/asignar-lote-alevinos.component';
 import { VerCertificadoOrigenComponent } from '../../06-Lote/ver-certificado-origen/ver-certificado-origen.component';
+import { ListaConductoresComponent } from '../../../componentes/11-Conductores/01-Lista/lista-conductores/lista-conductores.component';
 
 @Component({
   selector: 'app-lista-pedido-alevinos',
@@ -16,13 +17,15 @@ import { VerCertificadoOrigenComponent } from '../../06-Lote/ver-certificado-ori
   styleUrls: ['./lista-pedido-alevinos.component.css']
 })
 export class ListaPedidoAlevinosComponent implements OnInit {
-  displayedColumns: string[] = ['position', 'FechaSalida', 'Semana',
+  displayedColumns: string[] = ['position', 'FechaSalida',
     'dia', 'talla', 'peso', 'cantidad'];
   entrada: AlevinosPedidos[] = [];
   _despacho: number
 
   @Input() mostrar: boolean;
   @Input() asociar: boolean;
+  @Input() conductor: boolean;
+
 
   @Output() datoSalid = new EventEmitter<boolean>();
   @Output() agregar = new EventEmitter<AlevinosPedidos>();
@@ -42,7 +45,12 @@ export class ListaPedidoAlevinosComponent implements OnInit {
 
     console.log('entre a descargar', this.asociar)
     this.entrada = [];
-    this.entrada.push(...value);
+    if (value != null) {
+      this.entrada.push(...value);
+
+    } else {
+
+    }
     this.dataSource = new MatTableDataSource(this.entrada);
     this.dataSource.paginator = this.paginator;
   }
@@ -60,14 +68,30 @@ export class ListaPedidoAlevinosComponent implements OnInit {
   }
 
   ngOnInit(): void {
+
+    if (this.mostrar != null) {
+      this.displayedColumns.push(...['Nombre', 'Municipio', 'Direccion']);
+
+    }
     if (this.mostrar != null && this.mostrar == true) {
-      this.displayedColumns.push(...['Nombre', 'Municipio', 'Direccion', 'Borrar', 'Editar']);
+      this.displayedColumns.push(...['Borrar', 'Editar']);
     }
     if (this.asociar != null && this.asociar == true) {
       this.displayedColumns.push(...['asociar']);
 
     } else if (this.asociar == false) {
+
+      if (this.conductor != null && this.conductor == true) {
+
+        this.displayedColumns.push(...['NombreConductor', 'Conductor']);
+
+      } else if (this.conductor != null && this.conductor == false) {
+        this.displayedColumns.push(...['Conductor']);
+
+      }
+
       this.displayedColumns.push(...['desasociar', 'verCertificado']);
+
     }
 
   }
@@ -133,9 +157,10 @@ export class ListaPedidoAlevinosComponent implements OnInit {
             this.dataSource = new MatTableDataSource(this.entrada);
             this.dataSource.paginator = this.paginator;
           },
-          ERROR => { console.log(ERROR)
+          ERROR => {
+            console.log(ERROR)
             this.service.NoExitosoComun();
-          
+
           },
         )
 
@@ -205,6 +230,26 @@ export class ListaPedidoAlevinosComponent implements OnInit {
       },
       ERROR => { console.log(ERROR); },
     )
+  }
+
+  consultarConductores() {
+    const modalRef = this.modalService.open(ListaConductoresComponent,
+      {
+        size: 'lg',
+        windowClass: 'bounce-top'
+      });
+
+    modalRef.result.then((result) => {
+
+      console.log(result)
+
+    }, (reason) => {
+
+      if (reason === 'OK') {
+
+
+      }
+    });
   }
 
 }

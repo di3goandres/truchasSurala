@@ -35,7 +35,7 @@ class JwtAuth
         }
 
         if ($admin) {
-            if ($user->role == 'USUARIO') {
+            if ($user->role == 'USUARIO' || $user->role == 'CONDUCTOR') {
                 $signup = false;
             }
         }
@@ -43,7 +43,7 @@ class JwtAuth
         if ($signup) {
 
             $EXPIRACION = time();
-            if ($user->role == 'USUARIO') {
+            if ($user->role == 'USUARIO' || $user->role == 'CONDUCTOR') {
                 //dias horas minutos segundos.
                 $EXPIRACION = time() +  (180 * 24 * 60 * 60);
             } else {

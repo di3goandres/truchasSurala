@@ -9,6 +9,7 @@ use App\Fincas;
 use App\LoteNumero;
 use App\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class AlevinosController extends Controller
 {
@@ -105,7 +106,7 @@ class AlevinosController extends Controller
                     foreach ($pedidos as $pedido) {
                         $fecha = str_replace('T05:00:00.000Z', '', $pedido['fechaProbableS']);
 
-                        $existe = \DB::table('alevinos_pedidos')
+                        $existe = DB::table('alevinos_pedidos')
                             ->where([
                                 ['alevinos_pedidos.fecha_probable', '=',  $fecha],
                                 ['alevinos_pedidos.user_id', '=',  $usuario->user_id]
@@ -303,7 +304,7 @@ class AlevinosController extends Controller
 
     public function PedidosASOCIADOS($IdDespacho)
     {
-        $despachos = \DB::table('alevinos_pedidos')
+        $despachos = DB::table('alevinos_pedidos')
             ->join('fincas', 'fincas.id', '=', 'alevinos_pedidos.id_finca')
             ->join('users', 'users.id', '=', 'fincas.user_id')
             ->join('alevinos_pedido_semana', 'alevinos_pedido_semana.id_alevinos_pedidos', '=', 'alevinos_pedidos.id')
@@ -317,11 +318,12 @@ class AlevinosController extends Controller
             )
             ->select(
                 'alevinos_pedidos.id',
-                \DB::raw("(CASE WHEN es_talla = 1  THEN 'TALLA' ELSE 'PESO' END) AS tipo"),
+                'alevinos_pedidos.conductor_id as conductor',
+                DB::raw("(CASE WHEN es_talla = 1  THEN 'TALLA' ELSE 'PESO' END) AS tipo"),
                 'alevinos_pedidos.es_talla',
                 'alevinos_pedidos.es_peso',
                 'alevinos_pedidos.cantidad',
-                'alevinos_dia_despacho.id as id_despacho',    
+                'alevinos_dia_despacho.id as id_despacho',
                 'alevinos_pedidos.id_lote_numero',
                 'alevinos_pedidos.centimetros AS talla',
                 'alevinos_pedidos.peso_gramos as peso',
@@ -330,7 +332,91 @@ class AlevinosController extends Controller
                 'alevinos_pedidos.despachado',
                 'alevinos_pedidos.fecha_probable as fechaProbable',
                 'alevinos_pedidos.fecha_probable as fechaProbableS',
-                'fincas.nombre',
+                DB::raw("CONCAT(users.name, ', ', users.surname ) as nombre"),
+                'fincas.municipio',
+                'fincas.departamento',
+                'fincas.direccion'
+            )
+            ->orderBy('alevinos_pedidos.numero_semana', 'asc')
+            ->get();
+        return $despachos;
+    }
+
+    public function PedidosASOCIADOSinConductor($IdDespacho)
+    {
+        $despachos = DB::table('alevinos_pedidos')
+            ->join('fincas', 'fincas.id', '=', 'alevinos_pedidos.id_finca')
+            ->join('users', 'users.id', '=', 'fincas.user_id')
+            ->join('alevinos_pedido_semana', 'alevinos_pedido_semana.id_alevinos_pedidos', '=', 'alevinos_pedidos.id')
+            ->join('alevinos_dia_despacho', 'alevinos_dia_despacho.id', '=', 'alevinos_pedido_semana.id_alevinos_dia_despacho')
+
+
+            ->where(
+                [
+                    ['alevinos_dia_despacho.id', '=', $IdDespacho],
+                    ['alevinos_pedidos.conductor_id', '=', "0"],
+                ]
+            )
+            ->whereNotNull('alevinos_pedidos.id_lote_numero')
+            ->select(
+                'alevinos_pedidos.id',
+                // 'alevinos_pedidos.conductor_id as conductor',
+                DB::raw("(CASE WHEN es_talla = 1  THEN 'TALLA' ELSE 'PESO' END) AS tipo"),
+                'alevinos_pedidos.es_talla',
+                'alevinos_pedidos.es_peso',
+                'alevinos_pedidos.cantidad',
+                'alevinos_dia_despacho.id as id_despacho',
+                'alevinos_pedidos.id_lote_numero',
+                'alevinos_pedidos.centimetros AS talla',
+                'alevinos_pedidos.peso_gramos as peso',
+                'alevinos_pedidos.numero_semana as semana',
+                'alevinos_pedidos.dia',
+                'alevinos_pedidos.despachado',
+                'alevinos_pedidos.fecha_probable as fechaProbable',
+                'alevinos_pedidos.fecha_probable as fechaProbableS',
+                DB::raw("CONCAT(users.name, ', ', users.surname ) as nombre"),
+                'fincas.municipio',
+                'fincas.departamento',
+                'fincas.direccion'
+            )
+            ->orderBy('alevinos_pedidos.numero_semana', 'asc')
+            ->get();
+        return $despachos;
+    }
+
+    public function PedidosASOCIADOSConductor($IdDespacho)
+    {
+        $despachos = DB::table('alevinos_pedidos')
+            ->join('fincas', 'fincas.id', '=', 'alevinos_pedidos.id_finca')
+            ->join('users as users', 'users.id', '=', 'fincas.user_id')
+            ->join('users as conductor', 'conductor.id', '=', 'alevinos_pedidos.conductor_id')
+            ->join('alevinos_pedido_semana', 'alevinos_pedido_semana.id_alevinos_pedidos', '=', 'alevinos_pedidos.id')
+            ->join('alevinos_dia_despacho', 'alevinos_dia_despacho.id', '=', 'alevinos_pedido_semana.id_alevinos_dia_despacho')
+            ->where(
+                [
+                    ['alevinos_dia_despacho.id', '=', $IdDespacho],
+                
+
+                ]
+            )
+            ->select(
+                'alevinos_pedidos.id',
+                'alevinos_pedidos.conductor_id as conductor',
+                DB::raw("CONCAT(conductor.name, ', ', conductor.surname) as NombreConductor"),
+                DB::raw("(CASE WHEN es_talla = 1  THEN 'TALLA' ELSE 'PESO' END) AS tipo"),
+                'alevinos_pedidos.es_talla',
+                'alevinos_pedidos.es_peso',
+                'alevinos_pedidos.cantidad',
+                'alevinos_dia_despacho.id as id_despacho',
+                'alevinos_pedidos.id_lote_numero',
+                'alevinos_pedidos.centimetros AS talla',
+                'alevinos_pedidos.peso_gramos as peso',
+                'alevinos_pedidos.numero_semana as semana',
+                'alevinos_pedidos.dia',
+                'alevinos_pedidos.despachado',
+                'alevinos_pedidos.fecha_probable as fechaProbable',
+                'alevinos_pedidos.fecha_probable as fechaProbableS',
+                DB::raw("CONCAT(users.name, ', ', users.surname ) as nombre"),
                 'fincas.municipio',
                 'fincas.departamento',
                 'fincas.direccion'
@@ -364,7 +450,7 @@ class AlevinosController extends Controller
                 'alevinos_pedidos.despachado',
                 'alevinos_pedidos.fecha_probable as fechaProbable',
                 'alevinos_pedidos.fecha_probable as fechaProbableS',
-                'fincas.nombre',
+                DB::raw("CONCAT(users.name, ', ', users.surname ) as nombre"),
                 'fincas.municipio',
                 'fincas.departamento',
                 'fincas.direccion'
@@ -733,6 +819,73 @@ class AlevinosController extends Controller
                     $data = array(
                         'status' => 'success',
                         'code' => 200,
+
+
+                    );
+                } else {
+                    //no deberia llegar datos que no existan
+                    $data = array(
+                        'status' => 'error',
+                        'code' => 401,
+
+                    );
+                }
+            }
+        } else {
+            $data = array(
+                'status' => 'error',
+                'code' => 400,
+                'dato' => $json,
+                'message' => 'Sin datos que procesar',
+            );
+        }
+        // devolver el resutlado
+        return response()->json($data, $data['code']);
+    }
+
+
+    public function ObtenerPedidosPendientesConductores(Request $request)
+    {
+        $json = $request->input('json', null);
+
+        $params_array = json_decode($json, true); // array
+        $params = json_decode($json); //objeto
+
+
+        if (!empty($params)) {
+
+
+
+            $validate = \Validator::make($params_array, [
+                'idDiaPedido' => 'required|numeric',
+                "numeroSemana" => 'required|numeric',
+            ]);
+            if ($validate->fails()) {
+                $data = array(
+                    'status' => 'error',
+                    'code' => 400,
+                    'errors' => $validate->errors(),
+                    'data' => $params_array
+                );
+            } else {
+
+                $Adespachos = AlevinosDespacho::find($params->idDiaPedido);
+
+                if (is_object($Adespachos)) {
+                    /**
+                     * Buscar los despachos con el numer de semana del despacho 
+                     * 
+                     */
+                    $numerosemana = $Adespachos->numero_semana +  $params->numeroSemana;
+                    $sinconductor = $this->PedidosASOCIADOSinConductor($params->idDiaPedido);
+                    $conconductor = $this->PedidosASOCIADOSConductor($params->idDiaPedido);
+
+
+                    $data = array(
+                        'status' => 'success',
+                        'code' => 200,
+                        'despachados' => $sinconductor,
+                        'Asociados' => $conconductor,
 
 
                     );

@@ -10,6 +10,7 @@ import { DiaDespachoComponent } from '../../04-DiaDespacho/dia-despacho/dia-desp
 import { A_ProgramacionDiaRequest } from '../../../models/alevinos/alevinos.pedidos';
 import { Select } from 'src/app/models/Datos.generales';
 import { SeleccionarLoteComponent } from '../../06-Lote/seleccionar-lote/seleccionar-lote.component';
+import { ListaConductoresComponent } from '../../../componentes/11-Conductores/01-Lista/lista-conductores/lista-conductores.component';
 
 @Component({
   selector: 'app-alevinosprogramcion',
@@ -22,6 +23,9 @@ export class AlevinosprogramcionComponent implements OnInit {
 
   entrada: AlevinosPedidos[] = [];
   salida: AlevinosPedidos[] = [];
+
+  entradaSinConductor: AlevinosPedidos[] = [];
+  salidaConductor: AlevinosPedidos[] = [];
   temporal: AlevinosPedidos[] = [];
 
 
@@ -52,7 +56,10 @@ export class AlevinosprogramcionComponent implements OnInit {
     private modalService: NgbModal,
     private changeDetectorRefs: ChangeDetectorRef
 
-  ) { }
+  ) {
+    this.entradaSinConductor = [];
+    this.salidaConductor = [];
+   }
 
 
   ngOnInit(): void {
@@ -111,53 +118,16 @@ export class AlevinosprogramcionComponent implements OnInit {
   onDevolver(evento: AlevinosPedidos) {
 
     this.ConsultarPendientesSemana();
-
-    // this.temporal = this.entrada.filter(item => {
-    //   return item.id != evento.id
-    // })
-    // this.entrada = [];
-    // this.temporal.push(evento);
-    // this.temporal.sort((a, b) => a.fechaProbableS.localeCompare(b.fechaProbableS));
-
-    // this.entrada.push(...this.temporal);
-
-
-    // this.temporal = this.salida.filter(item => {
-    //   return item.id != evento.id
-    // })
-    // this.salida = [];
-    // this.temporal.sort((a, b) => a.fechaProbableS.localeCompare(b.fechaProbableS));
-    // this.salida.push(...this.temporal)
-
-    this.changeDetectorRefs.detectChanges();
+    // this.changeDetectorRefs.detectChanges();
   }
   onAgregar(evento: AlevinosPedidos) {
     this.ConsultarPendientesSemana();
+    // this.changeDetectorRefs.detectChanges();
 
-    // let existe = this.salida.find(item => {
-    //   return item.id == evento.id
-    // })
-    // console.log("existe", existe);
-    // this.temporal = this.salida.filter(item => {
-    //   return item.id != evento.id
-    // })
-    // this.salida = [];
-    // this.temporal.push(evento);
-    // this.tempora|l.sort((a, b) => a.fechaProbableS.localeCompare(b.fechaProbableS));
-
-    // this.salida.push(...this.temporal);
-    // this.temporal = this.entrada.filter(item => {
-    //   return item.id != evento.id
-    // })
-
-
-    // this.entrada = [];
-    // this.temporal.sort((a, b) => a.fechaProbableS.localeCompare(b.fechaProbableS));
-
-    // this.entrada.push(...this.temporal)
-
-    // console.log(this.salida);
-    this.changeDetectorRefs.detectChanges();
+  }
+  Despachar() {
+    this.service.MostrarSnack("En este punto puedes despachar los pedidos", "OK")
+    this.ConsultarPendientesSemanaConductor();
 
   }
 
@@ -173,8 +143,8 @@ export class AlevinosprogramcionComponent implements OnInit {
 
         this.entrada = [];
         this.salida = [];
-        
-        
+
+
         this.entrada.push(...OK.despachados)
         this.salida.push(...OK.Asociados)
 
@@ -182,7 +152,7 @@ export class AlevinosprogramcionComponent implements OnInit {
         if (this.entrada.length == 0) {
           this.service.MostrarSnack("Para el dia del despacho, en esta semana no hay pedidos, intenta cambiando la semana", "De Acuerdo")
         }
-        this.stepper.next()
+
 
       },
       ERROR => { console.log(ERROR) },
@@ -198,6 +168,7 @@ export class AlevinosprogramcionComponent implements OnInit {
     this.data.numeroSemana = 0;
     this.seleccionado = informe;
     this.ConsultarPendientesSemana();
+    this.stepper.next()
 
   }
   Agregar() {
@@ -212,6 +183,7 @@ export class AlevinosprogramcionComponent implements OnInit {
       if (result == "OK") {
         this.consultarProgramacion();
 
+
       }
     }, (reason) => {
 
@@ -222,4 +194,42 @@ export class AlevinosprogramcionComponent implements OnInit {
     });
   }
 
+  consultarConductores() {
+    const modalRef = this.modalService.open(ListaConductoresComponent,
+      {
+        size: 'lg',
+        windowClass: 'bounce-top'
+      });
+
+    modalRef.result.then((result) => {
+
+      console.log(result)
+
+    }, (reason) => {
+
+      if (reason === 'OK') {
+
+
+      }
+    });
+  }
+
+
+  ConsultarPendientesSemanaConductor() {
+    this.service.consultarPedidosConductor(this.data).subscribe(
+      OK => {
+        console.log(OK)
+
+        this.entradaSinConductor = [];
+        this.salidaConductor = [];
+
+        this.entradaSinConductor.push(...OK.despachados)
+        this.salidaConductor.push(...OK.Asociados)
+        this.stepper.next()
+
+
+      },
+      ERROR => { console.log(ERROR) },
+    )
+  }
 }

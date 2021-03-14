@@ -1,6 +1,6 @@
 <div class="container alternate-theme ">
 
-  <mat-horizontal-stepper [linear]="false" #stepper>
+  <mat-horizontal-stepper [linear]="true" #stepper>
 
 
     <mat-step>
@@ -12,7 +12,7 @@
           </div>
           <mat-card-title class="main-surala-text">Lista de Programaciones</mat-card-title>
           <mat-card-subtitle>Truchas Suralá</mat-card-subtitle>
-          <mat-card-subtitle class="surala-azul-text">Datos de programaciones</mat-card-subtitle>
+          <mat-card-subtitle class="surala-azul-text">{{"Fechas de salida" |uppercase}}</mat-card-subtitle>
 
         </mat-card-header>
         <mat-card-actions>
@@ -93,9 +93,9 @@
         <mat-card-header>
           <div mat-card-avatar class="example-header-image" style="background-image: url('assets/avatars/av-4.png')">
           </div>
-          <mat-card-title class="main-surala-text">
-            Pedidos Sin despachar
-          </mat-card-title>
+          <mat-card-title class="main-surala-text">Asociar Pedidos</mat-card-title>
+          <mat-card-subtitle>Truchas Suralá</mat-card-subtitle>
+          <mat-card-subtitle class="surala-azul-text">{{"Fechas de salida" |uppercase}}</mat-card-subtitle>
         </mat-card-header>
 
         <mat-card-content>
@@ -113,8 +113,13 @@
             </div>
           </div>
 
+          <mat-card-title class="main-surala-text">Pedidos Pendientes</mat-card-title>
+
           <app-lista-pedido-alevinos [id]="entrada" [despacho]="seleccionado.id" [mostrar]="true" [asociar]="true" (datoSalid)='onNotificar($event)'
             (agregar)='onAgregar($event)'></app-lista-pedido-alevinos>
+
+            <mat-divider></mat-divider>
+            <mat-card-title class="main-surala-text bajarTop" style=" padding-top: 10px;">Pedidos Asociados</mat-card-title>
 
           <app-lista-pedido-alevinos #dos [id]="salida" [mostrar]="false" [asociar]="false"
             (datoSalid)='onNotificar($event)' (devolver)='onDevolver($event)'></app-lista-pedido-alevinos>
@@ -129,6 +134,13 @@
               </button>
             </div>
 
+
+            <div class="col-6 centerlabel font-weight-bold" style="text-align: center;">
+              <button mat-raised-button color="primary" [disabled]="salida.length == 0" (click)="Despachar()">
+                <mat-icon>arrow_right_alt</mat-icon>
+              </button>
+            </div>
+
           </div>
 
 
@@ -136,6 +148,46 @@
 
       </mat-card>
 
+    </mat-step>
+    <mat-step>
+      <ng-template matStepLabel>Despachar</ng-template>
+      <mat-card>
+          <mat-card-header>
+              <div mat-card-avatar class="example-header-image" style="background-image: url('assets/avatars/av-8.png')">
+              </div>
+              <mat-card-title class="main-surala-text">Programar Conductor</mat-card-title>
+              <mat-card-subtitle>Truchas Suralá</mat-card-subtitle>
+              <mat-card-subtitle class="surala-azul-text">{{"Despachar" |uppercase}}</mat-card-subtitle>
+          </mat-card-header>
+          <mat-card-content>
+            <mat-card-actions>
+             
+              <mat-card-title class="main-surala-text">Sin asociar Conductor</mat-card-title>
+              <app-lista-pedido-alevinos #tres [id]="entradaSinConductor" [mostrar]="false" [asociar]="false"
+              (datoSalid)='onNotificar($event)' (devolver)='onDevolver($event)' [conductor]="false"></app-lista-pedido-alevinos>
+
+              <mat-divider></mat-divider>
+              <mat-card-title class="main-surala-text bajarTop" style=" padding-top: 10px;">Listos para salir</mat-card-title>
+              <app-lista-pedido-alevinos #cuatro [id]="salidaConductor" [mostrar]="false" [asociar]="false"
+              (datoSalid)='onNotificar($event)' (devolver)='onDevolver($event)' [conductor]="true"></app-lista-pedido-alevinos>
+            </mat-card-actions>
+          </mat-card-content>
+          <mat-card-actions>
+              <div class="row">
+                  <div class="col-6 centerlabel font-weight-bold" style="text-align: center;">
+                      <button mat-raised-button color="primary" matStepperPrevious >
+                          <mat-icon>keyboard_backspace</mat-icon>
+                      </button>
+                  </div>
+                  <div class="col-6 centerlabel font-weight-bold" style="text-align: center;">
+                      <button mat-raised-button color="primary" >
+                          <mat-icon>cached</mat-icon>
+                      </button>
+                  </div>
+              </div>
+      
+          </mat-card-actions>
+      </mat-card>
     </mat-step>
 
   </mat-horizontal-stepper>

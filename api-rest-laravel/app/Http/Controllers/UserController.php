@@ -17,6 +17,7 @@ class UserController extends Controller
         $this->middleware('api.auth', ['except' => ['getpdf', 'login', 'loginsurala', 'UsuariosApp']]);
     }
 
+    /// para registrar usarios fincas
     public function register(Request $request)
     {
         // Se envia un Json recibimos un json 
@@ -109,6 +110,11 @@ class UserController extends Controller
     }
 
 
+    /**
+     * para registrar usuarios en la app de administracion
+     * los conductore como podran acceder a la app
+     
+     */
     public function registerAPP(Request $request)
     {
         // Se envia un Json recibimos un json 
@@ -153,9 +159,7 @@ class UserController extends Controller
                 $user->telefono = '0';
                 $user->tipo_usuario = 'SURALA';
                 $user->role = $params_array['role'];
-
                 $user->password = $pwd;
-           
                 //Guardar el Usuario
                 $user->save();
 
@@ -617,6 +621,17 @@ class UserController extends Controller
     {
         $usuarios = User::where('role', '!=', 'USUARIO')->get();
 
+        return response()->json([
+            'code' => 200,
+            'status' => 'success',
+            'Usuarios' => $usuarios
+        ]);
+    }
+
+
+    public function getConductores()
+    {
+        $usuarios = User::where('role', '=', 'CONDUCTOR')->get();
         return response()->json([
             'code' => 200,
             'status' => 'success',

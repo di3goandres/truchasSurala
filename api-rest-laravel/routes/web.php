@@ -65,11 +65,9 @@ Route::get('/api/user/avatar/{user}/{filename}', 'UserController@getImage') ;
 Route::get('/api/user/detail/{id}', 'UserController@detail');
 Route::get('/api/users/get', 'UserController@GetAllUserFincas');
 Route::get('/api/users/surala/get', 'UserController@GetAllUserSurala');
+Route::get('/api/users/surala/conductores', 'UserController@getConductores');
 
 Route::post('/api/user/changepassword', 'UserController@resetPasswordByUser');
-
-
-
 
 //Metodo para subir y descargar el pdf de facturas
 Route::post('/api/pedido/subirarchivo', 'UserController@subirarchivo')->middleware(ApiAuthMiddleware::class) ;
@@ -109,16 +107,14 @@ Route::resource('/api/Progamacion/Alevinos', 'AlevinosDespachoController');
 Route::get('/api/Progamacion/Alevinos/usuario/{id}', 'AlevinosController@GetPedidosUsuario');
 Route::get('/api/Progamacion/Alevinos/usuario/delete/{id}', 'AlevinosController@borrarPedido');
 Route::post('/api/Progamacion/Alevinos/usuario/pendientes', 'AlevinosController@ObtenerPedidosPendientes');
+Route::post('/api/Progamacion/Alevinos/usuario/conductor/pendientes', 'AlevinosController@ObtenerPedidosPendientesConductores');
+
 Route::post('/api/Progamacion/Alevinos/usuario/pedido/actualizar', 'AlevinosController@Actualizar');
 Route::get('/api/Progamacion/lotes/propios/', 'LoteNumeroController@ConsultarLotesPropios');
 Route::post('/api/Progamacion/lotes/propios/update', 'LoteNumeroController@ActualizarLotesPropios');
 Route::get('/api/Progamacion/lotes/propios/listos', 'LoteNumeroController@ConsultarLotesPropiosListos');
 Route::post('/api/Progamacion/lotes/propios/asociar', 'AlevinosController@AsociarPedidoADespachoDia');
 Route::post('/api/Progamacion/lotes/propios/desasociar', 'AlevinosController@desAsociarPedidoADespachoDia');
-
-
-
-
 
 
 
@@ -218,7 +214,7 @@ Route::get('/api/movil/despacho/reporte/informes/{id}', 'InformesTecnicosControl
 
 
 /***\
- * export de la aplicaicion
+ * export de la aplicacion
  */
 
 
