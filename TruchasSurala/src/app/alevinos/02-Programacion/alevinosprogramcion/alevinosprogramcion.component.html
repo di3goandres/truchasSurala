@@ -176,13 +176,13 @@
             </div>
 
             <div #sindespachar3 *ngIf="seleccionado.despachado==false">
-            <mat-card-title class="main-surala-text bajarTop" style=" padding-top: 10px;">Listos para salir
-            </mat-card-title>
-           </div>
-           <div #sindespachar4 *ngIf="seleccionado.despachado==true">
-            <mat-card-title class="main-surala-text bajarTop" style=" padding-top: 10px;">Pedidos Que Salieron
-            </mat-card-title>
-           </div>
+              <mat-card-title class="main-surala-text bajarTop" style=" padding-top: 10px;">Listos para salir
+              </mat-card-title>
+            </div>
+            <div #sindespachar4 *ngIf="seleccionado.despachado==true">
+              <mat-card-title class="main-surala-text bajarTop" style=" padding-top: 10px;">Pedidos Que Salieron
+              </mat-card-title>
+            </div>
             <app-lista-pedido-alevinos #cuatro [id]="salidaConductor" [mostrar]="false" [asociar]="false"
               [habilitado]="seleccionado.despachado" (datoSalid)='ConductorNotificar($event)'
               (devolver)='onDevolver($event)' [conductor]="true"></app-lista-pedido-alevinos>
