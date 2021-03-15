@@ -11,6 +11,7 @@ import { A_ProgramacionDiaRequest } from '../../../models/alevinos/alevinos.pedi
 import { Select } from 'src/app/models/Datos.generales';
 import { SeleccionarLoteComponent } from '../../06-Lote/seleccionar-lote/seleccionar-lote.component';
 import { ListaConductoresComponent } from '../../../componentes/11-Conductores/01-Lista/lista-conductores/lista-conductores.component';
+import { DeseasContinuarComponent } from '../../../componentes/01-Comunes/deseas-continuar/deseas-continuar.component';
 
 @Component({
   selector: 'app-alevinosprogramcion',
@@ -20,10 +21,8 @@ import { ListaConductoresComponent } from '../../../componentes/11-Conductores/0
 export class AlevinosprogramcionComponent implements OnInit {
   programacion: ProgramacionAlevinos[];
   seleccionado: ProgramacionAlevinos;
-
   entrada: AlevinosPedidos[] = [];
   salida: AlevinosPedidos[] = [];
-
   entradaSinConductor: AlevinosPedidos[] = [];
   salidaConductor: AlevinosPedidos[] = [];
   temporal: AlevinosPedidos[] = [];
@@ -59,7 +58,7 @@ export class AlevinosprogramcionComponent implements OnInit {
   ) {
     this.entradaSinConductor = [];
     this.salidaConductor = [];
-   }
+  }
 
 
   ngOnInit(): void {
@@ -80,7 +79,7 @@ export class AlevinosprogramcionComponent implements OnInit {
           this.service.MostrarSnack("Sin datos de programación", "Ok");
         } else {
           let sinprogramar = OK.programacion.filter(item => {
-            return item.despachado == 0;
+            return item.despachado == true;
           })
           if (sinprogramar.length > 0) {
             this.service.MostrarSnack("Tienes " + sinprogramar.length + ", Programaciones sin despachar. ", "Gracias")
@@ -115,6 +114,13 @@ export class AlevinosprogramcionComponent implements OnInit {
     }
 
   }
+
+  ConductorNotificar(evento) {
+    if (evento) {
+      this.ConsultarPendientesSemanaConductor(false);
+    }
+
+  }
   onDevolver(evento: AlevinosPedidos) {
 
     this.ConsultarPendientesSemana();
@@ -127,7 +133,7 @@ export class AlevinosprogramcionComponent implements OnInit {
   }
   Despachar() {
     this.service.MostrarSnack("En este punto puedes despachar los pedidos", "OK")
-    this.ConsultarPendientesSemanaConductor();
+    this.ConsultarPendientesSemanaConductor(true);
 
   }
 
@@ -149,8 +155,12 @@ export class AlevinosprogramcionComponent implements OnInit {
         this.salida.push(...OK.Asociados)
 
 
-        if (this.entrada.length == 0) {
+        if (this.entrada.length == 0 && this.seleccionado.despachado == false) {
           this.service.MostrarSnack("Para el dia del despacho, en esta semana no hay pedidos, intenta cambiando la semana", "De Acuerdo")
+        }
+        if(this.seleccionado.despachado){
+          this.service.MostrarSnack("Aca puedes ver el pedido despachado", "De Acuerdo")
+
         }
 
 
@@ -167,6 +177,7 @@ export class AlevinosprogramcionComponent implements OnInit {
     this.data.idDiaPedido = informe.id;
     this.data.numeroSemana = 0;
     this.seleccionado = informe;
+
     this.ConsultarPendientesSemana();
     this.stepper.next()
 
@@ -215,7 +226,7 @@ export class AlevinosprogramcionComponent implements OnInit {
   }
 
 
-  ConsultarPendientesSemanaConductor() {
+  ConsultarPendientesSemanaConductor(next) {
     this.service.consultarPedidosConductor(this.data).subscribe(
       OK => {
         console.log(OK)
@@ -225,11 +236,73 @@ export class AlevinosprogramcionComponent implements OnInit {
 
         this.entradaSinConductor.push(...OK.despachados)
         this.salidaConductor.push(...OK.Asociados)
-        this.stepper.next()
+        if (next)
+          this.stepper.next()
 
 
       },
       ERROR => { console.log(ERROR) },
     )
+  }
+
+  DespachoFinal() {
+    let sinConductor = this.entradaSinConductor.length;
+    let salidaConductor = this.salidaConductor.length;
+
+
+    if (sinConductor == 0 && salidaConductor == 0) {
+      this.service.NoExitoso("Sin Pedidos", "No tienes Pedidos para despachar, por favor asocialos")
+    }
+
+    else if (sinConductor > 0 && salidaConductor > 0) {
+      this.service.
+        NoExitoso("Pedidos Pendientes", "Tienes Pedidos Pendientes, por asociar conductores")
+    }
+    else if (sinConductor == 0 && salidaConductor > 0) {
+
+      this.DesparcharPedidoActual();
+    }
+
+
+  }
+
+
+  DesparcharPedidoActual() {
+    const modalRef = this.modalService.open(DeseasContinuarComponent,
+      {
+        size: 'lg',
+        windowClass: 'bounce-top'
+      });
+
+    modalRef.componentInstance.Titulo = "Despachar";
+    modalRef.componentInstance.mensaje = "Esta a punto de despachar los pedido asociados, Desea Continuar?"
+    modalRef.result.then((result) => {
+      if (result === "OK") {
+
+        this.service.despacharDia(this.seleccionado).subscribe(
+          OK => {
+            console.log(OK)
+            this.service.Exitoso();
+            this.consultarProgramacion();
+            this.stepper.reset();
+
+          },
+          ERROR => {
+            console.log(ERROR)
+            this.service.NoExitosoComun();
+
+          },
+        )
+
+
+      }
+      console.log('result', result);
+    }, (reason) => {
+
+      if (reason === 'OK') {
+
+
+      }
+    });
   }
 }

@@ -4,12 +4,14 @@ namespace App\Http\Controllers;
 
 use App\AlevinosDespacho;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Validator;
 
 class AlevinosDespachoController extends Controller
 {
     public function __construct()
     {
-         $this->middleware('api.auth');
+        $this->middleware('api.auth');
     }
 
 
@@ -43,18 +45,15 @@ class AlevinosDespachoController extends Controller
     }
     public function store(Request $request)
     {
-
         $json = $request->input('json', null);
         $params_array = json_decode($json, true); // array
 
         if (!empty($params_array)) {
-            $validate = \Validator::make($params_array, [
+            $validate = Validator::make($params_array, [
 
                 'fecha_salida' => 'required'
 
             ]);
-
-
             if ($validate->fails()) {
                 $data = array(
                     'status' => 'error',
@@ -64,26 +63,16 @@ class AlevinosDespachoController extends Controller
                     'data' => $params_array
                 );
             } else {
-
-
                 $fecha = str_replace('T05:00:00.000Z', '', $params_array['fecha_salida']);
-                $programacion = \DB::table('alevinos_dia_despacho')
+                $programacion = DB::table('alevinos_dia_despacho')
                     ->where('alevinos_dia_despacho.fecha_salida', '=',  $fecha)
                     ->select('alevinos_dia_despacho.fecha_salida')
                     ->get();
-
                 if (count($programacion) == 0) {
-
-
-
-
-
                     $date = new \DateTime($fecha);
                     $week = $date->format("W");
-
                     $dayNumber = $date->format("N");
                     $dayName = $this->NombreDia($dayNumber);
-
                     $alevinoProgramacion = new AlevinosDespacho();
                     $alevinoProgramacion->fecha_salida =  $fecha;
                     $alevinoProgramacion->despachado =   false;
@@ -94,13 +83,11 @@ class AlevinosDespachoController extends Controller
                         'code' => 200,
                         'status' => 'success',
                         'id' => $alevinoProgramacion,
-
                     );
                 } else {
                     $data = array(
                         'code' => 201,
                         'status' => 'ya existe esta programacion',
-
                     );
                 }
             }
@@ -116,7 +103,6 @@ class AlevinosDespachoController extends Controller
         // devolver el resutlado
         return response()->json($data, $data['code']);
     }
-
     //Metodo par obtner los despachos que se han creado.
     public function index()
     {
@@ -125,7 +111,7 @@ class AlevinosDespachoController extends Controller
         $id = 0;
         foreach ($despachos as $despacho) {
             $retorno[$id] = ($despacho);
-            $retorno[$id]['estado'] = $despacho->despachado == true? "DESPACHADO": "SIN DESPACHAR";
+            $retorno[$id]['estado'] = $despacho->despachado == true ? "DESPACHADO" : "SIN DESPACHAR";
             $id = $id + 1;
         }
         return response()->json([
@@ -133,5 +119,56 @@ class AlevinosDespachoController extends Controller
             'status' => 'success',
             'programacion' => $retorno
         ]);
+    }
+
+
+    /**
+     * metodo encargado de despachar el pedido del dia
+     *  
+     */
+    public function Despachar(Request $request)
+    {
+        $json = $request->input('json', null);
+        $params_array = json_decode($json, true); // array
+        $params = json_decode($json); //objeto
+        if (!empty($params)) {
+            $validate = Validator::make($params_array, [
+                "id" => 'required|numeric',
+            ]);
+            if ($validate->fails()) {
+                $data = array(
+                    'status' => 'error',
+                    'code' => 401,
+                );
+            } else {
+                $despacho = AlevinosDespacho::find($params->id);
+                if (is_object($despacho)) {
+                    /**
+                     * Buscar los despachos 
+                     */
+                    $despacho->despachado = true;
+                    $despacho->save();
+                    $data = array(
+                        'status' => 'success',
+                        'code' => 200,
+                    );
+                } else {
+                    //no deberia llegar datos que no existan
+                    $data = array(
+                        'status' => 'error',
+                        'code' => 401,
+                    );
+                }
+            }
+        } else {
+            $data = array(
+                'status' => 'error',
+                'code' => 401,
+                'dato' => $json,
+                'message' => 'Sin datos que procesar',
+            );
+        }
+        // devolver el resutlado
+        return response()->json($data, $data['code']);
     }
 }

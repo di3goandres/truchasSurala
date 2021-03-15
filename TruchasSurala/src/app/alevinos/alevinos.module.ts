@@ -40,7 +40,9 @@ import { AsignarLoteAlevinosComponent } from './06-Lote/asignar-lote-alevinos/as
 import { VerPropiosComponent } from './06-Lote/ver-propios/ver-propios.component';
 import { SeleccionarLoteComponent } from './06-Lote/seleccionar-lote/seleccionar-lote.component';
 import { VerCertificadoOrigenComponent } from './06-Lote/ver-certificado-origen/ver-certificado-origen.component';
-
+import { AsignarConductorComponent } from './07-AsignarConductor/asignar-conductor/asignar-conductor.component';
+import { ConductoresComponent } from './07-AsignarConductor/conductores/conductores.component';
+import {MatSidenavModule} from '@angular/material/sidenav';
 
 @NgModule({
   declarations: [
@@ -53,7 +55,9 @@ import { VerCertificadoOrigenComponent } from './06-Lote/ver-certificado-origen/
     AsignarLoteAlevinosComponent,
     VerPropiosComponent,
     SeleccionarLoteComponent,
-    VerCertificadoOrigenComponent],
+    VerCertificadoOrigenComponent,
+    AsignarConductorComponent,
+    ConductoresComponent],
   imports: [
     CommonModule,
     AlevinosRoutingModule,
@@ -85,7 +89,9 @@ import { VerCertificadoOrigenComponent } from './06-Lote/ver-certificado-origen/
     TextFieldModule,
     MatListModule,
     MatChipsModule,
-    MatSnackBarModule
+    MatSnackBarModule,
+    MatSidenavModule
+  
   ]
 })
 export class AlevinosModule { }

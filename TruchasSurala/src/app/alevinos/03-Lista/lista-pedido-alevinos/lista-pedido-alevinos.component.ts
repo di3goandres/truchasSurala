@@ -10,6 +10,7 @@ import { EditarMontajeComponent } from '../../01-Montaje/editar-montaje/editar-m
 import { AsignarLoteAlevinosComponent } from '../../06-Lote/asignar-lote-alevinos/asignar-lote-alevinos.component';
 import { VerCertificadoOrigenComponent } from '../../06-Lote/ver-certificado-origen/ver-certificado-origen.component';
 import { ListaConductoresComponent } from '../../../componentes/11-Conductores/01-Lista/lista-conductores/lista-conductores.component';
+import { AsignarConductorComponent } from '../../07-AsignarConductor/asignar-conductor/asignar-conductor.component';
 
 @Component({
   selector: 'app-lista-pedido-alevinos',
@@ -25,6 +26,8 @@ export class ListaPedidoAlevinosComponent implements OnInit {
   @Input() mostrar: boolean;
   @Input() asociar: boolean;
   @Input() conductor: boolean;
+  @Input() habilitado: boolean;
+
 
 
   @Output() datoSalid = new EventEmitter<boolean>();
@@ -35,15 +38,11 @@ export class ListaPedidoAlevinosComponent implements OnInit {
 
     this._despacho = 0
     this._despacho = value;
-    console.log('entre a despacho', this._despacho)
-
 
   }
 
   @Input() set id(value: AlevinosPedidos[]) {
-
-
-    console.log('entre a descargar', this.asociar)
+ 
     this.entrada = [];
     if (value != null) {
       this.entrada.push(...value);
@@ -232,15 +231,18 @@ export class ListaPedidoAlevinosComponent implements OnInit {
     )
   }
 
-  consultarConductores() {
-    const modalRef = this.modalService.open(ListaConductoresComponent,
+  consultarConductores(pedidoAlevinos: AlevinosPedidos) {
+    const modalRef = this.modalService.open(AsignarConductorComponent,
       {
         size: 'lg',
         windowClass: 'bounce-top'
       });
+    modalRef.componentInstance.entrada = pedidoAlevinos
 
     modalRef.result.then((result) => {
-
+      if (result === "OK") {
+        this.datoSalid.emit(true);
+      }
       console.log(result)
 
     }, (reason) => {

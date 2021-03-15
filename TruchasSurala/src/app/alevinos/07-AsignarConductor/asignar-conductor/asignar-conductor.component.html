@@ -1,0 +1,107 @@
+<mat-card>
+    <mat-card-header>
+        <div mat-card-avatar class="example-header-image" style="background-image: url('assets/avatars/av-8.png')">
+        </div>
+        <mat-card-title class="main-surala-text">Asignar Conductor/ Temp de Salida</mat-card-title>
+        <mat-card-subtitle>Truchas Surala</mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-content>
+        <mat-horizontal-stepper [linear]="true" #stepper>
+
+            <mat-step>
+                <ng-template matStepLabel>Seleccionar Conductor</ng-template>
+                <app-conductores (devolver)="AsociarConductor($event)"></app-conductores>
+            </mat-step>
+            <mat-step>
+                <ng-template matStepLabel>Temperatura de salida</ng-template>
+
+                <mat-card>
+                    <mat-card-header>
+                        <div mat-card-avatar class="example-header-image"
+                            style="background-image: url('assets/avatars/av-7.png')">
+                        </div>
+                        <mat-card-title class="main-surala-text">Temperatura</mat-card-title>
+                        <mat-card-subtitle>Truchas Surala</mat-card-subtitle>
+                    </mat-card-header>
+                    <mat-card-content>
+                        <mat-drawer-container class="example-container" autosize>
+                            <mat-drawer #drawer class="example-sidenav" mode="side" opened>
+                                <table width="100%" border="0">
+                                    <tr>
+                                        <td>
+                                            <mat-label class="descripcion">
+                                                Conductor
+                                            </mat-label>
+                                        </td>
+                                        <td>
+                                            <mat-label class="descripcionTexto">
+                                                {{conductor.name + ", " + conductor.surname | uppercase }}
+                                            </mat-label>
+                                        </td>
+                                    <tr>
+
+                                </table>
+                            </mat-drawer>
+
+                            <div class="example-sidenav-content">
+                                <form [formGroup]="firstFormGroup" style="width: 100%;">
+                                    <div class="row">
+                                        <div class="col-12 form-group">
+                                            <mat-form-field appearance="fill" floatLabel="always">
+                                                <mat-label>Temperatura de salida de las OVAS</mat-label>
+                                                <input matInput placeholder="Temp de salida" type="number"
+                                                    name="cantidad" [(ngModel)]="salida.temp_cargue"
+                                                    formControlName="temp_cargue">
+                                            </mat-form-field>
+                                        </div>
+
+                                        <div class="col-12 form-group">
+                                            <mat-form-field appearance="fill" floatLabel="always">
+                                                <mat-label>Referencia alimento</mat-label>
+                                                <input matInput placeholder="Referencia del alimento" type="text"
+                                                    name="alimento" [(ngModel)]="salida.referencia_alimento"
+                                                    formControlName="alimento">
+                                            </mat-form-field>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </mat-drawer-container>
+                    </mat-card-content>
+                    <mat-card-actions>
+                        <div class="row">
+                            <div class="col-6 centerlabel font-weight-bold" style="text-align: center;">
+                                <button mat-raised-button color="warn" matStepperPrevious>
+                                    <mat-icon>keyboard_backspace</mat-icon>
+                                </button>
+                            </div>
+
+                        </div>
+
+                    </mat-card-actions>
+                </mat-card>
+
+
+
+
+
+
+            </mat-step>
+        </mat-horizontal-stepper>
+    </mat-card-content>
+    <mat-card-actions>
+        <div class="row">
+            <div class="col-6 centerlabel font-weight-bold" style="text-align: center;">
+                <button mat-raised-button color="warn" ngbAutofocus (click)="close()">
+                    <mat-icon>close</mat-icon>
+                </button>
+            </div>
+            <div class="col-6 centerlabel font-weight-bold" style="text-align: center;">
+                <button mat-raised-button color="primary" [disabled]="firstFormGroup.invalid" (click)="AsociarTemperatura()">
+                    <mat-icon>save</mat-icon>
+                </button>
+            </div>
+        </div>
+
+    </mat-card-actions>
+</mat-card>

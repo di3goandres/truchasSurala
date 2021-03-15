@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { UserService } from '../user/user.service';
 import { AlevinosPedidos, AlevinosPedidosRequest, AlevinosPedidosResponse, A_DiaDespachoRequest, A_ProgramacionDiaRequest } from '../../models/alevinos/alevinos.pedidos';
-import { ProgramacionAlevinosResponse } from '../../models/alevinos/programacion.alevinos';
+import { ProgramacionAlevinosResponse, ProgramacionAlevinos } from '../../models/alevinos/programacion.alevinos';
 import { Respuesta } from '../../models/pedidos/guardar.factura.response';
 import { LotesPropio, LotesPropiosResponse } from '../../models/alevinos/lotes.propio.response';
 import { ComplementoPedido } from 'src/app/models/alevinos/alevinos.agregar';
@@ -38,55 +38,65 @@ export class AlevinosService {
 
   /// get
   consultarProgramacion(){
-    return this.userService.ejecutarQuery<ProgramacionAlevinosResponse>('/api/Progamacion/Alevinos')
+    return this.userService.ejecutarQuery<ProgramacionAlevinosResponse>('/api/Programacion/Alevinos')
   }
 
   ///post
   GuardarDiaDespacho(data: A_DiaDespachoRequest){
-    return this.userService.ejecutarQueryPostNuevo<Respuesta>('/api/Progamacion/Alevinos', data)
+    return this.userService.ejecutarQueryPostNuevo<Respuesta>('/api/Programacion/Alevinos', data)
   }
 
   consultarPedidosUsuario(id: number){
-    return this.userService.ejecutarQuery<AlevinosPedidosResponse>('/api/Progamacion/Alevinos/usuario/' + id)
+    return this.userService.ejecutarQuery<AlevinosPedidosResponse>('/api/Programacion/Alevinos/usuario/' + id)
   }
 
   consultarPedidosPendientes(data: A_ProgramacionDiaRequest){
-    return this.userService.ejecutarQueryPostNuevo<AlevinosPedidosResponse>('/api/Progamacion/Alevinos/usuario/pendientes', data)
+    return this.userService.ejecutarQueryPostNuevo<AlevinosPedidosResponse>('/api/Programacion/Alevinos/usuario/pendientes', data)
   }
 
   consultarPedidosConductor(data: A_ProgramacionDiaRequest){
-    return this.userService.ejecutarQueryPostNuevo<AlevinosPedidosResponse>('/api/Progamacion/Alevinos/usuario/conductor/pendientes', data)
+    return this.userService.ejecutarQueryPostNuevo<AlevinosPedidosResponse>('/api/Programacion/Alevinos/usuario/conductor/pendientes', data)
   }
 
+  despacharDia(data: ProgramacionAlevinos){
+    return this.userService.ejecutarQueryPostNuevo<AlevinosPedidosResponse>('/api/Programacion/Alevinos/despacho/despachar', data)
+  }
+  
   borrarPedidosUsuario(id: number){
-    return this.userService.ejecutarQuery<Respuesta>('/api/Progamacion/Alevinos/usuario/delete/' + id)
+    return this.userService.ejecutarQuery<Respuesta>('/api/Programacion/Alevinos/usuario/delete/' + id)
   }
 
   ActualizarPedido(data: AlevinosPedidos){
-    return this.userService.ejecutarQueryPostNuevo<Respuesta>('/api/Progamacion/Alevinos/usuario/pedido/actualizar', data)
+    return this.userService.ejecutarQueryPostNuevo<Respuesta>('/api/Programacion/Alevinos/usuario/pedido/actualizar', data)
 
   }
 
   Propios(){
-    return this.userService.ejecutarQuery<LotesPropiosResponse>('/api/Progamacion/lotes/propios/')
+    return this.userService.ejecutarQuery<LotesPropiosResponse>('/api/Programacion/lotes/propios/')
   }
 
   PropiosListos(){
-    return this.userService.ejecutarQuery<LotesPropiosResponse>('/api/Progamacion/lotes/propios/listos/')
+    return this.userService.ejecutarQuery<LotesPropiosResponse>('/api/Programacion/lotes/propios/listos/')
   }
   UpdatePropios(data: LotesPropio){
-    return this.userService.ejecutarQueryPostNuevo<Respuesta>('/api/Progamacion/lotes/propios/update', data)
+    return this.userService.ejecutarQueryPostNuevo<Respuesta>('/api/Programacion/lotes/propios/update', data)
   }
 
 
   AsociarPedido(data: ComplementoPedido){
-    return this.userService.ejecutarQueryPostNuevo<Respuesta>('/api/Progamacion/lotes/propios/asociar', data)
+    return this.userService.ejecutarQueryPostNuevo<Respuesta>('/api/Programacion/lotes/propios/asociar', data)
 
   }
 
 
   desAsociarPedido(data: AlevinosPedidos){
-    return this.userService.ejecutarQueryPostNuevo<Respuesta>('/api/Progamacion/lotes/propios/desasociar', data)
+    return this.userService.ejecutarQueryPostNuevo<Respuesta>('/api/Programacion/lotes/propios/desasociar', data)
+
+  }
+
+
+  AsociarConductor(data: AlevinosPedidos){
+    return this.userService.ejecutarQueryPostNuevo<Respuesta>('/api/Programacion/Alevinos/usuario/conductor/asociar', data)
 
   }
 

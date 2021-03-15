@@ -102,19 +102,25 @@ Route::resource('/api/CajasLotes', 'LoteController');
 Route::resource('/api/Despacho', 'DespachoController');
 Route::resource('/api/Pedidos', 'PedidosController');
 Route::resource('/api/Alevinos', 'AlevinosController');
-Route::resource('/api/Progamacion/Alevinos', 'AlevinosDespachoController');
+Route::resource('/api/Programacion/Alevinos', 'AlevinosDespachoController');
 
-Route::get('/api/Progamacion/Alevinos/usuario/{id}', 'AlevinosController@GetPedidosUsuario');
-Route::get('/api/Progamacion/Alevinos/usuario/delete/{id}', 'AlevinosController@borrarPedido');
-Route::post('/api/Progamacion/Alevinos/usuario/pendientes', 'AlevinosController@ObtenerPedidosPendientes');
-Route::post('/api/Progamacion/Alevinos/usuario/conductor/pendientes', 'AlevinosController@ObtenerPedidosPendientesConductores');
+Route::post('/api/Programacion/Alevinos/despacho/despachar', 'AlevinosDespachoController@Despachar');
 
-Route::post('/api/Progamacion/Alevinos/usuario/pedido/actualizar', 'AlevinosController@Actualizar');
-Route::get('/api/Progamacion/lotes/propios/', 'LoteNumeroController@ConsultarLotesPropios');
-Route::post('/api/Progamacion/lotes/propios/update', 'LoteNumeroController@ActualizarLotesPropios');
-Route::get('/api/Progamacion/lotes/propios/listos', 'LoteNumeroController@ConsultarLotesPropiosListos');
-Route::post('/api/Progamacion/lotes/propios/asociar', 'AlevinosController@AsociarPedidoADespachoDia');
-Route::post('/api/Progamacion/lotes/propios/desasociar', 'AlevinosController@desAsociarPedidoADespachoDia');
+
+
+Route::get('/api/Programacion/Alevinos/usuario/{id}', 'AlevinosController@GetPedidosUsuario');
+Route::get('/api/Programacion/Alevinos/usuario/delete/{id}', 'AlevinosController@borrarPedido');
+Route::post('/api/Programacion/Alevinos/usuario/pendientes', 'AlevinosController@ObtenerPedidosPendientes');
+Route::post('/api/Programacion/Alevinos/usuario/conductor/pendientes', 'AlevinosController@ObtenerPedidosPendientesConductores');
+Route::post('/api/Programacion/Alevinos/usuario/conductor/asociar', 'AlevinosController@AsociarConductor');
+
+
+Route::post('/api/Programacion/Alevinos/usuario/pedido/actualizar', 'AlevinosController@Actualizar');
+Route::get('/api/Programacion/lotes/propios/', 'LoteNumeroController@ConsultarLotesPropios');
+Route::post('/api/Programacion/lotes/propios/update', 'LoteNumeroController@ActualizarLotesPropios');
+Route::get('/api/Programacion/lotes/propios/listos', 'LoteNumeroController@ConsultarLotesPropiosListos');
+Route::post('/api/Programacion/lotes/propios/asociar', 'AlevinosController@AsociarPedidoADespachoDia');
+Route::post('/api/Programacion/lotes/propios/desasociar', 'AlevinosController@desAsociarPedidoADespachoDia');
 
 
 

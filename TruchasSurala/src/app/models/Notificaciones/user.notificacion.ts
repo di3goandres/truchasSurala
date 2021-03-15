@@ -6,7 +6,7 @@ export interface UserNotificacion {
     usuarios: Usuario[];
 }
 
-export interface Usuario {
+export class Usuario {
     id:                    number;
     name:                  string;
     surname:               string;

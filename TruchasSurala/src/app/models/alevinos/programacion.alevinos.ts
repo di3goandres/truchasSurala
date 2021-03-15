@@ -15,7 +15,7 @@ export class ProgramacionAlevinos {
     fecha_salida:  string;
     numero_semana: number;
     dia:           string;
-    despachado:    number;
+    despachado:    boolean;
     created_at:    string;
     updated_at:    string;
     estado:        string;

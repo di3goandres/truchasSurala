@@ -10,6 +10,7 @@ use App\LoteNumero;
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Validator;
 
 class AlevinosController extends Controller
 {
@@ -66,7 +67,7 @@ class AlevinosController extends Controller
 
 
 
-            $validate = \Validator::make($params_array, [
+            $validate = Validator::make($params_array, [
                 'idUserFinca' => 'required|numeric',
                 "alevinosPedidos" => "array|min:1",
                 "alevinosPedidos.*.tipo" => "required",
@@ -217,7 +218,7 @@ class AlevinosController extends Controller
 
             $params = json_decode($json); //objeto
 
-            $validate = \Validator::make($params_array, [
+            $validate = Validator::make($params_array, [
                 'id' => 'required|numeric',
                 "tipo" => "required",
                 'cantidad' => 'required|numeric',
@@ -395,7 +396,7 @@ class AlevinosController extends Controller
             ->where(
                 [
                     ['alevinos_dia_despacho.id', '=', $IdDespacho],
-                
+
 
                 ]
             )
@@ -428,7 +429,7 @@ class AlevinosController extends Controller
 
     public function Pedidos($numerosemana, $despachado)
     {
-        $despachos = \DB::table('alevinos_pedidos')
+        $despachos = DB::table('alevinos_pedidos')
             ->join('fincas', 'fincas.id', '=', 'alevinos_pedidos.id_finca')
             ->join('users', 'users.id', '=', 'fincas.user_id')
             ->where(
@@ -439,7 +440,7 @@ class AlevinosController extends Controller
             )
             ->select(
                 'alevinos_pedidos.id',
-                \DB::raw("(CASE WHEN es_talla = 1  THEN 'TALLA' ELSE 'PESO' END) AS tipo"),
+                DB::raw("(CASE WHEN es_talla = 1  THEN 'TALLA' ELSE 'PESO' END) AS tipo"),
                 'alevinos_pedidos.es_talla',
                 'alevinos_pedidos.es_peso',
                 'alevinos_pedidos.cantidad',
@@ -463,13 +464,13 @@ class AlevinosController extends Controller
     }
     public function datosPedido($id, $despachado)
     {
-        $despachos = \DB::table('alevinos_pedidos')
+        $despachos = DB::table('alevinos_pedidos')
             ->join('fincas', 'fincas.id', '=', 'alevinos_pedidos.id_finca')
             ->join('users', 'users.id', '=', 'fincas.user_id')
             ->where([['users.id', '=', $id], ['alevinos_pedidos.despachado', '=', $despachado]])
             ->select(
                 'alevinos_pedidos.id',
-                \DB::raw("(CASE WHEN es_talla = 1  THEN 'TALLA' ELSE 'PESO' END) AS tipo"),
+                DB::raw("(CASE WHEN es_talla = 1  THEN 'TALLA' ELSE 'PESO' END) AS tipo"),
                 'alevinos_pedidos.es_talla',
                 'alevinos_pedidos.es_peso',
                 'alevinos_pedidos.cantidad',
@@ -529,7 +530,7 @@ class AlevinosController extends Controller
     public function borrarPedido($id)
     {
 
-        $despachos = \DB::table('alevinos_pedidos')
+        $despachos = DB::table('alevinos_pedidos')
 
             ->where([['alevinos_pedidos.id', '=', $id], ['alevinos_pedidos.despachado', '=', false]])
             ->get();
@@ -566,7 +567,7 @@ class AlevinosController extends Controller
 
 
 
-            $validate = \Validator::make($params_array, [
+            $validate = Validator::make($params_array, [
                 'idDiaPedido' => 'required|numeric',
                 "numeroSemana" => 'required|numeric',
             ]);
@@ -643,7 +644,7 @@ class AlevinosController extends Controller
 
 
         if (!empty($params)) {
-            $validate = \Validator::make($params_array, [
+            $validate = Validator::make($params_array, [
                 'id_despacho' => 'required|numeric',
                 "id_lote" => 'required|numeric',
                 "id_pedido" => 'required|numeric',
@@ -757,7 +758,7 @@ class AlevinosController extends Controller
 
 
         if (!empty($params)) {
-            $validate = \Validator::make($params_array, [
+            $validate = Validator::make($params_array, [
                 'id_despacho' => 'required|numeric',
                 "id_lote_numero" => 'required|numeric',
                 "id" => 'required|numeric',
@@ -815,6 +816,10 @@ class AlevinosController extends Controller
                     $pedido->duracion_tratamiento = 0;
                     $pedido->peso_promedio = 0;
                     $pedido->talla_promedio = 0;
+                    $pedido->conductor_id = 0;
+                    $pedido->temp_cargue = 0;
+
+
                     $pedido->save();
                     $data = array(
                         'status' => 'success',
@@ -844,6 +849,69 @@ class AlevinosController extends Controller
     }
 
 
+    /**
+     * Asociar conductor y temperatura de cargue.
+     * 
+     */
+    public function AsociarConductor(Request $request)
+    {
+        $json = $request->input('json', null);
+
+        $params_array = json_decode($json, true); // array
+        $params = json_decode($json); //objeto
+
+
+        if (!empty($params)) {
+            $validate = Validator::make($params_array, [
+                'conductor' => 'required|numeric',
+                "id" => 'required|numeric',
+                "temp_cargue" => 'required|numeric',
+                "referencia_alimento" => 'required',
+
+            ]);
+            if ($validate->fails()) {
+                $data = array(
+                    'status' => 'error',
+                    'code' => 401,
+                );
+            } else {
+                $Adespachos = User::find($params->conductor);
+                $pedido = AlevinosPedidos::find($params->id);
+                if (is_object($Adespachos) &&  is_object($pedido)) {
+                    /**
+                     * Buscar los despachos con el numer de semana del despacho 
+                     * 
+                     * actualizamos los datos del pedido del cliente
+                     * 
+                     */
+                    $pedido->conductor_id = $params->conductor;
+                    $pedido->temp_cargue = $params->temp_cargue;
+                    $pedido->referencia_alimento = $params->referencia_alimento;
+                    $pedido->save();
+                    $data = array(
+                        'status' => 'success',
+                        'code' => 200,
+                    );
+                } else {
+                    //no deberia llegar datos que no existan
+                    $data = array(
+                        'status' => 'error',
+                        'code' => 401,
+                    );
+                }
+            }
+        } else {
+            $data = array(
+                'status' => 'error',
+                'code' => 401,
+                'dato' => $json,
+                'message' => 'Sin datos que procesar',
+            );
+        }
+        // devolver el resutlado
+        return response()->json($data, $data['code']);
+    }
+
     public function ObtenerPedidosPendientesConductores(Request $request)
     {
         $json = $request->input('json', null);
@@ -856,7 +924,7 @@ class AlevinosController extends Controller
 
 
 
-            $validate = \Validator::make($params_array, [
+            $validate = Validator::make($params_array, [
                 'idDiaPedido' => 'required|numeric',
                 "numeroSemana" => 'required|numeric',
             ]);

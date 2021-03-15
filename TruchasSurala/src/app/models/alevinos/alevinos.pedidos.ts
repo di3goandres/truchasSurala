@@ -3,12 +3,13 @@ export class AlevinosPedidos{
         this.cantidad=200;
         this.talla = 0;
         this.peso = 0;
+        // this.temp_cargue = -1;
     }
     
     id:             number;
     id_lote_numero: number;
     id_despacho: number;
-    
+    temp_cargue: number;
     conductor: number;
     NombreConductor:   string;
 
@@ -43,7 +44,8 @@ export class AlevinosPedidos{
 
     numLoteOvas:       string;
 
-    tratamiento_veterinario:       string;
+    tratamiento_veterinario:     string;
+    referencia_alimento:   string;
 
 
 

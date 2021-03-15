@@ -7,18 +7,17 @@ import { Usuario } from 'src/app/models/usuarios.fincas';
 import { UserService } from 'src/app/service/user/user.service';
 
 @Component({
-  selector: 'app-lista-conductores',
-  templateUrl: './lista-conductores.component.html',
-  styleUrls: ['./lista-conductores.component.css']
+  selector: 'app-conductores',
+  templateUrl: './conductores.component.html',
+  styleUrls: ['./conductores.component.css']
 })
-export class ListaConductoresComponent implements OnInit {
+export class ConductoresComponent implements OnInit {
 
   usuario: Usuario[] = [];
   @Output() devolver = new EventEmitter<Usuario>();
 
   constructor(
     private userService: UserService,
-    private activeModal: NgbActiveModal
   ) {
 
 
@@ -72,7 +71,5 @@ export class ListaConductoresComponent implements OnInit {
     // this.activeModal.close(conductor);
     this.devolver.emit(conductor);
   }
-  close(){
-    this.activeModal.close("NOOK");
-  }
+
 }
