@@ -18,15 +18,24 @@ import { AsignarConductorComponent } from '../../07-AsignarConductor/asignar-con
   styleUrls: ['./lista-pedido-alevinos.component.css']
 })
 export class ListaPedidoAlevinosComponent implements OnInit {
-  displayedColumns: string[] = ['position', 'FechaSalida',
-    'dia', 'talla', 'peso', 'cantidad'];
+  displayedColumnsIniciales: string[] = ['position', 'FechaSalida',
+  'dia', 'talla', 'peso', 'cantidad'];
+  displayedColumns: string[] = [];
   entrada: AlevinosPedidos[] = [];
   _despacho: number
+
+  _habilitado: boolean;
+
 
   @Input() mostrar: boolean;
   @Input() asociar: boolean;
   @Input() conductor: boolean;
-  @Input() habilitado: boolean;
+  @Input() set habilitado(value: number) {
+    this._habilitado = value == 1 ? true : false;
+    console.log('entre de valor:', this._habilitado)
+    this.asociarItems();
+
+  }
 
 
 
@@ -42,7 +51,7 @@ export class ListaPedidoAlevinosComponent implements OnInit {
   }
 
   @Input() set id(value: AlevinosPedidos[]) {
- 
+
     this.entrada = [];
     if (value != null) {
       this.entrada.push(...value);
@@ -68,6 +77,16 @@ export class ListaPedidoAlevinosComponent implements OnInit {
 
   ngOnInit(): void {
 
+
+
+    this.asociarItems();
+
+
+  }
+
+  asociarItems() {
+    this.displayedColumns = []
+    this.displayedColumns.push(...this.displayedColumnsIniciales);
     if (this.mostrar != null) {
       this.displayedColumns.push(...['Nombre', 'Municipio', 'Direccion']);
 
@@ -92,8 +111,20 @@ export class ListaPedidoAlevinosComponent implements OnInit {
       this.displayedColumns.push(...['desasociar', 'verCertificado']);
 
     }
+    if (this._habilitado == true) {
+      this.deleteMsg('desasociar');
+      this.deleteMsg('asociar');
+      this.deleteMsg('Conductor');
 
+
+    }
   }
+  deleteMsg(msg: string) {
+
+    this.displayedColumns = this.displayedColumns.filter(item => item !== msg);
+    console.log(msg);
+  }
+
   VerCertificado(item: AlevinosPedidos) {
     const modalRef = this.modalService.open(VerCertificadoOrigenComponent, { size: 'xl', windowClass: 'bounce-in-top' });
     modalRef.componentInstance.Despacho = item

@@ -21,6 +21,8 @@ import { DeseasContinuarComponent } from '../../../componentes/01-Comunes/deseas
 export class AlevinosprogramcionComponent implements OnInit {
   programacion: ProgramacionAlevinos[];
   seleccionado: ProgramacionAlevinos;
+  habilitado: boolean;
+
   entrada: AlevinosPedidos[] = [];
   salida: AlevinosPedidos[] = [];
   entradaSinConductor: AlevinosPedidos[] = [];
@@ -79,7 +81,7 @@ export class AlevinosprogramcionComponent implements OnInit {
           this.service.MostrarSnack("Sin datos de programación", "Ok");
         } else {
           let sinprogramar = OK.programacion.filter(item => {
-            return item.despachado == true;
+            return item.despachado == false;
           })
           if (sinprogramar.length > 0) {
             this.service.MostrarSnack("Tienes " + sinprogramar.length + ", Programaciones sin despachar. ", "Gracias")
@@ -147,6 +149,9 @@ export class AlevinosprogramcionComponent implements OnInit {
       OK => {
         console.log(OK)
 
+
+        this.entrada = null;
+        this.salida = null;
         this.entrada = [];
         this.salida = [];
 
@@ -158,7 +163,7 @@ export class AlevinosprogramcionComponent implements OnInit {
         if (this.entrada.length == 0 && this.seleccionado.despachado == false) {
           this.service.MostrarSnack("Para el dia del despacho, en esta semana no hay pedidos, intenta cambiando la semana", "De Acuerdo")
         }
-        if(this.seleccionado.despachado){
+        if (this.seleccionado.despachado) {
           this.service.MostrarSnack("Aca puedes ver el pedido despachado", "De Acuerdo")
 
         }
@@ -177,6 +182,9 @@ export class AlevinosprogramcionComponent implements OnInit {
     this.data.idDiaPedido = informe.id;
     this.data.numeroSemana = 0;
     this.seleccionado = informe;
+
+    this.habilitado = null;
+    this.habilitado = informe.despachado;
 
     this.ConsultarPendientesSemana();
     this.stepper.next()
