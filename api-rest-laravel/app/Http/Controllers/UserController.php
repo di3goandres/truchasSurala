@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use App\User;
 use App\Fincas;
+use App\Helpers\JwtAuth;
 use App\Pedidos;
 
 class UserController extends Controller
@@ -183,7 +184,7 @@ class UserController extends Controller
 
     public function login(Request $request)
     {
-        $jwtAuth = new \JwtAuth();
+        $jwtAuth = new JwtAuth();
         $json = $request->input('json', null);
 
 

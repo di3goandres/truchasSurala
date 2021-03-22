@@ -56,6 +56,7 @@ class JwtAuth
                 'surname' => $user->surname,
                 'numero_identificacion' => $user->numero_identificacion,
                 'telefono' => $user->telefono,
+                'tipo_usuario' => $user->tipo_usuario,
                 'rol' => $user->role,
                 'iat' => time(),
                 'exp' => $EXPIRACION,

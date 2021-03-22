@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpHeaders, HttpClientModule, HttpClient } from '@angular/common/http';
 import { environment } from '../../environments/environment';
 import { User } from '../models/user';
-import { Observable } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { NavController } from '@ionic/angular';
 import { FincasUser } from '../models/fincas.user';
 import { Respuesta } from '../models/Response';
@@ -31,6 +31,10 @@ export class UserService {
     // 'Autorization': this.token
   });
   user: User;
+
+  public currentUser: Observable<User>;
+  public currentUserSubject: BehaviorSubject<User>;
+
   constructor(public http: HttpClient,
     public navCtrl: NavController
   ) {
@@ -38,6 +42,10 @@ export class UserService {
     this.header = new HttpHeaders();
     this.getIdentity();
     this.getToken();
+  
+
+    this.currentUserSubject = new BehaviorSubject<User>(JSON.parse(localStorage.getItem('identity')));
+    this.currentUser = this.currentUserSubject.asObservable();
 
   }
 
@@ -63,6 +71,17 @@ export class UserService {
     return this.identity;
   }
 
+  public get currenUserValue(): User {
+  
+    this.currentUserSubject = new BehaviorSubject<User>(JSON.parse(localStorage.getItem('identity')));
+    this.currentUser = this.currentUserSubject.asObservable();
+    if (this.currentUserSubject.value == null) {
+      return new User();
+    } else {
+      return this.currentUserSubject.value;
+
+    }
+  }
   // tslint:disable-next-line: typedef
   getToken() {
     // tslint:disable-next-line: prefer-const
@@ -75,6 +94,8 @@ export class UserService {
     }
     return this.token;
   }
+
+  
 
   validaToken(): Promise<boolean> {
 

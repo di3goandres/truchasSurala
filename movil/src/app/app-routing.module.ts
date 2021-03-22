@@ -138,6 +138,10 @@ const routes: Routes = [
     path: 'Preferirnos',
     loadChildren: () => import('./pages/08-Razones/preferirnos/preferirnos.module').then( m => m.PreferirnosPageModule)
 
+  },
+  {
+    path: 'pasarela',
+    loadChildren: () => import('./pages/03-Pedidos/pasarela/pasarela.module').then( m => m.PasarelaPageModule)
   }
 ];
 

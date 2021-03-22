@@ -1,9 +1,20 @@
-<ion-card >
+<ion-card>
+
   <ion-card-header>
-    <ion-card-title>{{finca.nombre}}</ion-card-title>
+    <ion-card-title class="ovasTitulo">
+      <ion-icon name="home-outline"></ion-icon>
+      {{finca.nombre}}
+    </ion-card-title>
+    <ion-card-subtitle></ion-card-subtitle>
     <ion-card-subtitle>{{finca.direccion}}</ion-card-subtitle>
 
-    <ion-img *ngIf="photoService.photo==null"src="https://cdn.needish.tools/is-prod-deals/ZTT2WXf38Do4jIh3HLdzGg/scale/900x600.jpg"></ion-img>
+
+
+
+
+
+    <ion-img *ngIf="photoService.photo==null"
+      src="https://cdn.needish.tools/is-prod-deals/ZTT2WXf38Do4jIh3HLdzGg/scale/900x600.jpg"></ion-img>
     <!-- <ion-img *ngIf="finca.imagen!=null"[src]="[finca.imagen]"></ion-img> -->
     <ion-grid *ngIf="photoService.photo!=null">
       <ion-row>
@@ -21,9 +32,9 @@
 
     <ion-item>
       <ion-button [routerLink]="['/updatephoto/', finca.id ]">
-      <ion-icon name="camera-outline"  slot="start"></ion-icon>
- 
-      <ion-label>Cambiar Foto</ion-label>
-    </ion-button>
+        <ion-icon name="camera-outline" slot="start"></ion-icon>
+
+        <ion-label>Cambiar Foto</ion-label>
+      </ion-button>
     </ion-item>
   </ion-card-content>

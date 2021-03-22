@@ -126,8 +126,8 @@
           <mat-card-title class="main-surala-text bajarTop" style=" padding-top: 10px;">Pedidos Asociados
           </mat-card-title>
 
-          <app-lista-pedido-alevinos #dos [id]="salida" [mostrar]="false" [asociar]="false"
-            [habilitado]="habilitado" (datoSalid)='onNotificar($event)' (devolver)='onDevolver($event)'>
+          <app-lista-pedido-alevinos #dos [id]="salida" [mostrar]="false" [asociar]="false" [habilitado]="habilitado"
+            (datoSalid)='onNotificar($event)' (devolver)='onDevolver($event)'>
           </app-lista-pedido-alevinos>
 
         </mat-card-content>
@@ -170,8 +170,8 @@
             <div #sindespachar2 *ngIf="seleccionado.despachado==false">
               <mat-card-title class="main-surala-text">Sin asociar Conductor</mat-card-title>
               <app-lista-pedido-alevinos #tres [id]="entradaSinConductor" [mostrar]="false" [asociar]="false"
-                [habilitado]="habilitado" (datoSalid)='ConductorNotificar($event)'
-                (devolver)='onDevolver($event)' [conductor]="false"></app-lista-pedido-alevinos>
+                [habilitado]="habilitado" (datoSalid)='ConductorNotificar($event)' (devolver)='onDevolver($event)'
+                [conductor]="false"></app-lista-pedido-alevinos>
               <mat-divider></mat-divider>
             </div>
 
@@ -184,8 +184,8 @@
               </mat-card-title>
             </div>
             <app-lista-pedido-alevinos #cuatro [id]="salidaConductor" [mostrar]="false" [asociar]="false"
-              [habilitado]="habilitado" (datoSalid)='ConductorNotificar($event)'
-              (devolver)='onDevolver($event)' [conductor]="true"></app-lista-pedido-alevinos>
+              [habilitado]="habilitado" (datoSalid)='ConductorNotificar($event)' (devolver)='onDevolver($event)'
+              [conductor]="true"></app-lista-pedido-alevinos>
           </mat-card-actions>
         </mat-card-content>
         <mat-card-actions>
@@ -195,11 +195,13 @@
                 <mat-icon>keyboard_backspace</mat-icon>
               </button>
             </div>
-            <div class="col-6 centerlabel font-weight-bold" style="text-align: center;">
-              <button mat-raised-button color="primary" (click)="DespachoFinal()" [disabled]="habilitado">
-                <mat-icon>cached</mat-icon>
-              </button>
-            </div>
+           
+              <div class="col-6 centerlabel font-weight-bold" style="text-align: center;"  #sindespachar5 *ngIf="seleccionado.despachado==false">
+                <button mat-raised-button color="primary" (click)="DespachoFinal()">
+                  <mat-icon>cached</mat-icon>
+                </button>
+              </div>
+           
           </div>
 
         </mat-card-actions>

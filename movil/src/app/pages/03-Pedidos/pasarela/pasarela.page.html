@@ -1,0 +1,58 @@
+<app-header titulo="Productos" icon="archive-outline"></app-header>
+
+<ion-content>
+  <ion-item *ngIf="user!=null && (user.tipo_usuario=='OVAS' || user.tipo_usuario=='AMBOS') ">
+
+    <ion-card class="jello-vertical" routerLink="/despachos">
+
+      <ion-card-header>
+        <ion-card-title class="ovasTitulo">
+          <ion-icon name="ellipse-outline"></ion-icon>
+          OVAS
+        </ion-card-title>
+        <ion-card-subtitle></ion-card-subtitle>
+
+        <div class="ion-text-center">
+          <ion-img src="./assets/data/mortalidad/mortalidad.jpg"></ion-img>
+        </div>
+
+      </ion-card-header>
+      <ion-card-content class="blue">
+
+
+
+
+
+
+      </ion-card-content>
+    </ion-card>
+  </ion-item>
+
+
+  <ion-item *ngIf="user!=null && user.tipo_usuario!='OVAS'">
+
+    <ion-card class="shake-lr">
+      <ion-card-header>
+        <ion-card-title class="ovasTitulo">
+        
+          <ion-icon name="fish-outline"></ion-icon>
+          ALEVINOS
+        </ion-card-title>
+        <ion-card-subtitle></ion-card-subtitle>
+
+        <div class="ion-text-center">
+          <ion-img src="./assets/data/mortalidad/mortalidad.jpg"></ion-img>
+        </div>
+
+      </ion-card-header>
+      <ion-card-content class="blue">
+
+
+
+
+
+
+      </ion-card-content>
+    </ion-card>
+  </ion-item>
+</ion-content>

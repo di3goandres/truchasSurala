@@ -8,7 +8,8 @@
 
   </ion-buttons>
 </ion-buttons>
-<ion-card *ngFor="let pedido of pedidos">
+<div *ngIf="noMostrar==false">
+<ion-card *ngFor="let pedido of pedidos" class="roll-in-blurred-right ">
   <ion-card-header>
     <ion-card-title class="ovasTitulo">
       <ion-icon name="cart-outline"></ion-icon>{{pedido.fecha_salida.replace(' 00:00:00', 'T00:00:00') | date: "MMM/dd/yyyy" | uppercase}}
@@ -75,7 +76,7 @@
 
   </ion-card-content>
 </ion-card>
-
+</div>
 <div *ngIf="noMostrar==true">
   
 <ion-card  *ngFor="let item of [1,1,1,1,1]" class="animated flash slow infinite">

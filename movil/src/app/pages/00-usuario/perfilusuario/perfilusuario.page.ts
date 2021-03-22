@@ -15,7 +15,7 @@ export class PerfilusuarioPage implements OnInit {
   ) { }
 
   ngOnInit() {
-   this.user = this.Service.getIdentity();
+    this.user = this.Service.currenUserValue;
 
   }
 

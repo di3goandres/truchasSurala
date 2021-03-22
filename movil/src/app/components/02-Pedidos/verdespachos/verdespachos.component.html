@@ -9,7 +9,7 @@
   </ion-buttons>
 </ion-buttons>
 <div *ngIf="noMostrar==false">
-  <ion-card *ngFor="let despacho of despachos">
+  <ion-card *ngFor="let despacho of despachos" class="swirl-in-fwd">
     <ion-card-header>
       <ion-card-title class="ovasTitulo">
         <ion-icon name="cart-outline"></ion-icon>
@@ -26,25 +26,25 @@
           <ion-col size="12">
             <p>Estado de llegada: {{despacho.estado_llegada}}</p>
             <p>Dias Retraso de llegada: {{despacho.dias_retraso}}</p>
-      
+
             <p>Temperatura de llegada: {{despacho.temperatura}}°C</p>
             <div *ngIf="despacho.observaciones!= null">
               <p>
                 Observaciones:
               </p>
               <p style="white-space: pre-wrap; padding-left: 70px;">{{despacho.observaciones}}</p>
-      
+
             </div>
           </ion-col>
-         
+
         </ion-row>
       </ion-grid>
-     
+
 
       <ion-buttons>
-        <ion-button *ngIf="ValidarFotos(despacho.id)==true" (click)="verFotos(despacho.id)" >
-          <ion-icon  slot="icon-only" name="film-outline"></ion-icon>
-         </ion-button>
+        <ion-button *ngIf="ValidarFotos(despacho.id)==true" (click)="verFotos(despacho.id)">
+          <ion-icon slot="icon-only" name="film-outline"></ion-icon>
+        </ion-button>
         <ion-button color="primary" *ngIf="despacho.certificado!='pendiente'" (click)="presentModal(despacho)">
           <!-- <ion-button color="primary" *ngIf="despacho.certificado!='pendiente'" [routerLink]="'/certificados/'+despacho.id+'/'+despacho.certificado+'/certificado'"> -->
           <ion-icon slot="icon-only" name="cash-outline"></ion-icon>
