@@ -91,9 +91,6 @@ const routes: Routes = [
   { // rutas de despacho
     path: 'surala/distribucion/ver/:id', component: TrazabilidadesComponent, canLoad: [UsuarioGuard], canActivate: [UsuarioGuard]
   },
-  { // rutas de despacho
-    path: 'surala/distribucion/ver/:id', component: TrazabilidadesComponent, canLoad: [UsuarioGuard], canActivate: [UsuarioGuard]
-  },
   { // rutas de usuarios
     path: 'surala/usuarios', component: ListausuarioComponent, canLoad: [UsuarioGuard], canActivate: [UsuarioGuard]
   },

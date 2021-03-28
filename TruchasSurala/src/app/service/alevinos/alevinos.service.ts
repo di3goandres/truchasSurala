@@ -6,6 +6,7 @@ import { Respuesta } from '../../models/pedidos/guardar.factura.response';
 import { LotesPropio, LotesPropiosResponse } from '../../models/alevinos/lotes.propio.response';
 import { ComplementoPedido } from 'src/app/models/alevinos/alevinos.agregar';
 import { UsuariosFincasResponse } from 'src/app/models/usuarios.fincas';
+import { InformePedidos } from '../../models/alevinos/alevinos.informe';
 
 @Injectable({
   providedIn: 'root'
@@ -102,5 +103,9 @@ export class AlevinosService {
 
   getConductores() {
     return this.userService.ejecutarQuery<UsuariosFincasResponse>('/api/users/surala/get');
+  }
+
+  GetReporte(id: number){
+    return this.userService.ejecutarQuery<InformePedidos>('/api/Programacion/Alevinos/pedido/reporte/' + id);
   }
 }

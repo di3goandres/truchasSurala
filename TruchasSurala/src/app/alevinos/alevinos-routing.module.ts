@@ -6,6 +6,7 @@ import { AlevinoGuard } from '../guards/alevino/alevino.guard';
 import { AlevinosprogramcionComponent } from './02-Programacion/alevinosprogramcion/alevinosprogramcion.component';
 import { PedidosClientesComponent } from './05-Clientes/pedidos-clientes/pedidos-clientes.component';
 import { VerPropiosComponent } from './06-Lote/ver-propios/ver-propios.component';
+import { InformePedidoComponent } from './05-Clientes/informe-pedido/informe-pedido.component';
 
 const routes: Routes = [
   { 
@@ -24,6 +25,10 @@ const routes: Routes = [
   ,
   {
     path: 'LotesPropios', component: VerPropiosComponent,
+    canLoad: [AlevinoGuard], canActivate: [AlevinoGuard]
+  },
+  {
+    path: 'Informe/:id', component: InformePedidoComponent,
     canLoad: [AlevinoGuard], canActivate: [AlevinoGuard]
   }
 ];

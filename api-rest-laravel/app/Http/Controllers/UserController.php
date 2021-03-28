@@ -9,6 +9,8 @@ use App\User;
 use App\Fincas;
 use App\Helpers\JwtAuth;
 use App\Pedidos;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Validator;
 
 class UserController extends Controller
 {
@@ -33,7 +35,7 @@ class UserController extends Controller
             //limpiar datos
             // $params_array = array_map('trim', $params_array);
             // validar datos
-            $validate = \Validator::make($params_array, [
+            $validate = Validator::make($params_array, [
                 'name' => 'required',
                 // 'surname' => 'required',
                 'tipo_usuario' => 'required',
@@ -114,7 +116,6 @@ class UserController extends Controller
     /**
      * para registrar usuarios en la app de administracion
      * los conductore como podran acceder a la app
-     
      */
     public function registerAPP(Request $request)
     {
@@ -129,7 +130,7 @@ class UserController extends Controller
             //limpiar datos
             // $params_array = array_map('trim', $params_array);
             // validar datos
-            $validate = \Validator::make($params_array, [
+            $validate = Validator::make($params_array, [
                 'name' => 'required',
                 // 'surname' => 'required',
                 'role' => 'required|in:ADMIN,OVAS,ALEVINOS,TECNICO,CONDUCTOR',
@@ -191,7 +192,7 @@ class UserController extends Controller
         $params = json_decode($json); //objeto
         $params_array = json_decode($json, true); // array
         if (!empty($params) && !empty($params_array)) { //
-            $validate = \Validator::make($params_array, [
+            $validate = Validator::make($params_array, [
                 'email' => 'required|email', //comprueba si el usuario esta duplicaod
                 'password' => 'required',
             ]);
@@ -228,14 +229,14 @@ class UserController extends Controller
     }
     public function loginsurala(Request $request)
     {
-        $jwtAuth = new \JwtAuth();
+        $jwtAuth = new JwtAuth();
         $json = $request->input('json', null);
 
 
         $params = json_decode($json); //objeto
         $params_array = json_decode($json, true); // array
         if (!empty($params) && !empty($params_array)) { //
-            $validate = \Validator::make($params_array, [
+            $validate = Validator::make($params_array, [
                 'email' => 'required|email', //comprueba si el usuario esta duplicaod
                 'password' => 'required',
             ]);
@@ -856,12 +857,11 @@ class UserController extends Controller
     }
 
     public function UsuariosApp(){
-        $usuarios= \DB::select('call 00_UsuariosAPP()');
+        $usuarios= DB::select('call 00_UsuariosAPP()');
         $data = array(
             'code' => 200,
             'status' => 'success',
             'usuarios'=> $usuarios,
-          
         );
         return response()->json($data, $data['code']);
     }

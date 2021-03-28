@@ -108,6 +108,7 @@ Route::post('/api/Programacion/Alevinos/despacho/despachar', 'AlevinosDespachoCo
 
 
 
+Route::get('/api/Programacion/Alevinos/pedido/reporte/{id}', 'AlevinosController@Reporte');
 Route::get('/api/Programacion/Alevinos/usuario/{id}', 'AlevinosController@GetPedidosUsuario');
 Route::get('/api/Programacion/Alevinos/usuario/delete/{id}', 'AlevinosController@borrarPedido');
 Route::post('/api/Programacion/Alevinos/usuario/pendientes', 'AlevinosController@ObtenerPedidosPendientes');

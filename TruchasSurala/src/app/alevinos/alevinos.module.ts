@@ -43,6 +43,7 @@ import { VerCertificadoOrigenComponent } from './06-Lote/ver-certificado-origen/
 import { AsignarConductorComponent } from './07-AsignarConductor/asignar-conductor/asignar-conductor.component';
 import { ConductoresComponent } from './07-AsignarConductor/conductores/conductores.component';
 import {MatSidenavModule} from '@angular/material/sidenav';
+import { InformePedidoComponent } from './05-Clientes/informe-pedido/informe-pedido.component';
 
 @NgModule({
   declarations: [
@@ -57,7 +58,8 @@ import {MatSidenavModule} from '@angular/material/sidenav';
     SeleccionarLoteComponent,
     VerCertificadoOrigenComponent,
     AsignarConductorComponent,
-    ConductoresComponent],
+    ConductoresComponent,
+    InformePedidoComponent],
   imports: [
     CommonModule,
     AlevinosRoutingModule,

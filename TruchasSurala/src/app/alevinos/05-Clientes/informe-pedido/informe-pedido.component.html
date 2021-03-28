@@ -1,0 +1,366 @@
+<mat-card>
+    <mat-card-header>
+        <div mat-card-avatar class="example-header-image" style="background-image: url('assets/avatars/av-8.png')">
+        </div>
+        <mat-card-title class="main-surala-text"></mat-card-title>
+        <mat-card-subtitle>Truchas Surala</mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-content>
+
+
+
+
+        <div class="container">
+            <table width="100%" border="0" style="font-size: 10px;">
+                <tr>
+                    <td class="imgSurala">
+
+                    </td>
+                    <td>
+                        <header>
+                            <h1 class="descripcion">Plan de Control</h1>
+                            <p class="tagline descripcionTexto">1.3 Programa de Trazabilidades</p>
+                        </header>
+                    </td>
+                    <td>
+                        <img mat-card-image class="imgTroutlodge" src="./assets/logo/Troutlodge.png" alt="Troutlodge">
+                    </td>
+                </tr>
+            </table>
+            <table width="100%" border="1" style="font-size: 10px;">
+
+                <tr>
+                    <td colspan="2" class="text-center">
+                        <label style="font-weight: bold;" class="descripcion">INFORMACIÓN GENERAL</label>
+                    </td>
+
+                </tr>
+                <tr>
+                    <td>
+                        <mat-label class="descripcion">
+                            FECHA ENTREGA
+                        </mat-label>
+                    </td>
+                    <td>
+                        <mat-label class="descripcionTexto">
+                            {{ reporte.fecha_salida |date :"MMM/dd/yyyy" | uppercase }}
+                        </mat-label>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>
+                        <mat-label class="descripcion">
+                            CLIENTE
+                        </mat-label>
+                    </td>
+                    <td>
+                        <mat-label class="descripcionTexto">
+                            {{reporte.nombre | uppercase}}
+                        </mat-label>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>
+                        <mat-label class="descripcion">
+                            DESTINO
+                        </mat-label>
+                    </td>
+                    <td>
+                        <mat-label class="descripcionTexto">
+                            {{reporte.municipio + ', ' + reporte.departamento | uppercase}}
+                        </mat-label>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <mat-label class="descripcion">
+                            REMISION #
+                        </mat-label>
+                    </td>
+                    <td>
+                        <mat-label class="descripcionTexto">
+                            {{reporte.remision_numero }}
+                        </mat-label>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td colspan="2" class="text-center">
+                        <label style="font-weight: bold;" class="descripcion">TRAZABILIDAD DEL LOTE</label>
+                    </td>
+
+                </tr>
+
+                <tr>
+                    <td>
+                        <mat-label class="descripcion">
+                            LOTE #
+                        </mat-label>
+                    </td>
+                    <td>
+                        <mat-label class="descripcionTexto">
+                            {{reporte.lote_alevinos}}
+                        </mat-label>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <mat-label class="descripcion">
+                            LOTE OVAS #
+                        </mat-label>
+                    </td>
+                    <td>
+                        <mat-label class="descripcionTexto">
+                            {{reporte.numero_lote}}
+                        </mat-label>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <mat-label class="descripcion">
+                            OVAS / ml
+                        </mat-label>
+                    </td>
+                    <td>
+                        <mat-label class="descripcionTexto">
+                            {{reporte.ovas_ml | number}}
+                        </mat-label>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <mat-label class="descripcion">
+                            TAMAÑO OVA (mm)
+                        </mat-label>
+                    </td>
+                    <td>
+                        <mat-label class="descripcionTexto">
+                            {{reporte.tamanio | number}}
+                        </mat-label>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <mat-label class="descripcion">
+                            EDAD OVA (TCU)
+                        </mat-label>
+                    </td>
+                    <td>
+                        <mat-label class="descripcionTexto">
+                            {{reporte.edad_tcu | number}}
+                        </mat-label>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <mat-label class="descripcion">
+                            FECHA INCUBACIÓN
+                        </mat-label>
+                    </td>
+                    <td>
+                        <mat-label class="descripcionTexto">
+                            {{reporte.fecha_incubacion |date :"MMM/dd/yyyy" | uppercase}}
+                        </mat-label>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>
+                        <mat-label class="descripcion">
+                            FECHA ECLOSIÓN
+                        </mat-label>
+                    </td>
+                    <td>
+                        <mat-label class="descripcionTexto">
+                            {{reporte.fecha_eclosion |date :"MMM/dd/yyyy" | uppercase}}
+                        </mat-label>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <mat-label class="descripcion">
+                            TEMP ECLOSIÓN(°C)
+                        </mat-label>
+                    </td>
+                    <td>
+                        <mat-label class="descripcionTexto">
+                            {{reporte.temp_eclosion | number}}
+                        </mat-label>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <mat-label class="descripcion">
+                            FIN ABSORCIÓN
+                        </mat-label>
+                    </td>
+                    <td>
+                        <mat-label class="descripcionTexto">
+                            {{reporte.fecha_fin_absorcion |date :"MMM/dd/yyyy" | uppercase}}
+                        </mat-label>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <mat-label class="descripcion">
+                            FECHA 1er ALIMENTO
+                        </mat-label>
+                    </td>
+                    <td>
+                        <mat-label class="descripcionTexto">
+                            {{reporte.fecha_primer_alimento |date :"MMM/dd/yyyy" | uppercase}}
+                        </mat-label>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <mat-label class="descripcion">
+                            REFERENCIA ALIMENTO
+                        </mat-label>
+                    </td>
+                    <td>
+                        <mat-label class="descripcionTexto">
+                            {{reporte.referencia_alimento| uppercase}}
+                        </mat-label>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2" class="text-center">
+                        <label style="font-weight: bold;" class="descripcion">MANEJO SANITARIO</label>
+                    </td>
+
+                </tr>
+
+                <tr>
+                    <td>
+                        <mat-label class="descripcion">
+                            TRATAMIENTOS VETERINARIOS
+                        </mat-label>
+                    </td>
+                    <td>
+                        <mat-label class="descripcionTexto">
+                            {{reporte.tratamientos_veterinarios| uppercase}}
+                        </mat-label>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <mat-label class="descripcion">
+                            DURACIÓN TRATAMIENTO
+                        </mat-label>
+                    </td>
+                    <td>
+                        <mat-label class="descripcionTexto">
+                            {{reporte.duracion_tratamiento| number}}
+                        </mat-label>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td colspan="2" class="text-center">
+                        <label style="font-weight: bold;" class="descripcion">DATOS DESPACHO</label>
+                    </td>
+
+                </tr>
+
+                <tr>
+                    <td>
+                        <mat-label class="descripcion">
+                            TEMPERATURA CARGUE
+                        </mat-label>
+                    </td>
+                    <td>
+                        <mat-label class="descripcionTexto">
+                            {{reporte.temp_cargue| number}}
+                        </mat-label>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <mat-label class="descripcion">
+                            CANTIDAD ALEVINOS
+                        </mat-label>
+                    </td>
+                    <td>
+                        <mat-label class="descripcionTexto">
+                            {{reporte.cantidad| number}}
+                        </mat-label>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td colspan="2" class="text-center">
+                        <label style="font-weight: bold;" class="descripcion">DATOS RECEPCIÓN</label>
+                    </td>
+
+                </tr>
+
+                <tr>
+                    <td>
+                        <mat-label class="descripcion">
+                            CANTIDAD DE ALEVINOS
+                        </mat-label>
+                    </td>
+                    <td>
+                        <mat-label class="descripcionTexto">
+                            {{reporte.cantidad_alevinos| number}}
+                        </mat-label>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <mat-label class="descripcion">
+                            PESO PROMEDIO (gr)
+                        </mat-label>
+                    </td>
+                    <td>
+                        <mat-label class="descripcionTexto">
+                            {{reporte.peso_promedio| number}}
+                        </mat-label>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <mat-label class="descripcion">
+                            TALLA PROMEDIO (cm)
+                        </mat-label>
+                    </td>
+                    <td>
+                        <mat-label class="descripcionTexto">
+                            {{reporte.talla_promedio| number}}
+                        </mat-label>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <mat-label class="descripcion">
+                            CONDUCTOR
+                        </mat-label>
+                    </td>
+                    <td>
+                        <mat-label class="descripcionTexto">
+                            {{reporte.NombreConductor| uppercase}}
+                        </mat-label>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </mat-card-content>
+    <mat-card-actions>
+        <div class="row">
+            <div class="col-6 centerlabel font-weight-bold" style="text-align: center;">
+                <button mat-raised-button color="warn" ngbAutofocus>
+                    <mat-icon>close</mat-icon>
+                </button>
+            </div>
+            <div class="col-6 centerlabel font-weight-bold" style="text-align: center;">
+                <button mat-raised-button color="warn">
+                    <mat-icon>cached</mat-icon>
+                </button>
+            </div>
+        </div>
+
+    </mat-card-actions>
+</mat-card>

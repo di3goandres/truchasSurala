@@ -10,7 +10,7 @@ user_id              int(255) not null,
 conductor_id         int(255) null, 
 id_finca 			 int(255) not null, 
 id_lote_numero       int(255)  null, 
-
+remision_numero      varchar(500)  NULL DEFAULT 'PENDIENTE' 
 es_talla             BIT(1) NOT NULL,
 es_peso              BIT(1) NOT NULL,
 cantidad             int(255) NOT NULL,
@@ -72,6 +72,12 @@ CONSTRAINT fk_aps_alevinos_dia_despacho FOREIGN KEY (id_alevinos_dia_despacho) R
 ALTER TABLE `api_rest_truchas`.`alevinos_pedidos` 
 
 ADD COLUMN `conductor_id` INT(255) NULL DEFAULT 0 AFTER `user_id`,
+
+
+ALTER TABLE `api_rest_truchas`.`alevinos_pedidos` 
+
+ADD COLUMN `remision_numero`  varchar(500)  NULL DEFAULT 'PENDIENTE' AFTER `id_lote_numero`,
+
 
 
 

@@ -11,6 +11,7 @@ import { AsignarLoteAlevinosComponent } from '../../06-Lote/asignar-lote-alevino
 import { VerCertificadoOrigenComponent } from '../../06-Lote/ver-certificado-origen/ver-certificado-origen.component';
 import { ListaConductoresComponent } from '../../../componentes/11-Conductores/01-Lista/lista-conductores/lista-conductores.component';
 import { AsignarConductorComponent } from '../../07-AsignarConductor/asignar-conductor/asignar-conductor.component';
+import { InformePedidoComponent } from '../../05-Clientes/informe-pedido/informe-pedido.component';
 
 @Component({
   selector: 'app-lista-pedido-alevinos',
@@ -19,7 +20,7 @@ import { AsignarConductorComponent } from '../../07-AsignarConductor/asignar-con
 })
 export class ListaPedidoAlevinosComponent implements OnInit {
   displayedColumnsIniciales: string[] = ['position', 'FechaSalida',
-  'dia', 'talla', 'peso', 'cantidad'];
+    'dia', 'talla', 'peso', 'cantidad'];
   displayedColumns: string[] = [];
   entrada: AlevinosPedidos[] = [];
   _despacho: number
@@ -115,8 +116,7 @@ export class ListaPedidoAlevinosComponent implements OnInit {
       this.deleteMsg('desasociar');
       this.deleteMsg('asociar');
       this.deleteMsg('Conductor');
-
-
+      this.displayedColumns.push('VerInforme');
     }
   }
   deleteMsg(msg: string) {
@@ -125,6 +125,25 @@ export class ListaPedidoAlevinosComponent implements OnInit {
     console.log(msg);
   }
 
+
+  VerInforme(item: AlevinosPedidos) {
+    const modalRef = this.modalService.open(InformePedidoComponent, { size: 'xl', windowClass: 'bounce-in-top' });
+    modalRef.componentInstance.idReporte = item.id
+
+    modalRef.result.then((result) => {
+      // if (result === "OK") {
+      //   this.Asociar(item)
+
+      // }
+      console.log('result', result);
+    }, (reason) => {
+
+      if (reason === 'OK') {
+
+
+      }
+    });
+  }
   VerCertificado(item: AlevinosPedidos) {
     const modalRef = this.modalService.open(VerCertificadoOrigenComponent, { size: 'xl', windowClass: 'bounce-in-top' });
     modalRef.componentInstance.Despacho = item

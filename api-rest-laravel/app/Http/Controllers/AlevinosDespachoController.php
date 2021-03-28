@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\AlevinosDespacho;
+use App\AlevinosPedidos;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
@@ -11,10 +12,30 @@ class AlevinosDespachoController extends Controller
 {
     public function __construct()
     {
+        // $this->middleware('api.auth', ['except' => ['show']]);
         $this->middleware('api.auth');
+
     }
 
+    // public function show($id)
+    // {
+    //     $despacho = AlevinosDespacho::find($id);
+    //     $despachoPedidosSemana = $despacho->pedidosSemana;
+    //     foreach ($despachoPedidosSemana as $des) {
 
+    //         $pedido = AlevinosPedidos::find($des->id_alevinos_pedidos);
+    //         if (is_object($pedido)) {
+    //             $remision = DB::select('call RemisionAlevinos()');
+    //             $pedido->remision_numero = $remision[0]->valor;
+    //             $pedido->save();
+    //         }
+    //     }
+    //     $data = [
+    //         'code' => 200,
+    //         'status' => 'success',
+    //     ];
+    //     return response()->json($data, $data['code']);
+    // }
     public function NombreDia($dayNumber)
     {
         $nombre = "";
@@ -146,8 +167,22 @@ class AlevinosDespachoController extends Controller
                     /**
                      * Buscar los despachos 
                      */
+
                     $despacho->despachado = true;
                     $despacho->save();
+                    //Obtener todos los pedidos y actualizar el numero de remision
+
+                    $despachoPedidosSemana = $despacho->pedidosSemana;
+                    foreach ($despachoPedidosSemana as $des) {
+            
+                        $pedido = AlevinosPedidos::find($des->id_alevinos_pedidos);
+                        if (is_object($pedido)) {
+                            $remision = DB::select('call RemisionAlevinos()');
+                            $pedido->remision_numero = $remision[0]->valor;
+                            $pedido->save();
+                        }
+                    }
+
                     $data = array(
                         'status' => 'success',
                         'code' => 200,

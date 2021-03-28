@@ -1,0 +1,52 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 100%;
+  height: 100%;
+}
+.example-card {
+    max-width: 100%;
+  }
+
+  
+  .imgSurala {
+     background-image: url('/assets/logo/Logo_Surala.png'); 
+    background-size: cover;
+    width: 22%;
+    height: 81px;
+    border-radius: 14%;
+    padding-top: 10px;
+  }
+
+
+
+  .imgTroutlodge  {
+    /* background-image: url('/assets/logo/Troutlodge.png');  */
+    background-size: cover;
+    width: 200px;
+    height: 50px;
+    border-radius: 14%;
+  }
+
+  .center {
+    margin: auto !important;
+    width: 80% !important;
+    height: 100%;
+
+    padding: 10px;
+  }
+
+  .mat-grid-tile .mat-figure {
+    max-height: 100%;
+  }
+
+  mat-card{
+    width: 50%;
+    
+    
+    display: block;
+    margin-left:auto;
+    margin-right:auto;  
+    vertical-align:middle;
+}
