@@ -21,7 +21,8 @@ import { DeseasContinuarComponent } from '../../../componentes/01-Comunes/deseas
 export class AlevinosprogramcionComponent implements OnInit {
   programacion: ProgramacionAlevinos[];
   seleccionado: ProgramacionAlevinos;
-  habilitado: boolean;
+  habilitado: boolean = false;
+  idReporte: number = 0;
 
   entrada: AlevinosPedidos[] = [];
   salida: AlevinosPedidos[] = [];
@@ -233,7 +234,11 @@ export class AlevinosprogramcionComponent implements OnInit {
     });
   }
 
+  verInforme(item:AlevinosPedidos ){
+    this.idReporte = item.id;
+    this.stepper.next()
 
+  }
   ConsultarPendientesSemanaConductor(next) {
     this.service.consultarPedidosConductor(this.data).subscribe(
       OK => {

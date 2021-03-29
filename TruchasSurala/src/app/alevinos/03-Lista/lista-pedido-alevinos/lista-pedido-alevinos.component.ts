@@ -30,6 +30,7 @@ export class ListaPedidoAlevinosComponent implements OnInit {
 
   @Input() mostrar: boolean;
   @Input() asociar: boolean;
+
   @Input() conductor: boolean;
   @Input() set habilitado(value: number) {
     this._habilitado = value == 1 ? true : false;
@@ -41,6 +42,8 @@ export class ListaPedidoAlevinosComponent implements OnInit {
 
 
   @Output() datoSalid = new EventEmitter<boolean>();
+  @Output() verInforme = new EventEmitter<AlevinosPedidos>();
+
   @Output() agregar = new EventEmitter<AlevinosPedidos>();
   @Output() devolver = new EventEmitter<AlevinosPedidos>();
 
@@ -77,12 +80,7 @@ export class ListaPedidoAlevinosComponent implements OnInit {
   }
 
   ngOnInit(): void {
-
-
-
     this.asociarItems();
-
-
   }
 
   asociarItems() {
@@ -90,7 +88,6 @@ export class ListaPedidoAlevinosComponent implements OnInit {
     this.displayedColumns.push(...this.displayedColumnsIniciales);
     if (this.mostrar != null) {
       this.displayedColumns.push(...['Nombre', 'Municipio', 'Direccion']);
-
     }
     if (this.mostrar != null && this.mostrar == true) {
       this.displayedColumns.push(...['Borrar', 'Editar']);
@@ -127,22 +124,7 @@ export class ListaPedidoAlevinosComponent implements OnInit {
 
 
   VerInforme(item: AlevinosPedidos) {
-    const modalRef = this.modalService.open(InformePedidoComponent, { size: 'xl', windowClass: 'bounce-in-top' });
-    modalRef.componentInstance.idReporte = item.id
-
-    modalRef.result.then((result) => {
-      // if (result === "OK") {
-      //   this.Asociar(item)
-
-      // }
-      console.log('result', result);
-    }, (reason) => {
-
-      if (reason === 'OK') {
-
-
-      }
-    });
+    this.verInforme.emit(item);
   }
   VerCertificado(item: AlevinosPedidos) {
     const modalRef = this.modalService.open(VerCertificadoOrigenComponent, { size: 'xl', windowClass: 'bounce-in-top' });

@@ -1,4 +1,4 @@
-<mat-card>
+<mat-card *ngIf="reporte!=null">
     <mat-card-header>
         <div mat-card-avatar class="example-header-image" style="background-image: url('assets/avatars/av-8.png')">
         </div>
@@ -12,10 +12,10 @@
 
         <div class="container">
             <table width="100%" border="0" style="font-size: 10px;">
-                <tr>
-                    <td class="imgSurala">
+        
 
-                    </td>
+                <tr>
+                    <td class="imgSurala2"> </td>
                     <td>
                         <header>
                             <h1 class="descripcion">Plan de Control</h1>
@@ -348,19 +348,5 @@
             </table>
         </div>
     </mat-card-content>
-    <mat-card-actions>
-        <div class="row">
-            <div class="col-6 centerlabel font-weight-bold" style="text-align: center;">
-                <button mat-raised-button color="warn" ngbAutofocus>
-                    <mat-icon>close</mat-icon>
-                </button>
-            </div>
-            <div class="col-6 centerlabel font-weight-bold" style="text-align: center;">
-                <button mat-raised-button color="warn">
-                    <mat-icon>cached</mat-icon>
-                </button>
-            </div>
-        </div>
 
-    </mat-card-actions>
 </mat-card>

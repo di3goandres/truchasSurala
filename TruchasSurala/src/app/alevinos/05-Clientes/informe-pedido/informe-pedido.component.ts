@@ -11,19 +11,28 @@ import { AlevinosService } from 'src/app/service/alevinos/alevinos.service';
 })
 export class InformePedidoComponent implements OnInit {
 
-  idReporte: number;
+
+
+   _idReporte: number;
+
+  @Input() set idReporte(value: number) {
+    this._idReporte = value
+    if(value>0)
+      this.traerRerporte();
+
+  }
   reporte: ReporteAlevinos;
   constructor(
     private route: ActivatedRoute,
     private service: AlevinosService) { }
 
   ngOnInit(): void {
-    this.idReporte = parseInt(this.route.snapshot.paramMap.get('id'));
-    this.traerRerporte();
+    // this.idReporte = parseInt(this.route.snapshot.paramMap.get('id'));
+    // this.traerRerporte();
   }
 
   traerRerporte() {
-    this.service.GetReporte(this.idReporte).subscribe(
+    this.service.GetReporte(this._idReporte).subscribe(
       OK => {
         console.log(OK)
 

@@ -11,9 +11,9 @@
 
   
   .imgSurala {
-     background-image: url('/assets/logo/Logo_Surala.png'); 
+     /* background-image: url('./assets/logo/Logo_Surala.png');  */
     background-size: cover;
-    width: 22%;
+    width: 24%;
     height: 81px;
     border-radius: 14%;
     padding-top: 10px;
@@ -43,10 +43,8 @@
 
   mat-card{
     width: 50%;
-    
-    
-    display: block;
+    /* display: block; */
     margin-left:auto;
     margin-right:auto;  
-    vertical-align:middle;
+    vertical-align: middle;
 }

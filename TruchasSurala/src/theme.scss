@@ -92,3 +92,13 @@ $my-app-theme: mat-light-theme($my-app-primary, $my-app-accent, $my-app-warn);
     $alternate-theme: mat-light-theme($alternate-primary, $alternate-secondary, $alternate-accent);
     @include angular-material-theme($alternate-theme);
   }
+
+
+  .imgSurala2 {
+  background-image: url('assets/logo/Logo_Surala.png'); 
+   background-size: cover;
+   width: 22%;
+   height: 81px;
+   border-radius: 14%;
+   padding-top: 10px;
+ }

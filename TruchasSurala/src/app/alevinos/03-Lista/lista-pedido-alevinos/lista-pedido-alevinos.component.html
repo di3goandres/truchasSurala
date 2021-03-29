@@ -110,8 +110,8 @@
       <th mat-header-cell *matHeaderCellDef> Ver Informe</th>
       <td mat-cell *matCellDef="let element" style="text-align: center;">
         <button type="button" mat-mini-fab color="primary" class="buttton-aldea" aria-label="fecha"
-        [routerLink]="['/surala/alevinos/Informe/'+element.id]">
-          <!--  (click)="VerInforme(element)" -->
+        (click)="VerInforme(element)" >
+          <!--   [routerLink]="['/surala/alevinos/Informe/'+element.id]"-->
           <mat-icon>verified_user</mat-icon>
         </button>
       </td>

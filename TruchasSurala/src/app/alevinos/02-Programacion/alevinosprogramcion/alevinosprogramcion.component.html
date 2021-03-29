@@ -127,7 +127,7 @@
           </mat-card-title>
 
           <app-lista-pedido-alevinos #dos [id]="salida" [mostrar]="false" [asociar]="false" [habilitado]="habilitado"
-            (datoSalid)='onNotificar($event)' (devolver)='onDevolver($event)'>
+            (datoSalid)='onNotificar($event)' (devolver)='onDevolver($event)' (verInforme)="verInforme($event)">
           </app-lista-pedido-alevinos>
 
         </mat-card-content>
@@ -155,7 +155,7 @@
       </mat-card>
 
     </mat-step>
-    <mat-step>
+    <mat-step *ngIf="habilitado==false">
       <ng-template matStepLabel>Despachar</ng-template>
       <mat-card>
         <mat-card-header>
@@ -206,6 +206,26 @@
 
         </mat-card-actions>
       </mat-card>
+    </mat-step>
+
+    <mat-step *ngIf="habilitado==true">
+      <ng-template matStepLabel>Informe</ng-template>
+      <app-informe-pedido [idReporte]="idReporte"> </app-informe-pedido>
+      <mat-card-actions>
+        <div class="row">
+          <div class="col-6 centerlabel font-weight-bold" style="text-align: center;">
+            <button mat-raised-button color="primary" matStepperPrevious>
+              <mat-icon>keyboard_backspace</mat-icon>
+            </button>
+          </div>
+
+
+        
+
+        </div>
+
+
+      </mat-card-actions>
     </mat-step>
 
   </mat-horizontal-stepper>
