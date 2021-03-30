@@ -33,8 +33,8 @@ export class ModalreporteComponent implements OnInit {
 
   };
 
-  async verinforme(item){
-
+  async verinforme(item, slidingItem){
+    slidingItem.close();
     console.log(item)
 
     const modal = await this.viewCtrl.create({

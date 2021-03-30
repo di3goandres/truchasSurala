@@ -35,8 +35,8 @@ export class ListareportestecnicosComponent implements OnInit {
     )
   }
 
-  async leer(item: InformeTecnico) {
-
+  async leer(item: InformeTecnico, slidingItem) {
+    slidingItem.close();
 
     const modal = await this.modalController.create({
       component: ModalreporteComponent,

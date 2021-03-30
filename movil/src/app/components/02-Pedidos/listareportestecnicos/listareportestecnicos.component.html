@@ -3,7 +3,7 @@
     <ion-label class="blue">Informes Técnicos</ion-label>
   </ion-list-header>
 
-  <ion-item-sliding *ngFor="let informe of informes">
+  <ion-item-sliding *ngFor="let informe of informes" #slidingItem>
     <!-- <ion-item-options side="start">
       <ion-item-option (click)="favorite(item)">Favorite</ion-item-option>
       <ion-item-option color="danger" (click)="share(item)">Share</ion-item-option>
@@ -14,19 +14,19 @@
         <img src="./assets/avatars/av-2.png">
       </ion-avatar>
 
-      <div style="white-space: pre-wrap; " class="ion-text-left blueJustify">
+      <div style="white-space: pre-wrap; " class="ion-text-left blueJustify ">
 
         <ion-note slot="end">
-          {{informe.fecha_salida}}
+          <ion-label class="ova" style="font:bold">Fecha:<label class="blueJustify" style="font:bold">{{informe.fecha_salida}}</label></ion-label> 
         </ion-note>
-        <p>{{informe.observaciones}}</p>
+        <p>desliza para ver los datos del reporte</p>
 
        
       </div>
     </ion-item>
 
     <ion-item-options side="end">
-      <ion-item-option (click)="leer(informe)" expandable>
+      <ion-item-option (click)="leer(informe, slidingItem)" expandable>
         <ion-icon slot="icon-only" name="glasses-outline"></ion-icon>
       </ion-item-option>
     </ion-item-options>
@@ -52,7 +52,7 @@
         <ion-row>
           <ion-col>
             <p class="exitoso">
-              Aun no tienes Reportes de mortalidad registrados
+              Aun no tienes Informes registrados
             </p>
             <ion-back-button  defaultHref="/"  color="primary" ></ion-back-button>
 
