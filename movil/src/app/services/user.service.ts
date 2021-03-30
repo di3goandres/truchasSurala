@@ -3,7 +3,7 @@ import { HttpHeaders, HttpClientModule, HttpClient } from '@angular/common/http'
 import { environment } from '../../environments/environment';
 import { User } from '../models/user';
 import { BehaviorSubject, Observable } from 'rxjs';
-import { NavController } from '@ionic/angular';
+import { NavController, ToastController } from '@ionic/angular';
 import { FincasUser } from '../models/fincas.user';
 import { Respuesta } from '../models/Response';
 import { Photo, SavePhoto } from '../models/photos';
@@ -36,13 +36,14 @@ export class UserService {
   public currentUserSubject: BehaviorSubject<User>;
 
   constructor(public http: HttpClient,
-    public navCtrl: NavController
+    public navCtrl: NavController,
+    public toastController: ToastController,
   ) {
     this.url = environment.apiUrl;
     this.header = new HttpHeaders();
     this.getIdentity();
     this.getToken();
-  
+
 
     this.currentUserSubject = new BehaviorSubject<User>(JSON.parse(localStorage.getItem('identity')));
     this.currentUser = this.currentUserSubject.asObservable();
@@ -72,7 +73,7 @@ export class UserService {
   }
 
   public get currenUserValue(): User {
-  
+
     this.currentUserSubject = new BehaviorSubject<User>(JSON.parse(localStorage.getItem('identity')));
     this.currentUser = this.currentUserSubject.asObservable();
     if (this.currentUserSubject.value == null) {
@@ -95,7 +96,7 @@ export class UserService {
     return this.token;
   }
 
-  
+
 
   validaToken(): Promise<boolean> {
 
@@ -136,7 +137,12 @@ export class UserService {
   }
 
 
+  public ejecutarQueryPostNuevo<T>(query: string, data: any) {
+    let json = JSON.stringify(data);
+    let params = 'json=' + json;
+    return this.http.post<T>(this.url + query, params);
 
+  }
   // tslint:disable-next-line: typedef
   public ejecutarQueryPost<T>(query: string, params: string) {
     this.header = new HttpHeaders().set('Authorization', this.token)
@@ -215,7 +221,7 @@ export class UserService {
 
     let savePhoto: SavePhoto = new SavePhoto();
 
-  
+
     this.header = new HttpHeaders().set('Authorization', this.token)
       .set('Content-Type', 'application/x-www-form-urlencoded');
 
@@ -232,10 +238,19 @@ export class UserService {
 
   }
 
-  updatePassword(data : ResetPassword){
+  updatePassword(data: ResetPassword) {
     this.json = JSON.stringify(data);
     this.params = 'json=' + this.json;
 
     return this.ejecutarQueryPost<Respuesta>('/api/user/changepassword', this.params);
+  }
+
+  async presentToast(message) {
+    const toast = await this.toastController.create({
+      message,
+      duration: 3000,
+      position: 'top',
+    });
+    toast.present();
   }
 }

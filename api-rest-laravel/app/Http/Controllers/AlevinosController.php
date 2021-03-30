@@ -6,6 +6,7 @@ use App\AlevinosDespacho;
 use App\AlevinosPedidos;
 use App\AlevinosSalida;
 use App\Fincas;
+use App\Helpers\JwtAuth;
 use App\LoteNumero;
 use App\User;
 use Illuminate\Http\Request;
@@ -1064,22 +1065,206 @@ class AlevinosController extends Controller
     }
 
 
-     public function Reporte($id)
+    public function Reporte($id)
     {
         $reporte = $this->ReportePedidoAlevino($id);
-         if(count($reporte)>0){
+        if (count($reporte) > 0) {
             $data = [
                 'code' => 200,
                 'status' => 'success',
-                'reporte'=>$reporte[0]
+                'reporte' => $reporte[0]
             ];
-        }else{
+        } else {
             $data = [
                 'code' => 201,
                 'status' => 'success',
             ];
         }
-        
+
+        return response()->json($data, $data['code']);
+    }
+
+
+    public function PedidosUsuarioPendientes($idUsuario)
+    {
+        $despachos = DB::table('alevinos_pedidos')
+            ->join('fincas', 'fincas.id', '=', 'alevinos_pedidos.id_finca')
+            ->join('users as users', 'users.id', '=', 'fincas.user_id')
+            ->join('users as conductor', 'conductor.id', '=', 'alevinos_pedidos.conductor_id')
+            ->join('alevinos_pedido_semana', 'alevinos_pedido_semana.id_alevinos_pedidos', '=', 'alevinos_pedidos.id')
+            ->join('alevinos_dia_despacho', 'alevinos_dia_despacho.id', '=', 'alevinos_pedido_semana.id_alevinos_dia_despacho')
+            ->where(
+                [
+                    ['users.id', '=', $idUsuario],
+                    // ['alevinos_pedidos.despachado', '=', false],
+
+                ]
+            )
+            ->select(
+                'alevinos_pedidos.id',
+                'alevinos_pedidos.conductor_id as conductor',
+                DB::raw("CONCAT(conductor.name, ', ', conductor.surname) as NombreConductor"),
+                DB::raw("(CASE WHEN es_talla = 1  THEN 'TALLA' ELSE 'PESO' END) AS tipo"),
+                'alevinos_pedidos.es_talla',
+                'alevinos_pedidos.es_peso',
+                'alevinos_pedidos.cantidad',
+                'alevinos_dia_despacho.id as id_despacho',
+                'alevinos_pedidos.id_lote_numero',
+                'alevinos_pedidos.centimetros AS talla',
+                'alevinos_pedidos.peso_gramos as peso',
+                'alevinos_pedidos.numero_semana as semana',
+                'alevinos_pedidos.dia',
+                'alevinos_pedidos.despachado',
+                DB::raw("DATE_FORMAT(alevinos_pedidos.fecha_probable, '%Y-%m-%d') as fechaProbable"),
+                DB::raw("CONCAT(users.name, ', ', users.surname ) as nombre"),
+                'fincas.municipio',
+                'fincas.departamento',
+                'fincas.direccion'
+            )
+            ->orderBy('alevinos_pedidos.numero_semana', 'asc')
+            ->get();
+        return $despachos;
+    }
+    //Pedidos Pendientes
+    public function pedidosByToken(Request $request)
+    {
+        $token = $request->header('Authorization');
+        //aca
+        $jwtAuth = new JwtAuth();
+        $checktoken = $jwtAuth->checkToken($token);
+        $json = $request->input('json', null);
+        $params = json_decode($json); //objeto
+        $params_array = json_decode($json, true); // array
+        if ($checktoken) {
+            $user = $jwtAuth->checkToken($token, true);
+
+            $pedidos = $this->PedidosUsuarioPendientes($user->sub);
+            $data = array(
+                'code' => 200,
+                'status' => 'success',
+                'pedidos' => $pedidos,
+
+            );
+        } else {
+            $data = array(
+                'code' => 401,
+                'status' => 'error',
+                'message' => 'Usuario no identificado'
+            );
+        }
+        return response()->json($data, $data['code']);
+    }
+
+
+    /** Obtener pedidos que ya fueron despachados */
+    public function ReportePedidoAlevinoToken($idUsuario)
+    {
+        $despachos = DB::table('alevinos_pedidos')
+            ->join('fincas', 'fincas.id', '=', 'alevinos_pedidos.id_finca')
+            ->join('users as users', 'users.id', '=', 'fincas.user_id')
+            ->join('users as conductor', 'conductor.id', '=', 'alevinos_pedidos.conductor_id')
+            ->join('alevinos_pedido_semana', 'alevinos_pedido_semana.id_alevinos_pedidos', '=', 'alevinos_pedidos.id')
+            ->join('alevinos_dia_despacho', 'alevinos_dia_despacho.id', '=', 'alevinos_pedido_semana.id_alevinos_dia_despacho')
+            ->join('lote_numero', 'lote_numero.id', '=', 'alevinos_pedidos.id_lote_numero')
+
+            ->where(
+                [
+                    ['users.id', '=', $idUsuario],
+                    ['alevinos_dia_despacho.despachado', '=', true],
+
+                ]
+            )
+            ->select(
+                'alevinos_pedidos.id',
+                DB::raw("DATE_FORMAT(alevinos_dia_despacho.fecha_salida, '%Y-%m-%d') as fecha_salida"),
+
+                DB::raw("CONCAT(users.name, ', ', users.surname ) as nombre"), // CLIENTE
+                /**DESTINO */
+                'fincas.municipio',
+                'fincas.departamento',
+                'fincas.direccion',
+                /** FIN DESTINO */
+                'alevinos_pedidos.remision_numero',
+                'alevinos_pedidos.lote_alevinos',
+                /**Datos del lote */
+                'alevinos_pedidos.id_lote_numero',
+                'lote_numero.numero_lote',
+                'lote_numero.tamanio',
+                'lote_numero.edad_tcu',
+                'lote_numero.ovas_ml',
+
+                DB::raw("DATE_FORMAT(lote_numero.fecha_incubacion, '%Y-%m-%d') as fecha_incubacion"),
+                DB::raw("DATE_FORMAT(lote_numero.fecha_fin_aborcion, '%Y-%m-%d') as fecha_fin_absorcion"),
+                DB::raw("DATE_FORMAT(lote_numero.fecha_eclosion, '%Y-%m-%d') as fecha_eclosion"),
+
+                DB::raw("DATE_FORMAT(lote_numero.fecha_primer_alimento, '%Y-%m-%d') as fecha_primer_alimento"),
+
+                'lote_numero.temp_eclosion', // 'lote_numero.fecha_primer_alimento',
+
+                'alevinos_pedidos.referencia_alimento',
+
+
+                /**fin Datos del lote */
+
+                'alevinos_pedidos.tratamientos_veterinarios',
+                'alevinos_pedidos.duracion_tratamiento',
+                'alevinos_pedidos.temp_cargue',
+
+
+
+                'alevinos_pedidos.conductor_id as conductor',
+                DB::raw("CONCAT(conductor.name, ', ', conductor.surname) as NombreConductor"),
+                DB::raw("(CASE WHEN es_talla = 1  THEN 'TALLA' ELSE 'PESO' END) AS tipo"),
+
+
+                /**Datos del pedido */
+                'alevinos_pedidos.es_talla',
+                'alevinos_pedidos.es_peso',
+                'alevinos_pedidos.cantidad',
+                'alevinos_dia_despacho.id as id_despacho',
+                'alevinos_pedidos.centimetros AS talla',
+                'alevinos_pedidos.peso_gramos as peso',
+                'alevinos_pedidos.numero_semana as semana',
+                'alevinos_pedidos.dia',
+                'alevinos_pedidos.despachado',
+                /**Fin Datos del pedido */
+                /**Datos del pedido despachado */
+
+                'alevinos_pedidos.cantidad_alevinos',
+                'alevinos_pedidos.talla_promedio',
+                'alevinos_pedidos.peso_promedio',
+                'alevinos_pedidos.cantidad_alevinos',
+
+
+            )
+            ->orderBy('alevinos_dia_despacho.fecha_salida', 'desc')
+            ->get();
+        return $despachos;
+    }
+    public function pedidosByTokenDespachados(Request $request)
+    {
+        $token = $request->header('Authorization');
+        //aca
+        $jwtAuth = new JwtAuth();
+        $checktoken = $jwtAuth->checkToken($token);
+        $json = $request->input('json', null);
+        $params = json_decode($json); //objeto
+        $params_array = json_decode($json, true); // array
+        if ($checktoken) {
+            $user = $jwtAuth->checkToken($token, true);
+            $pedidos = $this->ReportePedidoAlevinoToken($user->sub);
+            $data = array(
+                'code' => 200,
+                'status' => 'success',
+                'despachados' => $pedidos,
+            );
+        } else {
+            $data = array(
+                'code' => 401,
+                'status' => 'error',
+                'message' => 'Usuario no identificado'
+            );
+        }
         return response()->json($data, $data['code']);
     }
 }

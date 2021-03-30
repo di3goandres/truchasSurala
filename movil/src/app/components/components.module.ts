@@ -26,6 +26,9 @@ import { MortalidadpedidosComponent } from './02-Pedidos/mortalidadpedidos/morta
 import { ListafotosComponent } from './00-Comunes/listafotos/listafotos.component';
 import { ListareportestecnicosComponent } from './02-Pedidos/listareportestecnicos/listareportestecnicos.component';
 import { ModalreporteComponent } from './02-Pedidos/modalreporte/modalreporte.component';
+import { PedidosAlevinosComponent } from './07-PedidosAlevinos/pedidos-alevinos/pedidos-alevinos.component';
+import { AlevinosDespachadosComponent } from './07-PedidosAlevinos/alevinos-despachados/alevinos-despachados.component';
+import { InformeAlevinoComponent } from './07-PedidosAlevinos/informe-alevino/informe-alevino.component';
 
 
 @NgModule({
@@ -49,7 +52,12 @@ import { ModalreporteComponent } from './02-Pedidos/modalreporte/modalreporte.co
     MortalidadpedidosComponent,
     ListafotosComponent,
     ListareportestecnicosComponent,
-    ModalreporteComponent
+    ModalreporteComponent,
+    PedidosAlevinosComponent,
+    AlevinosDespachadosComponent,
+    InformeAlevinoComponent
+    
+
 
 
 
@@ -61,6 +69,7 @@ import { ModalreporteComponent } from './02-Pedidos/modalreporte/modalreporte.co
     PdfViewerModule,
     NgxChartsModule,
     FormsModule,
+    
     // CalendarModule
 
     
@@ -87,7 +96,11 @@ import { ModalreporteComponent } from './02-Pedidos/modalreporte/modalreporte.co
     MortalidadpedidosComponent,
     ListafotosComponent,
     ListareportestecnicosComponent,
-    ModalreporteComponent
+    ModalreporteComponent,
+    PedidosAlevinosComponent,
+    AlevinosDespachadosComponent,
+    InformeAlevinoComponent
+
 
 
   ],

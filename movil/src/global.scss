@@ -25,7 +25,8 @@
 @import "~@ionic/angular/css/text-transformation.css";
 @import "~@ionic/angular/css/flex-utils.css";
 
-
+$ovas: #f33d01;
+$blue: rgb(14, 105, 179);
 $BlueOvasNuevo: rgb(14, 105, 179);
 .animated {
   -webkit-animation-duration: 1s;
@@ -142,3 +143,21 @@ animation-duration: 2s;
 }
 
 
+.descripcion {
+  color: $ovas;
+}
+
+.descripcionTexto {
+  color: $blue;
+  padding-left: 1px;
+  font-size: small;
+}
+
+.imgSurala2 {
+   background-image: url('./assets/logo/logosunidos.png'); 
+   background-size: cover;
+   width: 22%;
+   height: 81px;
+   border-radius: 14%;
+   padding-top: 10px;
+ }

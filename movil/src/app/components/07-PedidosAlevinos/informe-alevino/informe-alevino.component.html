@@ -1,0 +1,351 @@
+<ion-header>
+    <ion-toolbar>
+        <ion-buttons slot="start">
+            <ion-button color="danger" (click)="dismiss()">
+                <span ion-text color="primary"></span>
+                <ion-icon name="close-outline"></ion-icon>
+            </ion-button>
+        </ion-buttons>
+        <ion-title class="ova">Trazabilidad</ion-title>
+    </ion-toolbar>
+</ion-header>
+<ion-content>
+    <ion-card>
+
+        <ion-card-header>
+            <ion-card-title class="hielo">1. Plan de Control</ion-card-title>
+            <ion-card-subtitle class="vacia">1.3 Programa de Trazabilidad</ion-card-subtitle>
+           
+        
+          </ion-card-header>
+
+        <ion-card-content>
+            <div class="container">
+                <ion-img src="./assets/logo/logosunidos.png"></ion-img>
+           
+                <table width="100%" border="1" style="font-size: 10px;">
+
+                    <tr>
+                        <td colspan="2" class="text-center" style="font-weight: bold; text-align: center;">
+                            <label style="font-weight: bold; text-align: center;" class="descripcion">INFORMACIÓN
+                                GENERAL</label>
+                        </td>
+
+                    </tr>
+                    <tr>
+                        <td>
+                            <label class="descripcion">
+                                FECHA ENTREGA
+                            </label>
+                        </td>
+                        <td>
+                            <label class="descripcionTexto">
+                                {{ despacho.fecha_salida }}
+                            </label>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td>
+                            <label class="descripcion">
+                                CLIENTE
+                            </label>
+                        </td>
+                        <td>
+                            <label class="descripcionTexto">
+                                {{despacho.nombre }}
+                            </label>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td>
+                            <label class="descripcion">
+                                DESTINO
+                            </label>
+                        </td>
+                        <td>
+                            <label class="descripcionTexto">
+                                {{despacho.municipio + ', ' + despacho.departamento }}
+                            </label>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <label class="descripcion">
+                                REMISION #
+                            </label>
+                        </td>
+                        <td>
+                            <label class="descripcionTexto">
+                                {{despacho.remision_numero }}
+                            </label>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td colspan="2" class="text-center" style="font-weight: bold; text-align: center;">
+                            <label style="font-weight: bold;" class="descripcion">TRAZABILIDAD DEL LOTE</label>
+                        </td>
+
+                    </tr>
+
+                    <tr>
+                        <td>
+                            <label class="descripcion">
+                                LOTE #
+                            </label>
+                        </td>
+                        <td>
+                            <label class="descripcionTexto">
+                                {{despacho.lote_alevinos}}
+                            </label>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <label class="descripcion">
+                                LOTE OVAS #
+                            </label>
+                        </td>
+                        <td>
+                            <label class="descripcionTexto">
+                                {{despacho.numero_lote}}
+                            </label>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <label class="descripcion">
+                                OVAS / ml
+                            </label>
+                        </td>
+                        <td>
+                            <label class="descripcionTexto">
+                                {{despacho.ovas_ml }}
+                            </label>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <label class="descripcion">
+                                TAMAÑO OVA (mm)
+                            </label>
+                        </td>
+                        <td>
+                            <label class="descripcionTexto">
+                                {{despacho.tamanio }}
+                            </label>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <label class="descripcion">
+                                EDAD OVA (TCU)
+                            </label>
+                        </td>
+                        <td>
+                            <label class="descripcionTexto">
+                                {{despacho.edad_tcu }}
+                            </label>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <label class="descripcion">
+                                FECHA INCUBACIÓN
+                            </label>
+                        </td>
+                        <td>
+                            <label class="descripcionTexto">
+                                {{despacho.fecha_incubacion }}
+                            </label>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td>
+                            <label class="descripcion">
+                                FECHA ECLOSIÓN
+                            </label>
+                        </td>
+                        <td>
+                            <label class="descripcionTexto">
+                                {{despacho.fecha_eclosion }}
+                            </label>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <label class="descripcion">
+                                TEMP ECLOSIÓN(°C)
+                            </label>
+                        </td>
+                        <td>
+                            <label class="descripcionTexto">
+                                {{despacho.temp_eclosion }}
+                            </label>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <label class="descripcion">
+                                FIN ABSORCIÓN
+                            </label>
+                        </td>
+                        <td>
+                            <label class="descripcionTexto">
+                                {{despacho.fecha_fin_absorcion }}
+                            </label>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <label class="descripcion">
+                                FECHA 1er ALIMENTO
+                            </label>
+                        </td>
+                        <td>
+                            <label class="descripcionTexto">
+                                {{despacho.fecha_primer_alimento }}
+                            </label>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <label class="descripcion">
+                                REFERENCIA ALIMENTO
+                            </label>
+                        </td>
+                        <td>
+                            <label class="descripcionTexto">
+                                {{despacho.referencia_alimento}}
+                            </label>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2" class="text-center" style="font-weight: bold; text-align: center;">
+                            <label style="font-weight: bold;" class="descripcion">MANEJO SANITARIO</label>
+                        </td>
+
+                    </tr>
+
+                    <tr>
+                        <td>
+                            <label class="descripcion">
+                                TRATAMIENTOS VETERINARIOS
+                            </label>
+                        </td>
+                        <td>
+                            <label class="descripcionTexto">
+                                {{despacho.tratamientos_veterinarios}}
+                            </label>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <label class="descripcion">
+                                DURACIÓN TRATAMIENTO
+                            </label>
+                        </td>
+                        <td>
+                            <label class="descripcionTexto">
+                                {{despacho.duracion_tratamiento}}
+                            </label>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td colspan="2" class="text-center" style="font-weight: bold; text-align: center;">
+                            <label style="font-weight: bold;" class="descripcion">DATOS DESPACHO</label>
+                        </td>
+
+                    </tr>
+
+                    <tr>
+                        <td>
+                            <label class="descripcion">
+                                TEMPERATURA CARGUE
+                            </label>
+                        </td>
+                        <td>
+                            <label class="descripcionTexto">
+                                {{despacho.temp_cargue}}
+                            </label>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <label class="descripcion">
+                                CANTIDAD ALEVINOS
+                            </label>
+                        </td>
+                        <td>
+                            <label class="descripcionTexto">
+                                {{despacho.cantidad}}
+                            </label>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td colspan="2" class="text-center" style="font-weight: bold; text-align: center;">
+                            <label style="font-weight: bold;" class="descripcion">DATOS RECEPCIÓN</label>
+                        </td>
+
+                    </tr>
+
+                    <tr>
+                        <td>
+                            <label class="descripcion">
+                                CANTIDAD DE ALEVINOS
+                            </label>
+                        </td>
+                        <td>
+                            <label class="descripcionTexto">
+                                {{despacho.cantidad_alevinos}}
+                            </label>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <label class="descripcion">
+                                PESO PROMEDIO (gr)
+                            </label>
+                        </td>
+                        <td>
+                            <label class="descripcionTexto">
+                                {{despacho.peso_promedio}}
+                            </label>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <label class="descripcion">
+                                TALLA PROMEDIO (cm)
+                            </label>
+                        </td>
+                        <td>
+                            <label class="descripcionTexto">
+                                {{despacho.talla_promedio}}
+                            </label>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <label class="descripcion">
+                                CONDUCTOR
+                            </label>
+                        </td>
+                        <td>
+                            <label class="descripcionTexto">
+                                {{despacho.NombreConductor}}
+                            </label>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </ion-card-content>
+    </ion-card>
+
+
+</ion-content>

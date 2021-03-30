@@ -170,6 +170,9 @@ Route::get('/api/usuarios/fincasAlevinos', 'FincasController@getUserFincasFiltra
 Route::get('/api/usuarios/fincas/{id}', 'FincasController@getFincasUser');
 Route::get('/api/datos/departamentos/', 'DatosGeneralesController@index');
 Route::post('/api/movil/pedidosusuario', 'PedidosController@pedidosByToken');
+
+
+
 Route::get('/api/movil/pedidoMortalidad/{id}', 'PedidosController@pedidosMortalidad');
 Route::post('/api/movil/pedidosMortalidad', 'PedidosController@pedidosByTokenMortalidad');
 Route::get('/api/usuarios/notificaciones/', 'UserController@UsuariosApp');
@@ -226,3 +229,8 @@ Route::get('/api/movil/despacho/reporte/informes/{id}', 'InformesTecnicosControl
 
 
 Route::get('/api/admin/informes/reporteMortalidad', 'InformesExcelController@Mortalidad') ;
+
+/**datos para alevinos */
+
+Route::get('/api/movil/alevinos/pedidos/token', 'AlevinosController@pedidosByToken');
+Route::get('/api/movil/alevinos/pedidos/despachados/token', 'AlevinosController@pedidosByTokenDespachados');

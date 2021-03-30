@@ -329,11 +329,7 @@ export class UserService {
   public ejecutarQueryPostNuevo<T>(query: string, data: any) {
     let json = JSON.stringify(data);
     let params = 'json=' + json;
-
-
     return this.http.post<T>(this.url + query, params);
-
-
 
   }
   public get currenUserValue(): UserLogin {

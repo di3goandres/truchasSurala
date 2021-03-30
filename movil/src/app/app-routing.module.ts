@@ -142,6 +142,18 @@ const routes: Routes = [
   {
     path: 'pasarela',
     loadChildren: () => import('./pages/03-Pedidos/pasarela/pasarela.module').then( m => m.PasarelaPageModule)
+  },
+  {
+    path: 'despachosAlevinos',
+    loadChildren: () => import('./pages/03-Pedidos/01-Alevinos/despachos-alevinos/despachos-alevinos.module').then( m => m.DespachosAlevinosPageModule)
+  },
+  {
+    path: 'seleccionarTipo',
+    loadChildren: () => import('./pages/03-Pedidos/01-Alevinos/seleccionar-tipo/seleccionar-tipo.module').then( m => m.SeleccionarTipoPageModule)
+  },
+  {
+    path: 'despachados',
+    loadChildren: () => import('./pages/03-Pedidos/01-Alevinos/despachados/despachados.module').then( m => m.DespachadosPageModule)
   }
 ];
 
