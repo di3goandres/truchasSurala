@@ -70,12 +70,12 @@ export class ListaUsuariosAPPComponent implements OnInit {
     modalRef.result.then((result) => {
 
       console.log('result', result);
-      if(result=="OK"){
+      if(result==="OK"){
         this.userService.Exitoso();
         this.userService.MostrarSnack("Se actualizo la contraseña exitosamente");
 
 
-      }
+      } 
     }, (reason) => {
       // this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
       if (reason === 'OK') {

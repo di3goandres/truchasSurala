@@ -115,6 +115,13 @@ export class ListausuarioComponent implements OnInit {
     modalRef.result.then((result) => {
 
       console.log('result', result);
+      console.log('result', result);
+      if(result==="OK"){
+        this.userService.registroExitoso();
+        this.userService.openSnackBar("Se actualizo la contraseña exitosamente","");
+
+
+      } 
     }, (reason) => {
       // this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
       if (reason === 'OK') {
