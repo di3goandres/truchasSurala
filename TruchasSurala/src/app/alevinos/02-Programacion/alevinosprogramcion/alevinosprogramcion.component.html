@@ -195,13 +195,14 @@
                 <mat-icon>keyboard_backspace</mat-icon>
               </button>
             </div>
-           
-              <div class="col-6 centerlabel font-weight-bold" style="text-align: center;"  #sindespachar5 *ngIf="seleccionado.despachado==false">
-                <button mat-raised-button color="primary" (click)="DespachoFinal()">
-                  <mat-icon>cached</mat-icon>
-                </button>
-              </div>
-           
+
+            <div class="col-6 centerlabel font-weight-bold" style="text-align: center;" #sindespachar5
+              *ngIf="seleccionado.despachado==false">
+              <button mat-raised-button color="primary" (click)="DespachoFinal()">
+                <mat-icon>cached</mat-icon>
+              </button>
+            </div>
+
           </div>
 
         </mat-card-actions>
@@ -209,8 +210,9 @@
     </mat-step>
 
     <mat-step *ngIf="habilitado==true">
-      <ng-template matStepLabel>Informe</ng-template>
-      <app-informe-pedido [idReporte]="idReporte"> </app-informe-pedido>
+      <ng-template matStepLabel>Informe/Archivos</ng-template>
+
+
       <mat-card-actions>
         <div class="row">
           <div class="col-6 centerlabel font-weight-bold" style="text-align: center;">
@@ -218,13 +220,48 @@
               <mat-icon>keyboard_backspace</mat-icon>
             </button>
           </div>
+        </div>
+      </mat-card-actions>
+      <table width="100%" border="1" style="font-size: 10px;">
 
+        <tr>
+          <th colspan="10" class="text-center">
+            <label style="font-weight: bold;" class="descripcion">Informe</label>
+          </th>
+            <th colspan="2" class="text-center" style="vertical-align: top; text-align: center;">
+                <label style="font-weight: bold;" class="descripcion">Archivos</label>
+            </th>
+           
+        </tr>
+        <tr>
+         
+          <td colspan="10" class="text-center">
+            <app-informe-pedido [idReporte]="idReporte"> </app-informe-pedido>
+
+        </td>
+        <td colspan="2" class="text-center" style="vertical-align: top; text-align: center;">
+          <app-asociar-ver-informes [idReporte]="idReporte"> </app-asociar-ver-informes>
+        </td>
+      </tr>
+      </table>
 
         
+   
 
+    
+
+
+
+
+
+      <mat-card-actions>
+        <div class="row">
+          <div class="col-6 centerlabel font-weight-bold" style="text-align: center;">
+            <button mat-raised-button color="primary" matStepperPrevious>
+              <mat-icon>keyboard_backspace</mat-icon>
+            </button>
+          </div>
         </div>
-
-
       </mat-card-actions>
     </mat-step>
 

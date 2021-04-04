@@ -97,7 +97,7 @@
       </td>
     </ng-container>
     <ng-container matColumnDef="verCertificado" *ngIf="this.asociar != null && this.asociar == false">
-      <th mat-header-cell *matHeaderCellDef> Ver Certificado</th>
+      <th mat-header-cell *matHeaderCellDef> Ver Certificado Origen</th>
       <td mat-cell *matCellDef="let element" style="text-align: center;">
         <button type="button" mat-mini-fab color="primary" class="buttton-aldea" aria-label="fecha"
           (click)="VerCertificado(element)">
@@ -112,7 +112,8 @@
         <button type="button" mat-mini-fab color="primary" class="buttton-aldea" aria-label="fecha"
         (click)="VerInforme(element)" >
           <!--   [routerLink]="['/surala/alevinos/Informe/'+element.id]"-->
-          <mat-icon>verified_user</mat-icon>
+          <mat-icon>summarize</mat-icon>
+         
         </button>
       </td>
     </ng-container>

@@ -1,0 +1,44 @@
+.mat-form-field{
+    width: 100%;
+}
+mat-chip {
+    max-width: 100%;
+}
+
+table {
+    width: 100%;
+}
+
+
+.mat-form-field{
+    width:  100%;
+}
+
+
+.row{
+    text-align: center;
+}
+
+.centrarObjetos {
+    margin: auto;
+    width: 80%;
+    /* border: 3px solid green; */
+    padding: 10px;
+}
+
+mat-chip {
+    max-width: 90%;
+}
+
+
+.mat-chip-list-wrapper {
+    flex-direction: column;
+    align-items: flex-start;
+    margin: 4px;
+}
+
+.chips {
+    width: 200px;
+    justify-content: center;
+}
+  

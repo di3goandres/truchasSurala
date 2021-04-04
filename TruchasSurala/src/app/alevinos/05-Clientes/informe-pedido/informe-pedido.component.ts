@@ -21,7 +21,7 @@ export class InformePedidoComponent implements OnInit {
       this.traerRerporte();
 
   }
-  reporte: ReporteAlevinos;
+  reporte: ReporteAlevinos= new ReporteAlevinos();
   constructor(
     private route: ActivatedRoute,
     private service: AlevinosService) { }

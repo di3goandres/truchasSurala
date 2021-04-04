@@ -116,6 +116,9 @@ Route::post('/api/Programacion/Alevinos/usuario/conductor/pendientes', 'Alevinos
 Route::post('/api/Programacion/Alevinos/usuario/conductor/asociar', 'AlevinosController@AsociarConductor');
 
 
+Route::get('/api/Programacion/Alevinos/pedidos/archivos/{id}', 'AlevinosArchivosController@ConsultarArchivos');
+Route::post('/api/Programacion/Alevinos/pedidos/archivos/guardar', 'AlevinosArchivosController@store');
+
 Route::post('/api/Programacion/Alevinos/usuario/pedido/actualizar', 'AlevinosController@Actualizar');
 Route::get('/api/Programacion/lotes/propios/', 'LoteNumeroController@ConsultarLotesPropios');
 Route::post('/api/Programacion/lotes/propios/update', 'LoteNumeroController@ActualizarLotesPropios');

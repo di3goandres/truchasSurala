@@ -18,7 +18,7 @@ class AlevinosController extends Controller
     //
     public function __construct()
     {
-        // $this->middleware('api.auth');
+        $this->middleware('api.auth');
     }
 
     public function NombreDia($dayNumber)
@@ -332,8 +332,9 @@ class AlevinosController extends Controller
                 'alevinos_pedidos.numero_semana as semana',
                 'alevinos_pedidos.dia',
                 'alevinos_pedidos.despachado',
-                'alevinos_pedidos.fecha_probable as fechaProbable',
-                'alevinos_pedidos.fecha_probable as fechaProbableS',
+                DB::raw("DATE_FORMAT(alevinos_pedidos.fecha_probable, '%Y-%m-%d') as fechaProbable"),
+                DB::raw("DATE_FORMAT(alevinos_pedidos.fecha_probable, '%Y-%m-%d') as fechaProbableS"),
+              
                 DB::raw("CONCAT(users.name, ', ', users.surname ) as nombre"),
                 'fincas.municipio',
                 'fincas.departamento',
@@ -374,8 +375,8 @@ class AlevinosController extends Controller
                 'alevinos_pedidos.numero_semana as semana',
                 'alevinos_pedidos.dia',
                 'alevinos_pedidos.despachado',
-                'alevinos_pedidos.fecha_probable as fechaProbable',
-                'alevinos_pedidos.fecha_probable as fechaProbableS',
+               DB::raw("DATE_FORMAT(alevinos_pedidos.fecha_probable, '%Y-%m-%d') as fechaProbable"),
+                DB::raw("DATE_FORMAT(alevinos_pedidos.fecha_probable, '%Y-%m-%d') as fechaProbableS"),
                 DB::raw("CONCAT(users.name, ', ', users.surname ) as nombre"),
                 'fincas.municipio',
                 'fincas.departamento',
@@ -416,8 +417,8 @@ class AlevinosController extends Controller
                 'alevinos_pedidos.numero_semana as semana',
                 'alevinos_pedidos.dia',
                 'alevinos_pedidos.despachado',
-                'alevinos_pedidos.fecha_probable as fechaProbable',
-                'alevinos_pedidos.fecha_probable as fechaProbableS',
+               DB::raw("DATE_FORMAT(alevinos_pedidos.fecha_probable, '%Y-%m-%d') as fechaProbable"),
+                DB::raw("DATE_FORMAT(alevinos_pedidos.fecha_probable, '%Y-%m-%d') as fechaProbableS"),
                 DB::raw("CONCAT(users.name, ', ', users.surname ) as nombre"),
                 'fincas.municipio',
                 'fincas.departamento',
@@ -450,8 +451,8 @@ class AlevinosController extends Controller
                 'alevinos_pedidos.numero_semana as semana',
                 'alevinos_pedidos.dia',
                 'alevinos_pedidos.despachado',
-                'alevinos_pedidos.fecha_probable as fechaProbable',
-                'alevinos_pedidos.fecha_probable as fechaProbableS',
+               DB::raw("DATE_FORMAT(alevinos_pedidos.fecha_probable, '%Y-%m-%d') as fechaProbable"),
+                DB::raw("DATE_FORMAT(alevinos_pedidos.fecha_probable, '%Y-%m-%d') as fechaProbableS"),
                 DB::raw("CONCAT(users.name, ', ', users.surname ) as nombre"),
                 'fincas.municipio',
                 'fincas.departamento',
@@ -565,9 +566,9 @@ class AlevinosController extends Controller
                 'alevinos_pedidos.numero_semana as semana',
                 'alevinos_pedidos.dia',
                 'alevinos_pedidos.despachado',
-                'alevinos_pedidos.fecha_probable as fechaProbable',
+               DB::raw("DATE_FORMAT(alevinos_pedidos.fecha_probable, '%Y-%m-%d') as fechaProbable"),
 
-                'alevinos_pedidos.fecha_probable as fechaProbableS',
+                DB::raw("DATE_FORMAT(alevinos_pedidos.fecha_probable, '%Y-%m-%d') as fechaProbableS"),
                 'fincas.nombre',
                 'fincas.municipio',
                 'fincas.departamento',

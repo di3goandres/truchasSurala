@@ -64,7 +64,14 @@ export class AlevinosprogramcionComponent implements OnInit {
   }
 
 
+
+  breakpoint: number;
+  onResize(event) {
+    this.breakpoint = (event.target.innerWidth <= 400) ? 1 : 2;
+  }
   ngOnInit(): void {
+    this.breakpoint = (window.innerWidth <= 400) ? 1 : 2;
+
     this.seleccionado = new ProgramacionAlevinos();
 
     this.consultarProgramacion();
@@ -234,7 +241,7 @@ export class AlevinosprogramcionComponent implements OnInit {
     });
   }
 
-  verInforme(item:AlevinosPedidos ){
+  verInforme(item: AlevinosPedidos) {
     this.idReporte = item.id;
     this.stepper.next()
 

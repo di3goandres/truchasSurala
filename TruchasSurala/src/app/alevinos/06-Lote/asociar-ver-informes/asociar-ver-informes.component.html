@@ -1,0 +1,15 @@
+<div class="mat-chip-list-wrapper">
+    <mat-chip-list class="mat-chip-list-stacked centrarObjetos" aria-label="Color selection">
+
+        <mat-chip *ngFor="let item of reporte" (click)="VerInforme(item) " class="chips"
+            [class]="item.estado? 'colorCheck':'colorPendiente'">
+            <mat-label>{{item.tipo}}-</mat-label>
+            <mat-label>{{item.descripcion}} / </mat-label>
+            <mat-label >{{item.estado? 'OK': 'PENDIENTE'}}</mat-label>
+
+
+        </mat-chip>
+
+
+    </mat-chip-list>
+</div>

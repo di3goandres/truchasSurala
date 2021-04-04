@@ -54,6 +54,7 @@ updated_at       datetime DEFAULT NULL,
 CONSTRAINT pk_alevino_dia_despacho PRIMARY KEY(id)
 )ENGINE=InnoDb;
 
+
 CREATE TABLE alevinos_pedido_semana(
 id                            int(255) auto_increment not null, 
 id_alevinos_pedidos           int(255) not null, 
@@ -67,6 +68,37 @@ CONSTRAINT fk_aps_alevinos_dia_despacho FOREIGN KEY (id_alevinos_dia_despacho) R
 
 )ENGINE=InnoDb;
 
+DROP TABLE IF EXISTS alevinos_tipo_archivo;
+DROP TABLE IF EXISTS alevinos_archivos;
+
+CREATE TABLE alevinos_tipo_archivo(
+id                      int(255) auto_increment not null, 
+tipo                     varchar(500) NOT NULL,
+descripcion              varchar(500) NOT NULL,
+
+created_at       datetime DEFAULT NULL,    
+updated_at       datetime DEFAULT NULL,
+CONSTRAINT pk_alevino_tipo_archivo PRIMARY KEY(id)
+)ENGINE=InnoDb;
+
+CREATE TABLE alevinos_archivos(
+id                      int(255) auto_increment not null, 
+id_alevinos_pedidos     int(255) not null, 
+id_tipo                    int(255) not null, 
+nombre                    varchar(500) NOT NULL,
+created_at       datetime DEFAULT NULL,    
+updated_at       datetime DEFAULT NULL,
+CONSTRAINT pk_alevino_archivo PRIMARY KEY(id),
+CONSTRAINT fk_aarchivo_alevinosPedidos FOREIGN KEY (id_alevinos_pedidos) REFERENCES alevinos_pedidos(id),
+CONSTRAINT fk_aarchivo_tipo FOREIGN KEY (id_tipo) REFERENCES alevinos_tipo_archivo(id)
+)ENGINE=InnoDb;
+
+
+
+INSERT INTO `alevinos_tipo_archivo` (`id`, `tipo`, `descripcion`, `created_at`, `updated_at`) 
+        VALUES (NULL, 'FACTURA', 'Factura de alevinos','2021-04-02 13:55:17', '2021-04-02 13:55:17');
+INSERT INTO `alevinos_tipo_archivo` (`id`, `tipo`, `descripcion`, `created_at`, `updated_at`) 
+        VALUES (NULL, 'ICA','Registro ICA de alevinos', '2021-04-02 13:55:17', '2021-04-02 13:55:17');
 
 
 ALTER TABLE `api_rest_truchas`.`alevinos_pedidos` 

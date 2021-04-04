@@ -7,6 +7,8 @@ import { LotesPropio, LotesPropiosResponse } from '../../models/alevinos/lotes.p
 import { ComplementoPedido } from 'src/app/models/alevinos/alevinos.agregar';
 import { UsuariosFincasResponse } from 'src/app/models/usuarios.fincas';
 import { InformePedidos } from '../../models/alevinos/alevinos.informe';
+import { AlevinosArchivosResponse } from '../../models/alevinos/alevinos.archivos';
+import { AlevinosArchivoRequest } from '../../models/alevinos/alevinos.archivo.request';
 
 @Injectable({
   providedIn: 'root'
@@ -107,5 +109,14 @@ export class AlevinosService {
 
   GetReporte(id: number){
     return this.userService.ejecutarQuery<InformePedidos>('/api/Programacion/Alevinos/pedido/reporte/' + id);
+  }
+
+  GetReporteArchivos(id: number){
+    return this.userService.ejecutarQuery<AlevinosArchivosResponse>('/api/Programacion/Alevinos/pedidos/archivos/' + id);
+  }
+
+
+  GuardarArchivo(archivo: AlevinosArchivoRequest){
+    return this.userService.ejecutarQueryPostNuevo('/api/Programacion/Alevinos/pedidos/archivos/guardar', archivo);
   }
 }
