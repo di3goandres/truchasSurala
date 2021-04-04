@@ -46,6 +46,7 @@ export class AsociarVerInformesComponent implements OnInit {
 
   VerInforme(item: ArchivosAlevinos) {
     if (item.estado) {
+      this.Agregar(item);
 
     }
     else {
@@ -60,6 +61,7 @@ export class AsociarVerInformesComponent implements OnInit {
         windowClass: 'bounce-top'
       });
     modalRef.componentInstance.tipoInforme = item
+
     modalRef.result.then((result: SaveFile) => {
 
       this.GuardarArchivo(item, result);
@@ -70,9 +72,9 @@ export class AsociarVerInformesComponent implements OnInit {
       }
     });
   }
-  findIndexToUpdate(newItem) { 
+  findIndexToUpdate(newItem) {
     return newItem.id === this;
-}
+  }
 
   GuardarArchivo(item: ArchivosAlevinos, file: SaveFile) {
     let archivo = new AlevinosArchivoRequest();
@@ -81,10 +83,11 @@ export class AsociarVerInformesComponent implements OnInit {
     archivo.archivos = [];
     archivo.archivos.push(file);
     this.service.GuardarArchivo(archivo).subscribe(
-      OK => { 
+      OK => {
+        this.traerRerporte();
         this.service.Exitoso();
         this.service.MostrarSnack("Registros exitoso.", "");
-       
+
 
         let updateItem = this.reporte.find(this.findIndexToUpdate, item.id);
 
@@ -93,7 +96,7 @@ export class AsociarVerInformesComponent implements OnInit {
 
         this.reporte[index] = item;
 
-       },
+      },
       ERROR => { console.log(ERROR) },
     )
 

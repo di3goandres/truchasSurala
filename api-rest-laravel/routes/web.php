@@ -118,6 +118,7 @@ Route::post('/api/Programacion/Alevinos/usuario/conductor/asociar', 'AlevinosCon
 
 Route::get('/api/Programacion/Alevinos/pedidos/archivos/{id}', 'AlevinosArchivosController@ConsultarArchivos');
 Route::post('/api/Programacion/Alevinos/pedidos/archivos/guardar', 'AlevinosArchivosController@store');
+Route::get('/api/Programacion/Alevinos/pedido/pdf/{id}/{filename}', 'AlevinosArchivosController@Getpdf') ;
 
 Route::post('/api/Programacion/Alevinos/usuario/pedido/actualizar', 'AlevinosController@Actualizar');
 Route::get('/api/Programacion/lotes/propios/', 'LoteNumeroController@ConsultarLotesPropios');

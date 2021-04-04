@@ -41,7 +41,12 @@ export class AsociarArchivoAlevinosComponent implements OnInit {
 
 
   ngOnInit(): void {
-    this.NombreInforme = this.tipoInforme.descripcion
+    if(this.tipoInforme.estado){
+      this.NombreInforme = "Actualizando: " + this.tipoInforme.descripcion
+      this.pdfSrc  =  '/api/Programacion/Alevinos/pedido/pdf/' + this.tipoInforme.id_archivo + "/" + this.tipoInforme.nombre;
+    }else{
+      this.NombreInforme = "Asociando: " + this.tipoInforme.descripcion
+    }
   }
   handleFileInput(files: FileList) {
 

@@ -6,6 +6,7 @@ use App\AlevinosArchivos;
 use App\AlevinosPedidos;
 use App\AlevinosTipoArchivo;
 use App\Helpers\JwtAuth;
+use Illuminate\Http\Response;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
@@ -57,15 +58,15 @@ class AlevinosArchivosController extends Controller
         $id = 0;
         foreach ($Tipoarchivos as $Tipo) {
             $retorno[$id] =  $Tipo;
+            $retorno[$id]['estado'] = false;
             if (count($archivos) > 0) {
                 foreach ($archivos as $archivo) {
-                    if ($Tipo['id'] === $archivo['id_tipo']) {
+                    if ($Tipo['id'] == $archivo['id_tipo']) {
                         $retorno[$id]['estado'] = true;
                         $retorno[$id]['id_archivo'] = $archivo['id'];
                         $retorno[$id]['nombre'] = $archivo['nombre'];
-                    } else {
-                        $retorno[$id]['estado'] = false;
-                    }
+                    } 
+                   
                 }
             } else {
                 $retorno[$id]['estado'] = false;
@@ -124,19 +125,32 @@ class AlevinosArchivosController extends Controller
                     foreach ($archivos as $archivo) {
                         $tipoArchivo = AlevinosTipoArchivo::find($archivo['tipo']);
                         if (is_object($tipoArchivo)) {
-                            $data =  new AlevinosArchivos();
-                            $data->id_alevinos_pedidos = $alevinosPedido->id;
-                            $data->id_tipo = $tipoArchivo->id;
+
                             $file = $archivo['file'];
                             $file = str_replace('data:application/pdf;base64,', '', $file);
                             $file = str_replace(' ', '+', $file);
                             $name = time() . "_" . $tipoArchivo->tipo . ".pdf";
-                            $data->nombre = $name;
+
+                            $existe = AlevinosArchivos::where([
+                                ['id_alevinos_pedidos', '=', $alevinosPedido->id],
+                                ['id_tipo', '=', $tipoArchivo->id],
+
+                            ])->first();
+                            if (is_object($existe)) {
+                                $existe->nombre = $name;
+                                $existe->save();
+                            } else {
+                                $data =  new AlevinosArchivos();
+                                $data->id_alevinos_pedidos = $alevinosPedido->id;
+                                $data->id_tipo = $tipoArchivo->id;
+                                $data->nombre = $name;
+                                $data->save();
+                            }
+
 
 
                             Storage::disk('users')
                                 ->put($usuario[0]->numero_identificacion . '\\Alevinos\\' . $usuario[0]->fecha_salida . '\\' . $name, base64_decode($file));
-                            $data->save();
                         } else {
                             $data = array(
                                 'status' => 'success',
@@ -172,6 +186,43 @@ class AlevinosArchivosController extends Controller
         }
         // guardar los datos
         // devolver el resutlado
+        return response()->json($data, $data['code']);
+    }
+
+
+    public function Getpdf($id, $filename)
+    {
+        $headers = array(
+            'Content-Type: application/pdf',
+        );
+        $informe = AlevinosArchivos::find($id);
+
+        if (is_object($informe)) {
+            $usuario = $this->ConsultaPorPedido($informe->id_alevinos_pedidos);
+
+            $isset =  \Storage::disk('users')
+                ->exists($usuario[0]->numero_identificacion . '\\Alevinos\\' . $usuario[0]->fecha_salida . '\\' . $informe->nombre);
+            if ($isset) {
+
+                $file = \Storage::disk('users')->get($usuario[0]->numero_identificacion . '\\Alevinos\\' . $usuario[0]->fecha_salida . '\\' . $informe->nombre);
+                return new Response($file, 200, $headers);
+            } else {
+                $data = array(
+                    'code' => 200,
+                    'status' => 'no existo',
+                    'user' =>  $filename
+                );
+            }
+        } else {
+            $data = array(
+                'code' => 200,
+                'status' => 'no me encuentro ',
+                'user' =>  $filename
+            );
+        }
+
+
+
         return response()->json($data, $data['code']);
     }
 }
