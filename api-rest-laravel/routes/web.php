@@ -268,3 +268,32 @@ Route::get('storage/{filename}', function ($filename) {
     return $data;
   
 });
+
+
+Route::get('storage/kml/{filename}', function ($filename) {
+    $headers = array(
+        'Content-Type: application/vnd.google-earth.kml+xml',
+    );
+    $isset =  Storage::disk('mapas')->exists($filename);
+
+    if ($isset) {
+
+       $path = Storage::disk('mapas')->path($filename);
+
+    //    return $path;
+       // open an image file
+        // $img = \Image::make($path);
+         $file = \Storage::disk('mapas')->get($filename);
+         return new Response($file, 200, $headers);
+    
+       
+    } else {
+        $data = array(
+            'code' => 200,
+            'status' => 'no existo',
+            'user' =>  $filename
+        );
+    }
+    return $data;
+  
+});
