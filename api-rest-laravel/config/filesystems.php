@@ -65,6 +65,13 @@ return [
             'url' => env('APP_URL') . '/storage',
             'visibility' => 'public',
         ],
+
+        'mapas' => [
+            'driver' => 'local',
+            'root' => storage_path('app/public/maps/kml/BOGOTA/GSM'),
+            'url' => env('APP_URL') . '/storage/maps',
+            'visibility' => 'public',
+        ],
         'mortalidad' => [
             'driver' => 'local',
             'root' => storage_path('app/public/Mortalidad'),
@@ -98,6 +105,6 @@ return [
       |
      */
     'links' => [
-        public_path('storage') => storage_path('app/public'),
+        public_path('imagenes') => storage_path('app/public/maps/kml/BOGOTA/GSM'),
     ],
 ];

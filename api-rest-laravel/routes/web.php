@@ -3,6 +3,9 @@
 use App\Exports\MortalidadExport;
 use Illuminate\Support\Facades\Route;
 use \App\Http\Middleware\ApiAuthMiddleware;
+use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Storage;
+use Intervention\Image\File;
 use Maatwebsite\Excel\Facades\Excel;
 
 /*
@@ -61,7 +64,7 @@ Route::post('/api/login/surala', 'UserController@loginsurala');
 
 Route::put('/api/user/update', 'UserController@update');
 Route::post('/api/user/upload', 'UserController@upload')->middleware(ApiAuthMiddleware::class);
-Route::get('/api/user/avatar/{user}/{filename}', 'UserController@getImage') ;
+Route::get('/api/user/avatar/{user}/{filename}', 'UserController@getImage');
 Route::get('/api/user/detail/{id}', 'UserController@detail');
 Route::get('/api/users/get', 'UserController@GetAllUserFincas');
 Route::get('/api/users/surala/get', 'UserController@GetAllUserSurala');
@@ -70,13 +73,13 @@ Route::get('/api/users/surala/conductores', 'UserController@getConductores');
 Route::post('/api/user/changepassword', 'UserController@resetPasswordByUser');
 
 //Metodo para subir y descargar el pdf de facturas
-Route::post('/api/pedido/subirarchivo', 'UserController@subirarchivo')->middleware(ApiAuthMiddleware::class) ;
-Route::get('/api/pedido/factura/{id}/{filename}', 'UserController@getpdf') ;
+Route::post('/api/pedido/subirarchivo', 'UserController@subirarchivo')->middleware(ApiAuthMiddleware::class);
+Route::get('/api/pedido/factura/{id}/{filename}', 'UserController@getpdf');
 
 //Metodo para subir y descargar el pdf de despachos certificado de origien
-Route::post('/api/despacho/subirarchivo', 'DespachoController@subirarchivo')->middleware(ApiAuthMiddleware::class) ;
-Route::get('/api/despacho/certificado/{id}/{filename}', 'DespachoController@getpdf') ;
-Route::get('/api/despacho/alevinos/certificado/{id}', 'DespachoController@getpdfAlevinos') ;
+Route::post('/api/despacho/subirarchivo', 'DespachoController@subirarchivo')->middleware(ApiAuthMiddleware::class);
+Route::get('/api/despacho/certificado/{id}/{filename}', 'DespachoController@getpdf');
+Route::get('/api/despacho/alevinos/certificado/{id}', 'DespachoController@getpdfAlevinos');
 
 
 
@@ -118,7 +121,7 @@ Route::post('/api/Programacion/Alevinos/usuario/conductor/asociar', 'AlevinosCon
 
 Route::get('/api/Programacion/Alevinos/pedidos/archivos/{id}', 'AlevinosArchivosController@ConsultarArchivos');
 Route::post('/api/Programacion/Alevinos/pedidos/archivos/guardar', 'AlevinosArchivosController@store');
-Route::get('/api/Programacion/Alevinos/pedido/pdf/{id}/{filename}', 'AlevinosArchivosController@Getpdf') ;
+Route::get('/api/Programacion/Alevinos/pedido/pdf/{id}/{filename}', 'AlevinosArchivosController@Getpdf');
 
 Route::post('/api/Programacion/Alevinos/usuario/pedido/actualizar', 'AlevinosController@Actualizar');
 Route::get('/api/Programacion/lotes/propios/', 'LoteNumeroController@ConsultarLotesPropios');
@@ -148,7 +151,7 @@ Route::post('/api/despacho/actualizar/', 'DespachoController@actualizar');
 
 Route::get('/api/movil/despachos', 'DespachoController@despachosByToken');
 Route::post('/api/movil/despachos/registrarLlegada', 'DespachoController@RegistrarLLegada');
-Route::get('/api/despacho/reporte/imagen/{id}/{filename}', 'DespachosImagenesController@getImagenReporte') ;
+Route::get('/api/despacho/reporte/imagen/{id}/{filename}', 'DespachosImagenesController@getImagenReporte');
 
 
 
@@ -190,7 +193,7 @@ Route::get('/api/estadistica/usuario/', 'PedidosController@EstadisticaByToken');
 //servicios para elmovil
 Route::get('/api/datos/fincabytoken', 'FincasController@getFincasUserToken');
 Route::post('/api/fincas/upload', 'FincasController@upload');
-Route::get('/api/fincas/avatar/{id}/{filename}', 'FincasController@getImage') ;
+Route::get('/api/fincas/avatar/{id}/{filename}', 'FincasController@getImage');
 
 
 
@@ -210,12 +213,12 @@ Route::post('/api/mortalidad/aprobar', 'MortalidadController@GuardarAprobacion')
 //informes tecnicos
 Route::resource('/api/informestecnicos', 'InformesTecnicosController');
 Route::get('/api/movil/despachos/obtenerpropios', 'InformesTecnicosController@informesTecnicosByToken');
-Route::get('/api/movil/despacho/reporte/pdf/{id}/{filename}', 'InformesTecnicosController@getpdf') ;
-Route::get('/api/movil/despacho/reporte/existe/{id}/{fecha}', 'InformesTecnicosController@existeinforme') ;
-Route::post('/api/informestecnicos/actualizar', 'InformesTecnicosController@actualizarInforme') ;
+Route::get('/api/movil/despacho/reporte/pdf/{id}/{filename}', 'InformesTecnicosController@getpdf');
+Route::get('/api/movil/despacho/reporte/existe/{id}/{fecha}', 'InformesTecnicosController@existeinforme');
+Route::post('/api/informestecnicos/actualizar', 'InformesTecnicosController@actualizarInforme');
 
 
-Route::get('/api/movil/despacho/reporte/informes/{id}', 'InformesTecnicosController@informesUsuario') ;
+Route::get('/api/movil/despacho/reporte/informes/{id}', 'InformesTecnicosController@informesUsuario');
 
 
 
@@ -232,9 +235,36 @@ Route::get('/api/movil/despacho/reporte/informes/{id}', 'InformesTecnicosControl
  */
 
 
-Route::get('/api/admin/informes/reporteMortalidad', 'InformesExcelController@Mortalidad') ;
+Route::get('/api/admin/informes/reporteMortalidad', 'InformesExcelController@Mortalidad');
 
 /**datos para alevinos */
 
 Route::get('/api/movil/alevinos/pedidos/token', 'AlevinosController@pedidosByToken');
 Route::get('/api/movil/alevinos/pedidos/despachados/token', 'AlevinosController@pedidosByTokenDespachados');
+
+
+Route::get('storage/{filename}', function ($filename) {
+    $headers = array(
+        'Content-Type: image/png',
+    );
+    $isset =  Storage::disk('mapas')->exists($filename);
+
+    if ($isset) {
+
+       $path = Storage::disk('mapas')->path($filename);
+
+       // open an image file
+        // $img = \Image::make($path);
+        return Image::make($path)->response('png');
+    
+       
+    } else {
+        $data = array(
+            'code' => 200,
+            'status' => 'no existo',
+            'user' =>  $filename
+        );
+    }
+    return $data;
+  
+});
