@@ -254,13 +254,11 @@ Route::get('storage/{filename}', function ($filename) {
 
        $path = Storage::disk('mapas')->path($filename);
 
-       $file = Storage::disk('mapas')->get($filename);
-
        // open an image file
         // $img = \Image::make($path);
-        // return Image::make($path)->response('png');
+        return Image::make($path)->response('png');
 
-        return new Response($file);
+        // return new Response($file);
 
     
        
