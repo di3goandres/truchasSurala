@@ -3,6 +3,7 @@
 use App\Exports\MortalidadExport;
 use Illuminate\Support\Facades\Route;
 use \App\Http\Middleware\ApiAuthMiddleware;
+use GuzzleHttp\Psr7\MimeType;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Storage;
 use Intervention\Image\File;
@@ -253,9 +254,14 @@ Route::get('storage/{filename}', function ($filename) {
 
        $path = Storage::disk('mapas')->path($filename);
 
+       $file = Storage::disk('mapas')->get($filename);
+
        // open an image file
         // $img = \Image::make($path);
-        return Image::make($path)->response('png');
+        // return Image::make($path)->response('png');
+
+        return new Response($file);
+
     
        
     } else {
@@ -271,9 +277,7 @@ Route::get('storage/{filename}', function ($filename) {
 
 
 Route::get('storage/kml/{filename}', function ($filename) {
-    $headers = array(
-        'Content-Type: application/vnd.google-earth.kml+xml',
-    );
+   
     $isset =  Storage::disk('mapas')->exists($filename);
 
     if ($isset) {
@@ -284,7 +288,18 @@ Route::get('storage/kml/{filename}', function ($filename) {
        // open an image file
         // $img = \Image::make($path);
          $file = \Storage::disk('mapas')->get($filename);
-         return new Response($file, 200, $headers);
+
+        //  $mimetype  =   \File::mimeType($path);
+  
+        //   \GuzzleHttp\Psr7\mimetype_from_filename( $path );
+
+        //  var_dump($mimetype);
+        //  die();
+        //  $headers = array(
+        //     'Content-Type: '. $mimetype
+        // );
+        // return $file;
+          return new Response($file);
     
        
     } else {
