@@ -13,6 +13,11 @@ export class PasswordComponent implements OnInit {
   firstFormGroup: FormGroup;
 
   @Input() idUsuario: number;
+
+  @Input() set usuarioNumero(value: number) {
+    this.idUsuario = value;
+
+  }
   mostrar:boolean= false;
   usuario: UpdateUser;
   constructor(
@@ -24,6 +29,7 @@ export class PasswordComponent implements OnInit {
 
   ngOnInit(): void {
 
+    console.log(this.idUsuario)
 
     this.firstFormGroup = this._formBuilder.group({
       password: ['', Validators.required],

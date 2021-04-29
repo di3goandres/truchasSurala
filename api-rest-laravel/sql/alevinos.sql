@@ -75,7 +75,6 @@ CREATE TABLE alevinos_tipo_archivo(
 id                      int(255) auto_increment not null, 
 tipo                     varchar(500) NOT NULL,
 descripcion              varchar(500) NOT NULL,
-
 created_at       datetime DEFAULT NULL,    
 updated_at       datetime DEFAULT NULL,
 CONSTRAINT pk_alevino_tipo_archivo PRIMARY KEY(id)

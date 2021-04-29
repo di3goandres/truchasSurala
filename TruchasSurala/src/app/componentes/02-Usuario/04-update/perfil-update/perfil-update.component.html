@@ -1,0 +1,84 @@
+<form [formGroup]="firstFormGroup" class=" main-div  alternate-theme" *ngIf="Esperfil==true">
+
+    <mat-card class="example-card">
+        <mat-card-header>
+            <div mat-card-avatar class="example-header-image" style="background-image: url('assets/avatars/av-1.png')">
+            </div>
+            <mat-card-title class="main-surala-text">
+                Perfil Actual - {{perfil}}
+            </mat-card-title>
+        </mat-card-header>
+        <mat-card-title></mat-card-title>
+        <mat-card-content>
+            <div class="row">
+                <div class="col-6 form-group">
+                    <mat-form-field appearance="fill">
+                        <mat-label>Perfil</mat-label>
+                        <mat-select formControlName="perfil" [(ngModel)]="usuario.tipo_usuario">
+                            <mat-option *ngFor="let tipo of perfilMostrar" [value]="tipo.value">
+                                {{tipo.viewValue}}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-6">
+                    <button ngbAutofocus type="button" mat-raised-button class="btn btn-primary btn-block"
+                        color="primary" (click)="Cerrar()" style="width:50%">
+                        <mat-icon>cancel_presentation</mat-icon>
+                    </button>
+                </div>
+                <div class="col-6">
+                    <button ngbAutofocus type="button" mat-raised-button class="btn btn-primary btn-block"
+                        (click)="cambiarPassword()" [disabled]="firstFormGroup.invalid">Cambiar</button>
+                </div>
+            </div>
+        </mat-card-content>
+    </mat-card>
+</form>
+
+
+<form [formGroup]="mailFormGroup" class=" main-div  alternate-theme" *ngIf="Esperfil==false">
+
+    <mat-card class="example-card">
+        <mat-card-header>
+            <div mat-card-avatar class="example-header-image" style="background-image: url('assets/avatars/av-1.png')">
+            </div>
+            <mat-card-title class="main-surala-text">
+                Correo Actual - {{correo}}
+            </mat-card-title>
+        </mat-card-header>
+        <mat-card-title></mat-card-title>
+        <mat-card-content>
+            <div class="row">
+
+                
+                
+                <div class="col-6 form-group">
+                    <mat-form-field appearance="fill">
+
+
+
+                        <mat-label>Email</mat-label>
+                        <input matInput [(ngModel)]="usuario.email" formControlName="Email" placeholder="Email"
+                            [email]="true" required />
+                       
+                    </mat-form-field>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-6">
+                    <button ngbAutofocus type="button" mat-raised-button class="btn btn-primary btn-block"
+                        color="primary" (click)="Cerrar()" style="width:50%">
+                        <mat-icon>cancel_presentation</mat-icon>
+                    </button>
+                </div>
+                <div class="col-6">
+                    <button ngbAutofocus type="button" mat-raised-button class="btn btn-primary btn-block"
+                        (click)="cambiarPassword()" [disabled]="mailFormGroup.invalid">Cambiar</button>
+                </div>
+            </div>
+        </mat-card-content>
+    </mat-card>
+</form>

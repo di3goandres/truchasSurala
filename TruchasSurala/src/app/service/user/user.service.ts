@@ -13,7 +13,7 @@ import { Despachosroot } from '../../models/despacho';
 import { PedidosRootObject } from '../../models/pedidos';
 import { TopTrazabilidad } from '../../models/Trazabilidad';
 import { DistribucionResponse } from '../../models/distribucion.response';
-import { GeneralesRoot } from '../../models/Datos.generales';
+import { GeneralesRoot, ResponseGenerico } from '../../models/Datos.generales';
 import { UsuariosFincasResponse } from '../../models/usuarios.fincas';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { FincasResponse } from '../../models/fincas.response';
@@ -306,6 +306,17 @@ export class UserService {
     console.log(this.json);
     this.params = 'json=' + this.json;
     return this.ejecutarQueryPost('/api/user/resetadmin', this.params);
+  }
+
+  changePerfilUser(user): Observable<any> {
+
+    this.json = JSON.stringify(user);
+    console.log(this.json);
+    this.params = 'json=' + this.json;
+    return this.ejecutarQueryPost('api/user/change/perfilbyadmin', this.params);
+  }
+  changePmailUser(user) {
+    return this.ejecutarQueryPostNuevo<ResponseGenerico>('api/user/change/mailbyadmin', user);
   }
 
   updateFinca(finca) {

@@ -702,6 +702,139 @@ class UserController extends Controller
         return response()->json($data, $data['code']);
     }
 
+    public function changePerfilByAdmin(Request $request)
+    {
+        $token = $request->header('Authorization');
+        $jwtAuth = new JwtAuth();
+        $checktoken = $jwtAuth->checkToken($token);
+        $json = $request->input('json', null);
+        $params = json_decode($json); //objeto
+        $params_array = json_decode($json, true); // array
+        if ($checktoken && !empty($params) && !empty($params_array)) {
+            // recoger los datos por post
+            $user = $jwtAuth->checkToken($token, true);
+
+            if ($user->rol === "ADMIN" |$user->email === "adrianasastre@truchasurala.com" ) {
+
+
+                $pwd = hash('sha256', $params->password);
+
+                //quitar los campos que n quiero actualizar por si los llegan a envir
+                unset($params_array["id"]);
+                unset($params_array["role"]);
+                unset($params_array["name"]);
+                unset($params_array["telefono"]);
+                unset($params_array["surname"]);
+                unset($params_array["numero_identificacion"]);
+                unset($params_array["tipo_identificacion"]);
+                unset($params_array["email"]);
+                unset($params_array["description"]);
+                unset($params_array["image"]);
+                unset($params_array["created_at"]);
+                unset($params_array["updated_at"]);
+                unset($params_array["password"]);
+            
+
+                // actualizar usuario
+                $user_update = User::where('id', $params->id)->update($params_array);
+                //devolver array con resultado
+                $data = array(
+                    'code' => 200,
+                    'status' => 'success',
+                    'message' => $user_update
+                );
+            } else {
+                $data = array(
+                    'code' => 200,
+                    'status' => 'error',
+                    'message' => 'No autorizado a cambiar'
+                );
+            }
+        } else {
+            $data = array(
+                'code' => 200,
+                'status' => 'error',
+                'message' => 'Usuario no identificado'
+            );
+        }
+        return response()->json($data, $data['code']);
+    }
+
+    public function changeMailByAdmin(Request $request)
+    {
+        $token = $request->header('Authorization');
+        $jwtAuth = new JwtAuth();
+        $checktoken = $jwtAuth->checkToken($token);
+        $json = $request->input('json', null);
+        $params = json_decode($json); //objeto
+        $params_array = json_decode($json, true); // array
+        if ($checktoken && !empty($params) && !empty($params_array)) {
+            // recoger los datos por post
+            $user = $jwtAuth->checkToken($token, true);
+
+            if ($user->rol === "ADMIN" |$user->email === "adrianasastre@truchasurala.com" ) {
+
+
+                $validate = Validator::make($params_array, [
+              
+                    'email' => 'required|unique:users', //comprueba si el usuario esta duplicado
+                ]);
+    
+                if ($validate->fails()) {
+                    $data = array(
+                        'status' => 'error',
+                        'code' => 201,
+                        'message' => 'Ya existe un usuario con este mail',
+                        'errors' => $validate->errors(),
+                    );
+                } 
+                else {
+                   
+
+                    //quitar los campos que n quiero actualizar por si los llegan a envir
+                    unset($params_array["id"]);
+                    unset($params_array["role"]);
+                    unset($params_array["name"]);
+                    unset($params_array["telefono"]);
+                    unset($params_array["surname"]);
+                    unset($params_array["numero_identificacion"]);
+                    unset($params_array["tipo_identificacion"]);
+                    unset($params_array["description"]);
+                    unset($params_array["image"]);
+                    unset($params_array["created_at"]);
+                    unset($params_array["updated_at"]);
+                    unset($params_array["password"]);
+                    unset($params_array["tipo_usuario"]);
+    
+                
+    
+                    // actualizar usuario
+                    $user_update = User::where('id', $params->id)->update($params_array);
+                    //devolver array con resultado
+                    $data = array(
+                        'code' => 200,
+                        'status' => 'success',
+                        'message' => $user_update
+                    );
+                }
+                
+            } else {
+                $data = array(
+                    'code' => 200,
+                    'status' => 'error',
+                    'message' => 'No autorizado a cambiar'
+                );
+            }
+        } else {
+            $data = array(
+                'code' => 200,
+                'status' => 'error',
+                'message' => 'Usuario no identificado'
+            );
+        }
+        return response()->json($data, $data['code']);
+    }
+
 
     public function asociarFinca(Request $request)
     {

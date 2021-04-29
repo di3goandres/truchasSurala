@@ -57,27 +57,28 @@
                         <mat-form-field appearance="fill">
                             <mat-icon matSuffix>email</mat-icon>
                             <mat-label>Email</mat-label>
-                            <input matInput [(ngModel)]="nuevoUsuario.email" formControlName="Email" placeholder="Email"   [email]="true" required />
-            
-                          </mat-form-field>
+                            <input matInput [(ngModel)]="nuevoUsuario.email" formControlName="Email" placeholder="Email"
+                                [email]="true" required />
+
+                        </mat-form-field>
                     </div>
                     <div class="col-6 tabla">
                         <label id="example-radio-group-label">ROL</label>
-                        <mat-radio-group aria-labelledby="example-radio-group-label" class="example-radio-group" formControlName="rol"
-                            [(ngModel)]="nuevoUsuario.role" [value]="nuevoUsuario.role">
+                        <mat-radio-group aria-labelledby="example-radio-group-label" class="example-radio-group"
+                            formControlName="rol" [(ngModel)]="nuevoUsuario.role" [value]="nuevoUsuario.role">
                             <mat-radio-button value="ADMIN">ADMINISTRADOR</mat-radio-button>
                             <mat-radio-button value="OVAS">OVAS</mat-radio-button>
                             <mat-radio-button value="ALEVINOS">ALEVINOS</mat-radio-button>
                             <mat-radio-button value="TECNICO">ASESOR TÉCNICO</mat-radio-button>
                             <mat-radio-button value="CONDUCTOR">CONDUCTOR</mat-radio-button>
                         </mat-radio-group>
-    
+
                     </div>
-    
+
                 </div>
             </form>
 
-          
+
 
 
         </mat-card-content>

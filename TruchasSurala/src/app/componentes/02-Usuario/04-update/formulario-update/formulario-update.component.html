@@ -1,0 +1,18 @@
+<div class="container alternate-theme">
+    <mat-horizontal-stepper [linear]="false">
+        <mat-step>
+            <ng-template matStepLabel>Actualizar Contraseña </ng-template>
+            <app-password [idUsuario]="idUsuario" ></app-password>
+        </mat-step>
+
+        <mat-step>
+            <ng-template matStepLabel>Actualizar Perfil </ng-template>
+            <app-perfil-update [idUsuario]="idUsuario" [perfil]="perfil" [Esperfil]="true"></app-perfil-update>
+        </mat-step>
+
+        <mat-step>
+            <ng-template matStepLabel>Actualizar Correo </ng-template>
+            <app-perfil-update [idUsuario]="idUsuario" [correo]="correo"  [Esperfil]="false"></app-perfil-update>
+        </mat-step>
+    </mat-horizontal-stepper>
+</div>

@@ -35,7 +35,7 @@ export class NuevoUsuarioComponent implements OnInit {
       TipoIden: ['', Validators.required],
       NumeroIden: ['', Validators.required],
       rol: ['', Validators.required],
-      Email: ['', Validators.required],
+      Email: ['', [Validators.required, Validators.email]],
 
 
 

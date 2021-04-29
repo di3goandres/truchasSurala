@@ -9,6 +9,7 @@ import { PasswordComponent } from '../../04-update/password/password.component';
 import { MatSort } from '@angular/material/sort';
 import { AsociarfincaComponent } from '../../03-Fincas/asociarfinca/asociarfinca.component';
 import { Select } from '../../../../models/Datos.generales';
+import { FormularioUpdateComponent } from '../../04-update/formulario-update/formulario-update.component';
 
 
 @Component({
@@ -108,17 +109,22 @@ export class ListausuarioComponent implements OnInit {
   }
 
 
-  openPassword(id) {
+  openPassword(usuario : Usuario) {
 
-    const modalRef = this.modalService.open(PasswordComponent, { size: 'md' });
-    modalRef.componentInstance.idUsuario = id
+    const modalRef = this.modalService.open(FormularioUpdateComponent, { size: 'xl' });
+    modalRef.componentInstance.idUsuario = usuario.id
+    modalRef.componentInstance.perfil = usuario.tipo_usuario
+    modalRef.componentInstance.correo = usuario.email
+
+
     modalRef.result.then((result) => {
 
       console.log('result', result);
       console.log('result', result);
       if(result==="OK"){
         this.userService.registroExitoso();
-        this.userService.openSnackBar("Se actualizo la contraseña exitosamente","");
+        this.refresh();
+        
 
 
       } 

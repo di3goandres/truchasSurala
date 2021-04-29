@@ -89,6 +89,8 @@ Route::get('/api/despacho/alevinos/certificado/{id}', 'DespachoController@getpdf
 
 /// ADMINISRADOR
 Route::post('/api/user/resetadmin', 'UserController@resetPasswordByAdmin');
+Route::post('/api/user/change/perfilbyadmin', 'UserController@changePerfilByAdmin');
+Route::post('/api/user/change/mailbyadmin', 'UserController@changeMailByAdmin');
 
 // Routes of Controller     Fincas
 Route::get('/api/users/fincasget/{id}', 'FincasController@getFincasByUser');
@@ -256,9 +258,12 @@ Route::get('storage/{filename}', function ($filename) {
 
        // open an image file
         // $img = \Image::make($path);
-        return Image::make($path)->response('png');
+        // return Image::make($path)->response('png');
 
+
+        $url = Storage::disk('mapas')->url($filename);;
         // return new Response($file);
+        return $url;
 
     
        

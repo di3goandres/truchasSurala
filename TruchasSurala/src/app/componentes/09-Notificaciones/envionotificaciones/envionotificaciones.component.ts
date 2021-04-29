@@ -44,6 +44,7 @@ export class EnvionotificacionesComponent implements OnInit {
   }
 
   cargarRutas() {
+    
     this.service.obtenerRutasDisponibles(10).subscribe(
       OK => {
 

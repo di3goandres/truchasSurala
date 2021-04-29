@@ -61,7 +61,6 @@ import { MAT_FORM_FIELD_DEFAULT_OPTIONS } from '@angular/material/form-field';
 import { registerLocaleData } from '@angular/common'
 import localCo from '@angular/common/locales/es-CO';
 import { DepartamentosComponent } from './componentes/01-Comunes/departamentos/departamentos.component';
-import { ActualizarComponent } from './componentes/02-Usuario/02-update/actualizar/actualizar.component';
 import { ListausuarioComponent } from './componentes/02-Usuario/01-lista/listausuario/listausuario.component';
 import { ListafincasComponent } from './componentes/02-Usuario/03-Fincas/listafincas/listafincas.component';
 import { PasswordComponent } from './componentes/02-Usuario/04-update/password/password.component';
@@ -112,6 +111,9 @@ import { EnvioGeneralComponent } from './componentes/09-Notificaciones/01-Genera
 import { DeseasContinuarComponent } from './componentes/01-Comunes/deseas-continuar/deseas-continuar.component';
 import { DescargarMortalidadesComponent } from './componentes/10-Mortalidad/descargar-mortalidades/descargar-mortalidades.component';
 import { ListaConductoresComponent } from './componentes/11-Conductores/01-Lista/lista-conductores/lista-conductores.component';
+import { PerfilUpdateComponent } from './componentes/02-Usuario/04-update/perfil-update/perfil-update.component';
+import { FormularioUpdateComponent } from './componentes/02-Usuario/04-update/formulario-update/formulario-update.component';
+
 registerLocaleData(localCo);
 @NgModule({
   declarations: [
@@ -135,7 +137,7 @@ registerLocaleData(localCo);
     TrazabilidadComponent,
     DepartamentosComponent,
     ListausuarioComponent,
-    ActualizarComponent,
+    // ActualizarComponent,
     ListafincasComponent,
     PasswordComponent,
     FincaupdateComponent,
@@ -162,6 +164,9 @@ registerLocaleData(localCo);
     DeseasContinuarComponent,
     DescargarMortalidadesComponent,
     ListaConductoresComponent,
+    PerfilUpdateComponent,
+    FormularioUpdateComponent
+
 
 
 

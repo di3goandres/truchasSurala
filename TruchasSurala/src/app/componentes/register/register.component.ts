@@ -252,7 +252,7 @@ export class RegisterComponent implements OnInit {
       surname: ['', Validators.required],
       TipoIden: ['', Validators.required],
       NumeroIden: ['', Validators.required],
-      Email: ['', Validators.required],
+      Email: ['', [Validators.required, Validators.email]],
       Telefono: ['', Validators.required],
       Tipo: ['', Validators.required]
 
