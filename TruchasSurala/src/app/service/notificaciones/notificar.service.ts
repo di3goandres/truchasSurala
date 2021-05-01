@@ -20,6 +20,7 @@ export class NotificarService {
     return this.userService.ejecutarQuery<RutasResponse>('/api/Notificaciones/RutasActual/' + id );
   }
 
+
   enviarNotificacionPersonalizada(data: EnvioNotificacion){
     let json = JSON.stringify(data);
     let params = 'json=' + json;
@@ -48,11 +49,13 @@ export class NotificarService {
     return this.userService.ejecutarQuery<UserNotificacion>('/api/usuarios/notificaciones/' );
   }
 
-  enviarNotificacionPersonalizadaUsuario(data: EnvioNotificacion){
-   
-    return this.userService.ejecutarQueryPostNuevo<Respuesta>('/api/Notificaciones/unico/personalizado' , data );
+  ObtenerUsuariosActual() {
 
-    
+    return this.userService.ejecutarQuery<UserNotificacion>('/api/usuarios/despacho/actual/notificaciones/');
+  }
+
+  enviarNotificacionPersonalizadaUsuario(data: EnvioNotificacion){
+    return this.userService.ejecutarQueryPostNuevo<Respuesta>('/api/Notificaciones/unico/personalizado' , data );
   }
 
 }

@@ -313,10 +313,10 @@ export class UserService {
     this.json = JSON.stringify(user);
     console.log(this.json);
     this.params = 'json=' + this.json;
-    return this.ejecutarQueryPost('api/user/change/perfilbyadmin', this.params);
+    return this.ejecutarQueryPost('/api/user/change/perfilbyadmin', this.params);
   }
   changePmailUser(user) {
-    return this.ejecutarQueryPostNuevo<ResponseGenerico>('api/user/change/mailbyadmin', user);
+    return this.ejecutarQueryPostNuevo<ResponseGenerico>('/api/user/change/mailbyadmin', user);
   }
 
   updateFinca(finca) {

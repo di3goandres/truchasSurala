@@ -7,6 +7,7 @@ use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
 use GuzzleHttp\Client;
+use Illuminate\Support\Facades\DB;
 use OneSignal;
 
 
@@ -309,6 +310,16 @@ class NotificacionesController extends Controller
             'code' => 200,
             'rutas' => $rutas,
 
+        );
+        return response()->json($data, $data['code']);
+    }
+
+    public function UsuariosRutaActual(){
+        $usuarios= DB::select('call 05_UsuariosDespachoActual()');
+        $data = array(
+            'code' => 200,
+            'status' => 'success',
+            'usuarios'=> $usuarios,
         );
         return response()->json($data, $data['code']);
     }

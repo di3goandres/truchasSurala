@@ -113,7 +113,8 @@ import { DescargarMortalidadesComponent } from './componentes/10-Mortalidad/desc
 import { ListaConductoresComponent } from './componentes/11-Conductores/01-Lista/lista-conductores/lista-conductores.component';
 import { PerfilUpdateComponent } from './componentes/02-Usuario/04-update/perfil-update/perfil-update.component';
 import { FormularioUpdateComponent } from './componentes/02-Usuario/04-update/formulario-update/formulario-update.component';
-
+import { UsuariosNotificarComponent } from './componentes/09-Notificaciones/02-Usuarios/usuarios-notificar/usuarios-notificar.component';
+import {MatSidenavModule} from '@angular/material/sidenav';
 registerLocaleData(localCo);
 @NgModule({
   declarations: [
@@ -165,7 +166,9 @@ registerLocaleData(localCo);
     DescargarMortalidadesComponent,
     ListaConductoresComponent,
     PerfilUpdateComponent,
-    FormularioUpdateComponent
+    FormularioUpdateComponent,
+    UsuariosNotificarComponent,
+
 
 
 
@@ -206,8 +209,9 @@ registerLocaleData(localCo);
  
     MatProgressSpinnerModule,
 
-    NgxSpinnerModule
+    NgxSpinnerModule,
 
+    MatSidenavModule
     
     
 

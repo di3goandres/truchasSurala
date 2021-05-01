@@ -20,6 +20,7 @@ export class EnvionotificacionesComponent implements OnInit {
     Validators.required
   ]);
 
+  filtros = "";
   notificacion = new EnvioNotificacion();
   rutas: Ruta[] = []
   constructor(
@@ -42,7 +43,10 @@ export class EnvionotificacionesComponent implements OnInit {
   ngOnInit(): void {
     this.cargarRutas();
   }
-
+  Filtrar(){
+    this.filtros = this.notificacion.destino;
+   
+  }
   cargarRutas() {
     
     this.service.obtenerRutasDisponibles(10).subscribe(
@@ -62,6 +66,10 @@ export class EnvionotificacionesComponent implements OnInit {
           console.log(this.rutas)
 
         }
+
+        this.filtros = null;
+        this.filtros = "";
+
 
       },
       ERROR => { console.log(ERROR) },

@@ -186,6 +186,8 @@ Route::post('/api/movil/pedidosusuario', 'PedidosController@pedidosByToken');
 Route::get('/api/movil/pedidoMortalidad/{id}', 'PedidosController@pedidosMortalidad');
 Route::post('/api/movil/pedidosMortalidad', 'PedidosController@pedidosByTokenMortalidad');
 Route::get('/api/usuarios/notificaciones/', 'UserController@UsuariosApp');
+Route::get('/api/usuarios/despacho/actual/notificaciones/', 'NotificacionesController@UsuariosRutaActual');
+
 
 
 /**datos estadistica */

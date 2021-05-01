@@ -12,4 +12,6 @@ export class Usuario {
     surname:               string;
     numero_identificacion: string;
     email:                 string;
+    nombre:                string;
+
 }
