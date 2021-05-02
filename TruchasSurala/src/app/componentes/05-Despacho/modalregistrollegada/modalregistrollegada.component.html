@@ -1,14 +1,17 @@
+
+
 <div class="container alternate-theme">
     <mat-card>
         <mat-card-header>
-            <mat-card-title>Edición Pedido</mat-card-title>
+            <div mat-card-avatar class="example-header-image" style="background-image: url('assets/avatars/av-1.png')">
+            </div>
+            <mat-card-title class="main-surala-text">Edición Pedido</mat-card-title>
+            <mat-card-subtitle>Truchas Surala</mat-card-subtitle>
         </mat-card-header>
-
         <mat-card-content>
-
             <div class="example-action-buttons">
-                <button mat-button (click)="accordion.openAll()">Expand All</button>
-                <button mat-button (click)="accordion.closeAll()">Collapse All</button>
+                <button mat-button (click)="accordion.openAll()">Expandir</button>
+                <button mat-button (click)="accordion.closeAll()">Colapsar</button>
             </div>
             <mat-accordion class="example-headers-align" multi>
                 <mat-expansion-panel>
@@ -17,11 +20,11 @@
                             Estado de llegada
                         </mat-panel-title>
                         <mat-panel-description>
-                            Regristro de llegada las ovas
+                            Registro de llegada las ovas
                             <mat-icon>account_circle</mat-icon>
                         </mat-panel-description>
                     </mat-expansion-panel-header>
-                    <form [formGroup]="firstFormGroup" class="registroDespacho" >
+                    <form [formGroup]="firstFormGroup" class="registroDespacho">
                         <ng-template matStepLabel>Registro del despacho</ng-template>
                         <br>
 
@@ -35,7 +38,7 @@
                         <mat-form-field appearance="fill">
                             <mat-label>dias retraso</mat-label>
 
-                            <mat-select formControlName="dias"  [(ngModel)]="despachoupdate.dias_retraso" required>
+                            <mat-select formControlName="dias" [(ngModel)]="despachoupdate.dias_retraso" required>
                                 <mat-option *ngFor="let dia of dias" [value]="dia">
                                     {{dia}}
                                 </mat-option>
@@ -53,7 +56,7 @@
                         <mat-form-field appearance="fill">
                             <mat-label>Observaciones</mat-label>
                             <textarea matInput type="text" [(ngModel)]="despachoupdate.Observaciones"
-                                formControlName="Observaciones" required >
+                                formControlName="Observaciones" required>
                             </textarea>
                         </mat-form-field>
 
@@ -80,22 +83,22 @@
                             (change)="handleFileInput($event.target.files)">
                     </div>
 
-                    <mat-grid-list cols="2"  >
+                    <mat-grid-list cols="2">
                         <mat-grid-tile *ngFor="let imagen of savefiles" [colspan]="1" [rowspan]="2">
 
                             <mat-card>
-                            <mat-card-content>
-                                <img mat-card-image [src]="imagen.file">
+                                <mat-card-content>
+                                    <img mat-card-image [src]="imagen.file">
 
-                                <mat-card-actions>
-                                   
-                                        <button mat-raised-button color="warn" 
-                                (click)="removerImagen(imagen)">Quitar</button>  
-                                </mat-card-actions>
-                            </mat-card-content>
-                             
+                                    <mat-card-actions>
+
+                                        <button mat-raised-button color="warn"
+                                            (click)="removerImagen(imagen)">Quitar</button>
+                                    </mat-card-actions>
+                                </mat-card-content>
+
                             </mat-card>
-                       
+
                         </mat-grid-tile>
                     </mat-grid-list>
                 </mat-expansion-panel>
@@ -106,14 +109,13 @@
                             Guardar
                         </mat-panel-title>
                         <mat-panel-description>
-                           Guardar
+                            Guardar
                             <mat-icon>save</mat-icon>
                         </mat-panel-description>
                     </mat-expansion-panel-header>
-                    <button mat-raised-button  color="primary"
-                            [disabled]="!firstFormGroup.valid" (click)="onRegister()">
-                            <mat-icon>refresh</mat-icon>
-                            </button>
+                    <button mat-raised-button color="primary" [disabled]="!firstFormGroup.valid" (click)="onRegister()">
+                        <mat-icon>refresh</mat-icon>
+                    </button>
                 </mat-expansion-panel>
 
             </mat-accordion>

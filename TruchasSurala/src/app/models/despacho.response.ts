@@ -33,6 +33,12 @@ export class Despacho {
     Activo:         number;
     created_at:     string;
     updated_at:     string;
+
+
+    estado_llegada: string;
+    dias_retraso:   number;
+    temperatura:    number;
+    observaciones:  string;
 }
 
 

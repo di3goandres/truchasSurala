@@ -10,6 +10,7 @@ import { MortalidadService } from '../../../service/mortalidad/mortalidad.servic
 import { RegistroExitosoComponent } from '../../01-Comunes/registro-exitoso/registro-exitoso.component';
 import { AprobarregistroComponent } from '../aprobarregistro/aprobarregistro.component';
 import { RegistroNoexitosoComponent } from '../../01-Comunes/registro-noexitoso/registro-noexitoso.component';
+import { UserService } from 'src/app/service/user/user.service';
 
 @Component({
   selector: 'app-registromortalidad',
@@ -38,17 +39,42 @@ export class RegistromortalidadComponent implements OnInit {
   RegistroDiario: RegistroDiario[];
   fotos: any[];
   displayedColumnsDias: string[] = ['dia', 'cantidad', 'registrado']
+
+  // datos usuario
+  public identity;
+  public token;
+  public role;
+  permitirAprobar = false;
+
+
   constructor(
     private service: MortalidadService,
     private modalService: NgbModal,
-
+    public userService: UserService,
   ) { }
 
   ngOnInit(): void {
     this.cargainicial();
+    this.loadUser();
   
   }
 
+
+  loadUser(): void {
+    this.identity = this.userService.getIdentity();
+    this.token = this.userService.getToken();
+    this.role = this.userService.getRole();
+    this.validarEnvioMensajes();
+  }
+
+  validarEnvioMensajes(){
+    if(this.role =="ADMIN" || this.role =="OVAS"){
+    
+       this.permitirAprobar =true;
+    }
+ 
+   
+  }
   cargainicial() {
     this.service.traerInformacion().subscribe(
       OK => {

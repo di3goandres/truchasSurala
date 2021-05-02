@@ -11,7 +11,8 @@
  
     <button mat-menu-item [matMenuTriggerFor]="ovas"  *ngIf="role=='OVAS'"> <mat-icon>fiber_manual_record</mat-icon> <span>Ovas</span></button>
     <button mat-menu-item [matMenuTriggerFor]="Alevinos"  *ngIf="role=='ALEVINOS'"> <mat-icon>set_meal</mat-icon> <span>Alevinos</span></button>
-    <button mat-menu-item [matMenuTriggerFor]="informesTecnicos"  *ngIf="role=='TECNICO'"> <mat-icon>insert_chart</mat-icon> <span>Informes Técnicos</span></button>
+    <button mat-menu-item [matMenuTriggerFor]="informesTecnicos"  *ngIf="role=='TECNICO'||role=='OVAS'"> <mat-icon>insert_chart</mat-icon> <span>Informes Técnicos</span></button>
+    <button mat-menu-item [matMenuTriggerFor]="mortalidad" > <mat-icon>thumb_down_off_alt</mat-icon> <span>Mortalidad</span></button>
    
     <button mat-menu-item [matMenuTriggerFor]="appmovil" *ngIf="permitirEnviarMensajes==true"> <mat-icon>smartphone</mat-icon> <span>Aplicación Movil</span></button>
 
@@ -54,6 +55,7 @@
   </mat-menu>
 
   <mat-menu  #informesTecnicos="matMenu">
+   
     <button mat-menu-item routerLink='/surala/informestecnicos/registrar'>
       <mat-icon>addchart</mat-icon>
       <span>Registrar Informe</span>
@@ -62,7 +64,13 @@
       <mat-icon>article</mat-icon>
       <span>Ver Informes</span>
     </button>
+    <button mat-menu-item routerLink='/surala/informestecnicos/VerInformes'>
+      <mat-icon>article</mat-icon>
+      <span>Registro Informes</span>
+    </button>
   </mat-menu>
+
+
   <mat-menu  #appmovilNotificaciones="matMenu">
     <button mat-menu-item routerLink='/surala/despachos/notificaciones' >
       <mat-icon>verified_user</mat-icon>
@@ -78,10 +86,7 @@
       <mat-icon>campaign</mat-icon>
       <span>Enviar Notificaciones</span>
     </button>
-    <button mat-menu-item [matMenuTriggerFor]="appmovilNotificaciones">
-      <mat-icon>campaign</mat-icon>
-      <span>Noticias</span>
-    </button>
+  
   </mat-menu>
   <mat-menu  #usuarios="matMenu">
     <button mat-menu-item routerLink='/surala/register' >
@@ -119,6 +124,18 @@
       <span>Conductores</span>
     </button> -->
   </mat-menu>
+
+  <mat-menu #mortalidad="matMenu">
+    <button mat-menu-item routerLink='surala/mortalidad'>
+      <mat-icon>sentiment_very_dissatisfied</mat-icon>
+      <span>Mortalidad</span>
+    </button>
+
+    <button mat-menu-item routerLink='surala/mortalidad/informe'>
+      <mat-icon>sentiment_very_dissatisfied</mat-icon>
+      <span>Descargar Mortalidades</span>
+    </button>
+  </mat-menu>
   <mat-menu #ovas="matMenu">
    
    
@@ -134,15 +151,7 @@
       <mat-icon>assignment_returned</mat-icon>
       <span>Facturas Despachos</span>
     </button>
-    <button mat-menu-item routerLink='surala/mortalidad'>
-      <mat-icon>sentiment_very_dissatisfied</mat-icon>
-      <span>Mortalidad</span>
-    </button>
-
-    <button mat-menu-item routerLink='surala/mortalidad/informe'>
-      <mat-icon>sentiment_very_dissatisfied</mat-icon>
-      <span>Descargar Mortalidades</span>
-    </button>
+  
   </mat-menu>
 
   <mat-menu #menuDerecha="matMenu">

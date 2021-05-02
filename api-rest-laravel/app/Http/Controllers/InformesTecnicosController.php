@@ -8,6 +8,7 @@ use App\InformesTecnicos;
 use App\User;
 use Illuminate\Http\Response;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class InformesTecnicosController extends Controller
 {
@@ -417,6 +418,62 @@ class InformesTecnicosController extends Controller
 
 
 
+        return response()->json($data, $data['code']);
+    }
+
+    // Retornar usuarios que tengan Informes tecnicos.
+    public function GetAllUserFincas()
+    {
+        $usuarios = DB::table('users')
+            ->join('informes_tecnicos', 'informes_tecnicos.user_id', '=', 'users.id')
+            ->select(
+                'users.*',
+            )->distinct()
+            ->get();
+        return response()->json([
+            'code' => 200,
+            'status' => 'success',
+            'Usuarios' => $usuarios
+        ]);
+    }
+
+    public function InformesRegistrados()
+    {
+        $informe = DB::table('informes_tecnicos')
+            ->join('fincas', 'fincas.id', '=',  'informes_tecnicos.finca_id')
+            ->join('users', 'users.id', '=',  'fincas.user_id')
+            ->select(
+                'informes_tecnicos.id',
+                'informes_tecnicos.user_id',
+                'informes_tecnicos.finca_id',
+                DB::raw("DATE_FORMAT(informes_tecnicos.fecha_visita, '%Y-%m-%d') as fecha_visita"),
+                'informes_tecnicos.observaciones',
+                'informes_tecnicos.informeTecnico',
+                'informes_tecnicos.archivo_pcr',
+                'informes_tecnicos.histopatologia',
+                'informes_tecnicos.laboratorioNutricional',
+                DB::raw("DATE_FORMAT(informes_tecnicos.created_at, '%Y-%m-%d') as created_at"),
+                DB::raw("DATE_FORMAT(informes_tecnicos.updated_at, '%Y-%m-%d') as updated_at"),
+                'fincas.nombre',
+                'fincas.municipio',
+                'fincas.departamento',
+                DB::raw("CONCAT(users.name, ', ', users.surname ) as nombreUsuario"),
+                'users.numero_identificacion'
+            )
+            ->orderBy('informes_tecnicos.created_at', 'desc')
+            ->get();
+        if (is_object($informe)) {
+            $data = array(
+                'code' => 200,
+                'status' => 'success',
+                'informe' => $informe
+            );
+        } else {
+            $data = array(
+                'code' => 400,
+                'status' => 'sin datos',
+            );
+        }
         return response()->json($data, $data['code']);
     }
 }

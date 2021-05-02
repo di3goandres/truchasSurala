@@ -46,12 +46,12 @@ export class NotificarService {
 
   ObtenerUsuariosRegistrados() {
 
-    return this.userService.ejecutarQuery<UserNotificacion>('/api/usuarios/notificaciones/' );
+    return this.userService.ejecutarQuery<UserNotificacion>('/api/usuarios/notificaciones' );
   }
 
   ObtenerUsuariosActual() {
 
-    return this.userService.ejecutarQuery<UserNotificacion>('/api/usuarios/despacho/actual/notificaciones/');
+    return this.userService.ejecutarQuery<UserNotificacion>('/api/usuarios/despacho/actual/notificaciones');
   }
 
   enviarNotificacionPersonalizadaUsuario(data: EnvioNotificacion){

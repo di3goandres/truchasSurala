@@ -1,26 +1,25 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
+
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Usuario } from '../../models/usuarios.fincas';
-import { InformeService } from '../../service/informe/informe.service';
 import { MatTableDataSource } from '@angular/material/table';
-import { InformeResp } from '../../models/tecnicos/informes/informes.tecnicos.response';
 import { MatPaginator } from '@angular/material/paginator';
-import { ActualizarpdfinformeComponent } from '../actualizarpdfinforme/actualizarpdfinforme.component';
 import { MatStepper } from '@angular/material/stepper';
-import { SaveFile } from '../../models/pedidos/guardar.pdf.response';
-import { InformesTecnicosRequest } from '../../models/tecnicos/informes/informes.tecnicos.request';
-import { RegistroNoexitosoComponent } from '../../componentes/01-Comunes/registro-noexitoso/registro-noexitoso.component';
-import { RegistroExitosoComponent } from '../../componentes/01-Comunes/registro-exitoso/registro-exitoso.component';
-import { UsuariosConReportesComponent } from '../00-Registros/usuarios-con-reportes/usuarios-con-reportes.component';
+import { Usuario } from 'src/app/models/usuarios.fincas';
+import { InformeService } from 'src/app/service/informe/informe.service';
+import { InformeResp } from 'src/app/models/tecnicos/informes/informes.tecnicos.response';
+import { ActualizarpdfinformeComponent } from '../../actualizarpdfinforme/actualizarpdfinforme.component';
+import { SaveFile } from 'src/app/models/pedidos/guardar.pdf.response';
+import { InformesTecnicosRequest } from 'src/app/models/tecnicos/informes/informes.tecnicos.request';
 
 @Component({
-  selector: 'app-listadeinformes',
-  templateUrl: './listadeinformes.component.html',
-  styleUrls: ['./listadeinformes.component.css']
+  selector: 'app-lista-registros',
+  templateUrl: './lista-registros.component.html',
+  styleUrls: ['./lista-registros.component.css']
 })
-export class ListadeinformesComponent implements OnInit {
-  displayedColumns: string[] = ['position', 'fecha_visita', 'nombre',
+export class ListaRegistrosComponent implements OnInit {
+
+  displayedColumns: string[] = ['position', 'fecha_creacion','fecha_visita', 'nombre',
     'observaciones', 'seleccionar'];
   usuario: Usuario;
   firstFormGroup: FormGroup;
@@ -53,13 +52,12 @@ export class ListadeinformesComponent implements OnInit {
     this.secondFormGroup = this._formBuilder.group({
       observaciones: ['', Validators.required],
     })
-    this.dataSource = new MatTableDataSource(this.informes);
-    this.dataSource.paginator = this.paginator
+    this.traerInformacion();
 
   }
 
   traerInformacion() {
-    this.service.traerInformacion(this.usuario.id).subscribe(
+    this.service.traerTodaInformacion().subscribe(
       OK => {
         this.informes = [];
         this.informes.push(...OK.informe)
@@ -70,18 +68,18 @@ export class ListadeinformesComponent implements OnInit {
       ERROR => { console.log(ERROR) },
     )
   }
-  openUsuarios() {
-    const modalRef = this.modalService.open(UsuariosConReportesComponent, { size: 'xl' });
-    modalRef.result.then((result: Usuario) => {
-      this.usuario = result;
-      this.stepper.next()
+  // openUsuarios() {
+  //   const modalRef = this.modalService.open(UsuariosConReportesComponent, { size: 'xl' });
+  //   modalRef.result.then((result: Usuario) => {
+  //     this.usuario = result;
+  //     this.stepper.next()
 
-      this.traerInformacion()
-    }, (reason) => {
-      if (reason === 'OK') {
-      }
-    });
-  }
+  //     this.traerInformacion()
+  //   }, (reason) => {
+  //     if (reason === 'OK') {
+  //     }
+  //   });
+  // }
 
   Ver(informe: InformeResp) {
     this.seleccionado = informe;
@@ -129,7 +127,7 @@ export class ListadeinformesComponent implements OnInit {
 
   }
 
-   actualizarInforme() {
+  actualizarInforme() {
     this.informeUpdate.id = this.seleccionado.id;
     this.informeUpdate.finca_id = this.seleccionado.finca_id;
     this.informeUpdate.observaciones = this.ObservacionesNuevas;
@@ -159,15 +157,15 @@ export class ListadeinformesComponent implements OnInit {
 
     console.log(this.informeUpdate)
 
-   this.service.ActualizarInforme(this.informeUpdate).subscribe(
+    this.service.ActualizarInforme(this.informeUpdate).subscribe(
       OK => {
         this.reiniciarForumulario();
-        this.registroExitoso();
+        this.service.Exitoso();
         console.log(OK)
       },
       ERROR => {
 
-        this.registroNoExitoso("Lo sentimos", "No Hemos podido guardar el informe, intentalo nuevamente")
+        this.service.NoExitoso("Lo sentimos", "No Hemos podido guardar el informe, intentalo nuevamente")
 
       },
     )
@@ -201,32 +199,6 @@ export class ListadeinformesComponent implements OnInit {
   }
 
 
-  registroExitoso() {
-    const modalRef = this.modalService.open(RegistroExitosoComponent, { size: 'md' });
-
-    modalRef.result.then((result) => {
-     
-    }, (reason) => {
-
-      if (reason === 'OK') {
 
 
-      }
-    });
-  }
-
-  registroNoExitoso(Titulo, Mensaje) {
-    const modalRef = this.modalService.open(RegistroNoexitosoComponent, { size: 'md' });
-    modalRef.componentInstance.Titulo = Titulo;
-    modalRef.componentInstance.mensaje = Mensaje
-    modalRef.result.then((result) => {
-
-    }, (reason) => {
-
-      if (reason === 'OK') {
-
-
-      }
-    });
-  }
 }

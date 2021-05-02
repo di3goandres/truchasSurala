@@ -21,4 +21,8 @@ export interface InformeResp {
     nombre:                 string;
     municipio:              string;
     departamento:           string;
+    nombreUsuario:          string;
+    numero_identificacion:  string;
+
+
 }

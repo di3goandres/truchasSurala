@@ -39,8 +39,10 @@ import {MatSnackBarModule} from '@angular/material/snack-bar';
 import {MatChipsModule} from '@angular/material/chips';
 import { ListadeinformesComponent } from './listadeinformes/listadeinformes.component';
 import { ActualizarpdfinformeComponent } from './actualizarpdfinforme/actualizarpdfinforme.component';
+import { ListaRegistrosComponent } from './00-Registros/lista-registros/lista-registros.component';
+import { UsuariosConReportesComponent } from './00-Registros/usuarios-con-reportes/usuarios-con-reportes.component';
 @NgModule({
-  declarations: [RegistrarinformeComponent, AsociarinformesComponent, ListadeinformesComponent, ActualizarpdfinformeComponent],
+  declarations: [RegistrarinformeComponent, AsociarinformesComponent, ListadeinformesComponent, ActualizarpdfinformeComponent, ListaRegistrosComponent, UsuariosConReportesComponent],
   imports: [
     CommonModule,
     TecnicosRoutingModule,

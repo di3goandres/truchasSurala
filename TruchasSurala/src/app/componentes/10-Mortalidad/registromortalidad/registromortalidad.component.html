@@ -173,7 +173,7 @@
         </mat-card-header>
         <mat-card-content>
       
-          <div class="col-12">
+          <div class="col-12" *ngIf="permitirAprobar==true">
             <button type="button" (click)="abrirAprobacion()" mat-raised-button color="primary">Aprobar</button>
   
           </div>

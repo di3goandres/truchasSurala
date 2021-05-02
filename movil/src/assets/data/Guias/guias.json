@@ -51,21 +51,5 @@
                 ]
             }
         ]
-    },
-    {
-        "nombre": "TRANSPORTE DE OVAS DE TRUCHA",
-        "descripcion": "El tiempo de viaje de las ovas, es un factor determinante en el buen desarrollo y evolución de la incubación.",
-        "icon": "bus-outline",
-        "slides": [
-            {
-                "imagen": "assets/guias/apertura.jpg",
-                "titulo": "TRANSPORTE",
-                "descripciones": [
-                    "Transportar en el menor tiempo posible. No olvide que son seres vivos, próximos a su nacimiento",
-                    "Transportar las ovas en vehículos cubiertos del sol o preferiblemente refrigerados, manteniendo una temperatura promedio menor a 10ºC",
-                    "NO transportar en Motos"
-                ]
-            }
-        ]
     }
 ]

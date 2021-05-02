@@ -17,7 +17,7 @@ export class RegistrollegadaComponent implements OnInit {
   
   displayedColumns: string[] = ['position', 'Activo', 'FechaFactura', 'FechaSalida',
     'NumeroFactura', 'NumeroOvas',
-    'Porcentaje', 'Editar'];
+    'Porcentaje', 'Editar', 'Estado'];
 
   public respuesta: DespachoRootObject;
   public dataSource = new MatTableDataSource<Despacho>();
@@ -67,6 +67,7 @@ export class RegistrollegadaComponent implements OnInit {
   OpenEditar(element) {
     const modalRef = this.modalService.open(ModalregistrollegadaComponent, { size: 'lg' });
     modalRef.componentInstance.despacho = element;
+    console.log(element)
     modalRef.result.then((result) => {
       
       if (result === "OK") {

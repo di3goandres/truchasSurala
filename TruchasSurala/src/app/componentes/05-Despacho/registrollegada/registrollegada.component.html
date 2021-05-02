@@ -56,6 +56,14 @@
                   </td>
   
                 </ng-container>
+
+                <ng-container matColumnDef="Estado">
+                  <th mat-header-cell *matHeaderCellDef>Estado </th>
+                  <td mat-cell mat-cell *matCellDef="let element">
+                     {{element.estado_llegada== null? "Sin Registrar":"Registrado"}}
+                  </td>
+  
+                </ng-container>
          
   
                

@@ -56,6 +56,18 @@ export class ModalregistrollegadaComponent implements OnInit {
     this.despachoupdate = new DespachoLlegada()
     this.despachoupdate.id = this.despacho.id;
 
+    console.log(this.despacho)
+    if(this.despacho.dias_retraso!=null){
+      this.despachoupdate.dias_retraso = this.despacho.dias_retraso;
+      this.despachoupdate.estado_llegada = this.despacho.estado_llegada;
+      this.despachoupdate.temperatura = this.despacho.temperatura;
+      this.despachoupdate.Observaciones = this.despacho.observaciones;
+      this.despachoService.MostrarSnack("Ya registraste la llegada")
+    }
+
+
+    console.log(this.despachoupdate)
+
 
 
     this.firstFormGroup = this._formBuilder.group({

@@ -68,6 +68,8 @@ Route::post('/api/user/upload', 'UserController@upload')->middleware(ApiAuthMidd
 Route::get('/api/user/avatar/{user}/{filename}', 'UserController@getImage');
 Route::get('/api/user/detail/{id}', 'UserController@detail');
 Route::get('/api/users/get', 'UserController@GetAllUserFincas');
+Route::get('/api/users/informes/tecnicos/get', 'InformesTecnicosController@GetAllUserFincas');
+
 Route::get('/api/users/surala/get', 'UserController@GetAllUserSurala');
 Route::get('/api/users/surala/conductores', 'UserController@getConductores');
 
@@ -224,6 +226,8 @@ Route::post('/api/informestecnicos/actualizar', 'InformesTecnicosController@actu
 
 
 Route::get('/api/movil/despacho/reporte/informes/{id}', 'InformesTecnicosController@informesUsuario');
+Route::get('/api/despacho/reporte/informes/all', 'InformesTecnicosController@InformesRegistrados');
+
 
 
 
