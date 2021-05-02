@@ -1,7 +1,7 @@
 <app-header titulo="Productos" icon="archive-outline"></app-header>
 
 <ion-content>
-  <ion-item *ngIf="user!=null && (user.tipo_usuario=='OVAS' || user.tipo_usuario=='AMBOS') ">
+  <ion-item *ngIf="user!=null && (user.tipo_usuario=='OVAS' || user.tipo_usuario=='AMBOS') " detail>
 
     <ion-card class="jello-vertical" routerLink="/despachos">
 
@@ -29,7 +29,7 @@
   </ion-item>
 
 
-  <ion-item *ngIf="user!=null && user.tipo_usuario!='OVAS'">
+  <ion-item *ngIf="user!=null && user.tipo_usuario!='OVAS'" detail>
 
     <ion-card class="shake-lr" routerLink="/seleccionarTipo">
       <ion-card-header>

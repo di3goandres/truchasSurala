@@ -154,6 +154,14 @@ const routes: Routes = [
   {
     path: 'despachados',
     loadChildren: () => import('./pages/03-Pedidos/01-Alevinos/despachados/despachados.module').then( m => m.DespachadosPageModule)
+  },
+  {
+    path: 'pasarela-mortalidad',
+    loadChildren: () => import('./pages/05-Mortalidad/pasarela-mortalidad/pasarela-mortalidad.module').then( m => m.PasarelaMortalidadPageModule)
+  },
+  {
+    path: 'mortalidad-reportada',
+    loadChildren: () => import('./pages/05-Mortalidad/mortalidad-reportada/mortalidad-reportada.module').then( m => m.MortalidadReportadaPageModule)
   }
 ];
 

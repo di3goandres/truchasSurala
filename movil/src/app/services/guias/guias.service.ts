@@ -21,6 +21,10 @@ export class GuiasService {
   getPoliticas(){
     return this.http.get<Politicas>('./assets/data/mortalidad/politicas.json');
   }
+
+  getRecordatorio(){
+    return this.http.get<Politicas>('./assets/data/mortalidad/recordatorio.json');
+  }
   getPrefierenos(){
     return this.http.get<Prefierenos>('./assets/data/prefierenos/prefierenos.json');
   }

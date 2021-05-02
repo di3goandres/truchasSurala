@@ -29,6 +29,7 @@ import { ModalreporteComponent } from './02-Pedidos/modalreporte/modalreporte.co
 import { PedidosAlevinosComponent } from './07-PedidosAlevinos/pedidos-alevinos/pedidos-alevinos.component';
 import { AlevinosDespachadosComponent } from './07-PedidosAlevinos/alevinos-despachados/alevinos-despachados.component';
 import { InformeAlevinoComponent } from './07-PedidosAlevinos/informe-alevino/informe-alevino.component';
+import { RecordatorioMortalidadComponent } from './04-Mortalidad/recordatorio-mortalidad/recordatorio-mortalidad.component';
 
 
 @NgModule({
@@ -55,7 +56,8 @@ import { InformeAlevinoComponent } from './07-PedidosAlevinos/informe-alevino/in
     ModalreporteComponent,
     PedidosAlevinosComponent,
     AlevinosDespachadosComponent,
-    InformeAlevinoComponent
+    InformeAlevinoComponent,
+    RecordatorioMortalidadComponent
     
 
 
