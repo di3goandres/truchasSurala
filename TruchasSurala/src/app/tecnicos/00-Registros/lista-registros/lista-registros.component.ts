@@ -19,7 +19,7 @@ import { InformesTecnicosRequest } from 'src/app/models/tecnicos/informes/inform
 })
 export class ListaRegistrosComponent implements OnInit {
 
-  displayedColumns: string[] = ['position', 'fecha_creacion','fecha_visita', 'nombre',
+  displayedColumns: string[] = ['position', 'fecha_creacion','fecha_visita','usuario', 'identificacion', 'nombre',
     'observaciones', 'seleccionar'];
   usuario: Usuario;
   firstFormGroup: FormGroup;
@@ -68,19 +68,6 @@ export class ListaRegistrosComponent implements OnInit {
       ERROR => { console.log(ERROR) },
     )
   }
-  // openUsuarios() {
-  //   const modalRef = this.modalService.open(UsuariosConReportesComponent, { size: 'xl' });
-  //   modalRef.result.then((result: Usuario) => {
-  //     this.usuario = result;
-  //     this.stepper.next()
-
-  //     this.traerInformacion()
-  //   }, (reason) => {
-  //     if (reason === 'OK') {
-  //     }
-  //   });
-  // }
-
   Ver(informe: InformeResp) {
     this.seleccionado = informe;
     this.ObservacionesNuevas = informe.observaciones
@@ -200,5 +187,8 @@ export class ListaRegistrosComponent implements OnInit {
 
 
 
-
+  applyFilter(event: Event) {
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.dataSource.filter = filterValue.trim().toLowerCase();
+  }
 }
