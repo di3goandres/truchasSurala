@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
+import { ModalController } from '@ionic/angular';
+import { Reportado } from 'src/app/models/mortalidad/mortalidad.reportado.response';
 
 @Component({
   selector: 'app-mortalidad-detalle',
@@ -7,8 +9,20 @@ import { Component, OnInit } from '@angular/core';
 })
 export class MortalidadDetalleComponent implements OnInit {
 
-  constructor() { }
+  @Input() detalle:Reportado
+  constructor(
+    public viewCtrl: ModalController,
 
-  ngOnInit() {}
+  ) { }
+
+  ngOnInit() {
+
+    
+  }
+  dismiss() {
+    this.viewCtrl.dismiss(null, 'OK');
+  }
+
+
 
 }
