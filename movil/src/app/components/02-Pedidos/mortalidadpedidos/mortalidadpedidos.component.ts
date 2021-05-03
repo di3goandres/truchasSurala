@@ -20,19 +20,19 @@ export class MortalidadpedidosComponent implements OnInit {
     this.cargar()
   }
 
-async  cargar() {
-    
-  await  this.servicio.obtenerPedidosMortalidad(0).subscribe(
-          OK => {
-            this.pedidos = [];
-            this.pedidos.push(... OK.pedidos)
-            this.noMostrar = true
-          },
-          ERROR => {console.log(ERROR)},
-        )
+  async cargar() {
+
+    await this.servicio.obtenerPedidosMortalidad(0).subscribe(
+      OK => {
+        this.pedidos = [];
+        this.pedidos.push(...OK.pedidos)
+        this.noMostrar = true
+      },
+      ERROR => { console.log(ERROR) },
+    )
   }
 
-  doRefresh(event){
+  doRefresh(event) {
     this.cargar()
   }
 }

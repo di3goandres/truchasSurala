@@ -7,6 +7,7 @@ export interface ReportadoMortalidad {
 }
 
 export interface Reportado {
+    id:                       number;
     pedido:                   number; // total
     porcentaje:               number; // porcentaje
     adicional:                number; // adicional
@@ -15,42 +16,17 @@ export interface Reportado {
     nombre:                   string;
     municipio:                string;
     departamento:             string;
-    id:                       number;
-    id_pedido:                number;
-    id_finca:                 number;
+
     Estado:                   string;  // aprobado rechazado. pendiente
     aprobado_Troutlodge:      number;  
     aprobado_Surala:          number;
 
     Observaciones:            string;
-    
-    // temp_bandeja_superior:    number;
-    // temp_bandeja_intermedia:  number;
-    // temp_bandeja_inferior:    number;
-    // hielo_bandeja_superior:   string;
-    // hielo_bandeja_intermedia: string;
-    // hielo_bandeja_inferior:   string;
-    // utilizo_transporte:       number;
-    demora_llegada:           number;
-    danio_cajas:              number;
-    // cambioGranja:             number;
-    // similar:                  number;
-    // distintas:                number;
+    demora_llegada:           boolean;
+    danio_cajas:              boolean;
     temp_ovas_llegar:         number;
     temp_agua_incubacion:     number;
-    // metodo_aclimatacion:      string;
-    // fuente_agua_incubacion:   string;
-    // origen_agua_incubacion:   string;
-    // uso_agua_incubacion:      string;
-    // nivel_oxigeno:            number;
-    // hora_aclimatacion:        number;
-    // minutos_aclimatacion:     number;
     llegada_ovas:             string;
-    // llegada_ovas_finca:       string;
-    // apertura_cajas:           string;
-    // inicio_hidratacion:       string;
-    // inicio_siembra:           string;
-    // finalizacion_siembra:     string;
     inicio_eclosion:          string;
     fin_eclosion:             string;
     fecha_inicioProblema:     string;

@@ -1,0 +1,38 @@
+<ion-list>
+  <ion-list-header class="ovas">
+    Reportados
+  </ion-list-header>
+  <ion-item-sliding #slidingItem  *ngFor="let item of Reportados"> 
+    <ion-item detail >
+      
+      <ion-avatar slot="start">
+        <img src="../../../../../assets/avatars/av-1.png">
+      </ion-avatar>
+
+      <ion-label>
+        <h2 class="blue">Fecha {{item.created_at}}</h2>
+        <p>Demora en Llegada: {{item.demora_llegada?"Si": "No"}}</p>
+        <p>Daño en Cajas: {{item.danio_cajas?"Si": "No"}}</p>
+        <p>Total Pedido: {{item.total | number}}</p>
+      </ion-label>
+
+      <ion-note slot="end" color="tertiary">
+        
+        <ion-button>
+          {{item.Estado}}
+        
+          <ion-icon slot="end" name="checkmark-circle-outline"  *ngIf="item.Estado=='Aprobada'"></ion-icon>
+          <ion-icon slot="end" name="close-outline" *ngIf="item.Estado=='Pendiente'"></ion-icon>
+  
+          <ion-icon slot="end" name="sad-outline" *ngIf="item.Estado=='No Aprobada'"></ion-icon>
+        </ion-button>
+       
+      </ion-note>
+    </ion-item>
+    <ion-item-options side="end">
+      <ion-item-option routerDirection="forward" (click)="closeItem(slidingItem)" expandable>Ver
+      </ion-item-option>
+    </ion-item-options>
+  </ion-item-sliding>
+
+</ion-list>

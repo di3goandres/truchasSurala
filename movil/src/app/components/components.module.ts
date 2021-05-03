@@ -31,6 +31,9 @@ import { AlevinosDespachadosComponent } from './07-PedidosAlevinos/alevinos-desp
 import { InformeAlevinoComponent } from './07-PedidosAlevinos/informe-alevino/informe-alevino.component';
 import { RecordatorioMortalidadComponent } from './04-Mortalidad/recordatorio-mortalidad/recordatorio-mortalidad.component';
 
+import { MortalidadDetalleComponent } from './04-Mortalidad/mortalidad-detalle/mortalidad-detalle.component';
+import { MortalidadListReportadaComponent } from './04-Mortalidad/mortalidad-list-reportada/mortalidad-list-reportada.component';
+
 
 @NgModule({
   declarations: [
@@ -57,7 +60,10 @@ import { RecordatorioMortalidadComponent } from './04-Mortalidad/recordatorio-mo
     PedidosAlevinosComponent,
     AlevinosDespachadosComponent,
     InformeAlevinoComponent,
-    RecordatorioMortalidadComponent
+    RecordatorioMortalidadComponent,
+    MortalidadDetalleComponent,
+    MortalidadListReportadaComponent
+ 
     
 
 
@@ -101,7 +107,10 @@ import { RecordatorioMortalidadComponent } from './04-Mortalidad/recordatorio-mo
     ModalreporteComponent,
     PedidosAlevinosComponent,
     AlevinosDespachadosComponent,
-    InformeAlevinoComponent
+    InformeAlevinoComponent,
+    MortalidadDetalleComponent,
+    MortalidadListReportadaComponent
+ 
 
 
 

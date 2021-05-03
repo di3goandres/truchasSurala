@@ -1,14 +1,14 @@
 import { Component, OnInit } from '@angular/core';
-import { ok } from 'assert';
 import { Reportado } from 'src/app/models/mortalidad/mortalidad.reportado.response';
 import { PedidosService } from 'src/app/services/pedidos/pedidos.service';
 
 @Component({
-  selector: 'app-mortalidad-reportada',
-  templateUrl: './mortalidad-reportada.page.html',
-  styleUrls: ['./mortalidad-reportada.page.scss'],
+  selector: 'app-mortalidad-list-reportada',
+  templateUrl: './mortalidad-list-reportada.component.html',
+  styleUrls: ['./mortalidad-list-reportada.component.scss'],
 })
-export class MortalidadReportadaPage implements OnInit {
+export class MortalidadListReportadaComponent implements OnInit {
+
   Reportados: Reportado[];
 
   constructor(
@@ -16,7 +16,7 @@ export class MortalidadReportadaPage implements OnInit {
   ) { }
 
   ngOnInit() {
-    // this.traerInformacion();
+    this.traerInformacion();
   }
 
   traerInformacion() {
@@ -34,4 +34,5 @@ export class MortalidadReportadaPage implements OnInit {
   closeItem(item) {
     item.close();
   }
+
 }

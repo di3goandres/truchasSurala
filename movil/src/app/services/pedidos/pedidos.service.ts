@@ -11,6 +11,7 @@ import { MortalidadDiarioResponse } from '../../models/mortalidad/mortalidad.dia
 import { DiarioRequest } from '../../models/mortalidad/mortalidad.diario.request';
 import { Respuesta } from '../../models/Response';
 import { InformesTecnicosResponse } from '../../models/pedidos/informes.tecnicos.response';
+import { ReportadoMortalidad } from 'src/app/models/mortalidad/mortalidad.reportado.response';
 
 @Injectable({
   providedIn: 'root'
@@ -89,5 +90,12 @@ export class PedidosService {
   }
   responseError(){
     this.userService.responseError();
+  }
+
+
+  obtenerReporteMortalidad(){
+    return this.userService
+      .ejecutarQuery<ReportadoMortalidad>('/api/movil/pedidosMortalidad/registrados')
+
   }
 }
