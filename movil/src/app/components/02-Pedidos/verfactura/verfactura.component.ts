@@ -15,6 +15,7 @@ export class VerfacturaComponent implements OnInit {
   @Input() nombreFactura: string;
   @Input() idPedido: string;
   @Input() pdfSrc = "";
+  @Input() Unparametro: boolean;
   mostrar = false;
 
   tipo = '';
@@ -40,7 +41,7 @@ export class VerfacturaComponent implements OnInit {
     private document: DocumentViewer,
     private service: UserService,
     private modalService: LogoutService,
-  
+
 
   ) { }
 
@@ -64,12 +65,16 @@ export class VerfacturaComponent implements OnInit {
     });
 
 
+    if (this.Unparametro != null && this.Unparametro == true) {
+      this.pdfSrc = this.pdfSrc + this.idPedido
 
-    this.pdfSrc = this.pdfSrc + this.idPedido + "/" + this.nombreFactura;
+    } else {
+      this.pdfSrc = this.pdfSrc + this.idPedido + "/" + this.nombreFactura;
 
+    }
 
-     if (platformfilter.length == 0) {
-    this.dowloadAndOpenPdf();
+    if (platformfilter.length == 0) {
+      this.dowloadAndOpenPdf();
 
     } else {
       this.mostrar = true;

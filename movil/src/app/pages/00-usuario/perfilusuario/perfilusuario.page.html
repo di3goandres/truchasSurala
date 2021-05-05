@@ -4,92 +4,117 @@
 <ion-content>
 
   <ion-card>
-    <ion-card-header>
-      <ion-card-title class="blue">Mi Perfil</ion-card-title>
-    </ion-card-header>
+
 
     <ion-card-content>
-      <ion-grid style="font-size: 13px;">
-        <ion-row>
-       
-          <ion-col>
+
+
+      <ion-list lines="none">
+
+        <ion-item>
+          <ion-avatar slot="start">
+            <img src="./assets/avatars/av-2.png">
+          </ion-avatar>
+          <ion-avatar slot="start">
+            <img src="./assets/avatars/av-3.png">
+          </ion-avatar>
+          <div class="ion-text-left blueJustify">
+            <ion-card-title class="blue">Mi Perfil</ion-card-title>
+          </div>
+        </ion-item>
+
+        <ion-item>
+          <p class="ovas"><label class="blue-size">{{user.email |uppercase}}</label></p>
+          <ion-note slot="start" color="tertiary">
             <ion-label>
-              <ion-button slot="end">
+              <ion-button slot="end" disabled>
                 <!-- <ion-icon name="ellipse"></ion-icon> -->
                 <ion-icon name="mail-outline"></ion-icon>
               </ion-button>
-              {{user.email |uppercase}}
             </ion-label>
-          </ion-col>
-        </ion-row>
-        <ion-row>
-          <ion-col>
+
+          </ion-note>
+        </ion-item>
+
+
+        <ion-item>
+          <p class="ovas"><label class="blue-size">{{user.name + ' ' + user.surname | uppercase}}</label></p>
+          <ion-note slot="start" color="tertiary">
             <ion-label>
-              <ion-button slot="end">
+              <ion-button slot="end" disabled>
                 <!-- <ion-icon name="ellipse"></ion-icon> -->
                 <ion-icon name="person"></ion-icon>
               </ion-button>
-              {{user.name + ' ' + user.surname | uppercase}}
             </ion-label>
-          </ion-col>
-        </ion-row>
-        <ion-row>
-          <ion-col>
+
+          </ion-note>
+        </ion-item>
+
+
+        <ion-item>
+          <p class="ovas"><label class="blue-size">{{user.numero_identificacion| number}}</label></p>
+          <ion-note slot="start" color="tertiary">
             <ion-label>
-              <ion-button slot="start">
-            
+              <ion-button slot="end" disabled>
+                <!-- <ion-icon name="ellipse"></ion-icon> -->
                 <ion-icon name="wallet-outline"></ion-icon>
               </ion-button>
-              {{user.numero_identificacion| number}}
             </ion-label>
-          </ion-col>
-        </ion-row>
-        <ion-row>
-          <ion-col>
+
+          </ion-note>
+        </ion-item>
+        <ion-item>
+          <p class="ovas"><label class="blue-size">{{user.telefono| phone}}</label></p>
+          <ion-note slot="start" color="tertiary">
             <ion-label>
-              <ion-button slot="start">
+              <ion-button slot="end" disabled>
                 <!-- <ion-icon name="ellipse"></ion-icon> -->
                 <ion-icon name="call-outline"></ion-icon>
               </ion-button>
-              {{ user.telefono | phone}}
             </ion-label>
-          </ion-col>
-        </ion-row>
-        <ion-row>
-          <ion-col>
+
+          </ion-note>
+        </ion-item>
+
+        <ion-item>
+          <p class="ovas"><label class="blue-size"> Mis mensajes </label></p>
+          <ion-note slot="start" color="tertiary">
             <ion-label>
               <ion-button slot="start" routerLink="/mensajes">
-                <!-- <ion-icon name="ellipse"></ion-icon> -->
                 <ion-icon name="mail"></ion-icon>
               </ion-button>
-              Mis mensajes
-              
             </ion-label>
-          </ion-col> 
-        </ion-row>
 
-        <ion-row>
-          <ion-col>
+          </ion-note>
+        </ion-item>
+
+        <ion-item>
+          <p class="ovas"><label class="blue-size"> Cambiar Contraseña </label></p>
+          <ion-note slot="start" color="tertiary">
             <ion-label>
               <ion-button slot="start" routerLink="/changepassword">
                 <ion-icon name="refresh-outline"></ion-icon>
               </ion-button>
-              Cambiar Contraseña
-              
             </ion-label>
-          </ion-col> 
-        </ion-row>
+
+          </ion-note>
+        </ion-item>
+      </ion-list>
+      <ion-grid>
+
+
+
 
         <ion-row>
           <ion-col>
-            <ion-label>
+            <ion-label class="blue-size">
               <ion-button slot="start" routerLink="/logout/1">
                 <!-- <ion-icon name="ellipse"></ion-icon> -->
-               
+
                 <ion-icon name="log-out-outline"></ion-icon>
               </ion-button>
               Cerrar Sesión
-              
+
             </ion-label>
           </ion-col>
         </ion-row>

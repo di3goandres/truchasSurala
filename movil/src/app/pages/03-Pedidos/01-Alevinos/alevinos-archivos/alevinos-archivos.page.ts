@@ -12,6 +12,8 @@ export class AlevinosArchivosPage implements OnInit {
   reporte: ArchivosAlevinos[];
 
   idPedidoAlevino: number
+  id_lote: number
+
   constructor(
     private route: ActivatedRoute,
     private service: AlevinosService
@@ -20,7 +22,7 @@ export class AlevinosArchivosPage implements OnInit {
 
   ngOnInit() {
     this.cargar();
-    console.log(this.idPedidoAlevino)
+    console.log(this.id_lote)
     this.traerRerporte();
   }
 
@@ -28,6 +30,7 @@ export class AlevinosArchivosPage implements OnInit {
     this.route.params.subscribe(
       params => {
         this.idPedidoAlevino = params.id;
+        this.id_lote = params.id_lote
 
       }
     );

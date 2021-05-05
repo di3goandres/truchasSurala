@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 import { Reportado } from 'src/app/models/mortalidad/mortalidad.reportado.response';
+import { AlevinosService } from 'src/app/services/01-Alevinos/alevinos.service';
 import { PedidosService } from 'src/app/services/pedidos/pedidos.service';
 import { MortalidadDetalleComponent } from '../mortalidad-detalle/mortalidad-detalle.component';
 
@@ -16,6 +17,7 @@ export class MortalidadListReportadaComponent implements OnInit {
   constructor(
     private service: PedidosService,
     public modalController: ModalController,
+    private serviceAlevinos: AlevinosService,
 
   ) { }
 
@@ -30,7 +32,10 @@ export class MortalidadListReportadaComponent implements OnInit {
         console.log(OK)
         this.Reportados = [];
         this.Reportados.push(...OK.Reportados);
+        if(this.Reportados.length == 0){
 
+          this.serviceAlevinos.ModalSinDatos("Reportes", "En este momento no cuentas con reportes registrados", "pasarela-mortalidad")
+        }
       },
       ERROR => { console.log(ERROR) },
     )
