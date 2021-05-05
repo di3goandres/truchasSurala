@@ -1,8 +1,3 @@
-<ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
-  <ion-refresher-content pullingIcon="chevron-down-circle-outline" pullingText="Pull to refresh"
-    refreshingSpinner="circles" refreshingText="Refreshing...">
-  </ion-refresher-content>
-</ion-refresher>
 <ion-buttons>
   <ion-buttons slot="start">
 
@@ -11,7 +6,7 @@
 <div *ngIf="noMostrar==false">
 <ion-list>
   <ion-list-header class="ovas">
-    Programados para despacho
+    Programación
   </ion-list-header>
   <ion-item-sliding #slidingItem *ngFor="let pedido of pedidos">
     <ion-item>
@@ -53,7 +48,7 @@
 <div *ngIf="noMostrar==true">
 
   <ion-list-header class="ovas">
-    Programados para despacho
+    Programación
   </ion-list-header>
   <ion-item-sliding #slidingIte2 *ngFor="let item of [1,1,1]" class="animated flash slow infinite ">
     <ion-item>

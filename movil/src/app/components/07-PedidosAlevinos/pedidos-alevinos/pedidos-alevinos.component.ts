@@ -15,26 +15,29 @@ export class PedidosAlevinosComponent implements OnInit {
     private service: AlevinosService
   ) { }
 
-  ngOnInit() { 
+  ngOnInit() {
 
     this.traerPedidos();
   }
 
   traerPedidos() {
     this.service.traerPedidosUsuario().subscribe(
-      OK => { 
+      OK => {
         this.pedidos = [];
         this.pedidos.push(...OK.pedidos);
-        this.noMostrar =false;
+        this.noMostrar = false;
 
-        this.service.presentToast("Tienes " + this.pedidos.length + ", pedidos sin despachar")
+        this.service.presentToast("Tienes " + this.pedidos.length + ", pedidos sin despachar o programados")
+        if (this.pedidos.length == 0)
+          this.service.ModalSinDatos("Programados", "En este momento no cuentas con despachos programados disponibles", "seleccionarTipo")
 
-        console.log(OK) },
+        console.log(OK)
+      },
       ERROR => { console.log(ERROR) },
     )
   }
-  doRefresh(event){
-    this.noMostrar =true;
+  doRefresh(event) {
+    this.noMostrar = true;
 
     this.traerPedidos();
   }

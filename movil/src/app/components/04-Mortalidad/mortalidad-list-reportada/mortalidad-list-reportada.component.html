@@ -8,15 +8,18 @@
         <img src="../../../../../assets/avatars/av-1.png">
       </ion-avatar>
       <ion-label>
-        <h2 class="blue">Fecha {{item.created_at}}</h2>
-        <p class="ovas">Finca {{item.nombre}}</p>
+        <p class="ovas"> Reporte <label class="blue">{{item.created_at}}</label></p>
+        <p class="ovas"> Despacho <label class="blue">{{item.fechaDespacho}}</label></p>
+        <p class="ovas">Finca <label class="blue">{{item.nombre}}</label></p>
+        <p class="ovas"> Demora en Llegada: <label class="blue">{{item.demora_llegada?"Si": "No"}}</label></p>
+        <p class="ovas">Daño en Cajas: <label class="blue">{{item.danio_cajas?"Si": "No"}}</label></p>
+        <p class="ovas">Total: <label class="blue">{{item.total | number}}</label></p>
+        <p class="ovas">Mortalidad: <label class="blue">{{item.cantidadReportada | number}}</label></p>
+        <p class="ovas">% Mortalidad: <label class="blue">{{item.PorcentajeMortalidad | number}}%</label></p>
 
-        <p>Demora en Llegada: {{item.demora_llegada?"Si": "No"}}</p>
-        <p>Daño en Cajas: {{item.danio_cajas?"Si": "No"}}</p>
-        <p>Total Pedido: {{item.total | number}}</p>
       </ion-label>
       <ion-note slot="end" color="tertiary">
-        <ion-button (click)="VerItem(item)">
+        <ion-button (click)="closeItem(slidingItem, item)">
           {{item.Estado}}
           <ion-icon slot="end" name="checkmark-circle-outline" *ngIf="item.Estado=='Aprobada'"></ion-icon>
           <ion-icon slot="end" name="close-circle-outline" *ngIf="item.Estado=='Pendiente'"></ion-icon>

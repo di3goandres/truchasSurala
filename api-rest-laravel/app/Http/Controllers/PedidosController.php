@@ -628,7 +628,9 @@ class PedidosController extends Controller
         if ($checktoken) {
        
             $user = $jwtAuth->checkToken($token, true);
-            $pedidos = \DB::select('call 06_MortalidadReportada(?)', array($user->sub));
+            $useriud = $user->sub;
+            // $useriud = 58;
+            $pedidos = \DB::select('call 06_MortalidadReportada(?)', array($useriud));
             $data = array(
                 'code' => 200,
                 'status' => 'success',

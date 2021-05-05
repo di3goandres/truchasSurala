@@ -1,0 +1,55 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+     
+
+      <ion-button  float-center color="danger"  routerDirection=“back”  [routerLink]="Ruta" (click)="dismiss()">
+        <span ion-text color="primary"></span>
+        <ion-icon name="close-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title class="ova">TRUCHAS SURALA S.A.S.</ion-title>
+
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+  <ion-card>
+    <ion-list lines="none">
+      <ion-item>
+
+        <ion-icon name="chatbox-ellipses-outline" slot="start" color="primary"></ion-icon>
+        <ion-card-header>
+          <ion-card-subtitle text-center class="blue">
+            {{Titulo}}
+          </ion-card-subtitle>
+        </ion-card-header>
+      </ion-item>
+    </ion-list>
+    <ion-card-content>
+      <div class="ion-text-left blueJustify">
+
+        <p>
+          {{Descripcion}} 
+        </p>
+
+
+      </div>
+      <ion-grid>
+        <ion-row style="text-align: center;">
+          <ion-col class="text-center">
+
+            <ion-button  float-center color="primary" [routerLink]="Ruta" routerDirection=“back” (click)="dismiss()">
+              <span ion-text color="primary"></span>
+              <ion-icon name="checkmark-circle-outline"></ion-icon>
+            </ion-button>
+
+          
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+
+    </ion-card-content>
+  </ion-card>
+
+
+</ion-content>

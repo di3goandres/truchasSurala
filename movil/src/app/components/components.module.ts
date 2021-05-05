@@ -33,6 +33,8 @@ import { RecordatorioMortalidadComponent } from './04-Mortalidad/recordatorio-mo
 
 import { MortalidadDetalleComponent } from './04-Mortalidad/mortalidad-detalle/mortalidad-detalle.component';
 import { MortalidadListReportadaComponent } from './04-Mortalidad/mortalidad-list-reportada/mortalidad-list-reportada.component';
+import { GenericoVolverComponent } from './08-Modal/generico-volver/generico-volver.component';
+import { ListaDocumentosAlevinosComponent } from './07-PedidosAlevinos/lista-documentos-alevinos/lista-documentos-alevinos.component';
 
 
 @NgModule({
@@ -62,9 +64,11 @@ import { MortalidadListReportadaComponent } from './04-Mortalidad/mortalidad-lis
     InformeAlevinoComponent,
     RecordatorioMortalidadComponent,
     MortalidadDetalleComponent,
-    MortalidadListReportadaComponent
- 
-    
+    MortalidadListReportadaComponent,
+    GenericoVolverComponent,
+    ListaDocumentosAlevinosComponent
+
+
 
 
 
@@ -77,10 +81,7 @@ import { MortalidadListReportadaComponent } from './04-Mortalidad/mortalidad-lis
     PdfViewerModule,
     NgxChartsModule,
     FormsModule,
-    
-    // CalendarModule
 
-    
 
   ],
   exports: [
@@ -109,14 +110,16 @@ import { MortalidadListReportadaComponent } from './04-Mortalidad/mortalidad-lis
     AlevinosDespachadosComponent,
     InformeAlevinoComponent,
     MortalidadDetalleComponent,
-    MortalidadListReportadaComponent
- 
+    MortalidadListReportadaComponent,
+    GenericoVolverComponent,
+    ListaDocumentosAlevinosComponent
+
 
 
 
   ],
 
-  
-  
+
+
 })
 export class ComponentsModule { }

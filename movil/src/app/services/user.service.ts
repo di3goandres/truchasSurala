@@ -3,12 +3,13 @@ import { HttpHeaders, HttpClientModule, HttpClient } from '@angular/common/http'
 import { environment } from '../../environments/environment';
 import { User } from '../models/user';
 import { BehaviorSubject, Observable } from 'rxjs';
-import { NavController, ToastController } from '@ionic/angular';
+import { ModalController, NavController, ToastController } from '@ionic/angular';
 import { FincasUser } from '../models/fincas.user';
 import { Respuesta } from '../models/Response';
 import { Photo, SavePhoto } from '../models/photos';
 import { delay } from 'rxjs/operators';
 import { ResetPassword } from '../models/login';
+import { GenericoVolverComponent } from '../components/08-Modal/generico-volver/generico-volver.component';
 
 
 
@@ -38,6 +39,8 @@ export class UserService {
   constructor(public http: HttpClient,
     public navCtrl: NavController,
     public toastController: ToastController,
+    public modalController: ModalController
+
   ) {
     this.url = environment.apiUrl;
     this.header = new HttpHeaders();
@@ -252,5 +255,22 @@ export class UserService {
       position: 'top',
     });
     toast.present();
+  }
+
+  async ModalGenericoVolver(Titulo: string, Descripcion: string, Ruta: string) {
+
+   
+    const modal = await this.modalController.create({
+      component: GenericoVolverComponent,
+      cssClass: 'my-custom-class',
+      componentProps: {
+        'Titulo': Titulo,
+        'Descripcion': Descripcion,
+        'Ruta': "/" + Ruta
+
+     
+      }
+    });
+    return await modal.present();
   }
 }

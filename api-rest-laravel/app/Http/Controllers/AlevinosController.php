@@ -1091,25 +1091,23 @@ class AlevinosController extends Controller
         $despachos = DB::table('alevinos_pedidos')
             ->join('fincas', 'fincas.id', '=', 'alevinos_pedidos.id_finca')
             ->join('users as users', 'users.id', '=', 'fincas.user_id')
-            ->join('users as conductor', 'conductor.id', '=', 'alevinos_pedidos.conductor_id')
-            ->join('alevinos_pedido_semana', 'alevinos_pedido_semana.id_alevinos_pedidos', '=', 'alevinos_pedidos.id')
-            ->join('alevinos_dia_despacho', 'alevinos_dia_despacho.id', '=', 'alevinos_pedido_semana.id_alevinos_dia_despacho')
+            // ->join('users as conductor', 'conductor.id', '=', 'alevinos_pedidos.conductor_id')
+            // ->join('alevinos_pedido_semana', 'alevinos_pedido_semana.id_alevinos_pedidos', '=', 'alevinos_pedidos.id')
+            // ->join('alevinos_dia_despacho', 'alevinos_dia_despacho.id', '=', 'alevinos_pedido_semana.id_alevinos_dia_despacho')
             ->where(
                 [
                     ['users.id', '=', $idUsuario],
-                    // ['alevinos_pedidos.despachado', '=', false],
+                 ['alevinos_pedidos.despachado', '=', false],
 
                 ]
             )
             ->select(
                 'alevinos_pedidos.id',
                 'alevinos_pedidos.conductor_id as conductor',
-                DB::raw("CONCAT(conductor.name, ', ', conductor.surname) as NombreConductor"),
                 DB::raw("(CASE WHEN es_talla = 1  THEN 'TALLA' ELSE 'PESO' END) AS tipo"),
                 'alevinos_pedidos.es_talla',
                 'alevinos_pedidos.es_peso',
                 'alevinos_pedidos.cantidad',
-                'alevinos_dia_despacho.id as id_despacho',
                 'alevinos_pedidos.id_lote_numero',
                 'alevinos_pedidos.centimetros AS talla',
                 'alevinos_pedidos.peso_gramos as peso',

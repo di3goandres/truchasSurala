@@ -41,11 +41,6 @@ export class MortalidadListReportadaComponent implements OnInit {
     this.VerDetalle(detalle);
   }
 
-  VerItem(detalle: Reportado){
-    this.VerDetalle(detalle);
-
-  }
-
   async VerDetalle(detalle:Reportado) {
 
 

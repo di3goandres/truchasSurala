@@ -162,6 +162,10 @@ const routes: Routes = [
   {
     path: 'mortalidad-reportada',
     loadChildren: () => import('./pages/05-Mortalidad/mortalidad-reportada/mortalidad-reportada.module').then( m => m.MortalidadReportadaPageModule)
+  },
+  {
+    path: 'alevinos-archivos/:id',
+    loadChildren: () => import('./pages/03-Pedidos/01-Alevinos/alevinos-archivos/alevinos-archivos.module').then( m => m.AlevinosArchivosPageModule)
   }
 ];
 

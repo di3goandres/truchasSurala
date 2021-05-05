@@ -13,6 +13,8 @@ export interface Reportado {
     adicional:                number; // adicional
     reposicion:               number; // repo
     total:                    number; // total
+    cantidadReportada:        string;  
+    PorcentajeMortalidad:     string;  
     nombre:                   string;
     municipio:                string;
     departamento:             string;
@@ -30,7 +32,8 @@ export interface Reportado {
     inicio_eclosion:          string;
     fin_eclosion:             string;
     fecha_inicioProblema:     string;
-
+    fechaDespacho:            string,     
     created_at:               string;
     updated_at:               string;
+
 }

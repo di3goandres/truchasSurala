@@ -1,8 +1,4 @@
-<ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
-  <ion-refresher-content pullingIcon="chevron-down-circle-outline" pullingText="Pull to refresh"
-    refreshingSpinner="circles" refreshingText="Refreshing...">
-  </ion-refresher-content>
-</ion-refresher>
+
 <ion-buttons>
   <ion-buttons slot="start">
 
@@ -14,7 +10,8 @@
       Despachados
     </ion-list-header>
     <ion-item-sliding #slidingItem *ngFor="let despacho of despachados">
-      <ion-item>
+      <ion-item detail>
+        
         <ion-avatar slot="start">
           <img src="../../../../../assets/avatars/av-1.png">
         </ion-avatar>
@@ -48,10 +45,19 @@
             </ion-row>
           </ion-grid>
         </ion-label>
+
+        <ion-note slot="end" color="tertiary">
+          <ion-button [routerLink]="['/alevinos-archivos/', despacho.id ]" (click)="close(slidingItem)">
+            Documentos
+            <ion-icon slot="end" name="checkmark-circle-outline" ></ion-icon>
+
+          </ion-button>
+        </ion-note>
       </ion-item>
       <ion-item-options side="end">
         <ion-item-option (click)="Informe(despacho, slidingItem)" expandable>
-          Despachados</ion-item-option>
+          <ion-icon name="clipboard-outline"></ion-icon></ion-item-option>
+        
       </ion-item-options>
     </ion-item-sliding>
 
