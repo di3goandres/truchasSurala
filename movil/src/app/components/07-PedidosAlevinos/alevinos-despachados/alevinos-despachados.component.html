@@ -46,7 +46,7 @@
         </ion-label>
 
         <ion-note slot="end" color="tertiary">
-          <ion-button [routerLink]="['/alevinos-archivos/', despacho.id, despacho.id_lote_numero ]"
+          <ion-button [routerLink]="['/alevinos-archivos/', despacho.id, despacho.id_lote_numero, despacho.ExisteCertificado, despacho.certificado]"
             (click)="close(slidingItem)">
             Documentos
             <ion-icon slot="end" name="checkmark-circle-outline"></ion-icon>

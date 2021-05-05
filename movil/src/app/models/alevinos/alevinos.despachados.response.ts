@@ -16,6 +16,10 @@ export interface DespachadoAlevinos {
     remision_numero:           string;
     lote_alevinos:             string;
     id_lote_numero:            number;
+
+    certificado:               string;
+    ExisteCertificado:         boolean; 
+
     numero_lote:               string;
     tamanio:                   number;
     edad_tcu:                  number;

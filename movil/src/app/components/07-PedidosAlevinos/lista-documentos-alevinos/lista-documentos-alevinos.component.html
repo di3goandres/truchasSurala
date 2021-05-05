@@ -20,8 +20,8 @@
 
         </ion-label>
 
-        <ion-note slot="end" color="tertiary">
-          <ion-button (click)="CertificadoOrigen()">
+        <ion-note slot="end" color="tertiary" >
+          <ion-button (click)="CertificadoOrigen()" [disabled]="existe==false">
             Ver
             <ion-icon slot="end" name="eye-outline"></ion-icon>
          

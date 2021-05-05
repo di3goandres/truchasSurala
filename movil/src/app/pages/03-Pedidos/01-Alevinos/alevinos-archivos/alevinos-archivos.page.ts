@@ -13,7 +13,8 @@ export class AlevinosArchivosPage implements OnInit {
 
   idPedidoAlevino: number
   id_lote: number
-
+  existe: boolean;
+  nombre: string;
   constructor(
     private route: ActivatedRoute,
     private service: AlevinosService

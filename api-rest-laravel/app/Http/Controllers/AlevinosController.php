@@ -1165,6 +1165,9 @@ class AlevinosController extends Controller
             ->join('alevinos_pedido_semana', 'alevinos_pedido_semana.id_alevinos_pedidos', '=', 'alevinos_pedidos.id')
             ->join('alevinos_dia_despacho', 'alevinos_dia_despacho.id', '=', 'alevinos_pedido_semana.id_alevinos_dia_despacho')
             ->join('lote_numero', 'lote_numero.id', '=', 'alevinos_pedidos.id_lote_numero')
+            ->join('despachos', 'despachos.id', '=', 'lote_numero.id_despacho')
+
+
 
             ->where(
                 [
@@ -1187,8 +1190,10 @@ class AlevinosController extends Controller
                 'alevinos_pedidos.lote_alevinos',
                 /**Datos del lote */
                 'alevinos_pedidos.id_lote_numero',
+                'despachos.certificado',
+                 DB::raw('(CASE WHEN despachos.certificado IS NULL THEN 0 ELSE 1 END) AS ExisteCertificado'),
                 'lote_numero.numero_lote',
-                'lote_numero.tamanio',
+                'lote_numero.tamanio',  
                 'lote_numero.edad_tcu',
                 'lote_numero.ovas_ml',
 

@@ -164,7 +164,7 @@ const routes: Routes = [
     loadChildren: () => import('./pages/05-Mortalidad/mortalidad-reportada/mortalidad-reportada.module').then( m => m.MortalidadReportadaPageModule)
   },
   {
-    path: 'alevinos-archivos/:id/:id_lote',
+    path: 'alevinos-archivos/:id/:id_lote/:existe/:nombre',
     loadChildren: () => import('./pages/03-Pedidos/01-Alevinos/alevinos-archivos/alevinos-archivos.module').then( m => m.AlevinosArchivosPageModule)
   }
 ];
