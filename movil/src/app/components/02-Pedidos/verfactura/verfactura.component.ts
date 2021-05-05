@@ -40,7 +40,7 @@ export class VerfacturaComponent implements OnInit {
     private document: DocumentViewer,
     private service: UserService,
     private modalService: LogoutService,
-
+  
 
   ) { }
 
@@ -169,4 +169,7 @@ export class VerfacturaComponent implements OnInit {
 
   }
 
+  dismiss() {
+    this.modalCtrl.dismiss(null, 'OK');
+  }
 }
