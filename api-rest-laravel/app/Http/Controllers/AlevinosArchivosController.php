@@ -16,7 +16,7 @@ class AlevinosArchivosController extends Controller
 {
     public function __construct()
     {
-        // $this->middleware('api.auth');
+        $this->middleware('api.auth', ['except' => ['Getpdf']]);
     }
 
 
@@ -65,8 +65,7 @@ class AlevinosArchivosController extends Controller
                         $retorno[$id]['estado'] = true;
                         $retorno[$id]['id_archivo'] = $archivo['id'];
                         $retorno[$id]['nombre'] = $archivo['nombre'];
-                    } 
-                   
+                    }
                 }
             } else {
                 $retorno[$id]['estado'] = false;

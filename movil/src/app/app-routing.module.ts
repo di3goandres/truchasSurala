@@ -166,6 +166,14 @@ const routes: Routes = [
   {
     path: 'alevinos-archivos/:id/:id_lote/:existe/:nombre',
     loadChildren: () => import('./pages/03-Pedidos/01-Alevinos/alevinos-archivos/alevinos-archivos.module').then( m => m.AlevinosArchivosPageModule)
+  },
+  {
+    path: 'pasarela-conteo',
+    loadChildren: () => import('./pages/09-ReporteConteo/01-Pasarela/pasarela-conteo/pasarela-conteo.module').then( m => m.PasarelaConteoPageModule)
+  },
+  {
+    path: 'lista-pedidos-disponibles',
+    loadChildren: () => import('./pages/09-ReporteConteo/02-Disponibles/lista-pedidos-disponibles/lista-pedidos-disponibles.module').then( m => m.ListaPedidosDisponiblesPageModule)
   }
 ];
 

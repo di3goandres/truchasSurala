@@ -35,6 +35,8 @@ import { MortalidadDetalleComponent } from './04-Mortalidad/mortalidad-detalle/m
 import { MortalidadListReportadaComponent } from './04-Mortalidad/mortalidad-list-reportada/mortalidad-list-reportada.component';
 import { GenericoVolverComponent } from './08-Modal/generico-volver/generico-volver.component';
 import { ListaDocumentosAlevinosComponent } from './07-PedidosAlevinos/lista-documentos-alevinos/lista-documentos-alevinos.component';
+import { ConteoDisponibleComponent } from './09-ReporteConteo/conteo-disponible/conteo-disponible.component';
+import { PreloadingComponent } from './10-Preloading/preloading/preloading.component';
 
 
 @NgModule({
@@ -66,7 +68,9 @@ import { ListaDocumentosAlevinosComponent } from './07-PedidosAlevinos/lista-doc
     MortalidadDetalleComponent,
     MortalidadListReportadaComponent,
     GenericoVolverComponent,
-    ListaDocumentosAlevinosComponent
+    ListaDocumentosAlevinosComponent,
+    ConteoDisponibleComponent,
+    PreloadingComponent
 
 
 
@@ -112,7 +116,9 @@ import { ListaDocumentosAlevinosComponent } from './07-PedidosAlevinos/lista-doc
     MortalidadDetalleComponent,
     MortalidadListReportadaComponent,
     GenericoVolverComponent,
-    ListaDocumentosAlevinosComponent
+    ListaDocumentosAlevinosComponent,
+    ConteoDisponibleComponent,
+    PreloadingComponent
 
 
 
