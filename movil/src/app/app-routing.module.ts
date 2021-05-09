@@ -174,6 +174,10 @@ const routes: Routes = [
   {
     path: 'lista-pedidos-disponibles',
     loadChildren: () => import('./pages/09-ReporteConteo/02-Disponibles/lista-pedidos-disponibles/lista-pedidos-disponibles.module').then( m => m.ListaPedidosDisponiblesPageModule)
+  },
+  {
+    path: 'reporte-por-trazabilidad/:id',
+    loadChildren: () => import('./pages/09-ReporteConteo/03-Reporte/reporte-por-trazabilidad/reporte-por-trazabilidad.module').then( m => m.ReportePorTrazabilidadPageModule)
   }
 ];
 

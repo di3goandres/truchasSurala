@@ -1191,7 +1191,7 @@ class AlevinosController extends Controller
                 /**Datos del lote */
                 'alevinos_pedidos.id_lote_numero',
                 'despachos.certificado',
-                 DB::raw('(CASE WHEN despachos.certificado IS NULL THEN 0 ELSE 1 END) AS ExisteCertificado'),
+                 DB::raw('(CASE WHEN despachos.certificado = "pendiente" THEN 0 ELSE 1 END) AS ExisteCertificado'),
                 'lote_numero.numero_lote',
                 'lote_numero.tamanio',  
                 'lote_numero.edad_tcu',

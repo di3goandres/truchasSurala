@@ -1,0 +1,26 @@
+<div *ngIf="mostrar==true">
+  <app-preloading></app-preloading>
+</div>
+<div *ngIf="mostrar==false">
+
+  <ion-list>
+    <ion-list-header>
+      <ion-label class="ovas">
+        Selecciona el metodo de conteo
+      </ion-label>
+    </ion-list-header>
+    <ion-item>
+      <ion-label> <label class="blue"> Metodo de conteo</label></ion-label>
+      <ion-select placeholder="Selecciona un metodo" interface="action-sheet" mode="ios" 
+      (ionChange)="onSelectChange($event)"
+      [(ngModel)]="Metodo"
+      >
+        <ion-select-option *ngFor="let item of metodoConteo"
+             [value]="item.id"> <label class="blue">{{item.Nombre
+            |uppercase}}</label></ion-select-option>
+      </ion-select>
+    </ion-item>
+  </ion-list>
+
+
+</div>

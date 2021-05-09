@@ -1,41 +1,63 @@
+<div *ngIf="noMostrar==true">
 
-<ion-list *ngIf="noMostrar==true">
-  <ion-list-header class="ovas">
-    Disponibles
-  </ion-list-header>
-  <ion-item-sliding #slidingItem *ngFor="let pedido of pedidos">
-    <ion-item detail>
-      <ion-avatar slot="start">
-        <img src="../../../../../assets/avatars/av-1.png">
-      </ion-avatar>
-      <ion-label>
 
-        <p class="ovas"> Fecha <label class="blue"> {{pedido.fecha_salida | date: "MMM/dd/yyyy" | uppercase}}</label>
-        </p>
+  <ion-card>
+    <ion-card-header>
 
-        <p class="ovas"> Finca <label class="blue"> {{ pedido.nombre}}</label></p>
-        <p class="ovas"> Total <label class="blue">{{pedido.total| number}}</label></p>
-        <p class="ovas">Pedido <label class="blue"> {{pedido.pedido| number}}</label></p>
-        <p class="ovas"> Adicional: <label class="blue">{{pedido.porcentaje}}%</label></p>
-        <p class="ovas">Reposición <label class="blue">{{pedido.reposicion| number}}</label></p>
+      <ion-card-title class="ovas">Pedidos Disponibles</ion-card-title>
 
-      </ion-label>
-      <ion-note slot="end" color="tertiary">
-        <ion-button (click)="closeItem(slidingItem, pedido)">
-          Reportar
+      <ion-card-subtitle class=""></ion-card-subtitle>
+    </ion-card-header>
+    <ion-card-content>
+      <p class="ovas"><label class="blue"> En esta sección encontraras los pedidos a los cuales les puedes hacer un
+          reclamo por conteo. Si No encuentras pedidos al cual hacer un reclamo. Verifica si ya haz realizado el
+          reclamo, si te exediste o superaste de los dos dias permitidos, o no tienes pedidos recientes </label>
+      </p>
+    </ion-card-content>
+  </ion-card>
+
+  <ion-list>
+    <ion-list-header class="ovas">
+
+    </ion-list-header>
+    <ion-item-sliding #slidingItem *ngFor="let pedido of pedidos">
+      <ion-item detail>
+        <ion-avatar slot="start">
+          <img src="../../../../../assets/avatars/av-1.png">
+        </ion-avatar>
+        <ion-label>
+
+          <p class="ovas"> Fecha <label class="blue"> {{pedido.fecha_salida | date: "MMM/dd/yyyy" | uppercase}}</label>
+          </p>
+
+          <p class="ovas"> Finca <label class="blue"> {{ pedido.nombre}}</label></p>
+          <p class="ovas"> Total <label class="blue">{{pedido.total| number}}</label></p>
+          <p class="ovas">Pedido <label class="blue"> {{pedido.pedido| number}}</label></p>
+          <p class="ovas"> Adicional: <label class="blue">{{pedido.adicional|number}}</label></p>
+
+          <p class="ovas"> % Adicional: <label class="blue">{{pedido.porcentaje}}%</label></p>
+
+          <p class="ovas">Reposición <label class="blue">{{pedido.reposicion| number}}</label></p>
+
+        </ion-label>
+        <ion-note slot="end" color="tertiary">
+          <ion-button (click)="closeItem(slidingItem, pedido)"  [routerLink]="['/reporte-por-trazabilidad/',pedido.id ]">
+            Reportar
+            <ion-icon slot="end" name="sad-outline"></ion-icon>
+          </ion-button>
+        </ion-note>
+      </ion-item>
+      <ion-item-options side="end">
+        <ion-item-option routerDirection="forward" (click)="closeItem(slidingItem, pedido)"  [routerLink]="['/reporte-por-trazabilidad/',pedido.id ]" expandable>
           <ion-icon slot="end" name="sad-outline"></ion-icon>
-        </ion-button>
-      </ion-note>
-    </ion-item>
-    <ion-item-options side="end">
-      <ion-item-option routerDirection="forward" (click)="closeItem(slidingItem, pedido)" expandable>  <ion-icon slot="end" name="sad-outline"></ion-icon>
-      </ion-item-option>
-    </ion-item-options>
-  </ion-item-sliding>
+        </ion-item-option>
+      </ion-item-options>
+    </ion-item-sliding>
 
-</ion-list>
+  </ion-list>
 
+</div>
 <div *ngIf="noMostrar==false">
-  <app-preloading ></app-preloading>
+  <app-preloading></app-preloading>
 
 </div>

@@ -31,8 +31,11 @@ export class AlevinosArchivosPage implements OnInit {
     this.route.params.subscribe(
       params => {
         this.idPedidoAlevino = params.id;
-        this.id_lote = params.id_lote
+        this.id_lote = params.id_lote;
+        this.nombre = params.nombre;
+        this.existe = params.existe;
 
+        console.log(params);
       }
     );
   }

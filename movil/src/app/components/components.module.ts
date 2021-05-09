@@ -37,6 +37,7 @@ import { GenericoVolverComponent } from './08-Modal/generico-volver/generico-vol
 import { ListaDocumentosAlevinosComponent } from './07-PedidosAlevinos/lista-documentos-alevinos/lista-documentos-alevinos.component';
 import { ConteoDisponibleComponent } from './09-ReporteConteo/conteo-disponible/conteo-disponible.component';
 import { PreloadingComponent } from './10-Preloading/preloading/preloading.component';
+import { ListaTrazabilidadReporteComponent } from './09-ReporteConteo/lista-trazabilidad-reporte/lista-trazabilidad-reporte.component';
 
 
 @NgModule({
@@ -70,7 +71,8 @@ import { PreloadingComponent } from './10-Preloading/preloading/preloading.compo
     GenericoVolverComponent,
     ListaDocumentosAlevinosComponent,
     ConteoDisponibleComponent,
-    PreloadingComponent
+    PreloadingComponent,
+    ListaTrazabilidadReporteComponent
 
 
 
@@ -118,7 +120,8 @@ import { PreloadingComponent } from './10-Preloading/preloading/preloading.compo
     GenericoVolverComponent,
     ListaDocumentosAlevinosComponent,
     ConteoDisponibleComponent,
-    PreloadingComponent
+    PreloadingComponent,
+    ListaTrazabilidadReporteComponent
 
 
 

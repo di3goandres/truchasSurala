@@ -16,7 +16,7 @@ class ConteoController extends Controller
     public function ConsultaPorPedido($usuario)
     {
 
-        
+
         $despachos = DB::select(
             'select 
                             p.id,
@@ -38,8 +38,10 @@ class ConteoController extends Controller
                     left join fincas f on p.id_finca = f.id
                     left join users u on f.user_id  = u.id
                     left join parametros pa on 1=1
-                    left join mortalidad m on m.id_pedido = p.id
+                    left join mortalidad_conteo m on m.id_pedido = p.id
                     where u.id = ? and  pa.tipo_parametro = "tiempo_mortalidad_conteo"
+                    and m.id is null
+
                     and  d.fecha_salida  >= ( CURDATE() - INTERVAL pa.valor DAY )',
             array(5)
         );
@@ -48,11 +50,45 @@ class ConteoController extends Controller
         return $despachos;
     }
 
+    public function TrazabilidadConteo($idPedido)
+    {
+        $trazabilidad = DB::select(
+            'select
+                    tr.id,
+                    tr.remision,
+                    tr.total_ovas_enviadas,
+                    tr.tiene_reporte_conteo, 
+                    tr.cantidad_reportada
+            from 
+            trazabilidad tr 
+            left join pedidos ped on tr.id_pedido = ped.id
+            where ped.id = ?;',
+            array(581)
+        );
+        return $trazabilidad;
+    }
+
+    public function MetodoConteo()
+    {
+        $trazabilidad = DB::select(
+            'select
+                    mc.id,
+                    mc.Nombre, 
+                    mc.descripcion,
+                    mc.esOvacon,
+                    mc.esOtro
+            from 
+            metodo_conteo mc ',
+            array()
+        );
+        return $trazabilidad;
+    }
+
 
     /**
      * Metodo encargado de obtener los datos dle usuario y devolver los datos
      * de despachos que pueden ser posibles para registrar el conteo mal.
-    */
+     */
     public function ConteopedidosByToken(Request $request)
     {
         $token = $request->header('Authorization');
@@ -81,4 +117,23 @@ class ConteoController extends Controller
     }
 
 
+    /**
+     * Metodo encargado de obtener los datos de la trazabilida asociado al pedido
+     */
+    public function TrazabilidadConteopedidosByToken($id)
+    {
+
+        $ConteoTrazabilidad = $this->TrazabilidadConteo($id);
+        $metodoConteo = $this->MetodoConteo();
+        
+        $data = array(
+            'code' => 200,
+            'status' => 'success',
+            'ConteoTrazabilidad' => $ConteoTrazabilidad,
+            'metodoConteo'=> $metodoConteo
+        );
+
+
+        return response()->json($data, $data['code']);
+    }
 }

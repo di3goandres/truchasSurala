@@ -25,14 +25,17 @@ export class ConteoDisponibleComponent implements OnInit {
 
     await this.servicio.ConteoPedidosUsuario().subscribe(
       OK => {
+        console.log(OK)
         this.pedidos = [];
         this.pedidos.push(...OK.pedidos)
         this.noMostrar = true
         if(this.pedidos.length==0){
-          this.servicio.ModalSinDatos("Pedidos", "No Tienes pedidos al cual hacer un reclamo, recuerda que es máximo dos dias", "pasarela-conteo")
+          this.servicio.ModalSinDatos("Pedidos", "No Tienes pedidos al cual hacer un reclamo. Verifica si ya haz realizado el reclamo, si te exediste o superaste de los dos dias permitidos, o no tienes pedidos recientes", "pasarela-conteo")
         }
       },
-      ERROR => { console.log(ERROR) },
+      ERROR => { 
+        this.servicio.ModalSinDatos("Pedidos", "No Tienes pedidos al cual hacer un reclamo. Verifica si ya haz realizado el reclamo, si te exediste o superaste de los dos dias permitidos, o no tienes pedidos recientes", "pasarela-conteo")
+        console.log(ERROR) },
     )
   }
 

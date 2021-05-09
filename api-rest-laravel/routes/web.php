@@ -236,7 +236,7 @@ Route::get('/api/despacho/reporte/informes/all', 'InformesTecnicosController@Inf
 
 ///Routes de Reporte por conteo de ovas
 Route::get('/api/reporte/conteo/obtener/disponibles', 'ConteoController@ConteopedidosByToken');
-
+Route::get('/api/reporte/conteo/trazabilidad/pedido/{id}', 'ConteoController@TrazabilidadConteopedidosByToken');
 
 
 
