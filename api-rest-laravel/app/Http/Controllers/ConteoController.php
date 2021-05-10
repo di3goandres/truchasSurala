@@ -53,15 +53,20 @@ class ConteoController extends Controller
     public function TrazabilidadConteo($idPedido)
     {
         $trazabilidad = DB::select(
-            'select
-                    tr.id,
-                    tr.remision,
-                    tr.total_ovas_enviadas,
-                    tr.tiene_reporte_conteo, 
-                    tr.cantidad_reportada
-            from 
-            trazabilidad tr 
+            'select 
+                distinct tr.id,
+                tr.remision,
+                tr.total_ovas_enviadas,
+                tr.tiene_reporte_conteo,
+                tr.cantidad_reportada,
+                lotn.tamanio,
+                lotn.ovas_ml
+                from trazabilidad_bandejas tb
+            left join trazabilidad tr on tb.id_trazabilidad = tr.id
             left join pedidos ped on tr.id_pedido = ped.id
+            left join bandeja_lote bl on tb.id_bandeja_lote = bl.id
+            left join lotes l on bl.id_lote = l.id
+            left join lote_numero lotn on l.id_lote_numero = lotn.id
             where ped.id = ?;',
             array(581)
         );

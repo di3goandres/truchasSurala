@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { FormsModule, FormBuilder } from '@angular/forms';
+import { FormsModule, FormBuilder, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { HeaderComponent } from './header/header.component';
 import { InvitadosComponent } from './menu/invitados/invitados.component';
@@ -38,6 +38,7 @@ import { ListaDocumentosAlevinosComponent } from './07-PedidosAlevinos/lista-doc
 import { ConteoDisponibleComponent } from './09-ReporteConteo/conteo-disponible/conteo-disponible.component';
 import { PreloadingComponent } from './10-Preloading/preloading/preloading.component';
 import { ListaTrazabilidadReporteComponent } from './09-ReporteConteo/lista-trazabilidad-reporte/lista-trazabilidad-reporte.component';
+import { ReportarTrazaComponent } from './09-ReporteConteo/reportar-traza/reportar-traza.component';
 
 
 @NgModule({
@@ -72,7 +73,8 @@ import { ListaTrazabilidadReporteComponent } from './09-ReporteConteo/lista-traz
     ListaDocumentosAlevinosComponent,
     ConteoDisponibleComponent,
     PreloadingComponent,
-    ListaTrazabilidadReporteComponent
+    ListaTrazabilidadReporteComponent,
+    ReportarTrazaComponent
 
 
 
@@ -87,6 +89,8 @@ import { ListaTrazabilidadReporteComponent } from './09-ReporteConteo/lista-traz
     PdfViewerModule,
     NgxChartsModule,
     FormsModule,
+    ReactiveFormsModule,
+
 
 
   ],
@@ -121,7 +125,8 @@ import { ListaTrazabilidadReporteComponent } from './09-ReporteConteo/lista-traz
     ListaDocumentosAlevinosComponent,
     ConteoDisponibleComponent,
     PreloadingComponent,
-    ListaTrazabilidadReporteComponent
+    ListaTrazabilidadReporteComponent,
+    ReportarTrazaComponent
 
 
 

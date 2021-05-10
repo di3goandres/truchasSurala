@@ -1,17 +1,8 @@
-.alert-title sc-ion-alert-ios {
-    color: rgb(136, 25, 25)  !important;
-  }
+@import '../../../../global.scss';
 
 
-  /* Popover Interface: set color for the popover using Item's CSS variables */
-.my-custom-interface .brown-option {
-    --color: #5e3e2c;
-    --color-hover: #362419;
-  }
 
-  ion-select-option {
-    color: red;
-  }
-  .select-text{
-      color:red !important;
-  }
+
+ion-select::part(text) {
+  color:$ovas;
+}

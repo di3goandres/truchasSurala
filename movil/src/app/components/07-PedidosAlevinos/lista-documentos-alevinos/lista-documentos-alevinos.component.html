@@ -3,58 +3,42 @@
     <ion-list-header class="ovas">
       Documentos
     </ion-list-header>
-    <ion-item-sliding #slidingItem >
+    <ion-item-sliding #slidingItem>
 
-      <ion-item >
-
+      <ion-item>
         <ion-avatar slot="start">
           <img [src]="'../../../../../assets/avatars/av-' + 8+ '.png'">
         </ion-avatar>
-
         <ion-label>
           <h2 class="ovas"> <label class="blue">CERTIFICADO DE ORIGEN</label></h2>
-
-
           <p class="ovas"><label class="ovas">CERTIFICADO DE ORIGEN</label></p>
-
-
         </ion-label>
-
-        <ion-note slot="end" color="tertiary" >
+        <ion-note slot="end" color="tertiary">
           <ion-button (click)="CertificadoOrigen()" [disabled]="_existe==false">
             Ver
             <ion-icon slot="end" name="eye-outline"></ion-icon>
-         
           </ion-button>
-       
         </ion-note>
       </ion-item>
       <ion-item *ngFor="let archivo of _Archivos">
-
         <ion-avatar slot="start">
           <img [src]="'../../../../../assets/avatars/av-' + archivo.id+ '.png'">
         </ion-avatar>
-
         <ion-label>
           <h2 class="ovas"> <label class="blue">{{archivo.tipo|
               uppercase}}</label></h2>
-
-
           <p class="ovas"><label class="ovas">{{archivo.descripcion |uppercase}}</label></p>
-
-
         </ion-label>
-
         <ion-note slot="end" color="tertiary">
           <ion-button (click)="ver(archivo)" *ngIf="archivo.estado==true">
             Ver
             <ion-icon slot="end" name="eye-outline"></ion-icon>
-         
+
           </ion-button>
-          <ion-button  *ngIf="archivo.estado==false" disabled>
+          <ion-button *ngIf="archivo.estado==false" disabled>
             Pendiente
             <ion-icon slot="end" name="close-circle-outline"></ion-icon>
-          
+
           </ion-button>
         </ion-note>
       </ion-item>

@@ -11,14 +11,17 @@ export interface ConteoTrazabilidad {
     id:                   number;
     remision:             string;
     total_ovas_enviadas:  number;
-    tiene_reporte_conteo: number;
+    tiene_reporte_conteo: boolean;
     cantidad_reportada:   number;
+    tamanio:              number;
+    ovas_ml:              number;
+
 }
 
-export interface MetodoConteo {
+export class MetodoConteo {
     id:          number;
     Nombre:      string;
     descripcion: string;
-    esOvacon:    number;
-    esOtro:      number;
+    esOvacon:    boolean;
+    esOtro:      boolean;
 }

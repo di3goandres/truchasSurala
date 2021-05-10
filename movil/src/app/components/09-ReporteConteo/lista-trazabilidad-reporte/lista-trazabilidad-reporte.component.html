@@ -6,21 +6,116 @@
   <ion-list>
     <ion-list-header>
       <ion-label class="ovas">
-        Selecciona el metodo de conteo
+        Reporte de Conteo
       </ion-label>
     </ion-list-header>
-    <ion-item>
-      <ion-label> <label class="blue"> Metodo de conteo</label></ion-label>
-      <ion-select placeholder="Selecciona un metodo" interface="action-sheet" mode="ios" 
-      (ionChange)="onSelectChange($event)"
-      [(ngModel)]="Metodo"
-      >
-        <ion-select-option *ngFor="let item of metodoConteo"
-             [value]="item.id"> <label class="blue">{{item.Nombre
+
+    <ion-item class="colorselect">
+      <ion-label> <label class="blue"> Método usado</label></ion-label>
+      <ion-select placeholder="Selecciona un metodo" interface="action-sheet" mode="ios"
+        (ionChange)="onSelectChange($event)" [(ngModel)]="Metodo">
+
+        <ion-select-option *ngFor="let item of metodoConteo" [value]="item.id"> <label class="blue">{{item.Nombre
             |uppercase}}</label></ion-select-option>
       </ion-select>
     </ion-item>
+ 
+    <ion-item>
+      <ion-label> <label class="blue"> # de de Conteos</label></ion-label>
+      <ion-input class="hielo_v3" required type="numeric" tabindex="1">
+      </ion-input>
+    </ion-item>
+
+
   </ion-list>
 
+  <ion-list>
+    <ion-list-header>
+      <ion-label class="ovas">
+        Selecciona la trazabilidad a reportar
+      </ion-label>
+    </ion-list-header>
+
+    <ion-item-sliding #slidingItem>
+      <ion-item *ngFor="let traza of ConteoTrazabilidad; let i = index">
+        <ion-avatar slot="start">
+          <img [src]="'../../../../../assets/avatars/av-' + trackByMethod(i) + '.png'">
+        </ion-avatar>
+        <ion-label>
+          <p class="ovas">Remisión: <label class="blue">{{traza.remision|
+              uppercase}}</label></p>
+          <p class="ovas">Total: <label class="blue">{{traza.total_ovas_enviadas |number}}</label></p>
+          <p class="ovas">Ovas ml: <label class="blue">{{traza.ovas_ml |number}}</label></p>
+          <p class="ovas">Tamaño: <label class="blue">{{traza.tamanio |number}}</label></p>
+
+          <div *ngIf="traza.tiene_reporte_conteo">
+            <p class="ovas">Reportado: <label class="blue">{{traza.cantidad_reportada |number}}</label></p>
+
+            <p class="ovas">Faltante: <label class="blue">{{traza.total_ovas_enviadas - traza.cantidad_reportada
+                |number}}</label></p>
+
+            <p class="ovas">% Recibido: <label class="blue">{{ (traza.cantidad_reportada/traza.total_ovas_enviadas
+                )*100 |number}}%</label></p>
+
+
+          </div>
+
+
+        </ion-label>
+        <ion-note slot="end" color="tertiary">
+          <!-- <ion-button (click)="ver(archivo)" *ngIf="traza.tiene_reporte_conteo==true">
+            Ver
+            <ion-icon slot="end" name="eye-outline"></ion-icon>
+
+          </ion-button> -->
+          <ion-button [disabled]="seleccionoConteo==false" (click)="presentModal(traza)">
+            Reportar
+            <ion-icon slot="end" *ngIf="traza.tiene_reporte_conteo==false" name="close-circle-outline"></ion-icon>
+            <ion-icon slot="end" *ngIf="traza.tiene_reporte_conteo==true" name="eye-outline"></ion-icon>
+
+          </ion-button>
+        </ion-note>
+      </ion-item>
+      <div *ngIf="mostrarResultado==true">
+        <ion-item-divider color="secondary">
+          <ion-label>
+            Resultado
+          </ion-label>
+        </ion-item-divider>
+        <ion-item>
+          <ion-avatar slot="start">
+            <img [src]="'../../../../../assets/avatars/avatar.png'">
+          </ion-avatar>
+          <ion-label>
+            <p class="ovas">Total: <label class="blue">{{Total|
+                number}}</label></p>
+            <p class="ovas">Reportado: <label class="blue">{{TotalReportado|number}}</label></p>
+
+            <p class="ovas">% Recibido: <label class="blue">{{ porcentaje |number}}%</label></p>
+
+
+
+
+
+          </ion-label>
+          <ion-note slot="end" color="tertiary">
+
+            <ion-button (click)="Guardar()">
+              Guardar
+
+              <ion-icon slot="end" name="save-outline"></ion-icon>
+
+            </ion-button>
+          </ion-note>
+        </ion-item>
+        <div *ngIf="metodoSeleccionado.esOvacon==false">
+          <p class="ovas"><label class="blue">Para el metodo Von Bayer, si el porcentaje estar entre 1% y 12%, no se
+              hara reposicion</label></p>
+        </div>
+
+      </div>
+
+    </ion-item-sliding>
+  </ion-list>
 
 </div>
