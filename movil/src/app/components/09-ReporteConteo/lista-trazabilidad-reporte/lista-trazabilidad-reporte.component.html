@@ -19,10 +19,10 @@
             |uppercase}}</label></ion-select-option>
       </ion-select>
     </ion-item>
- 
+
     <ion-item>
       <ion-label> <label class="blue"> # de de Conteos</label></ion-label>
-      <ion-input class="hielo_v3" required type="tel" tabindex="1">
+      <ion-input class="hielo_v3" required type="tel" tabindex="1" style="text-align: right;" [(ngModel)]="veces">
       </ion-input>
     </ion-item>
 
@@ -51,7 +51,8 @@
           <div *ngIf="traza.tiene_reporte_conteo">
             <p class="ovas">Reportado: <label class="blue">{{traza.cantidad_reportada |number}}</label></p>
 
-            <p class="ovas">Faltante: <label class="blue">{{traza.total_ovas_enviadas - traza.cantidad_reportada
+            <p class="ovas" *ngIf="traza.total_ovas_enviadas - traza.cantidad_reportada>0">Faltante: <label
+                class="blue">{{traza.total_ovas_enviadas - traza.cantidad_reportada
                 |number}}</label></p>
 
             <p class="ovas">% Recibido: <label class="blue">{{ (traza.cantidad_reportada/traza.total_ovas_enviadas
@@ -90,6 +91,27 @@
             <p class="ovas">Total: <label class="blue">{{Total|
                 number}}</label></p>
             <p class="ovas">Reportado: <label class="blue">{{TotalReportado|number}}</label></p>
+            <p class="ovas" *ngIf="Total - TotalReportado>0">
+              <ion-label>
+                Diferencia: <label class="blue">{{Total - TotalReportado|number}}</label>
+              </ion-label>
+
+              <ion-label class="ovas">% Faltante: <label class="ovas">{{ 100 - porcentaje |number}}%</label></ion-label>
+
+
+            </p>
+
+            <p class="ovas" *ngIf="Total - TotalReportado<0">
+              <ion-label *ngIf="Total - TotalReportado<0">
+                Adiciona: <label class="blue">{{TotalReportado - Total |number}}</label>
+              </ion-label>
+
+              <ion-label class="ovas">% Adicional: <label class="ovas">{{ (100 - porcentaje)*-1 |number}}%</label>
+              </ion-label>
+
+
+            </p>
+
 
             <p class="ovas">% Recibido: <label class="blue">{{ porcentaje |number}}%</label></p>
 
@@ -100,7 +122,7 @@
           </ion-label>
           <ion-note slot="end" color="tertiary">
 
-            <ion-button (click)="Guardar()">
+            <ion-button (click)="Guardar()" [disabled]="!NoGuardar">
               Guardar
 
               <ion-icon slot="end" name="save-outline"></ion-icon>
@@ -108,8 +130,10 @@
             </ion-button>
           </ion-note>
         </ion-item>
+        <p class="ovas" *ngIf="Total - TotalReportado<0"> Hemos notado que te llegaron mas ovas Excelente </p>
         <div *ngIf="metodoSeleccionado.esOvacon==false">
-          <p class="ovas"><label class="blue">Para el metodo Von Bayer, si el porcentaje estar entre 1% y 12%, no se
+          <p class="ovas"><label class="blue">Para el metodo Von Bayer, si el porcentaje estar entre 0% y <ion-label
+                style="font-weight:bold" class="ovas">{{porcentajePermitido}}%</ion-label>, no se
               hara reposicion</label></p>
         </div>
 

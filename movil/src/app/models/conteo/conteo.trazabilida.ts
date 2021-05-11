@@ -5,6 +5,7 @@ export interface ConteoTrazabilidadResponse {
     status:             string;
     ConteoTrazabilidad: ConteoTrazabilidad[];
     metodoConteo:       MetodoConteo[];
+    porcentaje:         number;
 }
 
 export interface ConteoTrazabilidad {

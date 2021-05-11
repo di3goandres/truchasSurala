@@ -26,19 +26,41 @@
       </ion-item>
     </ion-list>
     <ion-card-content>
-      <div class="blue">
-        <p>
-          {{metodo.descripcion}}
-        </p>
-      </div>
+
       <ion-grid>
+        <ion-row>
+          <ion-col>
+            <div>
+              <p class="blueJustify">
+                <ion-label style="font-weight:bold" class="ovas">Descripción Método:</ion-label> {{metodo.descripcion}}
+              </p>
+              <p class="blueJustify">
+                <ion-label style="font-weight:bold" class="ovas">Políticas:</ion-label>
+                De acuerdo a las políticas de reclamación de Troutlodge INC & Truchas Surala, tenga en cuenta lo
+                siguiente
+              </p>
+              <ul class="list blueJustify">
+                <li class="item">Los reclamos por cantidad de ovas, serán recibidos hasta dos (2) días después de la
+                  llegada
+                  de las
+                  mismas a la finca.</li>
+                <li class="item">Las ovas recibidas deben ser contadas, preferiblemente mediante método de  <b  class="ovas">PALETA
+                  OVACONT.</b>
+                </li>
+                <li class="item">Se deben enviar fotos o video que soportan la reclamación.</li>
+                <li class="item">El método de conteo <b  class="ovas">VON BAYER</b>, se utiliza únicamente como estimativo aproximado de
+                  ovas
+                  recibidas,
+                  no es un conteo exacto y puede tener un % de error de hasta el  <b  class="ovas">{{porcentaje}}%</b>. </li>
+              </ul>
+            </div>
+
+          </ion-col>
+        </ion-row>
         <ion-row>
           <ion-col size="12">
             <ion-list>
               <ion-item>
-
-
-
 
                 <ion-label>
                   <p class="ovas">Remisión: <label class="blue">{{traza.remision|
@@ -47,7 +69,7 @@
                   <p class="ovas">Ovas ml: <label class="blue">{{traza.ovas_ml |number}}</label></p>
                   <p class="ovas">Tamaño: <label class="blue">{{traza.tamanio |number}}</label></p>
 
-                  <div *ngIf="traza.tiene_reporte_conteo">
+                  <!-- <div *ngIf="traza.tiene_reporte_conteo">
                     <p class="ovas">Reportado: <label class="blue">{{traza.cantidad_reportada |number}}</label></p>
 
                     <p class="ovas">Diferencia: <label class="blue">{{traza.total_ovas_enviadas -
@@ -59,7 +81,7 @@
                         )*100 |number}}%</label></p>
 
 
-                  </div>
+                  </div> -->
 
                 </ion-label>
 
@@ -78,15 +100,15 @@
                   Mililitros
                 </ion-label>
                 <ion-input class="hielo_v3" required type="tel" tabindex="1" formControlName="mililitros"
-                  [(ngModel)]="mililitroreportada" (ionChange)="Calcular()">
+                  [(ngModel)]="mililitroreportada" (ionChange)="Calcular()" clearInput>
                 </ion-input>
 
                 <ion-label class="blue" position="floating">
-                  Cantidad A reportar
+                  Cantidad contada
                 </ion-label>
 
-                <ion-input class="hielo_v3" required type="numeric" tabindex="1" formControlName="cantidadReportadaM"
-                  [(ngModel)]="cantidadreportada">
+                <ion-input class="hielo_v3" required type="tel" tabindex="1" formControlName="cantidadReportadaM"
+                  [(ngModel)]="cantidadreportada" readonly>
                 </ion-input>
               </form>
             </ion-item>
@@ -101,13 +123,27 @@
                   Cantidad Contada
                 </ion-label>
                 <ion-input class="hielo_v3" required type="tel" tabindex="1" formControlName="cantidadReportada"
-                  [(ngModel)]="cantidadreportada" >
+                  [(ngModel)]="cantidadreportada" clearInput>
                 </ion-input>
               </form>
             </ion-item>
           </ion-col>
         </ion-row>
-        <ion-row style="text-align: center;">
+        <ion-row *ngIf="cantidadreportada > traza.total_ovas_enviadas" style="text-align: center;">
+          <div>
+            <p class="ovas">Excelente Te llegaron mas Ovas!</p>
+          </div>
+          <ion-col class="text-center">
+
+            <ion-button float-center color="primary" routerDirection=“back” (click)="Guardar()"> <span ion-text
+                color="primary">Reportar OK</span>
+              <ion-icon name="save-outline"></ion-icon>
+            </ion-button>
+
+
+          </ion-col>
+        </ion-row>
+        <ion-row style="text-align: center;" *ngIf="cantidadreportada < traza.total_ovas_enviadas">
           <ion-col class="text-center">
 
             <ion-button float-center color="primary" routerDirection=“back”

@@ -3,8 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\Helpers\JwtAuth;
+use App\MetodoConteo;
+use App\MortalidaConteo;
+use App\Pedidos;
+use App\Trazabilidad;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Validator;
 
 class ConteoController extends Controller
 {
@@ -89,6 +94,32 @@ class ConteoController extends Controller
         return $trazabilidad;
     }
 
+    public function obtnerPorcentaje()
+    {
+        $porcentaje = collect(DB::select(
+            'select
+                    pa.valor
+            from 
+            parametros pa
+            where pa.tipo_parametro ="porcentaje_conteo" ',
+            array()
+        ))->first()->valor;
+        return $porcentaje;
+    }
+
+    public function Dias()
+    {
+        $porcentaje = collect(DB::select(
+            'select
+                    pa.valor
+            from 
+            parametros pa
+            where pa.tipo_parametro ="tiempo_mortalidad_conteo" ',
+            array()
+        ))->first()->valor;
+        return $porcentaje;
+    }
+
 
     /**
      * Metodo encargado de obtener los datos dle usuario y devolver los datos
@@ -130,14 +161,96 @@ class ConteoController extends Controller
 
         $ConteoTrazabilidad = $this->TrazabilidadConteo($id);
         $metodoConteo = $this->MetodoConteo();
-        
+        $porcentaje = $this->obtnerPorcentaje();
         $data = array(
             'code' => 200,
             'status' => 'success',
             'ConteoTrazabilidad' => $ConteoTrazabilidad,
-            'metodoConteo'=> $metodoConteo
+            'metodoConteo' => $metodoConteo,
+            'porcentaje' => (int)$porcentaje,
+
+
+
         );
 
+
+        return response()->json($data, $data['code']);
+    }
+
+    public function Guardar(Request $request)
+    {
+
+        $json = $request->input('json', null);
+
+        $params_array = json_decode($json, true); // array
+        $params = json_decode($json); //objeto
+
+        if (!empty($params_array)) {
+            $validate = Validator::make($params_array, [
+                'id_pedido' => 'required|numeric',
+                'id_metodo' => 'required|numeric',
+                'NumeroConteoRealizado' => 'required|numeric',
+                "ConteoTrazabilidad" => "required|array|min:1",
+                "ConteoTrazabilidad.*.id" => "required|numeric|min:1",
+                "ConteoTrazabilidad.*.cantidad_reportada" => "required|min:1",
+            ]);
+
+
+            if ($validate->fails()) {
+                $data = array(
+                    'status' => 'error',
+                    'code' => 400,
+                    'message' => 'Informe, no se pudo crear',
+                    'errors' => $validate->errors(),
+                    'data' => $params_array
+                );
+            } else {
+
+                $pedido = Pedidos::find($params->id_pedido);
+                $MetodoConteo = MetodoConteo::find($params->id_metodo);
+
+                if (is_object($pedido) && is_object($MetodoConteo)) {
+                    $existe = MortalidaConteo::where('id_pedido', $pedido->id)->get();
+                    if (count($existe) == 0) {
+                        $trazabilidades = $params_array['ConteoTrazabilidad'];
+                        foreach ($trazabilidades as $trazabilidad) {
+                            $traza = Trazabilidad::find($trazabilidad["id"]);
+                            if (is_object($traza)) {
+                                $traza->tiene_reporte_conteo = true;
+                                $traza->cantidad_reportada = $trazabilidad["cantidad_reportada"];
+                                $traza->save();
+                            }
+                        }
+                        $guardar = new  MortalidaConteo();
+                        $guardar->id_pedido = $pedido->id;
+                        $guardar->id_finca = $pedido->id_finca;
+                        $guardar->id_metodoConteo = $MetodoConteo->id;
+                        $guardar->MetodoConteo = $MetodoConteo->Nombre;
+                        $guardar->NumeroConteoRealizado = $params->NumeroConteoRealizado;
+
+                        $guardar->save();
+                        $data = array(
+                            'status' => 'success',
+                            'code' => 200,
+                            'message' => 'Informe se pudo crear',
+                        );
+                    } else {
+                        $data = array(
+                            'status' => 'success',
+                            'code' => 201,
+                            'message' => 'Informe no se pudo crear',
+
+                        );
+                    }
+                } else {
+                    $data = array(
+                        'status' => 'error',
+                        'code' => 401,
+                        'message' => 'Informe, no se pudo crear',
+                    );
+                }
+            }
+        }
 
         return response()->json($data, $data['code']);
     }

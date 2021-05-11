@@ -16,6 +16,8 @@ export class ReportarTrazaComponent implements OnInit {
 
   @Input() traza: ConteoTrazabilidad;
   @Input() metodo: MetodoConteo;
+  @Input() porcentaje: MetodoConteo;
+
   constructor(
     public viewCtrl: ModalController,
   ) { }
@@ -50,7 +52,11 @@ export class ReportarTrazaComponent implements OnInit {
 
   }
 
+  ReportarOK(){
+    this.traza.cantidad_reportada = this.traza.total_ovas_enviadas
+    this.viewCtrl.dismiss( this.traza, "OK");
 
+  }
   Calcular(){
 
     this.cantidadreportada = Math.round(this.traza.ovas_ml * this.mililitroreportada)

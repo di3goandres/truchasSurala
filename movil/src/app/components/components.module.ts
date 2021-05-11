@@ -39,6 +39,7 @@ import { ConteoDisponibleComponent } from './09-ReporteConteo/conteo-disponible/
 import { PreloadingComponent } from './10-Preloading/preloading/preloading.component';
 import { ListaTrazabilidadReporteComponent } from './09-ReporteConteo/lista-trazabilidad-reporte/lista-trazabilidad-reporte.component';
 import { ReportarTrazaComponent } from './09-ReporteConteo/reportar-traza/reportar-traza.component';
+import { PreviewConteoComponent } from './09-ReporteConteo/preview-conteo/preview-conteo.component';
 
 
 @NgModule({
@@ -74,7 +75,8 @@ import { ReportarTrazaComponent } from './09-ReporteConteo/reportar-traza/report
     ConteoDisponibleComponent,
     PreloadingComponent,
     ListaTrazabilidadReporteComponent,
-    ReportarTrazaComponent
+    ReportarTrazaComponent,
+    PreviewConteoComponent
 
 
 
@@ -126,7 +128,8 @@ import { ReportarTrazaComponent } from './09-ReporteConteo/reportar-traza/report
     ConteoDisponibleComponent,
     PreloadingComponent,
     ListaTrazabilidadReporteComponent,
-    ReportarTrazaComponent
+    ReportarTrazaComponent,
+    PreviewConteoComponent
 
 
 

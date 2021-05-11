@@ -1,8 +1,10 @@
 import { Component, forwardRef, Input, OnInit } from '@angular/core';
 import { ModalController } from '@ionic/angular';
+import { ConteoRequest } from 'src/app/models/conteo/conteo.request';
 import { ReporteConteoService } from 'src/app/services/02-ReporteConteo/reporte-conteo.service';
 import { MetodoConteo, ConteoTrazabilidad } from '../../../models/conteo/conteo.trazabilida';
 import { ReportarTrazaComponent } from '../reportar-traza/reportar-traza.component';
+import { PreviewConteoComponent } from '../preview-conteo/preview-conteo.component';
 
 @Component({
   selector: 'app-lista-trazabilidad-reporte',
@@ -12,61 +14,58 @@ import { ReportarTrazaComponent } from '../reportar-traza/reportar-traza.compone
 export class ListaTrazabilidadReporteComponent implements OnInit {
   Metodo: number;
   idPedidoOvas: number;
+  veces: number;
+  porcentajePermitido: number;
   mostrar = true;
+  NoGuardar = true;
   seleccionoConteo = false;
   mostrarResultado = false;
   metodoSeleccionado = new MetodoConteo();
-
   Total: number = 0
   TotalReportado: number = 0;
   porcentaje: number = 0;
-
   ConteoTrazabilidad: ConteoTrazabilidad[];
   metodoConteo: MetodoConteo[];
   @Input() set id(value: number) {
     this.idPedidoOvas = value;
+    this.conteoRequest.id_pedido = this.idPedidoOvas;
     this.traerInformacion();
   }
+  conteoRequest = new ConteoRequest();
   constructor(
     private servicio: ReporteConteoService,
     public modalCtrl: ModalController,
-
   ) { }
+  ngOnInit() {
 
-  ngOnInit() { }
-
+  }
   traerInformacion() {
     this.servicio.GetTrazabilidad(this.idPedidoOvas).subscribe(
       OK => {
-
-
         this.metodoConteo = [];
         this.metodoConteo.push(...OK.metodoConteo)
         this.ConteoTrazabilidad = [];
         this.ConteoTrazabilidad.push(...OK.ConteoTrazabilidad)
-        console.log(this.ConteoTrazabilidad)
         this.mostrar = false
+        this.porcentajePermitido = OK.porcentaje;
+        this.presentTerminos(OK.porcentaje);
       },
       ERROR => {
-
         this.mostrar = false
       },
     )
   }
-
   onSelectChange(selection: any) {
     this.seleccionoConteo = true;
     this.metodoConteo.filter(item => {
       if (item.id == this.Metodo)
         this.metodoSeleccionado = item;
     });
-
     this.ConteoTrazabilidad.forEach(item => {
       item.cantidad_reportada = 0;
       item.tiene_reporte_conteo = false
     })
     this.mostrarResultado = false
-
   }
 
   trackByMethod(index: number): number {
@@ -80,6 +79,7 @@ export class ListaTrazabilidadReporteComponent implements OnInit {
       componentProps: {
         'traza': traza,
         'metodo': this.metodoSeleccionado,
+        'porcentaje': this.porcentajePermitido,
 
 
       }
@@ -97,8 +97,9 @@ export class ListaTrazabilidadReporteComponent implements OnInit {
               item.tiene_reporte_conteo = true
             }
           })
-          this.Verificar();
+
         }
+        this.Verificar();
       });
 
 
@@ -111,6 +112,8 @@ export class ListaTrazabilidadReporteComponent implements OnInit {
       return item.tiene_reporte_conteo == false
     })
     this.mostrarResultado = existeAun.length == 0 ? true : false;
+
+
     this.Total = 0;
     this.TotalReportado = 0;
     this.ConteoTrazabilidad.forEach(item => {
@@ -120,12 +123,60 @@ export class ListaTrazabilidadReporteComponent implements OnInit {
     })
     this.porcentaje = (this.TotalReportado / this.Total) * 100;
 
-
+    if (this.mostrarResultado) {
+      if (this.metodoSeleccionado.esOvacon) {
+        this.NoGuardar = true;
+      } else {
+        let rango = 100 - this.porcentaje;
+        if (rango <= this.porcentajePermitido) {
+          this.NoGuardar = false;
+          this.servicio.presentToast("Para el metodo Von Bayer, si el porcentaje estar entre 0% y " + this.porcentajePermitido + "%, No se hara reposición")
+        } else {
+          this.NoGuardar = true;
+        }
+      }
+    }
     console.log(this.porcentaje, this.TotalReportado, this.Total)
 
   }
 
   Guardar() {
 
+    this.conteoRequest.id_pedido = this.convertirInt(this.idPedidoOvas);
+    this.conteoRequest.id_metodo = this.metodoSeleccionado.id;
+    this.conteoRequest.NumeroConteoRealizado = this.convertirInt(this.veces);
+    this.conteoRequest.ConteoTrazabilidad = [];
+    this.conteoRequest.ConteoTrazabilidad.push(...this.ConteoTrazabilidad);
+    console.log(JSON.stringify(this.conteoRequest));
+
+    this.servicio.GuardarConteo(this.conteoRequest).subscribe(
+      OK => { console.log(OK) },
+      ERROR => { console.log(ERROR) },
+    )
+
+
+  }
+
+  convertirInt(numero) {
+    var x = numero
+    var y: number = +x;
+    return y;
+  }
+
+
+  async presentTerminos(porcentaje: number) {
+    const modal = await this.modalCtrl.create({
+      component: PreviewConteoComponent,
+      cssClass: 'update-profile-modal',
+      componentProps: {
+        'porcentaje': porcentaje,
+
+
+
+      }
+
+    });
+
+    return await modal.present();
   }
 }
