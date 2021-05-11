@@ -18,9 +18,16 @@ export class PasarelaConteoPage implements OnInit {
 
 
   closeItem(item, reclamos: boolean) {
+    let ruta = ""
     item.close();
-    this.router.navigate(['/lista-pedidos-disponibles']);
-    // if (reclamos)
-    //   this.VerPoliticas();
+    if (reclamos) {
+      ruta = '/lista-pedidos-disponibles';
+
+    } else {
+      ruta = '/conteo-reportada-list';
+
+
+    }
+    this.router.navigate([ruta]);
   }
 }

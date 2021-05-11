@@ -40,6 +40,7 @@ import { PreloadingComponent } from './10-Preloading/preloading/preloading.compo
 import { ListaTrazabilidadReporteComponent } from './09-ReporteConteo/lista-trazabilidad-reporte/lista-trazabilidad-reporte.component';
 import { ReportarTrazaComponent } from './09-ReporteConteo/reportar-traza/reportar-traza.component';
 import { PreviewConteoComponent } from './09-ReporteConteo/preview-conteo/preview-conteo.component';
+import { ListaConteoReportadaComponent } from './09-ReporteConteo/lista-conteo-reportada/lista-conteo-reportada.component';
 
 
 @NgModule({
@@ -76,7 +77,8 @@ import { PreviewConteoComponent } from './09-ReporteConteo/preview-conteo/previe
     PreloadingComponent,
     ListaTrazabilidadReporteComponent,
     ReportarTrazaComponent,
-    PreviewConteoComponent
+    PreviewConteoComponent,
+    ListaConteoReportadaComponent
 
 
 
@@ -129,7 +131,8 @@ import { PreviewConteoComponent } from './09-ReporteConteo/preview-conteo/previe
     PreloadingComponent,
     ListaTrazabilidadReporteComponent,
     ReportarTrazaComponent,
-    PreviewConteoComponent
+    PreviewConteoComponent,
+    ListaConteoReportadaComponent
 
 
 

@@ -5,6 +5,8 @@ import { ReporteConteoService } from 'src/app/services/02-ReporteConteo/reporte-
 import { MetodoConteo, ConteoTrazabilidad } from '../../../models/conteo/conteo.trazabilida';
 import { ReportarTrazaComponent } from '../reportar-traza/reportar-traza.component';
 import { PreviewConteoComponent } from '../preview-conteo/preview-conteo.component';
+import { UserService } from 'src/app/services/user.service';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-lista-trazabilidad-reporte',
@@ -26,6 +28,7 @@ export class ListaTrazabilidadReporteComponent implements OnInit {
   porcentaje: number = 0;
   ConteoTrazabilidad: ConteoTrazabilidad[];
   metodoConteo: MetodoConteo[];
+  formGuardar: FormGroup;
   @Input() set id(value: number) {
     this.idPedidoOvas = value;
     this.conteoRequest.id_pedido = this.idPedidoOvas;
@@ -35,13 +38,19 @@ export class ListaTrazabilidadReporteComponent implements OnInit {
   constructor(
     private servicio: ReporteConteoService,
     public modalCtrl: ModalController,
+    private userService: UserService
   ) { }
   ngOnInit() {
+    this.formGuardar = new FormGroup({
+      metodo: new FormControl('', [Validators.required]),
+      numeroCantida: new FormControl('', [ Validators.required, Validators.min(1)])
+    });
 
   }
   traerInformacion() {
     this.servicio.GetTrazabilidad(this.idPedidoOvas).subscribe(
       OK => {
+        console.log(OK)
         this.metodoConteo = [];
         this.metodoConteo.push(...OK.metodoConteo)
         this.ConteoTrazabilidad = [];
@@ -150,7 +159,17 @@ export class ListaTrazabilidadReporteComponent implements OnInit {
     console.log(JSON.stringify(this.conteoRequest));
 
     this.servicio.GuardarConteo(this.conteoRequest).subscribe(
-      OK => { console.log(OK) },
+      OK => {
+        if (OK.code == 200 || OK.code == 201) {
+          this.userService.ModalGenericoVolver("Exitoso", "Se ha registrado exitosamente tu reporte de conteo,  el cual puedes encontrar en los reportados", "pasarela-conteo")
+          //pasarela-conteo
+
+        } else if (OK.code == 201) {
+          this.userService.ModalGenericoVolver("No Exitoso", "Se ha registrado previamente el reporte, el cual puedes encontrar en los reportarados", "pasarela-conteo")
+
+        }
+
+      },
       ERROR => { console.log(ERROR) },
     )
 

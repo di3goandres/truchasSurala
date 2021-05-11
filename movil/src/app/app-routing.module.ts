@@ -178,6 +178,10 @@ const routes: Routes = [
   {
     path: 'reporte-por-trazabilidad/:id',
     loadChildren: () => import('./pages/09-ReporteConteo/03-Reporte/reporte-por-trazabilidad/reporte-por-trazabilidad.module').then( m => m.ReportePorTrazabilidadPageModule)
+  },
+  {
+    path: 'conteo-reportada-list',
+    loadChildren: () => import('./pages/09-ReporteConteo/04-Reportada/conteo-reportada-list/conteo-reportada-list.module').then( m => m.ConteoReportadaListPageModule)
   }
 ];
 

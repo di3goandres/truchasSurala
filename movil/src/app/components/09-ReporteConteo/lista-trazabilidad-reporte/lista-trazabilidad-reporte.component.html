@@ -9,24 +9,26 @@
         Reporte de Conteo
       </ion-label>
     </ion-list-header>
+    <form [formGroup]="formGuardar">
 
-    <ion-item class="colorselect">
-      <ion-label> <label class="blue"> Método usado</label></ion-label>
-      <ion-select placeholder="Selecciona un metodo" interface="action-sheet" mode="ios"
-        (ionChange)="onSelectChange($event)" [(ngModel)]="Metodo">
+      <ion-item class="colorselect">
+        <ion-label> <label class="blue"> Método usado</label></ion-label>
+        <ion-select placeholder="Selecciona un metodo" interface="action-sheet" mode="ios" formControlName="metodo"
+          (ionChange)="onSelectChange($event)" [(ngModel)]="Metodo">
 
-        <ion-select-option *ngFor="let item of metodoConteo" [value]="item.id"> <label class="blue">{{item.Nombre
-            |uppercase}}</label></ion-select-option>
-      </ion-select>
-    </ion-item>
+          <ion-select-option *ngFor="let item of metodoConteo" [value]="item.id"> <label class="blue">{{item.Nombre
+              |uppercase}}</label></ion-select-option>
+        </ion-select>
+      </ion-item>
 
-    <ion-item>
-      <ion-label> <label class="blue"> # de de Conteos</label></ion-label>
-      <ion-input class="hielo_v3" required type="tel" tabindex="1" style="text-align: right;" [(ngModel)]="veces">
-      </ion-input>
-    </ion-item>
+      <ion-item>
+        <ion-label> <label class="blue"> # de de Conteos</label></ion-label>
+        <ion-input class="hielo_v3" required type="tel" tabindex="1" style="text-align: right;" [(ngModel)]="veces"
+          formControlName="numeroCantida">
+        </ion-input>
+      </ion-item>
 
-
+    </form>
   </ion-list>
 
   <ion-list>
@@ -122,7 +124,7 @@
           </ion-label>
           <ion-note slot="end" color="tertiary">
 
-            <ion-button (click)="Guardar()" [disabled]="!NoGuardar">
+            <ion-button (click)="Guardar()" [disabled]="(!NoGuardar)||formGuardar.invalid">
               Guardar
 
               <ion-icon slot="end" name="save-outline"></ion-icon>

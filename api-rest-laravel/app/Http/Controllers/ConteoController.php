@@ -20,8 +20,6 @@ class ConteoController extends Controller
 
     public function ConsultaPorPedido($usuario)
     {
-
-
         $despachos = DB::select(
             'select 
                             p.id,
@@ -55,6 +53,41 @@ class ConteoController extends Controller
         return $despachos;
     }
 
+    public function ConsultaPorReportados($usuario)
+    {
+        $despachos = DB::select(
+            'select 
+                            p.id,
+                            m.id mortalidad,
+                            p.pedido,
+                            p.porcentaje,
+                            p.adicional,
+                            p.reposicion,
+                            p.total,
+                            p.nombre_factura,
+                            date_format(d.fecha_salida, "%Y-%m-%d") fecha_salida,
+                            date_format( DATE_ADD( d.fecha_salida, INTERVAL pa.valor DAY),  "%Y-%m-%d")  fecha_maxima, 
+                            d.certificado,
+                            f.nombre ,
+                            f.municipio,
+                            f.departamento
+                    from pedidos p
+                    left join despachos d on p.id_despacho = d.id
+                    left join fincas f on p.id_finca = f.id
+                    left join users u on f.user_id  = u.id
+                    left join parametros pa on 1=1
+                    left join mortalidad_conteo m on m.id_pedido = p.id
+                    where u.id = ? and  pa.tipo_parametro = "tiempo_mortalidad_conteo"
+                    and m.id is not null
+
+                    and  d.fecha_salida  <= ( CURDATE() - INTERVAL pa.valor DAY )',
+            array($usuario)
+        );
+
+
+        return $despachos;
+    }
+
     public function TrazabilidadConteo($idPedido)
     {
         $trazabilidad = DB::select(
@@ -73,7 +106,7 @@ class ConteoController extends Controller
             left join lotes l on bl.id_lote = l.id
             left join lote_numero lotn on l.id_lote_numero = lotn.id
             where ped.id = ?;',
-            array(581)
+            array($idPedido)
         );
         return $trazabilidad;
     }
@@ -252,6 +285,34 @@ class ConteoController extends Controller
             }
         }
 
+        return response()->json($data, $data['code']);
+    }
+
+    public function ByTokenConteoRegistrada(Request $request)
+    {
+        $token = $request->header('Authorization');
+        //aca
+        $jwtAuth = new \JwtAuth();
+        $checktoken = $jwtAuth->checkToken($token);
+
+        if ($checktoken) {
+
+            $user = $jwtAuth->checkToken($token, true);
+            $useriud = $user->sub;
+            // $useriud = 58;
+            $pedidos = DB::select('call 07_ReporteConteo(?)', array($useriud));
+            $data = array(
+                'code' => 200,
+                'status' => 'success',
+                'Reportados' => $pedidos
+            );
+        } else {
+            $data = array(
+                'code' => 200,
+                'status' => 'error',
+                'message' => 'Usuario no identificado'
+            );
+        }
         return response()->json($data, $data['code']);
     }
 }

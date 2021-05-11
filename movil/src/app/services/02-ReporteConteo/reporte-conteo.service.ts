@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { ConteoRequest } from 'src/app/models/conteo/conteo.request';
+import { ReportadoConteoResponse } from 'src/app/models/conteo/conteo.response';
 import { ConteoTrazabilidadResponse } from 'src/app/models/conteo/conteo.trazabilida';
 import { PedidosResponse } from 'src/app/models/pedidos/pedidos.response';
 import { Respuesta } from 'src/app/models/Response';
@@ -36,6 +37,12 @@ export class ReporteConteoService {
 
   GuardarConteo(data: ConteoRequest) {
     return this.userService.ejecutarQueryPostNuevo<Respuesta>('/api/reporte/conteo/trazabilidad/guardar', data)
+
+  }
+
+  obtenerReporteConteo(){
+    return this.userService
+      .ejecutarQuery<ReportadoConteoResponse>('/api/reporte/conteo/obtener/reportados')
 
   }
 }
