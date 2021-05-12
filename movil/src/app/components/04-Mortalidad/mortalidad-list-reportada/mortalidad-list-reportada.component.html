@@ -1,5 +1,5 @@
 
-<div *ngIf="noMostrar==true">
+<div *ngIf="noMostrar">
 <ion-list>
   <ion-list-header class="ovas">
     Reportados
@@ -38,7 +38,7 @@
 </ion-list>
 </div>
 
-<div *ngIf="noMostrar==false">
+<div *ngIf="!noMostrar">
   <app-preloading></app-preloading>
 
 </div>

@@ -71,8 +71,8 @@
             <ion-icon slot="end" name="eye-outline"></ion-icon>
 
           </ion-button> -->
-          <ion-button [disabled]="seleccionoConteo==false" (click)="presentModal(traza)">
-            Reportar
+          <ion-button  expand="block" [disabled]="seleccionoConteo==false" (click)="presentModal(traza)" [color]="traza.tiene_reporte_conteo?'primary':'medium'">
+            {{traza.tiene_reporte_conteo?"Reportado":"Sin Reportar"}}
             <ion-icon slot="end" *ngIf="traza.tiene_reporte_conteo==false" name="close-circle-outline"></ion-icon>
             <ion-icon slot="end" *ngIf="traza.tiene_reporte_conteo==true" name="eye-outline"></ion-icon>
 
@@ -98,7 +98,7 @@
                 Diferencia: <label class="blue">{{Total - TotalReportado|number}}</label>
               </ion-label>
 
-              <ion-label class="ovas">% Faltante: <label class="ovas">{{ 100 - porcentaje |number}}%</label></ion-label>
+              <ion-label class="ovas">% Faltante: <label class="ovas"><b>{{ 100 - porcentaje |number}}%</b></label></ion-label>
 
 
             </p>
@@ -133,11 +133,11 @@
           </ion-note>
         </ion-item>
         <p class="ovas" *ngIf="Total - TotalReportado<0"> Hemos notado que te llegaron mas ovas Excelente </p>
-        <div *ngIf="metodoSeleccionado.esOvacon==false">
+        <!-- <div *ngIf="metodoSeleccionado.esOvacon==false">
           <p class="ovas"><label class="blue">Para el metodo Von Bayer, si el porcentaje estar entre 0% y <ion-label
                 style="font-weight:bold" class="ovas">{{porcentajePermitido}}%</ion-label>, no se
               hara reposicion</label></p>
-        </div>
+        </div> -->
 
       </div>
 

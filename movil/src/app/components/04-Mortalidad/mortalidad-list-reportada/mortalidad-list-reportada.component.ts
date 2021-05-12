@@ -32,7 +32,7 @@ export class MortalidadListReportadaComponent implements OnInit {
         console.log(OK)
         this.Reportados = [];
         this.Reportados.push(...OK.Reportados);
-        this.noMostrar = false;
+        this.noMostrar = true;
 
         if (this.Reportados.length == 0) {
 

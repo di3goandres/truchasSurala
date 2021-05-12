@@ -43,7 +43,7 @@ export class ListaTrazabilidadReporteComponent implements OnInit {
   ngOnInit() {
     this.formGuardar = new FormGroup({
       metodo: new FormControl('', [Validators.required]),
-      numeroCantida: new FormControl('', [ Validators.required, Validators.min(1)])
+      numeroCantida: new FormControl('', [Validators.required, Validators.min(1)])
     });
 
   }
@@ -132,20 +132,20 @@ export class ListaTrazabilidadReporteComponent implements OnInit {
     })
     this.porcentaje = (this.TotalReportado / this.Total) * 100;
 
-    if (this.mostrarResultado) {
-      if (this.metodoSeleccionado.esOvacon) {
-        this.NoGuardar = true;
-      } else {
-        let rango = 100 - this.porcentaje;
-        if (rango <= this.porcentajePermitido) {
-          this.NoGuardar = false;
-          this.servicio.presentToast("Para el metodo Von Bayer, si el porcentaje estar entre 0% y " + this.porcentajePermitido + "%, No se hara reposición")
-        } else {
-          this.NoGuardar = true;
-        }
-      }
-    }
-    console.log(this.porcentaje, this.TotalReportado, this.Total)
+    // if (this.mostrarResultado) {
+    //   if (this.metodoSeleccionado.esOvacon) {
+    //     this.NoGuardar = true;
+    //   } else {
+    //     let rango = 100 - this.porcentaje;
+    //     if (rango <= this.porcentajePermitido) {
+    //       this.NoGuardar = false;
+    //       this.servicio.presentToast("Para el metodo Von Bayer, si el porcentaje estar entre 0% y " + this.porcentajePermitido + "%, No se hara reposición")
+    //     } else {
+    //       this.NoGuardar = true;
+    //     }
+    //   }
+    // }
+  
 
   }
 

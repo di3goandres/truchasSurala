@@ -1,43 +1,45 @@
-<div *ngIf="noMostrar==true">
-<ion-list>
-  <ion-list-header class="ovas">
-    Reportados
-  </ion-list-header>
-  <ion-item-sliding #slidingItem *ngFor="let item of Reportados">
-    <ion-item detail>
-      <ion-avatar slot="start">
-        <img src="../../../../../assets/avatars/av-1.png">
-      </ion-avatar>
-      <ion-label>
-        <p class="ovas"> Reporte <label class="blue">{{item.created_at}}</label></p>
-        <p class="ovas"> Despacho <label class="blue">{{item.fechaDespacho}}</label></p>
-        <p class="ovas">Finca <label class="blue">{{item.nombre}}</label></p>
-     
-        <p class="ovas">Total: <label class="blue">{{item.total | number}}</label></p>
-        <p class="ovas">Reportado: <label class="blue">{{item.cantidadReportada | number}}</label></p>
-        <p class="ovas">% Reportado: <label class="blue">{{item.PorcentajeMortalidad | number}}%</label></p>
+<div *ngIf="noMostrar">
+  <ion-list>
+    <ion-list-header class="ovas">
+      Reportados
+    </ion-list-header>
+    <ion-item-sliding #slidingItem *ngFor="let item of Reportados">
+      <ion-item detail>
+        <ion-avatar slot="start">
+          <img src="../../../../../assets/avatars/av-1.png">
+        </ion-avatar>
+        <ion-label>
+          <p class="ovas"> Reporte <label class="blue">{{item.created_at}}</label></p>
+          <p class="ovas"> Despacho <label class="blue">{{item.fechaDespacho}}</label></p>
+          <p class="ovas">Finca <label class="blue">{{item.nombre}}</label></p>
+          <p class="ovas">% Reportado: <label class="blue">{{item.PorcentajeMortalidad | number}}%</label></p>
 
-      </ion-label>
-      <ion-note slot="end" color="tertiary">
-        <ion-button (click)="closeItem(slidingItem, item)">
-          {{item.Estado}}
-          <ion-icon slot="end" name="checkmark-circle-outline" *ngIf="item.Estado=='Aprobada'"></ion-icon>
-          <ion-icon slot="end" name="close-circle-outline" *ngIf="item.Estado=='Pendiente'"></ion-icon>
-          <ion-icon slot="end" name="sad-outline" *ngIf="item.Estado=='No Aprobada'"></ion-icon>
-        </ion-button>
-      </ion-note>
-    </ion-item>
-    <ion-item-options side="end">
-      <ion-item-option routerDirection="forward" (click)="closeItem(slidingItem, item)" expandable>Ver
-      </ion-item-option>
-    </ion-item-options>
-  </ion-item-sliding>
-
-</ion-list>
+          <p class="ovas">Total: <label class="blue">{{item.total | number}}</label></p>
+          <p class="ovas">Reportado: <label class="blue">{{item.cantidadReportada | number}}</label></p>
+          <p class="ovas">Faltante: <label class="blue">{{item.total  - item.cantidadReportada | number}}</label></p>
 
 
+        </ion-label>
+        <ion-note slot="end" color="tertiary">
+          <ion-button (click)="closeItem(slidingItem, item)">
+            {{item.Estado}}
+            <ion-icon slot="end" name="checkmark-circle-outline" *ngIf="item.Estado=='Aprobada'"></ion-icon>
+            <ion-icon slot="end" name="close-circle-outline" *ngIf="item.Estado=='Pendiente'"></ion-icon>
+            <ion-icon slot="end" name="sad-outline" *ngIf="item.Estado=='No Aprobada'"></ion-icon>
+          </ion-button>
+        </ion-note>
+      </ion-item>
+      <ion-item-options side="end">
+        <ion-item-option routerDirection="forward" (click)="closeItem(slidingItem, item)" expandable>Ver
+        </ion-item-option>
+      </ion-item-options>
+    </ion-item-sliding>
 
-<div *ngIf="noMostrar==false">
-  <app-preloading></app-preloading>
+  </ion-list>
 
-</div>
+
+
+  <div *ngIf="!noMostrar">
+    <app-preloading></app-preloading>
+
+  </div>
