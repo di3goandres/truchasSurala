@@ -9,6 +9,7 @@ use App\Fincas;
 use App\Helpers\JwtAuth;
 use App\LoteNumero;
 use App\User;
+use DateTime;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
@@ -436,7 +437,7 @@ class AlevinosController extends Controller
             ->join('users', 'users.id', '=', 'fincas.user_id')
             ->where(
                 [
-                    ['alevinos_pedidos.numero_semana', '<=', $numerosemana],
+                    ['alevinos_pedidos.fecha_probable', '<=', $numerosemana],
                     ['alevinos_pedidos.despachado', '=', $despachado],
                 ]
             )
@@ -674,8 +675,11 @@ class AlevinosController extends Controller
                      * Buscar los despachos con el numer de semana del despacho 
                      * 
                      */
+                     $addday = $params->numeroSemana*7;
+                     $stop_date = new DateTime($Adespachos->fecha_salida);
+                    $fechaSalida = $stop_date->modify('+' .$addday. 'day');
                     $numerosemana = $Adespachos->numero_semana +  $params->numeroSemana;
-                    $despachos = $this->Pedidos($numerosemana, false);
+                    $despachos = $this->Pedidos($fechaSalida, false);
                     $despachosOK = $this->PedidosASOCIADOS($params->idDiaPedido);
 
 
@@ -684,6 +688,7 @@ class AlevinosController extends Controller
                         'code' => 200,
                         'despachados' => $despachos,
                         'Asociados' => $despachosOK,
+                        'fecha' => $fechaSalida
 
 
                     );
