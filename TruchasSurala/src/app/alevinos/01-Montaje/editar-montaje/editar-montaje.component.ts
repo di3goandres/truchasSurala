@@ -34,10 +34,20 @@ export class EditarMontajeComponent implements OnInit, AfterViewInit {
   }
   ngAfterViewInit() {
     console.log("after")
-    this.Cambio(this.pedido.tipo);
+     this.Cambio(this.pedido.tipo);
+
+    const invalid = [];
+        const controls = this.firstFormGroup.controls;
+        for (const name in controls) {
+            if (controls[name].invalid) {
+                invalid.push(name);
+            }
+        }
+        console.log(invalid)
   }
   ngOnInit(): void {
 
+   let activo = this.entrada.tipo == "TALLA";
     this.firstFormGroup = this._formBuilder.group({
       cantidad: ['', [Validators.min(200), Validators.required]],
       Peso: [{ value: '', disabled: true }, [Validators.min(10), Validators.max(3000), Validators.required],], // gramos 
@@ -45,19 +55,23 @@ export class EditarMontajeComponent implements OnInit, AfterViewInit {
       fecha: ['', Validators.required],
       tipo: ['', Validators.required],
     });
+    // this.Cambio(this.entrada.tipo);
     this.minDate = new Date();
-    this.minDate.setDate(this.minDate.getDate() + 1);
+    // this.minDate.setDate(this.minDate.getDate() + 1);
     this.pedido = new AlevinosPedidos();
     this.pedido.id = this.entrada.id;
     this.pedido.fechaProbable = new Date(this.entrada.fechaProbable);
     this.pedido.fechaProbableS = this.entrada.fechaProbableS;
+    this.minDate.setDate(new Date(this.entrada.fechaProbable).getDate() + 1 );
 
     this.pedido.cantidad = this.entrada.cantidad;
     this.pedido.peso = this.entrada.peso;
     this.pedido.talla = this.entrada.talla;
     this.pedido.tipo = this.entrada.tipo;
-
-
+   
+    
+   
+    
   }
   close() {
     this.activeModal.close("OK")

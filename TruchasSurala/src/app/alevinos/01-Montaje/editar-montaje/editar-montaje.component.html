@@ -1,4 +1,4 @@
-<mat-card>
+<mat-card >
   <mat-card-header>
     <div mat-card-avatar class="example-header-image" style="background-image: url('assets/avatars/av-8.png')">
     </div>
@@ -18,7 +18,7 @@
           <mat-form-field appearance="fill" floatLabel="always">
             <mat-label>Fecha de Probable</mat-label>
 
-            <input matInput formControlName="fecha" [matDatepicker]="pickerentrada" [min]="minDate"
+            <input matInput formControlName="fecha" [matDatepicker]="pickerentrada" 
               [(ngModel)]="pedido.fechaProbableS" required (ngModelChange)="Calcular()"
               [matDatepickerFilter]="myDateFilter">
 
@@ -77,7 +77,7 @@
             <mat-label>Peso Alevinos</mat-label>
             <mat-icon matSuffix>fitness_center</mat-icon>
 
-            <input matInput placeholder="Peso" formControlName="Peso" type="number" name="Peso" min="10" max="3000"
+            <input matInput placeholder="Peso" formControlName="Peso" type="number" name="Peso" min="1" max="3000"
               [(ngModel)]="pedido.peso" (ngModelChange)="Calcular()">
 
 

@@ -6,6 +6,7 @@ import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { UserService } from '../../../../service/user/user.service';
 import { Finca } from '../../../../../../../movil/src/app/models/fincas.user';
 
+
 @Component({
   selector: 'app-fincaupdate',
   templateUrl: './fincaupdate.component.html',

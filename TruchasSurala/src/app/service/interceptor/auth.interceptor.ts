@@ -6,7 +6,7 @@ import {
   HttpInterceptor, HttpResponse
 } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
-import { UserService } from '../../../../../movil/src/app/services/user.service';
+
 import { tap, catchError } from 'rxjs/operators';
 import { LogoutService } from '../user/logout.service';
 import { HttpHeaders } from '@angular/common/http';

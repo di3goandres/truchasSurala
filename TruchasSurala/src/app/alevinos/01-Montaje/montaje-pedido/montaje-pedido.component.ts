@@ -95,7 +95,7 @@ export class MontajePedidoComponent implements OnInit {
       stakePeso.disable()
 
     } else if (value == "PESO") {
-      this.serviceAlevino.MostrarSnack("Mínimo 10, Máximo 3.000 gramos", "atendido");
+      this.serviceAlevino.MostrarSnack("Mínimo 1, Máximo 3.000 gramos", "atendido");
 
 
       stakeTalla.disable();
@@ -255,7 +255,7 @@ export class MontajePedidoComponent implements OnInit {
 
     this.secondFormGroup = this._formBuilder.group({
       cantidad: ['', [Validators.min(200), Validators.required]],
-      Peso: [{ value: '', disabled: true }, [Validators.min(10), Validators.max(3000), Validators.required],], // gramos 
+      Peso: [{ value: '', disabled: true }, [Validators.min(1), Validators.max(3000), Validators.required],], // gramos 
       talla: [{ value: '', disabled: true }, [Validators.min(1), Validators.max(50), Validators.required]], // centimetros 
       Repeticiones: [{ value: '', disabled: false }, [Validators.min(1), Validators.max(55), Validators.required],], // gramos 
       Periodicidad: ['', Validators.required], // centimetros 
